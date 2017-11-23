@@ -1,0 +1,33 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "首页";
+}
+<br />
+<h4>最近新闻</h4>
+<hr />
+
+<article class="esh-orders-titles row">
+ 
+    <section class="esh-orders-title col-xs-9">标题</section>
+    <section class="esh-orders-title col-xs-3">发布日期</section>
+
+</article>
+@if (Model.NewsList != null && Model.NewsList.Any())
+{
+    @foreach (var item in Model.NewsList)
+    {
+        <article class="esh-orders-items row">           
+            <section class="esh-orders-item col-xs-9"><a class="esh-orders-link" asp-page="Detail" asp-route-orderId="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
+            <section class="esh-orders-item col-xs-3"> @Html.DisplayFor(modelItem => item.Date)</section>
+        </article>
+    }
+}
+<br />
+<h4>安全警报单位</h4>
+
+<br/>
+<h4>安全警报车辆</h4>
+<hr/>
+
+<br/>

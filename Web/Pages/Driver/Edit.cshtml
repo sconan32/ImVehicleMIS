@@ -1,0 +1,102 @@
+﻿@page
+@model Web.Pages.Driver.EditModel
+
+@{
+    ViewData["Title"] = "全部安全单位 列表";
+}
+
+<h2>全部安全单位 列表</h2>
+
+<h4>DriverItem</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DriverItem.LicenseType" class="control-label"></label>
+                <select asp-for="DriverItem.LicenseType" class="form-control"></select>
+                <span asp-validation-for="DriverItem.LicenseType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverItem.Tel" class="control-label"></label>
+                <input asp-for="DriverItem.Tel" class="form-control" />
+                <span asp-validation-for="DriverItem.Tel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverItem.IdCardNumber" class="control-label"></label>
+                <input asp-for="DriverItem.IdCardNumber" class="form-control" />
+                <span asp-validation-for="DriverItem.IdCardNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverItem.Gender" class="control-label"></label>
+                <select asp-for="DriverItem.Gender" class="form-control"></select>
+                <span asp-validation-for="DriverItem.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverItem.LicenseIssueDate" class="control-label"></label>
+                <input asp-for="DriverItem.LicenseIssueDate" class="form-control" />
+                <span asp-validation-for="DriverItem.LicenseIssueDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverItem.LicenseValidYears" class="control-label"></label>
+                <input asp-for="DriverItem.LicenseValidYears" class="form-control" />
+                <span asp-validation-for="DriverItem.LicenseValidYears" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="DriverItem.Id" />
+            <div class="form-group">
+                <label asp-for="DriverItem.VersionNumber" class="control-label"></label>
+                <input asp-for="DriverItem.VersionNumber" class="form-control" />
+                <span asp-validation-for="DriverItem.VersionNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverItem.Metadata" class="control-label"></label>
+                <input asp-for="DriverItem.Metadata" class="form-control" />
+                <span asp-validation-for="DriverItem.Metadata" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverItem.Name" class="control-label"></label>
+                <input asp-for="DriverItem.Name" class="form-control" />
+                <span asp-validation-for="DriverItem.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverItem.CreationDate" class="control-label"></label>
+                <input asp-for="DriverItem.CreationDate" class="form-control" />
+                <span asp-validation-for="DriverItem.CreationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverItem.ModificationDate" class="control-label"></label>
+                <input asp-for="DriverItem.ModificationDate" class="form-control" />
+                <span asp-validation-for="DriverItem.ModificationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverItem.CreateBy" class="control-label"></label>
+                <input asp-for="DriverItem.CreateBy" class="form-control" />
+                <span asp-validation-for="DriverItem.CreateBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverItem.ModifyBy" class="control-label"></label>
+                <input asp-for="DriverItem.ModifyBy" class="form-control" />
+                <span asp-validation-for="DriverItem.ModifyBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverItem.Status" class="control-label"></label>
+                <input asp-for="DriverItem.Status" class="form-control" />
+                <span asp-validation-for="DriverItem.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

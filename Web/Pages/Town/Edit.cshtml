@@ -1,0 +1,76 @@
+﻿@page
+@model Web.Pages.Towns.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>TownItem</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TownItem.Address" class="control-label"></label>
+                <input asp-for="TownItem.Address" class="form-control" />
+                <span asp-validation-for="TownItem.Address" class="text-danger"></span>
+            </div>
+          
+            <input type="hidden" asp-for="TownItem.Id" />
+            <div class="form-group">
+                <label asp-for="TownItem.VersionNumber" class="control-label"></label>
+                <input asp-for="TownItem.VersionNumber" class="form-control" />
+                <span asp-validation-for="TownItem.VersionNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TownItem.Metadata" class="control-label"></label>
+                <input asp-for="TownItem.Metadata" class="form-control" />
+                <span asp-validation-for="TownItem.Metadata" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TownItem.Name" class="control-label"></label>
+                <input asp-for="TownItem.Name" class="form-control" />
+                <span asp-validation-for="TownItem.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TownItem.CreationDate" class="control-label"></label>
+                <input asp-for="TownItem.CreationDate" class="form-control" />
+                <span asp-validation-for="TownItem.CreationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TownItem.ModificationDate" class="control-label"></label>
+                <input asp-for="TownItem.ModificationDate" class="form-control" />
+                <span asp-validation-for="TownItem.ModificationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TownItem.CreateBy" class="control-label"></label>
+                <input asp-for="TownItem.CreateBy" class="form-control" />
+                <span asp-validation-for="TownItem.CreateBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TownItem.ModifyBy" class="control-label"></label>
+                <input asp-for="TownItem.ModifyBy" class="form-control" />
+                <span asp-validation-for="TownItem.ModifyBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TownItem.Status" class="control-label"></label>
+                <input asp-for="TownItem.Status" class="form-control" />
+                <span asp-validation-for="TownItem.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

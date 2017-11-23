@@ -1,0 +1,77 @@
+﻿@page
+@model Web.Pages.Group.CreateModel
+
+@{
+    ViewData["Title"] = "新增安全单位";
+}
+
+<h2>新增安全单位</h2>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="GroupItem.Name" class="control-label"></label>
+                <input asp-for="GroupItem.Name" class="form-control" />
+                <span asp-validation-for="GroupItem.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.License" class="control-label"></label>
+                <input asp-for="GroupItem.License" class="form-control" />
+                <span asp-validation-for="GroupItem.License" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.Address" class="control-label"></label>
+                <input asp-for="GroupItem.Address" class="form-control" />
+                <span asp-validation-for="GroupItem.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.RegisterAddress" class="control-label"></label>
+                <input asp-for="GroupItem.RegisterAddress" class="form-control" />
+                <span asp-validation-for="GroupItem.RegisterAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.Type" class="control-label"></label>
+                <input asp-for="GroupItem.Type" class="form-control" />
+                <span asp-validation-for="GroupItem.Type" class="text-danger"></span>
+            </div>
+          
+            <div class="form-group">
+                <label asp-for="GroupItem.ChiefName" class="control-label"></label>
+                <input asp-for="GroupItem.ChiefName" class="form-control" />
+                <span asp-validation-for="GroupItem.ChiefName" class="text-danger"></span>
+            </div>     
+         
+           
+           
+            <div class="form-group">
+                <label asp-for="GroupItem.PhotoMain" class="control-label"></label>
+                <input asp-for="GroupItem.PhotoMain" class="form-control" />
+                <span asp-validation-for="GroupItem.PhotoMain" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.PhotoWarranty" class="control-label"></label>
+                <input asp-for="GroupItem.PhotoWarranty" class="form-control" />
+                <span asp-validation-for="GroupItem.PhotoWarranty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.PhotoSecurity" class="control-label"></label>
+                <input asp-for="GroupItem.PhotoSecurity" class="form-control" />
+                <span asp-validation-for="GroupItem.PhotoSecurity" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <input type="submit" value="保 存" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">返回列表</a>
+</div>
+

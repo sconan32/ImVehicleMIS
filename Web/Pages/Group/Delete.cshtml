@@ -1,0 +1,117 @@
+﻿@page
+@model Web.Pages.Group.DeleteModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>GroupItem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.Code)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.RegisterAddress)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.RegisterAddress)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.ChiefName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.ChiefName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.Comment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.Comment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.VersionNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.VersionNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.Metadata)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.Metadata)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.CreationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.CreationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.ModificationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.ModificationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.CreateBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.CreateBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.ModifyBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.ModifyBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.Status)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="GroupItem.Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>
+</body>
+</html>

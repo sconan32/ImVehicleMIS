@@ -1,0 +1,100 @@
+﻿@page
+@model Web.Pages.Group.EditModel
+
+@{
+    ViewData["Title"] = "编辑安全单位";
+}
+
+<h2>编辑安全单位</h2>
+
+
+<h4>GroupItem</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GroupItem.Code" class="control-label"></label>
+                <input asp-for="GroupItem.Code" class="form-control" />
+                <span asp-validation-for="GroupItem.Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.Address" class="control-label"></label>
+                <input asp-for="GroupItem.Address" class="form-control" />
+                <span asp-validation-for="GroupItem.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.RegisterAddress" class="control-label"></label>
+                <input asp-for="GroupItem.RegisterAddress" class="form-control" />
+                <span asp-validation-for="GroupItem.RegisterAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.Type" class="control-label"></label>
+                <input asp-for="GroupItem.Type" class="form-control" />
+                <span asp-validation-for="GroupItem.Type" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="GroupItem.ChiefName" class="control-label"></label>
+                <input asp-for="GroupItem.ChiefName" class="form-control" />
+                <span asp-validation-for="GroupItem.ChiefName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.Comment" class="control-label"></label>
+                <input asp-for="GroupItem.Comment" class="form-control" />
+                <span asp-validation-for="GroupItem.Comment" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="GroupItem.Id" />
+            <div class="form-group">
+                <label asp-for="GroupItem.VersionNumber" class="control-label"></label>
+                <input asp-for="GroupItem.VersionNumber" class="form-control" />
+                <span asp-validation-for="GroupItem.VersionNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.Metadata" class="control-label"></label>
+                <input asp-for="GroupItem.Metadata" class="form-control" />
+                <span asp-validation-for="GroupItem.Metadata" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.Name" class="control-label"></label>
+                <input asp-for="GroupItem.Name" class="form-control" />
+                <span asp-validation-for="GroupItem.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.CreationDate" class="control-label"></label>
+                <input asp-for="GroupItem.CreationDate" class="form-control" />
+                <span asp-validation-for="GroupItem.CreationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.ModificationDate" class="control-label"></label>
+                <input asp-for="GroupItem.ModificationDate" class="form-control" />
+                <span asp-validation-for="GroupItem.ModificationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.CreateBy" class="control-label"></label>
+                <input asp-for="GroupItem.CreateBy" class="form-control" />
+                <span asp-validation-for="GroupItem.CreateBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.ModifyBy" class="control-label"></label>
+                <input asp-for="GroupItem.ModifyBy" class="form-control" />
+                <span asp-validation-for="GroupItem.ModifyBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupItem.Status" class="control-label"></label>
+                <input asp-for="GroupItem.Status" class="form-control" />
+                <span asp-validation-for="GroupItem.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+

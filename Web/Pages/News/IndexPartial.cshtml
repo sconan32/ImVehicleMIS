@@ -1,0 +1,28 @@
+﻿
+@model Web.Pages.News.IndexPartialModel
+
+
+
+<div class="esh-orders">
+    <div class="container">
+        <h1>@ViewData["Title"]</h1>
+        <article class="esh-orders-titles row">
+            <section class="esh-orders-title col-xs-2">编号</section>
+            <section class="esh-orders-title col-xs-4">标题</section>
+            <section class="esh-orders-title col-xs-2">发布日期</section>
+
+        </article>
+        @if (Model.NewsList != null && Model.NewsList.Any())
+        {
+            @foreach (var item in Model.NewsList)
+            {
+                <article class="esh-orders-items row">
+                    <section class="esh-orders-item col-xs-2">@Html.DisplayFor(modelItem => item.Id)</section>
+                    <section class="esh-orders-item col-xs-4"><a class="esh-orders-link" asp-page="Detail" asp-route-orderId="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
+                    <section class="esh-orders-item col-xs-2">$ @Html.DisplayFor(modelItem => item.Date)</section>
+
+                </article>
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2008
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{4936A1A6-EE17-4D88-A981-13D3D50BA511}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImVehicleCore", "ImVehicleCore\ImVehicleCore.csproj", "{3B02FE44-988F-4BEC-B333-906433C2EF69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4936A1A6-EE17-4D88-A981-13D3D50BA511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4936A1A6-EE17-4D88-A981-13D3D50BA511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4936A1A6-EE17-4D88-A981-13D3D50BA511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4936A1A6-EE17-4D88-A981-13D3D50BA511}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B02FE44-988F-4BEC-B333-906433C2EF69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B02FE44-988F-4BEC-B333-906433C2EF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B02FE44-988F-4BEC-B333-906433C2EF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B02FE44-988F-4BEC-B333-906433C2EF69}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6BE67759-5A80-4D29-A859-B4AFAF114F2C}
+	EndGlobalSection
+EndGlobal

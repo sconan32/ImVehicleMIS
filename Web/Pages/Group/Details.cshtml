@@ -1,0 +1,210 @@
+﻿@page
+@model Web.Pages.Group.DetailsModel
+
+@{
+    ViewData["Title"] = Html.DisplayFor(model => model.GroupItem.Name) + "详细信息";
+}
+
+<h2> @Html.DisplayFor(model => model.GroupItem.Name) 详细信息</h2>
+
+<div>
+    <h4>基本信息</h4>
+    <hr />
+    <dl class="dl-horizontal">  
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.Name)
+        </dd>
+       <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.ChiefName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.ChiefName) ( @Html.DisplayFor(model => model.GroupItem.ChiefTel))
+        </dd>     
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.VehicleCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.VehicleCount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.ValidCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.ValidCount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupItem.InvalidCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupItem.InvalidCount)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.GroupItem.Id">编辑</a> |
+    <a asp-page="./Index">返回列表</a>
+</div>
+<br/>
+<br/>
+
+ <div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">       
+        <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">车辆列表</a></li>
+        <li role="presentation" ><a href="#home" aria-controls="home" role="tab" data-toggle="tab">详细信息</a></li>
+        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">图片附件</a></li>
+       
+    </ul>
+     <br/>
+    <!-- Tab panes -->
+    <div class="tab-content">
+       
+        <div role="tabpanel" class="tab-pane active" id="profile">
+            <h4>注册车辆列表</h4>
+            <p>
+                <a asp-page="../Vehicle/Create">创建新注册车辆</a>
+            </p>
+            <hr />
+            <table class="table">
+                <thead>
+                    <tr>
+                       
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].License)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].Brand)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].Color)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].Type)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].LastRegisterDate)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.GroupItem.Vehicles)
+            {
+                        <tr>
+                           
+                            <td>
+                                @Html.DisplayFor(modelItem => item.License)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Brand)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Color)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Type)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastRegisterDate)
+                            </td>
+                            <td>
+                                <a asp-page="../Vehicle/Details" asp-route-id="@item.Id">查看详细</a> |
+                                <a asp-page="../Vehicle/Edit" asp-route-id="@item.Id">编辑</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+        </div>
+
+        <div role="tabpanel" class="tab-pane " id="home">
+            <h4>详细信息</h4>
+
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.GroupItem.Id)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.GroupItem.Id)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.GroupItem.Address)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.GroupItem.Address)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.GroupItem.RegisterAddress)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.GroupItem.RegisterAddress)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.GroupItem.Type)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.GroupItem.Type)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GroupItem.ChiefName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.GroupItem.ChiefName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GroupItem.ChiefTel)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.GroupItem.ChiefTel)
+                </dd>
+
+            </dl>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="messages">
+
+            <h4>图片附件</h4>
+
+            <hr />
+       
+            <div class="panel panel-default">
+                <div class="panel-heading">@Html.DisplayNameFor(model => model.GroupItem.PhotoMain)</div>
+                <div class="panel-body">
+                  <img src="data:image;base64,@Model.GroupItem.PhotoMain"/>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">@Html.DisplayNameFor(model => model.GroupItem.PhotoWarranty)</div>
+                <div class="panel-body">
+                    <img src="data:image;base64,@Model.GroupItem.PhotoWarranty" />
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">@Html.DisplayNameFor(model => model.GroupItem.PhotoSecurity)</div>
+                <div class="panel-body">
+                    <img src="data:image;base64,@Model.GroupItem.PhotoSecurity" />
+                </div>
+            </div>
+        </div>
+     
+    </div>
+
+</div>
+
+
