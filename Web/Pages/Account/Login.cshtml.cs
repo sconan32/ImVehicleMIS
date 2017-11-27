@@ -43,7 +43,7 @@ namespace ImVehicleMIS.Pages.Account
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "¼Ç×¡ÎÒ")]
             public bool RememberMe { get; set; }
         }
 

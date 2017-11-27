@@ -3,31 +3,77 @@
 @{
     ViewData["Title"] = "首页";
 }
-<br />
-<h4>最近新闻</h4>
-<hr />
+<section class="contact_form_area2">
+    <div class="container">
+        <div class="col-xs-7">
+            
+            <h4>最近新闻</h4>
+            <hr />
 
-<article class="esh-orders-titles row">
- 
-    <section class="esh-orders-title col-xs-9">标题</section>
-    <section class="esh-orders-title col-xs-3">发布日期</section>
 
-</article>
-@if (Model.NewsList != null && Model.NewsList.Any())
-{
-    @foreach (var item in Model.NewsList)
-    {
-        <article class="esh-orders-items row">           
-            <section class="esh-orders-item col-xs-9"><a class="esh-orders-link" asp-page="Detail" asp-route-orderId="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
-            <section class="esh-orders-item col-xs-3"> @Html.DisplayFor(modelItem => item.Date)</section>
-        </article>
-    }
-}
-<br />
-<h4>安全警报单位</h4>
+            @if (Model.NewsList != null && Model.NewsList.Any())
+            {
+                @foreach (var item in Model.NewsList)
+                {
+                    <article class=" row">
+                        <section class="col-xs-9"><a class="esh-orders-link" asp-page="Detail" asp-route-orderId="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
+                        <section class="col-xs-2"> @Html.DisplayFor(modelItem => item.Date)</section>
+                    </article>
+                }
+            }
+        </div>
 
-<br/>
-<h4>安全警报车辆</h4>
-<hr/>
+        <div class="col-xs-5">
 
-<br/>
+            <div class="row feature_row">
+                <div class="feature_slider_inner owl-carousel">
+                    <div class="item">
+                        <div class="feature_s_item">
+                            <br />
+                            <h4>用户登录</h4>
+                            <section>
+                                <form class="form-horizontal" method="post" asp-controller="Acocount/Login" asp-action="">
+                                
+                                    <hr />
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                    <div class="form-group ">
+                                        <label class="col-sm-2 control-label">邮箱</label>
+                                        <div class="col-sm-9">
+                                            <input asp-for="Input.Email" class="form-control" />
+                                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group " style="margin-top:20px;">
+                                        <label class="col-sm-2 control-label">密码</label>
+                                        <div class="col-sm-9">                                          
+                                            <input asp-for="Input.Password" class="form-control" />
+                                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                        </div>
+                                        </div>
+                                    <div class="form-group " style="margin-top:20px;">
+                                        <div class="checkbox">
+                                            <label>                                               
+                                                <input asp-for="Input.RememberMe" />
+                                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-top:20px;">
+                                        <button type="submit" class="form-control submit_blue" > 登录 </button>
+                                    </div>
+                                    <div class="form-group" style="margin-top:20px;">
+                                        <p>
+                                            <a asp-page="./ForgotPassword">忘记密码？</a>
+                                        </p>
+                                        
+                                    </div>
+                                </form>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

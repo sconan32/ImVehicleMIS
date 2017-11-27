@@ -7,47 +7,84 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/style.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-page="/Index" class="navbar-brand">重点车辆管理系统</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-page="/Index">主页</a></li>
-                    <li><a asp-page="/Town/Index">街道 / 镇</a></li>
-                    <li><a asp-page="/Group/Index">安全单位</a></li>
-                    <li><a asp-page="/Vehicle/Index">车辆</a></li>
-                    <li><a asp-page="/Driver/Index">司机</a></li>
-                    <li><a asp-page="/News/Index">新闻</a></li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
+    <!--================Header Area =================-->
+    <header class="main_header_area">
+        <div class="header_top">
+            <div class="container">
+                <div class="pull-left">
+                    <div class="row">  <span><img src="img/logo.png" width="32" height="32" alt=""></span> 
+                        <span>  <a asp-page="/Index" class="navbar-brand">重点车辆管理系统</a></span>
+                    
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <div class="header_c_text">
+                        <h5>联系我们</h5>
+                        <h4>1-888-777-990</h4>
+                    </div>
+                    <div class="header_c_text">
+                        <h5>系统运行</h5>
+                        <h4>Mon - Fri 10 to 5pm</h4>
+                    </div>
+                    <div class="header_c_text">
+                        @await Html.PartialAsync("_LoginPartial")
+                    </div>
+                   
+                </div>
             </div>
         </div>
-    </nav>
-    <div class="container body-content">
+        <div class="main_menu_area">
+            <nav class="navbar navbar-default">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a asp-page="/Index">主页</a></li>
+                            <li><a asp-page="/Town/Index">街道 / 镇</a></li>
+                            <li><a asp-page="/Group/Index">安全单位</a></li>
+                            <li><a asp-page="/Vehicle/Index">车辆</a></li>
+                            <li><a asp-page="/Driver/Index">司机</a></li>
+                            <li><a asp-page="/News/Index">新闻</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search here...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container -->
+            </nav>
+        </div>
+    </header>
+    <!--================End Header Area =================-->
+    
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2017 - 重点车辆管理系统</p>
-        </footer>
-    </div>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

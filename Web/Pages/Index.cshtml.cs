@@ -6,6 +6,7 @@ using ImVehicleCore.Data;
 using ImVehicleCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using static ImVehicleMIS.Pages.Account.LoginModel;
 
 namespace ImVehicleMIS.Pages
 {
@@ -17,7 +18,7 @@ namespace ImVehicleMIS.Pages
         {
             this._newsRepisitory = newsRepisitory;
         }
-
+      public  InputModel Input { get; set; }
         public List<NewsListView> NewsList { get; set; } = new List<NewsListView>();
         public class NewsListView
         {
