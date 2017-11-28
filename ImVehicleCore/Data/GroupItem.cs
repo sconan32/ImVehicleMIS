@@ -39,6 +39,8 @@ namespace ImVehicleCore.Data
         public byte[] PhotoSecurity { get; set; }
 
 
+
+        public string ChiefCaption { get; set; }
         public string ChiefName { get; set; }
 
         public string ChiefTel { get; set; }
@@ -46,5 +48,8 @@ namespace ImVehicleCore.Data
         public string Comment { get; set; }
 
         public byte[] PhotoMain { get; set; }
+
+       
+
     }
 }

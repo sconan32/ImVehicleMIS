@@ -14,7 +14,7 @@ namespace ImVehicleCore.Data
         public static async Task SeedAsync(VehicleDbContext dbContext,
           ILoggerFactory loggerFactory, int? retry = 0)
         {
-            
+           
             dbContext.Newses.RemoveRange(dbContext.Newses);
             dbContext.Drivers.RemoveRange(dbContext.Drivers);
             dbContext.Vehicles.RemoveRange(dbContext.Vehicles);
@@ -26,24 +26,24 @@ namespace ImVehicleCore.Data
             await dbContext.Districts.AddAsync(district);
             TownItem[] towns =
             {
-                 new TownItem(){Name="周水子街道",Address="周水子街道", District=district, },
-                 new TownItem(){Name="椒金山街道",Address="椒金山街道", District=district, },
-                 new TownItem(){Name="甘井子街道",Address="甘井子街道", District=district, },
-                 new TownItem(){Name="南关岭街道",Address="南关岭街道", District=district, },
-                 new TownItem(){Name="泡崖街道",Address="泡崖街道", District=district, },
-                 new TownItem(){Name="中华路街道",Address="中华路街道", District=district, },
-                 new TownItem(){Name="兴华街道",Address="兴华街道", District=district, },
-                 new TownItem(){Name="机场街道",Address="机场街道", District=district, },
-                 new TownItem(){Name="辛寨子街道",Address="辛寨子街道", District=district, },
-                 new TownItem(){Name="红旗街道",Address="红旗街道", District=district, },
-                 new TownItem(){Name="凌水街道",Address="凌水街道", District=district, },
-                 new TownItem(){Name="大连湾街道",Address="大连湾街道", District=district, },
-                 new TownItem(){Name="泉水街道",Address="泉水街道", District=district, },
-                 new TownItem(){Name="革镇堡街道",Address="革镇堡街道", District=district, },
-                 new TownItem(){Name="营城子街道",Address="营城子街道", District=district, },
-                 new TownItem(){Name="七贤岭街道",Address="七贤岭街道", District=district, },
-                 new TownItem(){Name="大连华侨果树农场",Address="大连华侨果树农场", District=district, },
-                 new TownItem(){Name="其它街道",Address="其它街道", District=district, },
+                 new TownItem(){Name="周水子街道",Address="周水子街道", District=district, Code=1,},
+                 new TownItem(){Name="椒金山街道",Address="椒金山街道", District=district, Code=2,},
+                 new TownItem(){Name="甘井子街道",Address="甘井子街道", District=district, Code=3,},
+                 new TownItem(){Name="南关岭街道",Address="南关岭街道", District=district, Code=4,},
+                 new TownItem(){Name="泡崖街道",Address="泡崖街道", District=district, Code=5,},
+                 new TownItem(){Name="中华路街道",Address="中华路街道", District=district, Code=6,},
+                 new TownItem(){Name="兴华街道",Address="兴华街道", District=district, Code=7,},
+                 new TownItem(){Name="机场街道",Address="机场街道", District=district, Code=8,},
+                 new TownItem(){Name="辛寨子街道",Address="辛寨子街道", District=district, Code=9,},
+                 new TownItem(){Name="红旗街道",Address="红旗街道", District=district, Code=10,},
+                 new TownItem(){Name="凌水街道",Address="凌水街道", District=district, Code=11,},
+                 new TownItem(){Name="大连湾街道",Address="大连湾街道", District=district, Code=12,},
+                 new TownItem(){Name="泉水街道",Address="泉水街道", District=district, Code=13,},
+                 new TownItem(){Name="革镇堡街道",Address="革镇堡街道", District=district, Code=14,},
+                 new TownItem(){Name="营城子街道",Address="营城子街道", District=district, Code=15,},
+                 new TownItem(){Name="七贤岭街道",Address="七贤岭街道", District=district, Code=16,},
+                 new TownItem(){Name="大连华侨果树农场",Address="大连华侨果树农场", District=district, Code=17,},
+                 new TownItem(){Name="其它街道",Address="其它街道", District=district, Code=18,},
             };
             await dbContext.Towns.AddRangeAsync(towns);
 

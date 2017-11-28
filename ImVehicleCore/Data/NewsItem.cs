@@ -23,10 +23,11 @@ namespace ImVehicleCore.Data
         public string Content { get; set; }
         public string Excerpt { get; set; }
         public bool HasDateRange { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:d}")]
+        [DataType(DataType.Date)]
+        
         public DateTime PublishDate { get; set; }
-        [DisplayFormat(DataFormatString = "{0:d}")]
+
+        [DataType(DataType.Date)]
         public DateTime ExpireDate { get; set; }
         public int Order { get; set; }
 

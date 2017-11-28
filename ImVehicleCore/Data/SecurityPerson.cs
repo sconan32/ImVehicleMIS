@@ -12,7 +12,7 @@ namespace ImVehicleCore.Data
 
 
 
-
+        
 
         public string Tel { get; set; }
 

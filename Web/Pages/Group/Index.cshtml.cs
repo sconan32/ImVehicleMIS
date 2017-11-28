@@ -26,6 +26,9 @@ namespace Web.Pages.Group
         public class GroupListViewModel
         {
             public long Id { get; set; }
+
+            [Display(Name="编码")]
+            public string Code { get; set; }
             [Display(Name = "名称")]
             public string Name { get; set; }
             [Display(Name = "负责人")]

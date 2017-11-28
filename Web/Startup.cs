@@ -45,6 +45,11 @@ namespace ImVehicleMIS
                     options.Conventions.AuthorizePage("/Account/Logout");
                 });
 
+            //services.AddAuthentication(options =>
+            //{
+            //    options.AddPolicy("",);
+            //});
+
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
 

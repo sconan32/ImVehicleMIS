@@ -16,39 +16,41 @@
     </div>
 </section>
 <section class="main_feature_area">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.TownList[0].Id)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.TownList[0].Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TownList[0].GroupCount)
-                </th>
-
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.TownList)
-            {
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GroupCount)
-                    </td>
-                    <td><a asp-page="./Details" asp-route-id="@item.Id">查看详细</a></td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TownList[0].Code)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.TownList[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TownList[0].GroupCount)
+                    </th>
+
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.TownList)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GroupCount)
+                        </td>
+                        <td><a class="btn btn-item-detail" asp-page="./Details" asp-route-id="@item.Id">查看详情</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </section>

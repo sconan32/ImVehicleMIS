@@ -358,8 +358,8 @@ iframe {
 
 @media (max-width: 767px) {
   .main_menu_area .navbar.navbar-default .nav.navbar-nav {
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-left: 5px;
+    margin-right: 5px;
   }
 }
 
@@ -375,7 +375,7 @@ iframe {
 
 @media (max-width: 991px) {
   .main_menu_area .navbar.navbar-default .nav.navbar-nav li {
-    margin-right: 0px;
+    margin-right: 40px;
   }
 }
 
@@ -762,6 +762,114 @@ iframe {
   bottom: -50px;
 }
 
+
+
+
+.btn-item-detail {
+    display: inline-block;
+    padding: 0px 8px;
+    background: transparent;
+    border: 1px solid #2761d8;
+    line-height: 20px;
+    border-radius: 5px;
+    color: #2761d8;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    -webkit-transition: all 300ms linear 0s;
+    -o-transition: all 300ms linear 0s;
+    transition: all 300ms linear 0s;
+    z-index: 2;
+}
+.btn-item-detail i {
+        padding-left: 10px;
+    }
+
+.btn-item-detail:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: #2761d8;
+    height: 280px;
+    width: 330px;
+    border-radius: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    bottom: 100%;
+    -webkit-transition: all .7s;
+    -o-transition: all .7s;
+    transition: all .7s;
+    z-index: -1;
+}
+
+.btn-item-detail:hover, btn-item-detail:focus {
+    color: #fff;
+    border: 1px solid #2761d8;
+}
+
+.btn-item-detail:hover:before, btn-item-detail:focus:before {
+        bottom: -50px;
+    }
+
+
+.btn-new-item {
+    display: inline-block;
+    padding: 4px 24px;
+    background: transparent;
+    border: 1px solid #2ecc71;
+    line-height: 24px;
+    border-radius: 5px;
+    color: #2ecc71;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    -webkit-transition: all 300ms linear 0s;
+    -o-transition: all 300ms linear 0s;
+    transition: all 300ms linear 0s;
+    z-index: 2;
+}
+
+    .btn-new-item i {
+        padding-left: 20px;
+    }
+
+    .btn-new-item:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        background: #2ecc71;
+        height: 280px;
+        width: 330px;
+        border-radius: 50%;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+        bottom: 100%;
+        -webkit-transition: all .7s;
+        -o-transition: all .7s;
+        transition: all .7s;
+        z-index: -1;
+    }
+
+    .btn-new-item:hover, .btn-new-item:focus {
+        color: #fff;
+        border: 1px solid #2ecc71;
+    }
+
+        .btn-new-item:hover:before, .btn-new-item:focus:before {
+            bottom: -50px;
+        }
 /* End Button Area css
 ============================================================================================ */
 /* Submit Button Area css
@@ -1204,7 +1312,7 @@ iframe {
 ============================================================================================ */
 .main_feature_area {
   overflow: hidden;
-  background: #f5f7f9;
+  background: #fbfbfb;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3879,7 +3987,7 @@ iframe {
 .banner_area {
  /* background: url(../img/banner/banner-bg.jpg) no-repeat scroll center center;
   background-size: cover;*/
-  padding: 16px 0px;
+  padding: 24px 0px;
   position: relative;
   z-index: 3;
 }
@@ -3909,10 +4017,13 @@ iframe {
 }
 
 .banner_area .pull-left h3 {
-  font-size: 18px;
-  font-family: "Roboto", sans-serif;
-  font-weight: bold;
-  /*color: #fff;*/
+    border-left: #1e568f 5px solid;
+    padding-left: 10px;
+    margin-top: 12px;
+    font-size: 24px;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    color: #2761d8;
 }
 
 @media (max-width: 480px) {
@@ -3934,10 +4045,10 @@ iframe {
 
 .banner_area .pull-right a {
   font-size: 16px;
-  color: #fff;
+  color: #aaa;
   font-family: "Roboto", sans-serif;
   font-weight: normal;
-  margin-right: 25px;
+  margin-right:10px;
   position: relative;
   -webkit-transition: all 300ms linear 0s;
   -o-transition: all 300ms linear 0s;

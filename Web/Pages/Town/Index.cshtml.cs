@@ -27,8 +27,9 @@ namespace Web.Pages.Towns
 
         public class TownItemListViewModel
         {
-            [Display(Name = "编号")]
             public long Id { get; set; }
+            [Display(Name = "编号")]
+            public int Code { get; set; }
             [Display(Name = "名称")]
             public string Name { get; set; }
             [Display(Name = "安全单位数量")]
@@ -40,10 +41,11 @@ namespace Web.Pages.Towns
         {
             var towns = await _townRepository.ListAllWithGroupAsync();
 
-            TownList =  towns.Select(  t =>
+            TownList =  towns.OrderBy(t=>t.Code).Select(  t =>
            new TownItemListViewModel()
            {
                Id = t.Id,
+               Code=t.Code,
                Name = t.Name,
                GroupCount = t.Groups.Count,
            }).ToList();

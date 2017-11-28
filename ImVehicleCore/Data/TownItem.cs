@@ -28,7 +28,7 @@ namespace ImVehicleCore.Data
 
         public virtual List<VehicleUser> Users { get; set; }
 
-
+        public int Code { get; set; }
 
 
         public void AddSecurityItem (string name)

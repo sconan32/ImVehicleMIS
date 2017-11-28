@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using ImVehicleCore.Data;
@@ -26,6 +27,7 @@ namespace ImVehicleMIS.Pages
 
             public string Name { get; set; }
 
+            [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
             public DateTime Date { get; set; }
         }
 
