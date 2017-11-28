@@ -12,13 +12,14 @@ namespace ImVehicleCore.Data
 
 
 
-        
 
+        [Display(Name = "电话")]
         public string Tel { get; set; }
 
+        [Display(Name = "住址")]
         public string Address { get; set; }
-        
 
+        [Display(Name = "户籍地")]
         public string RegisterAddress { get; set; }
 
 

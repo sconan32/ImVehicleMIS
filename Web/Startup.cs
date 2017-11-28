@@ -12,6 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using ImVehicleCore.Data;
 using ImVehicleCore.Interfaces;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace ImVehicleMIS
 {
@@ -27,6 +30,7 @@ namespace ImVehicleMIS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+          
 
             //services.AddDbContext<VehicleDbContext>(options =>
             //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -34,13 +38,16 @@ namespace ImVehicleMIS
             options.UseSqlServer(Configuration.GetConnectionString("ReleaseConnection")));
 
 
-            services.AddIdentity<VehicleUser, IdentityRole>()
+            services.AddIdentity<VehicleUser,VehicleRole>()
                 .AddEntityFrameworkStores<VehicleDbContext>()
                 .AddDefaultTokenProviders();
-
-            services.AddMvc()
-                .AddRazorPagesOptions(options =>
+         
+            services.AddMvc().AddRazorPagesOptions(options =>
                 {
+                    options.Conventions.AuthorizeFolder("/Vehicle");
+                    options.Conventions.AuthorizeFolder("/Driver");
+                    options.Conventions.AuthorizeFolder("/Group");
+                    options.Conventions.AuthorizeFolder("/Town");
                     options.Conventions.AuthorizeFolder("/Account/Manage");
                     options.Conventions.AuthorizePage("/Account/Logout");
                 });

@@ -2,105 +2,155 @@
 @model Web.Pages.Towns.DetailsModel
 
 @{
-    ViewData["Title"] = @Html.DisplayFor(model => model.TownItem.Name) + "安全单位列表";
+    ViewData["Title"] = @Html.DisplayFor(model => model.TownItem.Name) + "";
 }
 
-<h2>@Html.DisplayFor(model => model.TownItem.Name) 安全单位列表</h2>
+<section class="banner_area">
+    <div class="container">
+        <div class="pull-left">
+            <h3>@Html.DisplayFor(model => model.TownItem.Name) </h3>
+        </div>
+        <div class="pull-right">
+            <a asp-page="/">主页</a>
+            &gt; <a asp-page="/Town">街道</a>
+            &gt; <a asp-page="/Town/Details?Id=@Model.TownItem.Id">@Html.DisplayFor(model => model.TownItem.Name) </a>
+        </div>
+    </div>
+</section>
+<section class="main_feature_area">
+    <div class="container">
 
-<div>
-    <h4>基本信息</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TownItem.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TownItem.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TownItem.GroupCount)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TownItem.GroupCount)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TownItem.ValidCount)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TownItem.ValidCount)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TownItem.InvalidCount)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TownItem.InvalidCount)
-        </dd>
-       
-    </dl>
-    <hr />
-    <h4>安全单位列表</h4>
-    <p>
-        <a asp-page="../Group/Create">创建新安全单位</a>
-    </p>
-    <hr />
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].Id)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].ChiefName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].ChiefTel)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].VehicleCount)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].InvalidCount)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.TownItem.Groups)
-            {
+        <hr />
+        <h4>基本信息</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TownItem.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TownItem.GroupCount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TownItem.ValidCount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TownItem.InvalidCount)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem=>item.Id)
-                    </td>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
+                        @Html.DisplayFor(model => model.TownItem.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ChiefName)
+                        @Html.DisplayFor(model => model.TownItem.GroupCount)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ChiefTel)
+                        @Html.DisplayFor(model => model.TownItem.ValidCount)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.VehicleCount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.InvalidCount)
-                    </td>
-                    <td>
-                    <a asp-page="../Group/Details" asp-route-id="@item.Id">查看详细</a> | 
-                        <a asp-page="../Group/Edit" asp-route-id="@item.Id">编辑</a>
+                        @Html.DisplayFor(model => model.TownItem.InvalidCount)
                     </td>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        <hr />
+    </div>
 
-</div>
-<div> 
-    <a asp-page="./Index">返回列表</a>
-</div>
+    <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">安全单位列表</a></li>
+            <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">车辆列表</a></li>
+            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">司机列表</a></li>
+
+        </ul>
+        <br />
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+            <div role="tabpanel" class="tab-pane active" id="profile">
+                <hr />
+                <h4>安全单位列表</h4>
+                <p>
+                    <a class="btn btn-new-item" asp-page="../Group/Create">创建新安全单位</a>
+                    <a class="btn btn-default" asp-page="Index">返回列表</a>
+                </p>
+                <hr />
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TownItem.Groups[0].Id)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.TownItem.Groups[0].Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TownItem.Groups[0].ChiefName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TownItem.Groups[0].ChiefTel)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TownItem.Groups[0].VehicleCount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TownItem.Groups[0].InvalidCount)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.TownItem.Groups)
+            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChiefName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChiefTel)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VehicleCount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.InvalidCount)
+                                </td>
+                                <td>
+                                    <a class="btn btn-item-detail" asp-page="../Group/Details" asp-route-id="@item.Id">查看详细</a> |
+                                    <a asp-page="../Group/Edit" asp-route-id="@item.Id">编辑</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div role="tabpanel" class="tab-pane " id="home">
+                <h4>详细信息</h4>
+
+                <hr />
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="messages">
+
+                <h4>图片附件</h4>
+
+
+            </div>
+        </div>
+
+    </div>
+</section>

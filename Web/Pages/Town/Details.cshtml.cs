@@ -31,8 +31,12 @@ namespace Web.Pages.Towns
 
             [Display(Name="名称")]
             public string Name { get; set; }
-            [Display(Name = "安全组数量")]
+            [Display(Name = "安全单位数量")]
             public int GroupCount { get; set; }
+
+            public int VehicleCount { get; set; }
+
+            public int DriverCount { get; set; }
             [Display(Name = "    其中：处于安全状态")]
             public int ValidCount { get; set; }
             [Display(Name = "        处于危险状态")]
@@ -68,8 +72,8 @@ namespace Web.Pages.Towns
                 Id = town.Id,
                 Name = town.Name,
                 GroupCount = town.Groups.Count,
-                ValidCount = town.Groups.Count(t => t.Vehicles.Any(v => v.LastRegisterDate.Date.AddYears(1) >= DateTime.Now.Date)),
-                InvalidCount = town.Groups.Count(t => t.Vehicles.Any(v => v.LastRegisterDate.Date.AddYears(1) < DateTime.Now.Date)),
+                ValidCount = town.Groups.Count(t => t.Vehicles.Any(v => v.RegisterDate.Date.AddYears(1) >= DateTime.Now.Date)),
+                InvalidCount = town.Groups.Count(t => t.Vehicles.Any(v => v.RegisterDate.Date.AddYears(1) < DateTime.Now.Date)),
                 Groups = town.Groups.Select(t => new GroupListViewModel()
                 {
                     Id = t.Id,
@@ -77,7 +81,7 @@ namespace Web.Pages.Towns
                     ChiefName=t.ChiefName,
                     ChiefTel=t.ChiefTel,
                     VehicleCount=t.Vehicles.Count,
-                    InvalidCount=t.Vehicles.Count(v => v.LastRegisterDate.Date.AddYears(1) < DateTime.Now.Date)
+                    InvalidCount=t.Vehicles.Count(v => v.RegisterDate.Date.AddYears(1) < DateTime.Now.Date)
                 }).ToList(),
             };
 

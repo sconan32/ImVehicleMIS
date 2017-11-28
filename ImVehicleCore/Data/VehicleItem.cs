@@ -9,10 +9,12 @@ namespace ImVehicleCore.Data
 {
     public class VehicleItem : BaseEntity
     {
-
+        [Display(Name = "车辆类型")]
         public VehicleType Type { get; set; }
+        [Display(Name = "营运类型")]
+        public  UsageType Usage { get; set; }
 
-     
+        [Display(Name = "车牌号")]
         public string LicenceNumber { get; set; }
 
         public string DriverName { get; set; }
@@ -21,16 +23,24 @@ namespace ImVehicleCore.Data
 
         public string Brand { get; set; }
 
-       
+        [Display(Name = "颜色")]
 
         public string Color { get; set; }
 
-        public DateTime ProductionDate { get; set; }
-        public DateTime InsuranceExpiredDate { get; set; }
 
-        public DateTime LastRegisterDate { get; set; }
+        [Display(Name = "生产日期")]
+        public DateTime ProductionDate { get; set; }
+        [Display(Name = "强制保险有效期")]
+        public DateTime InsuranceExpiredDate { get; set; }
+        [Display(Name = "注册日期")]
+        public DateTime RegisterDate { get; set; }
+        [Display(Name = "年检日期")]
+        public DateTime YearlyAuditDate { get; set; }
+
+        [Display(Name = "车辆状态")]
         public string VehicleStatus { get; set; }
 
+        [Display(Name = "备注")]
         public string Comment { get; set; }
 
         public long? GroupId { get; set; }
@@ -43,14 +53,38 @@ namespace ImVehicleCore.Data
 
         [ForeignKey("DriverId")]
         public virtual DriverItem Driver { get; set; }
-
+        [Display(Name = "车正面照片")]
         public byte[] PhotoFront { get; set; }
 
+        [Display(Name = "车背面照片")]
         public byte[] PhotoRear { get; set; }
 
+        [Display(Name = "年检照片")]
+        public byte[] PhotoAudit { get; set; }
 
-        public byte[] PhotoDriver { get; set; }
 
+        [Display(Name = "强制保险照片")]
+        public byte[] PhotoInsuarance { get; set; }
+
+
+        [Display(Name = "实际车主")]
+        public string RealOwner { get; set; }
+
+
+    }
+
+    public enum UsageType
+    {
+        [Display(Name = "非营运")]
+        NonCommercial =0x10000,
+        [Display(Name = "货运")]
+        Freight =0x20000,
+        [Display(Name = "危化品运输")]
+        Danger =0x40000,
+        [Display(Name = "客运")]
+        Passenger =0x80000,
+        [Display(Name = "救护")]
+        Ambulance =0x100000,
 
 
 

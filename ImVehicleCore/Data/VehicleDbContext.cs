@@ -15,6 +15,8 @@ namespace ImVehicleCore.Data
 
         }
 
+        public DbSet<VehicleRole> Roles { get; set; }
+        public DbSet<UserFile> Files { get; set; }
 
         public DbSet<DistrictItem> Districts { get; set; }
         public DbSet<TownItem> Towns { get; set; }
@@ -27,7 +29,7 @@ namespace ImVehicleCore.Data
 
         public DbSet<DriverItem> Drivers { get; set; }
 
-
+      
         public DbSet<NewsItem> Newses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

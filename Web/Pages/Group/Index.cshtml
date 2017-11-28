@@ -19,7 +19,7 @@
     <div class="container">
 
         <p>
-            <a class="btn btn-new-item" asp-page="Create">创建新安全单位</a>
+          <a class="btn btn-new-item" asp-page="Create"> <span class="glyphicon glyphicon-plus"></span> 创建新安全单位</a>
         </p>
         <hr />
        
@@ -72,8 +72,8 @@
                             @Html.DisplayFor(modelItem => item.InvalidCount)
                         </td>
                         <td>
-                            <a class="btn btn-item-detail" asp-page="Details" asp-route-id="@item.Id">查看详细</a> |
-                            <a asp-page="Edit" asp-route-id="@item.Id">编辑</a>
+                            <a class="btn btn-item-detail" asp-page="Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查看详细</a> |
+                            <a asp-page="Edit" asp-route-id="@item.Id"><span class="glyphicon glyphicon-edit"></span> 编辑</a>
                         </td>
                     </tr>
                 }

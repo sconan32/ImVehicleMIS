@@ -98,8 +98,8 @@ namespace Web.Pages.Group
 
 
                 VehicleCount = group.Vehicles.Count,
-                InvalidCount = group.Vehicles.Count(v => v.LastRegisterDate.Date.AddYears(1) < DateTime.Now.Date),
-                ValidCount = group.Vehicles.Count(v => v.LastRegisterDate.Date.AddYears(1) >= DateTime.Now.Date),
+                InvalidCount = group.Vehicles.Count(v => v.RegisterDate.Date.AddYears(1) < DateTime.Now.Date),
+                ValidCount = group.Vehicles.Count(v => v.RegisterDate.Date.AddYears(1) >= DateTime.Now.Date),
 
                 Vehicles = group.Vehicles.Select(t => new VehicleListViewModel()
                 {
@@ -108,7 +108,7 @@ namespace Web.Pages.Group
                     Brand = t.Brand,
                     Color = t.Color,
                     License = t.LicenceNumber,
-                    LastRegisterDate = t.LastRegisterDate,
+                    LastRegisterDate = t.RegisterDate,
                     Type = t.Type,
                 }).ToList(),
             };

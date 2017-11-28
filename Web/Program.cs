@@ -28,7 +28,8 @@ namespace ImVehicleMIS
                     VehicleDbContextSeed.SeedAsync(catalogContext, loggerFactory).Wait();
 
                     var userManager = services.GetRequiredService<UserManager<VehicleUser>>();
-                    VehicleUserSeed.SeedAsync(userManager).Wait();
+                    var roleManager = services.GetRequiredService<RoleManager<VehicleRole>>();
+                    VehicleUserSeed.SeedAsync(userManager,roleManager).Wait();
                 }
                 catch (Exception ex)
                 {
