@@ -43,6 +43,10 @@ namespace Web.ViewModels
 
         public List<VehicleListViewModel> Vehicles { get; set; }
 
+        public List<DriverListViewModel> Drivers { get; set; }
+
+
+        public List<UserFileListViewModel> UserFiles { get; set; }
 
     }
 }

@@ -1,0 +1,115 @@
+﻿@page
+@model Web.Pages.Secureman.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SecurityPerson</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.Tel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.Tel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.IdCardNum)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.IdCardNum)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.Company)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.Company)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.RegisterAddress)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.RegisterAddress)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.VersionNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.VersionNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.Metadata)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.Metadata)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.CreationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.CreationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.ModificationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.ModificationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.CreateBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.CreateBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.ModifyBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.ModifyBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.Status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.Group)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.Group.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityPerson.Town)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecurityPerson.Town.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.SecurityPerson.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

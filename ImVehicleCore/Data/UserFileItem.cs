@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace ImVehicleCore.Data
 {
-    public class UserFile:BaseEntity
+    public class UserFileItem : BaseEntity
     {
         [Display(Name = "文件大小")]
         public long Size { get; set; }
@@ -18,9 +19,15 @@ namespace ImVehicleCore.Data
         [Display(Name = "文件名")]
         public string FileName { get; set; }
 
-        public int? GroupId { get; set; }
+        public int DownloadCount { get; set; }
 
+        public long? GroupId { get; set; }
+
+        [ForeignKey("GroupId")]
         public virtual GroupItem Group { get; set; }
 
+
+        [Display(Name = "MIME格式")]
+        public string ContentType { get; set; }
     }
 }

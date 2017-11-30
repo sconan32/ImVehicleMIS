@@ -16,7 +16,7 @@ namespace ImVehicleCore.Data
         }
 
       
-        public DbSet<UserFile> Files { get; set; }
+        public DbSet<UserFileItem> Files { get; set; }
 
         public DbSet<DistrictItem> Districts { get; set; }
         public DbSet<TownItem> Towns { get; set; }

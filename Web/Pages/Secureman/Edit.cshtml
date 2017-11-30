@@ -1,0 +1,110 @@
+﻿@page
+@model Web.Pages.Secureman.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>SecurityPerson</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SecurityPerson.Tel" class="control-label"></label>
+                <input asp-for="SecurityPerson.Tel" class="form-control" />
+                <span asp-validation-for="SecurityPerson.Tel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityPerson.IdCardNum" class="control-label"></label>
+                <input asp-for="SecurityPerson.IdCardNum" class="form-control" />
+                <span asp-validation-for="SecurityPerson.IdCardNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityPerson.Title" class="control-label"></label>
+                <input asp-for="SecurityPerson.Title" class="form-control" />
+                <span asp-validation-for="SecurityPerson.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityPerson.Company" class="control-label"></label>
+                <input asp-for="SecurityPerson.Company" class="form-control" />
+                <span asp-validation-for="SecurityPerson.Company" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityPerson.Address" class="control-label"></label>
+                <input asp-for="SecurityPerson.Address" class="form-control" />
+                <span asp-validation-for="SecurityPerson.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityPerson.RegisterAddress" class="control-label"></label>
+                <input asp-for="SecurityPerson.RegisterAddress" class="form-control" />
+                <span asp-validation-for="SecurityPerson.RegisterAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityPerson.GroupId" class="control-label"></label>
+                <select asp-for="SecurityPerson.GroupId" class="form-control" asp-items="ViewBag.GroupId"></select>
+                <span asp-validation-for="SecurityPerson.GroupId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityPerson.TownId" class="control-label"></label>
+                <select asp-for="SecurityPerson.TownId" class="form-control" asp-items="ViewBag.TownId"></select>
+                <span asp-validation-for="SecurityPerson.TownId" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="SecurityPerson.Id" />
+            <div class="form-group">
+                <label asp-for="SecurityPerson.VersionNumber" class="control-label"></label>
+                <input asp-for="SecurityPerson.VersionNumber" class="form-control" />
+                <span asp-validation-for="SecurityPerson.VersionNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityPerson.Metadata" class="control-label"></label>
+                <input asp-for="SecurityPerson.Metadata" class="form-control" />
+                <span asp-validation-for="SecurityPerson.Metadata" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityPerson.Name" class="control-label"></label>
+                <input asp-for="SecurityPerson.Name" class="form-control" />
+                <span asp-validation-for="SecurityPerson.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityPerson.CreationDate" class="control-label"></label>
+                <input asp-for="SecurityPerson.CreationDate" class="form-control" />
+                <span asp-validation-for="SecurityPerson.CreationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityPerson.ModificationDate" class="control-label"></label>
+                <input asp-for="SecurityPerson.ModificationDate" class="form-control" />
+                <span asp-validation-for="SecurityPerson.ModificationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityPerson.CreateBy" class="control-label"></label>
+                <input asp-for="SecurityPerson.CreateBy" class="form-control" />
+                <span asp-validation-for="SecurityPerson.CreateBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityPerson.ModifyBy" class="control-label"></label>
+                <input asp-for="SecurityPerson.ModifyBy" class="form-control" />
+                <span asp-validation-for="SecurityPerson.ModifyBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityPerson.Status" class="control-label"></label>
+                <select asp-for="SecurityPerson.Status" class="form-control"></select>
+                <span asp-validation-for="SecurityPerson.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

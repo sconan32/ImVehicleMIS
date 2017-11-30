@@ -5,21 +5,32 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a asp-page="/Account/Manage/Index" title="Manage"> @UserManager.GetUserName(User)</a>
-            </li>
-            <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">登入</button>
-            </li>
-        </ul>
-    </form>
+
+    <div class="pull-right">
+        <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+            <div class="header_c_text">
+                <h5>当前用户</h5>
+                <h4><a asp-page="/Account/Manage/Index" title="Manage"> @( UserManager.GetUserName(User))</a></h4>
+            </div>
+            <div class="header_c_text">
+                <button type="submit" class="btn btn-link navbar-btn navbar-link">注销</button>
+            </div>
+        </form>
+    </div>
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li><a asp-page="/Account/Register">注册</a></li>
-        <li><a asp-page="/Account/Login">登录</a></li>
-    </ul>
+
+    <div class="pull-right">
+
+        <div class="header_c_text">
+
+            <h4><a asp-page="/Account/Register">注册</a></h4>
+        </div>
+        <div class="header_c_text">
+            <a asp-page="/Account/Login">登录</a>
+        </div>
+
+    </div>
+
 }

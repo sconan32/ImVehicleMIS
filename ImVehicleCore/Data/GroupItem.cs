@@ -32,7 +32,7 @@ namespace ImVehicleCore.Data
 
         public virtual List<DriverItem> Drivers { get; set; }
 
-        public virtual List<UserFile> UserFiles { get; set; }
+        public virtual List<UserFileItem> UserFiles { get; set; }
 
         public long? TownId { get; set; }
 

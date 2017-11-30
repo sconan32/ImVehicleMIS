@@ -9,22 +9,29 @@ using ImVehicleCore.Data;
 using ImVehicleCore.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.Driver
 {
     public class IndexModel : PageModel
     {
         private readonly VehicleDbContext _dbContext;
-
-        public IndexModel(VehicleDbContext dbContext)
+        private readonly IAuthorizationService _authorizationService;
+        public IndexModel(VehicleDbContext dbContext, IAuthorizationService authorizationService)
         {
             _dbContext = dbContext;
+            _authorizationService = authorizationService;
         }
 
         public List<DriverListViewModel> Drivers { get; set; }
 
 
-      
+        public async Task<bool> CanEdit()
+        {
+            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireTownManagerRole");
+            var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
+            return (await tm).Succeeded || (await admin).Succeeded;
+        }
 
         public async Task OnGetAsync()
         {

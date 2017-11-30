@@ -148,8 +148,11 @@
                         </thead>
                         <tbody>
                             @foreach (var item in Model.TownItem.Groups)
-            {
-                                <tr>
+                            {
+
+                                <tr @((item.InvalidCount > 0) ? "class=bg-danger" : "class=")>
+
+
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Code)
                                     </td>

@@ -3,88 +3,105 @@
 @{
     ViewData["Title"] = "全部驾驶员 列表";
 }
+<section class="banner_area">
+    <div class="container">
+        <div class="pull-left">
+            <h3>全部安全单位 列表</h3>
+        </div>
+        <div class="pull-right">
+            <a asp-page="/Index">主页</a>&gt;
+            <a asp-page="/Driver/Index">驾驶员</a>
+        </div>
+    </div>
+</section>
+<section class="main_feature_area">
+    <div class="container">
 
-<h2>全部驾驶员 列表</h2>
-<hr/>
-<p>
-    <a asp-page="Create">新建驾驶员</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Drivers[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Drivers[0].Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Drivers[0].IdCardNumber)
-            </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Drivers[0].LicenseType)
-                </th>
-              
-                <th>
-                    @Html.DisplayNameFor(model => model.Drivers[0].License)
-                </th>
-             
-              
-               
-                
-                <th>
-                    @Html.DisplayNameFor(model => model.Drivers[0].LicenseIssue)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Drivers[0].ValidYears)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Drivers[0].VehiclesRegistered)
-                </th>
-            
-            <th>
-                @Html.DisplayNameFor(model => model.Drivers[0].Tel)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Drivers) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdCardNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LicenseType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.License)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LicenseIssue)
-            </td>
+        <p>
+            @if (await Model.CanEdit())
+            {
+                <a class="btn btn-new-item" asp-page="Create"> <span class="glyphicon glyphicon-plus"></span> 创建新驾驶员</a>
+            }
+        </p>
+        <hr />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Drivers[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Drivers[0].Gender)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Drivers[0].IdCardNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Drivers[0].LicenseType)
+                    </th>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.ValidYears)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VehiclesRegistered)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tel)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">编辑</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">查看详情</a> 
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Drivers[0].License)
+                    </th>
 
+
+
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Drivers[0].LicenseIssue)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Drivers[0].ValidYears)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Drivers[0].VehiclesRegistered)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Drivers[0].Tel)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Drivers)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Gender)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdCardNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LicenseType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.License)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LicenseIssue)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ValidYears)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VehiclesRegistered)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tel)
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.Id">编辑</a> |
+                            <a asp-page="./Details" asp-route-id="@item.Id">查看详情</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    </section>

@@ -11,6 +11,15 @@ namespace ImVehicleCore.Data
     public class VehicleUser : IdentityUser<string>
     {
 
+        public string RealName { get; set; }
+
+        public string Serial { get; set; }
+
+        public string Depart { get; set; }
+
+
+       
+
         public long? TownId { get; set; }
 
         [ForeignKey("TownId")]

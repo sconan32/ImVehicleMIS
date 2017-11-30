@@ -140,7 +140,7 @@ namespace Web.Pages.Group
             group.TownId = townId;
             group.PhotoMain = mainPhotoS?.ToArray() ?? group.PhotoMain;
             group.PhotoWarranty = warPhotoS?.ToArray() ?? group.PhotoWarranty;
-            group.PhotoSecurity = warPhotoS?.ToArray() ?? group.PhotoSecurity;
+            group.PhotoSecurity = secPhotoS?.ToArray() ?? group.PhotoSecurity;
             group.Code = GroupItem.Code;
             group.ChiefTitle = GroupItem.ChiefTitle;
             group.Comment = GroupItem.Comment;

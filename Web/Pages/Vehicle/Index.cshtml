@@ -4,101 +4,133 @@
 @{
     ViewData["Title"] = "全部车辆 列表";
 }
+<section class="banner_area">
+    <div class="container">
+        <div class="pull-left">
+            <h3>全部车辆 列表</h3>
+        </div>
+        <div class="pull-right">
+            <a asp-page="/Index">主页</a>&gt;
+            <a asp-page="/Vehicle/Index">车辆</a>
+        </div>
+    </div>
+</section>
+<section class="main_feature_area">
+    <div class="container">
 
-<h2>全部车辆 列表</h2>
+        <p>
+            @if (await Model.CanEdit())
+            {
+                <a class="btn btn-new-item" asp-page="Create"> <span class="glyphicon glyphicon-plus"></span> 创建新车辆</a>
+            }
+        </p>
+        <hr />
 
-<hr />
-<p>
-    <a asp-page="Create">创建新车辆</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Vehicles[0].TownName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Vehicles[0].GroupName)
-            </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Vehicles[0].License)
-                </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Vehicles[0].Type)
-            </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Vehicles[0].Brand)
-                </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Vehicles[0].Name)
-            </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Vehicles[0].Color)
-                </th>
-              
-                <th>
-                    @Html.DisplayNameFor(model => model.Vehicles[0].LastRegisterDate)
-                </th>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].TownName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].GroupName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].License)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].Brand)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].Color)
+                    </th>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Vehicles[0].DriverName)
-                </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].LastRegisterDate)
+                    </th>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Vehicles[0].DriverTel)
-                </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].DriverName)
+                    </th>
 
-              
-         
-           
-                
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Vehicles) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TownName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GroupName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.License)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Brand)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].DriverTel)
+                    </th>
 
 
-            <td>
-                @Html.DisplayFor(modelItem => item.LastRegisterDate)
-            </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.DriverName)
-            </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.DriverTel)
-            </td>
-         
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">编辑</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">查看详情</a> 
 
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Vehicles)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TownName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GroupName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.License)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Brand)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Color)
+                        </td>
+
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastRegisterDate)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DriverName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DriverTel)
+                        </td>
+
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>
+                                @if (await Model.CanEdit())
+                                {
+                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">向下弹出</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a asp-page="./Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a asp-page="./Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                        <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+
+                                    </ul>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

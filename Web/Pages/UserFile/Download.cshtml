@@ -1,0 +1,103 @@
+﻿@page
+@model Web.Pages.UserFile.DownloadModel
+
+@{
+    ViewData["Title"] = "Download";
+}
+
+<h2>Download</h2>
+
+<h4>UserFileItem</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserFileItem.Size" class="control-label"></label>
+                <input asp-for="UserFileItem.Size" class="form-control" />
+                <span asp-validation-for="UserFileItem.Size" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserFileItem.ServerPath" class="control-label"></label>
+                <input asp-for="UserFileItem.ServerPath" class="form-control" />
+                <span asp-validation-for="UserFileItem.ServerPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserFileItem.ClientPath" class="control-label"></label>
+                <input asp-for="UserFileItem.ClientPath" class="form-control" />
+                <span asp-validation-for="UserFileItem.ClientPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserFileItem.Type" class="control-label"></label>
+                <input asp-for="UserFileItem.Type" class="form-control" />
+                <span asp-validation-for="UserFileItem.Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserFileItem.FileName" class="control-label"></label>
+                <input asp-for="UserFileItem.FileName" class="form-control" />
+                <span asp-validation-for="UserFileItem.FileName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserFileItem.DownloadCount" class="control-label"></label>
+                <input asp-for="UserFileItem.DownloadCount" class="form-control" />
+                <span asp-validation-for="UserFileItem.DownloadCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserFileItem.GroupId" class="control-label"></label>
+                <select asp-for="UserFileItem.GroupId" class ="form-control" asp-items="ViewBag.GroupId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserFileItem.VersionNumber" class="control-label"></label>
+                <input asp-for="UserFileItem.VersionNumber" class="form-control" />
+                <span asp-validation-for="UserFileItem.VersionNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserFileItem.Metadata" class="control-label"></label>
+                <input asp-for="UserFileItem.Metadata" class="form-control" />
+                <span asp-validation-for="UserFileItem.Metadata" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserFileItem.Name" class="control-label"></label>
+                <input asp-for="UserFileItem.Name" class="form-control" />
+                <span asp-validation-for="UserFileItem.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserFileItem.CreationDate" class="control-label"></label>
+                <input asp-for="UserFileItem.CreationDate" class="form-control" />
+                <span asp-validation-for="UserFileItem.CreationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserFileItem.ModificationDate" class="control-label"></label>
+                <input asp-for="UserFileItem.ModificationDate" class="form-control" />
+                <span asp-validation-for="UserFileItem.ModificationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserFileItem.CreateBy" class="control-label"></label>
+                <input asp-for="UserFileItem.CreateBy" class="form-control" />
+                <span asp-validation-for="UserFileItem.CreateBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserFileItem.ModifyBy" class="control-label"></label>
+                <input asp-for="UserFileItem.ModifyBy" class="form-control" />
+                <span asp-validation-for="UserFileItem.ModifyBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserFileItem.Status" class="control-label"></label>
+                <select asp-for="UserFileItem.Status" class="form-control"></select>
+                <span asp-validation-for="UserFileItem.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -39,7 +39,11 @@ namespace Web.Pages.Group
             {
                 return NotFound();
             }
-            var group = await _context.Groups.Include(t => t.Vehicles).SingleOrDefaultAsync(m => m.Id == id);
+            var group = await _context.Groups
+                .Include(t => t.Vehicles)
+                .Include(t => t.Drivers).ThenInclude(d => d.Vehicles)
+                .Include(t => t.UserFiles)
+                .SingleOrDefaultAsync(m => m.Id == id);
             GroupItem = new GroupDetailViewModel()
             {
                 Id = group.Id,
@@ -68,6 +72,31 @@ namespace Web.Pages.Group
                     License = t.LicenceNumber,
                     LastRegisterDate = t.RegisterDate,
                     Type = t.Type,
+                }).ToList(),
+                Drivers = group.Drivers.Select(t => new DriverListViewModel()
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    IdCardNumber = t.IdCardNumber,
+                    License = t.LicenseNumber,
+                    LicenseType = t.LicenseType,
+                    LicenseIssue = t.LicenseIssueDate,
+                    ValidYears = t.LicenseValidYears,
+                    Gender = t.Gender,
+                    VehiclesRegistered = t.Vehicles?.Count ?? 0,
+                    Tel = t.Tel,
+
+                }).ToList(),
+
+                UserFiles = group.UserFiles.Select(t => new UserFileListViewModel()
+                {
+                    Id = t.Id,
+                    FileName = t.FileName,
+                    ServerPath = t.ServerPath,
+                    GroupName = group.Name,
+                    Name = t.Name,
+                    Size=t.Size,
+
                 }).ToList(),
             };
 

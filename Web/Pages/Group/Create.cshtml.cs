@@ -51,6 +51,9 @@ namespace Web.Pages.Group
         {
             if (!ModelState.IsValid)
             {
+                TownList = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User))
+                .Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name, })
+                .ToList();
                 return Page();
             }
             var user = await _userManager.GetUserAsync(HttpContext.User);

@@ -42,5 +42,9 @@ namespace Web.ViewModels
 
         [Display(Name = "纳税人识别号")]
         public string License { get; set; }
+
+     
+
+
     }
 }

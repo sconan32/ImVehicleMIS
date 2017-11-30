@@ -11,9 +11,10 @@ using System;
 namespace ImVehicleCore.Data.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171130154657_userfile0012")]
+    partial class userfile0012
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -442,8 +443,6 @@ namespace ImVehicleCore.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("Depart");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -465,11 +464,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<string>("RealName");
-
                     b.Property<string>("SecurityStamp");
-
-                    b.Property<string>("Serial");
 
                     b.Property<long?>("TownId");
 

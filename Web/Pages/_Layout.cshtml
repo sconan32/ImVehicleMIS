@@ -25,17 +25,13 @@
                     <img src="~/img/logo.png" alt="">
                    
                 </div>
-                <div class="pull-right">
+              
                  
-                    <div class="header_c_text">
-                        <h5>系统运行</h5>
-                        <h4>Mon - Fri 10 to 5pm</h4>
-                    </div>
-                    <div class="header_c_text">
-                        @await Html.PartialAsync("_LoginPartial")
-                    </div>
                    
-                </div>
+                        @await Html.PartialAsync("_LoginPartial")
+                   
+                   
+              
             </div>
         </div>
         <div class="main_menu_area">
@@ -54,10 +50,10 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li><a asp-page="/Index">主页</a></li>
-                            <li><a asp-page="/Town/Index">街道 / 镇</a></li>
+                            <li><a asp-page="/Town/Index">街道</a></li>
                             <li><a asp-page="/Group/Index">安全单位</a></li>
                             <li><a asp-page="/Vehicle/Index">车辆</a></li>
-                            <li><a asp-page="/Driver/Index">司机</a></li>
+                            <li><a asp-page="/Driver/Index">驾驶员</a></li>
                             <li><a asp-page="/News/Index">新闻</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">

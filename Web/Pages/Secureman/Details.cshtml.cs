@@ -6,21 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
-using Microsoft.AspNetCore.Authorization;
 
-namespace Web.Pages.Vehicle
+namespace Web.Pages.Secureman
 {
     public class DetailsModel : PageModel
     {
         private readonly ImVehicleCore.Data.VehicleDbContext _context;
-        private readonly IAuthorizationService _authorizationService;
-        public DetailsModel(ImVehicleCore.Data.VehicleDbContext context, IAuthorizationService authorizationService)
+
+        public DetailsModel(ImVehicleCore.Data.VehicleDbContext context)
         {
             _context = context;
-            _authorizationService = authorizationService;
         }
 
-        public VehicleItem VehicleItem { get; set; }
+        public SecurityPerson SecurityPerson { get; set; }
 
         public async Task<IActionResult> OnGetAsync(long? id)
         {
@@ -29,9 +27,11 @@ namespace Web.Pages.Vehicle
                 return NotFound();
             }
 
-            VehicleItem = await _context.Vehicles.SingleOrDefaultAsync(m => m.Id == id);
+            SecurityPerson = await _context.SecurityPersons
+                .Include(s => s.Group)
+                .Include(s => s.Town).SingleOrDefaultAsync(m => m.Id == id);
 
-            if (VehicleItem == null)
+            if (SecurityPerson == null)
             {
                 return NotFound();
             }
