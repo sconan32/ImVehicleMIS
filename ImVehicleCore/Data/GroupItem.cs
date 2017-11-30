@@ -13,24 +13,24 @@ namespace ImVehicleCore.Data
 
 
 
-        [Display(Name = "编码")]
-    
+        [Display(Name = "编码")]    
         public string Code { get; set; }
 
 
-        [Display(Name = "办公地址")]
-    
+        [Display(Name = "办公地址")]    
         public string Address { get; set; }
         [Display(Name = "注册地址")]
         public string RegisterAddress { get; set; }
         [Display(Name = "纳税人识别号")]
         public string License { get; set; }
-        [Display(Name = "类型")]
+        [Display(Name = "单位类型")]
         public string Type { get; set; }
 
         public virtual List<SecurityPerson> SecurityPersons { get; set; }
 
         public virtual List<VehicleItem> Vehicles { get; set; }
+
+        public virtual List<DriverItem> Drivers { get; set; }
 
         public virtual List<UserFile> UserFiles { get; set; }
 

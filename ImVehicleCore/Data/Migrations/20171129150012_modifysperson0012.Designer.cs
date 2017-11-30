@@ -11,9 +11,10 @@ using System;
 namespace ImVehicleCore.Data.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171129150012_modifysperson0012")]
+    partial class modifysperson0012
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

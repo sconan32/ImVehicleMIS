@@ -13,10 +13,10 @@ namespace Web.Pages.Towns
 {
     public class IndexModel : PageModel
     {
-        private readonly ITownRepository _townRepository;
+        private readonly ITownService _townRepository;
 
         IGroupRepository _groupService;
-        public IndexModel(ITownRepository townRepository, IGroupRepository groupService)
+        public IndexModel(ITownService townRepository, IGroupRepository groupService)
         {
             _townRepository = townRepository;
             _groupService = groupService;
@@ -35,11 +35,10 @@ namespace Web.Pages.Towns
             [Display(Name = "安全单位数量")]
             public int GroupCount { get; set; }
 
-
         }
         public async Task OnGetAsync()
         {
-            var towns = await _townRepository.ListAllWithGroupAsync();
+            var towns = await _townRepository.GetAvailableTownsEagerAsync(HttpContext.User);
 
             TownList =  towns.OrderBy(t=>t.Code).Select(  t =>
            new TownItemListViewModel()
@@ -48,6 +47,7 @@ namespace Web.Pages.Towns
                Code=t.Code,
                Name = t.Name,
                GroupCount = t.Groups.Count,
+
            }).ToList();
         }
     }

@@ -19,78 +19,77 @@
         </div>
     </div>
 </section>
-<section class="main_feature_area">
+<section class="contact_form_area2">
     <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <section>
-                    <form method="post">
-                        <h4>使用系统中的用户登录</h4>
-                        <hr />
-                        <div asp-validation-summary="All" class="text-danger"></div>
-                        <div class="form-group">
-                            <label>用户名</label>
-                            <input asp-for="Input.UserName" class="form-control" />
-                            <span asp-validation-for="Input.UserName" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label>密码</label>
-                            <input asp-for="Input.Password" class="form-control" />
-                            <span asp-validation-for="Input.Password" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    记住我
-                                    <input asp-for="Input.RememberMe" />
-                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-default"> 登录 </button>
-                        </div>
-                        <div class="form-group">
-                            <p>
-                                <a asp-page="./ForgotPassword">忘记密码？</a>
-                            </p>
-                            <p>
-                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">注册新用户</a>
-                            </p>
-                        </div>
-                    </form>
-                </section>
-            </div>
-            <div class="col-md-6 col-md-offset-2">
-                @*<section>
-                        <h4>Use another service to log in.</h4>
-                        <hr />
-                        @{
-                            if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                            {
-                                <div>
-                                    <p>
-                                        There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                                        for details on setting up this ASP.NET application to support logging in via external services.
-                                    </p>
-                                </div>
-                            }
-                            else
-                            {
-                                <form asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                                    <div>
+        <div class="col-xs-8">
+
+            <h4>最近新闻</h4>
+            <hr />
+
+
+            @if (Model.NewsList != null && Model.NewsList.Any())
+            {
+                @foreach (var item in Model.NewsList)
+                {
+                    <article class=" row">
+                        <section class="col-xs-9"><a class="esh-orders-link" asp-page="Detail" asp-route-orderId="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
+                        <section class="col-xs-2"> @Html.DisplayFor(modelItem => item.Date)</section>
+                    </article>
+                }
+            }
+        </div>
+
+        <div class="col-xs-4">
+
+            <div class="row feature_row">
+                <div class="feature_slider_inner owl-carousel">
+                    <div class="item">
+                        <div class="feature_s_item">
+                            <br />
+                            <h4>用户登录</h4>
+                            <section>
+                                <form class="form-horizontal" method="post"  >
+
+                                    <hr />
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                    <div class="form-group ">
+                                        <label class="col-sm-3 control-label">用户名</label>
+                                        <div class="col-sm-9">
+                                            <input asp-for="Input.UserName" class="form-control" />
+                                            <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group " style="margin-top:20px;">
+                                        <label class="col-sm-3 control-label">密码</label>
+                                        <div class="col-sm-9">
+                                            <input asp-for="Input.Password" class="form-control" />
+                                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group " style="margin-top:20px;">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input asp-for="Input.RememberMe" />
+                                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-top:20px;">
+                                        <button type="submit"  class="form-control submit_blue"> 登录 </button>
+                                    </div>
+                                    <div class="form-group" style="margin-top:20px;">
                                         <p>
-                                            @foreach (var provider in Model.ExternalLogins)
-                                            {
-                                                <button type="submit" class="btn btn-default" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                            }
+                                            <a asp-page="./ForgotPassword">忘记密码？</a>
                                         </p>
+
                                     </div>
                                 </form>
-                            }
-                        }
-                    </section>*@
+                            </section>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 </section>

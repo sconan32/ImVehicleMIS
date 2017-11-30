@@ -1,39 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
 using ImVehicleCore.Data;
 using ImVehicleCore.Interfaces;
 using ImVehicleCore.Specifications;
+using Microsoft.AspNetCore.Identity;
 
 namespace ImVehicleCore.Data
 {
     public class TownService : ITownService
     {
-        private IAsyncRepository<TownItem> _townRepository;
+        private ITownRepository _townRepository;
         private IGroupRepository _groupService;
+        private UserManager<VehicleUser> _userManager;
+        private RoleManager<VehicleRole> _roleManager;
 
-        public TownService(IAsyncRepository<TownItem> townRepository, IGroupRepository groupService)
+        public TownService(
+            ITownRepository townRepository,
+            IGroupRepository groupService,
+            UserManager<VehicleUser> userManager,
+            RoleManager<VehicleRole> roleManager)
         {
             this._townRepository = townRepository;
             this._groupService = groupService;
+            this._userManager = userManager;
+            this._roleManager = roleManager;
         }
+        
 
-        public async Task<TownItem> GetTownByUser(string userName)
+
+        public async Task<List<TownItem>> GetAvailableTownsEagerAsync(ClaimsPrincipal user)
         {
-            Guard.Against.NullOrEmpty(userName, nameof(userName));
-            var list = await _townRepository.ListAsync(new TownWithUserSpecification(userName));
-            if (list.Any())
-            {
-                var item = list[0];
 
-                item.Groups = await _groupService.GetGroupsOfTown(item.Id);
-                return item;
+           
+            var vUser = await _userManager.GetUserAsync(user);
+            if(vUser==null)
+            {
+                return new List<TownItem>();
             }
-            return null;
+            if( await _userManager.IsInRoleAsync(vUser,"TownManager"))
+            {
+                var townId = vUser.TownId;
+                if (townId != null)
+                {
+                    return new List<TownItem>() { await _townRepository.GetByIdEagerAsync(townId.Value) };
+                }
+            }
+            else
+            {
+                return await _townRepository.ListAllEagerAsync();
+            }
+            return new List<TownItem>();
 
         }
+
+        
     }
 }

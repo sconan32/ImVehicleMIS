@@ -7,15 +7,15 @@ using ImVehicleCore.Interfaces;
 
 namespace ImVehicleCore.Data
 {
-    public class ImVehicleService : IVihecleService
+    public class VehicleService : IVihecleService
     {
         private readonly IAsyncRepository<VehicleItem> _vehicleRespository;
         private readonly IUriComposer _uriComposer;
-        private readonly IAppLogger<ImVehicleService> _logger;
+        private readonly IAppLogger<VehicleService> _logger;
 
-        public ImVehicleService(IAsyncRepository<VehicleItem> vehicleRespository,         
+        public VehicleService(IAsyncRepository<VehicleItem> vehicleRespository,         
           IUriComposer uriComposer,
-          IAppLogger<ImVehicleService> logger)
+          IAppLogger<VehicleService> logger)
         {
             _vehicleRespository = vehicleRespository;
             _uriComposer = uriComposer;

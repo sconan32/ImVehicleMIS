@@ -9,7 +9,7 @@ using System.Text;
 
 namespace ImVehicleCore.Data
 {
-    public class VehicleRole : IdentityRole
+    public class VehicleRole : IdentityRole<string>
     {
         public bool Visible { get; set; }
 

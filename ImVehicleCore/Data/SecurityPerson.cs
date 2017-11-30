@@ -16,6 +16,16 @@ namespace ImVehicleCore.Data
         [Display(Name = "电话")]
         public string Tel { get; set; }
 
+
+        [Display(Name = "身份证号")]
+        public string IdCardNum { get; set; }
+
+        [Display(Name = "职务")]
+        public string Title { get; set; }
+
+        [Display(Name = "单位")]
+        public string Company { get; set; }
+
         [Display(Name = "住址")]
         public string Address { get; set; }
 
@@ -23,10 +33,17 @@ namespace ImVehicleCore.Data
         public string RegisterAddress { get; set; }
 
 
-        public long GroupId { get; set; }
+
+        public long? GroupId { get; set; }
 
         [ForeignKey("GroupId")]
         public virtual GroupItem Group { get; set; }
+
+
+        public long? TownId { get; set; }
+
+        [ForeignKey("TownId")]
+        public virtual TownItem Town { get; set; }
 
     }
 }

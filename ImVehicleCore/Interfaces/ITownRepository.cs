@@ -11,5 +11,9 @@ namespace ImVehicleCore.Interfaces
         Task<List<TownItem>> ListAllWithGroupAsync();
 
          Task<TownItem> GetByIdWithGroupsAndVehiclesAsync(long id);
+
+        Task<List<TownItem>> ListAllEagerAsync();
+
+        Task<TownItem> GetByIdEagerAsync(long id);
     }
 }

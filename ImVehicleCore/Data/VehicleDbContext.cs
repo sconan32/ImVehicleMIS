@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ImVehicleCore.Data
 {
-    public class VehicleDbContext : IdentityDbContext<VehicleUser>
+    public class VehicleDbContext : IdentityDbContext<VehicleUser,VehicleRole,string>
     {
         public VehicleDbContext(DbContextOptions<VehicleDbContext> options)
             : base(options)
@@ -15,7 +15,7 @@ namespace ImVehicleCore.Data
 
         }
 
-        public DbSet<VehicleRole> Roles { get; set; }
+      
         public DbSet<UserFile> Files { get; set; }
 
         public DbSet<DistrictItem> Districts { get; set; }

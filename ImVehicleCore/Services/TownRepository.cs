@@ -38,7 +38,33 @@ namespace ImVehicleCore.Data
 
             return _dbContext.Towns
                 .Include(t => t.Groups)
-                    .ThenInclude(g=>g.Vehicles)
+                    .ThenInclude(g => g.Vehicles)
+                .FirstOrDefaultAsync(t => t.Id == id);
+        }
+
+        public Task<List<TownItem>> ListAllEagerAsync()
+        {
+
+            return _dbContext.Towns
+                .Include(t => t.Groups)
+                    .ThenInclude(u => u.Vehicles)
+                .Include(t => t.Groups).
+                    ThenInclude(u => u.Drivers)
+                .Include(t => t.Users)
+                 .Include(t => t.Drivers)
+                    .ThenInclude(d => d.Vehicles)
+                .ToListAsync();
+        }
+
+        public Task<TownItem> GetByIdEagerAsync(long id)
+        {
+            return _dbContext.Towns.Include(t => t.Groups)
+                    .ThenInclude(u => u.Vehicles)
+                .Include(t => t.Groups).
+                    ThenInclude(u => u.Drivers)
+                .Include(t => t.Users)
+                .Include(t=>t.Drivers)
+                    .ThenInclude(d=>d.Vehicles)
                 .FirstOrDefaultAsync(t => t.Id == id);
         }
     }

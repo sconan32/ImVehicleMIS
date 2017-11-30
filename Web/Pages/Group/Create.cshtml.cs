@@ -11,49 +11,75 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using ImVehicleCore.Interfaces;
+using Web.ViewModels;
 
 namespace Web.Pages.Group
 {
     public class CreateModel : PageModel
     {
         private readonly ImVehicleCore.Data.VehicleDbContext _context;
-        private readonly SignInManager<VehicleUser> _signInManager;
+        private readonly UserManager<VehicleUser> _userManager;
+        private readonly ITownService _townService;
+        private readonly IAuthorizationService _authorizationService;
 
-        public CreateModel(ImVehicleCore.Data.VehicleDbContext context,SignInManager<VehicleUser> signInManager)
+        public CreateModel(ImVehicleCore.Data.VehicleDbContext context, UserManager<VehicleUser> signInManager, IAuthorizationService authorizationService, ITownService townService)
         {
             _context = context;
-            _signInManager = signInManager;
+            _userManager = signInManager;
+            _authorizationService = authorizationService;
+            _townService = townService;
         }
-       
-        [Authorize]
-        public IActionResult OnGet()
-        {                      
-                return Page();            
-          
+
+        [Authorize(Roles = "TownManager,Admins")]
+        public async Task<IActionResult> OnGetAsync()
+        {
+
+            TownList = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User))
+                .Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name, })
+                .ToList();
+            return Page();
+
         }
+        public List<SelectListItem> TownList { get; set; }
 
         [BindProperty]
         public GroupViewModel GroupItem { get; set; }
 
-        [Authorize]
+        [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnPostAsync()
-        {           
+        {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            var user =await _signInManager.UserManager.GetUserAsync(HttpContext.User);
-          
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+
+            MemoryStream warPhotoS = new MemoryStream();
+            MemoryStream secPhotoS = new MemoryStream();
+
 
             MemoryStream mainPhotoS = new MemoryStream();
-            MemoryStream warPhotoS = new MemoryStream();
-            MemoryStream  secPhotoS =new MemoryStream();
-          
-            await GroupItem.PhotoMain.CopyToAsync(mainPhotoS);
-            await GroupItem.PhotoSecurity.CopyToAsync(secPhotoS);
-            await GroupItem.PhotoWarranty.CopyToAsync(warPhotoS);
+            var acceptableExt = new[] { ".png", ".bmp", ".jpg", ".jpeg", ".tif", };
+            if (acceptableExt.Contains(Path.GetExtension(GroupItem.PhotoMain?.FileName)?.ToLower()))
+            {
+                await GroupItem.PhotoMain.CopyToAsync(mainPhotoS);
+            }
+
+            if (acceptableExt.Contains(Path.GetExtension(GroupItem.PhotoSecurity?.FileName)?.ToLower()))
+            {
+                await GroupItem.PhotoSecurity.CopyToAsync(secPhotoS);
+            }
+            if (acceptableExt.Contains(Path.GetExtension(GroupItem.PhotoWarranty?.FileName)?.ToLower()))
+            {
+                await GroupItem.PhotoWarranty.CopyToAsync(warPhotoS);
+            }
+
+            var townId = await _userManager.IsInRoleAsync(user,"TownManager") ? user.TownId : GroupItem.TownId;
             var group = new GroupItem()
             {
+
                 Name = GroupItem.Name,
                 Address = GroupItem.Address,
                 RegisterAddress = GroupItem.RegisterAddress,
@@ -61,10 +87,18 @@ namespace Web.Pages.Group
                 ChiefName = GroupItem.ChiefName,
                 ChiefTel = GroupItem.ChiefTel,
                 Type = GroupItem.Type,
-                TownId = user?.TownId,
+                TownId = townId,
                 PhotoMain = mainPhotoS.ToArray(),
                 PhotoWarranty = warPhotoS.ToArray(),
                 PhotoSecurity = warPhotoS.ToArray(),
+                Code = GroupItem.Code,
+                ChiefTitle = GroupItem.ChiefTitle,
+                Comment = GroupItem.Comment,
+
+
+                CreationDate = DateTime.Now,
+                CreateBy = user.Id,
+                Status = StatusType.OK,
             };
 
             _context.Groups.Add(group);
@@ -72,33 +106,12 @@ namespace Web.Pages.Group
 
             return RedirectToPage("./Index");
         }
-
-        public class GroupViewModel
+        public async Task<bool> IsAdmin()
         {
-            [Display(Name = "名称")]
-            public string Name { get; set; }
-            [Display(Name = "办公地址")]
-            public string Address { get; set; }
-            [Display(Name = "注册地址")]
-            public string RegisterAddress { get; set; }
-            [Display(Name = "注册号")]
-            public string License { get; set; }
-
-            [Display(Name = "负责人")]
-            public string ChiefName { get; set; }
-            [Display(Name = "负责人电话")]
-            public string ChiefTel { get; set; }
-
-            [Display(Name="单位类型")]
-            public string Type { get; set; }
-
-            [Display(Name = "企业图像")]
-            public IFormFile PhotoMain { get; set; }
-            [Display(Name = "资质凭证")]
-            public IFormFile PhotoWarranty { get; set; }
-            [Display(Name = "安全生产凭证")]
-            public IFormFile PhotoSecurity { get; set; }
+            var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
+            return (await admin).Succeeded;
         }
+      
 
 
     }

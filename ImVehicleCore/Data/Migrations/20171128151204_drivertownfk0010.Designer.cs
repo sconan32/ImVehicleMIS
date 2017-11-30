@@ -11,9 +11,10 @@ using System;
 namespace ImVehicleCore.Data.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171128151204_drivertownfk0010")]
+    partial class drivertownfk0010
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +28,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Address");
 
-                    b.Property<string>("CreateBy");
+                    b.Property<long>("CreateBy");
 
                     b.Property<DateTime>("CreationDate");
 
@@ -35,7 +36,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<DateTime>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<long>("ModifyBy");
 
                     b.Property<string>("Name");
 
@@ -53,7 +54,7 @@ namespace ImVehicleCore.Data.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CreateBy");
+                    b.Property<long>("CreateBy");
 
                     b.Property<DateTime>("CreationDate");
 
@@ -79,7 +80,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<DateTime>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<long>("ModifyBy");
 
                     b.Property<string>("Name");
 
@@ -133,7 +134,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Comment");
 
-                    b.Property<string>("CreateBy");
+                    b.Property<long>("CreateBy");
 
                     b.Property<DateTime>("CreationDate");
 
@@ -143,7 +144,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<DateTime>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<long>("ModifyBy");
 
                     b.Property<string>("Name");
 
@@ -177,7 +178,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<string>("CreateBy");
+                    b.Property<long>("CreateBy");
 
                     b.Property<DateTime>("CreationDate");
 
@@ -191,7 +192,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<DateTime>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<long>("ModifyBy");
 
                     b.Property<string>("Name");
 
@@ -217,21 +218,17 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Address");
 
-                    b.Property<string>("Company");
-
-                    b.Property<string>("CreateBy");
+                    b.Property<long>("CreateBy");
 
                     b.Property<DateTime>("CreationDate");
 
-                    b.Property<long?>("GroupId");
-
-                    b.Property<string>("IdCardNum");
+                    b.Property<long>("GroupId");
 
                     b.Property<string>("Metadata");
 
                     b.Property<DateTime>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<long>("ModifyBy");
 
                     b.Property<string>("Name");
 
@@ -241,17 +238,11 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Tel");
 
-                    b.Property<string>("Title");
-
-                    b.Property<long?>("TownId");
-
                     b.Property<int>("VersionNumber");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GroupId");
-
-                    b.HasIndex("TownId");
 
                     b.ToTable("SecurityPersons");
                 });
@@ -265,7 +256,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<int>("Code");
 
-                    b.Property<string>("CreateBy");
+                    b.Property<long>("CreateBy");
 
                     b.Property<DateTime>("CreationDate");
 
@@ -275,7 +266,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<DateTime>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<long>("ModifyBy");
 
                     b.Property<string>("Name");
 
@@ -297,7 +288,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("ClientPath");
 
-                    b.Property<string>("CreateBy");
+                    b.Property<long>("CreateBy");
 
                     b.Property<DateTime>("CreationDate");
 
@@ -311,7 +302,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<DateTime>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<long>("ModifyBy");
 
                     b.Property<string>("Name");
 
@@ -343,7 +334,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Comment");
 
-                    b.Property<string>("CreateBy");
+                    b.Property<long>("CreateBy");
 
                     b.Property<DateTime>("CreationDate");
 
@@ -363,7 +354,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<DateTime>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<long>("ModifyBy");
 
                     b.Property<string>("Name");
 
@@ -591,11 +582,8 @@ namespace ImVehicleCore.Data.Migrations
                 {
                     b.HasOne("ImVehicleCore.Data.GroupItem", "Group")
                         .WithMany("SecurityPersons")
-                        .HasForeignKey("GroupId");
-
-                    b.HasOne("ImVehicleCore.Data.TownItem", "Town")
-                        .WithMany()
-                        .HasForeignKey("TownId");
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ImVehicleCore.Data.TownItem", b =>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ImVehicleCore.Data;
 using ImVehicleCore.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using static ImVehicleMIS.Pages.Account.LoginModel;
@@ -13,36 +14,37 @@ namespace ImVehicleMIS.Pages
 {
     public class IndexModel : PageModel
     {
-        IAsyncRepository<NewsItem> _newsRepisitory;
 
-        public IndexModel(IAsyncRepository<NewsItem> newsRepisitory)
+        private readonly UserManager<VehicleUser> _userManager;
+        public IndexModel( UserManager<VehicleUser> userManager)
         {
-            this._newsRepisitory = newsRepisitory;
+            this._userManager = userManager;
         }
-      public  InputModel Input { get; set; }
-        public List<NewsListView> NewsList { get; set; } = new List<NewsListView>();
-        public class NewsListView
+      
+       
+
+        public async Task<IActionResult> OnGetAsync()
         {
-            public long Id { get; set; }
 
-            public string Name { get; set; }
 
-            [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
-            public DateTime Date { get; set; }
-        }
-
-        public async Task OnGet()
-        {
-            var news = await _newsRepisitory.ListRangeAsync(0, 10);
-
-            NewsList = news
-                .Select(o => new NewsListView()
+            var claim = HttpContext.User;
+            if (claim.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(claim);
+                if (user != null)
                 {
-                    Id = o.Id,
-                    Name = o.Name,
-                    Date = o.PublishDate
+                    if (await _userManager.IsInRoleAsync(user, "TownManager"))
+                    {
+                        return RedirectToPage("/Town/Details",new { @id=user.TownId});
+                    }
+                    else
+                    {
+                        return RedirectToPage("/Town/Index");
+                    }
+                }
+            }
+            return RedirectToPage("/Account/Login");
 
-                }).ToList();
         }
     }
 }

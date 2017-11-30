@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using ImVehicleCore.Services;
 
 namespace ImVehicleMIS
 {
@@ -52,10 +53,12 @@ namespace ImVehicleMIS
                     options.Conventions.AuthorizePage("/Account/Logout");
                 });
 
-            //services.AddAuthentication(options =>
-            //{
-            //    options.AddPolicy("",);
-            //});
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireTownManagerRole", policy => policy.RequireRole("TownManager"));
+                options.AddPolicy("RequireAdminsRole", policy => policy.RequireRole("Admins"));
+
+            });
 
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
@@ -65,6 +68,7 @@ namespace ImVehicleMIS
             services.AddScoped<ITownRepository,TownRepository>();
             services.AddScoped<ITownService, TownService>();
             services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IGroupService, GroupService>();
             services.AddScoped<INewsService, NewsService>();
             // Register no-op EmailSender used by account confirmation and password reset during development
             // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713

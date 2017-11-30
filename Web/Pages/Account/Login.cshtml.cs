@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using ImVehicleCore.Data;
+using ImVehicleCore.Interfaces;
 
 namespace ImVehicleMIS.Pages.Account
 {
@@ -16,11 +17,13 @@ namespace ImVehicleMIS.Pages.Account
     {
         private readonly SignInManager<VehicleUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-
-        public LoginModel(SignInManager<VehicleUser> signInManager, ILogger<LoginModel> logger)
+        private readonly UserManager<VehicleUser> _userManager;
+        public LoginModel(SignInManager<VehicleUser> signInManager,UserManager<VehicleUser> userManager, IAsyncRepository<NewsItem> newsRepository, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
             _logger = logger;
+            _newsRepisitory = newsRepository;
         }
 
         [BindProperty]
@@ -28,7 +31,21 @@ namespace ImVehicleMIS.Pages.Account
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
+        public class NewsListView
+        {
+            public long Id { get; set; }
+
+            public string Name { get; set; }
+
+            [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+            public DateTime Date { get; set; }
+        }
+
+
         public string ReturnUrl { get; set; }
+
+        IAsyncRepository<NewsItem> _newsRepisitory;
+        public List<NewsListView> NewsList { get; set; } = new List<NewsListView>();
 
         [TempData]
         public string ErrorMessage { get; set; }
@@ -60,6 +77,18 @@ namespace ImVehicleMIS.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
+
+
+             var news = await _newsRepisitory.ListRangeAsync(0, 10);
+
+            NewsList = news
+                .Select(o => new NewsListView()
+                {
+                    Id = o.Id,
+                    Name = o.Name,
+                    Date = o.PublishDate
+
+                }).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -74,6 +103,7 @@ namespace ImVehicleMIS.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                   
                     return LocalRedirect(Url.GetLocalUrl(returnUrl));
                 }
                 if (result.RequiresTwoFactor)

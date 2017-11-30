@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
 using ImVehicleCore.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.Towns
 {
@@ -15,50 +17,26 @@ namespace Web.Pages.Towns
     {
 
         private readonly ITownRepository _townRepository;
+        private readonly IAuthorizationService _authorizationService;
 
         IGroupRepository _groupService;
-        public DetailsModel(ITownRepository townRepository, IGroupRepository groupService)
+        public DetailsModel(ITownRepository townRepository, IGroupRepository groupService,IAuthorizationService authorizationService)
         {
             _townRepository = townRepository;
             _groupService = groupService;
+            _authorizationService = authorizationService;
         }
-    
-        public TownItemDetailViewModel TownItem { get; set; }
 
-        public class TownItemDetailViewModel
+        public TownDetailViewModel TownItem { get; set; }
+
+
+        public async Task<bool> CanEdit()
         {
-            public long Id { get; set; }
-
-            [Display(Name="名称")]
-            public string Name { get; set; }
-            [Display(Name = "安全单位数量")]
-            public int GroupCount { get; set; }
-
-            public int VehicleCount { get; set; }
-
-            public int DriverCount { get; set; }
-            [Display(Name = "    其中：处于安全状态")]
-            public int ValidCount { get; set; }
-            [Display(Name = "        处于危险状态")]
-            public int InvalidCount { get; set; }
-
-            public List<GroupListViewModel> Groups { get; set; }
+            var tm=  _authorizationService.AuthorizeAsync(HttpContext.User, "RequireTownManagerRole");
+            var admin=  _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
+            return (await tm).Succeeded || (await admin).Succeeded;
         }
 
-        public class GroupListViewModel
-        {
-            public long Id { get; set; }
-            [Display(Name = "名称")]
-            public string Name { get; set; }
-            [Display(Name = "负责人")]
-            public string ChiefName { get; set; }
-            [Display(Name = "负责人电话")]
-            public string ChiefTel { get; set; }
-            [Display(Name = "注册车辆数")]
-            public int VehicleCount { get; set; }
-            [Display(Name = "过期车辆数")]
-            public int InvalidCount { get; set; }
-        }
 
         public async Task<IActionResult> OnGetAsync(long? id)
         {
@@ -66,8 +44,8 @@ namespace Web.Pages.Towns
             {
                 return NotFound();
             }
-            var town= await _townRepository.GetByIdWithGroupsAndVehiclesAsync(id.Value);
-            TownItem = new TownItemDetailViewModel()
+            var town = await _townRepository.GetByIdEagerAsync(id.Value);
+            TownItem = new TownDetailViewModel()
             {
                 Id = town.Id,
                 Name = town.Name,
@@ -77,11 +55,43 @@ namespace Web.Pages.Towns
                 Groups = town.Groups.Select(t => new GroupListViewModel()
                 {
                     Id = t.Id,
-                    Name=t.Name,
-                    ChiefName=t.ChiefName,
-                    ChiefTel=t.ChiefTel,
-                    VehicleCount=t.Vehicles.Count,
-                    InvalidCount=t.Vehicles.Count(v => v.RegisterDate.Date.AddYears(1) < DateTime.Now.Date)
+                    Name = t.Name,
+                    ChiefName = t.ChiefName,
+                    ChiefTel = t.ChiefTel,
+                    ChiefTitle = t.ChiefTitle,
+                    Address = t.Address,
+                    License = t.License,
+                    Type = t.Type,
+                    VehicleCount = t.Vehicles.Count,
+                    InvalidCount = t.Vehicles.Count(v => v.RegisterDate.Date.AddYears(1) < DateTime.Now.Date)
+                }).ToList(),
+                Drivers = town.Drivers.Select(t => new DriverListViewModel()
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    IdCardNumber = t.IdCardNumber,
+                    License = t.LicenseNumber,
+                    LicenseType = t.LicenseType,
+                    LicenseIssue = t.LicenseIssueDate,
+                    ValidYears = t.LicenseValidYears,
+                    Gender = t.Gender,
+                    VehiclesRegistered = t.Vehicles?.Count ?? 0,
+                    Tel = t.Tel,
+
+                }).ToList(),
+                Vehicles = town.Groups.SelectMany(g => g.Vehicles).Select(t => new VehicleListViewModel()
+                {
+                    Id = t.Id,
+                    License = t.LicenceNumber,
+                    Name = t.Name,
+                    Brand = t.Brand,
+                    Type = t.Type,
+                    Color = t.Color,
+                    LastRegisterDate = t.RegisterDate,
+                    GroupName = t.Group?.Name,
+                    TownName = t.Group?.Town?.Name,
+                    DriverName = t?.Driver?.Name,
+                    DriverTel = t?.Driver?.Tel,
                 }).ToList(),
             };
 

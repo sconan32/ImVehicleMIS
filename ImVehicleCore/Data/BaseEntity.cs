@@ -27,10 +27,10 @@ namespace ImVehicleCore.Data
         public DateTime ModificationDate { get; set; }
 
         [Display(Name = "修改用户")]
-        public long CreateBy { get; set; }
+        public string CreateBy { get; set; }
 
         [Display(Name = "修改用户")]
-        public long ModifyBy { get; set; }
+        public string ModifyBy { get; set; }
 
         [Display(Name = "状态码")]
         public StatusType Status { get; set; }

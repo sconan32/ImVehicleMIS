@@ -8,7 +8,7 @@ namespace ImVehicleCore.Data
 {
     public class DriverItem : BaseEntity
     {
-        [Display(Name="驾驶证类型")]
+        [Display(Name = "驾驶证类型")]
         public VehicleLicenseType LicenseType { get; set; }
 
         [Display(Name = "电话")]
@@ -47,13 +47,18 @@ namespace ImVehicleCore.Data
         public byte[] PhotoWarranty { get; set; }
 
         [Display(Name = "驾驶员照片")]
-        public byte[] PhotoAvatar{ get; set; }
+        public byte[] PhotoAvatar { get; set; }
         [Display(Name = "资质证书编号")]
         public string WarrantyCode { get; set; }
         public long? GroupId { get; set; }
 
         [ForeignKey("GroupId")]
         public virtual GroupItem Group { get; set; }
+
+        public long? TownId { get; set; }
+
+        [ForeignKey("TownId")]
+        public virtual TownItem Town { get; set; }
         [Display(Name = "住址")]
         public string LivingAddress { get; set; }
         [Display(Name = "职务")]

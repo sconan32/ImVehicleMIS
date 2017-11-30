@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 namespace ImVehicleCore.Data
 {
     // Add profile data for application users by adding properties to the ApplicationUser class
-    public class VehicleUser : IdentityUser
+    public class VehicleUser : IdentityUser<string>
     {
 
         public long? TownId { get; set; }

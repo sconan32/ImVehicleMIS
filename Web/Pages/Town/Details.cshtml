@@ -1,8 +1,9 @@
 ﻿@page
 @model Web.Pages.Towns.DetailsModel
-
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 @{
-    ViewData["Title"] = @Html.DisplayFor(model => model.TownItem.Name) + "";
+    ViewData["Title"] = Html.DisplayFor(model => model.TownItem.Name) ;
 }
 
 <section class="banner_area">
@@ -11,8 +12,8 @@
             <h3>@Html.DisplayFor(model => model.TownItem.Name) </h3>
         </div>
         <div class="pull-right">
-            <a asp-page="/">主页</a>
-            &gt; <a asp-page="/Town">街道</a>
+            <a asp-page="/Index">主页</a>
+            &gt; <a asp-page="/Town/Index">街道</a>
             &gt; <a asp-page="/Town/Details?Id=@Model.TownItem.Id">@Html.DisplayFor(model => model.TownItem.Name) </a>
         </div>
     </div>
@@ -20,137 +21,374 @@
 <section class="main_feature_area">
     <div class="container">
 
+        <p>
+            @if (await Model.CanEdit() )
+            {
+                <a class="btn btn-new-item" asp-page="../Group/Create"><span class="glyphicon glyphicon-plus"></span> 新增安全单位</a>
+                <a class="btn btn-new-item" asp-page="../Vehicle/Create"><span class="glyphicon glyphicon-plus"></span> 新增车辆</a>
+                <a class="btn btn-new-item" asp-page="../Driver/Create"><span class="glyphicon glyphicon-plus"></span> 新增驾驶员</a>
+            }
+            <a class="btn btn-default" asp-page="Index"><span class="glyphicon glyphicon-level-up"></span> 返回列表</a>
+        </p>
         <hr />
         <h4>基本信息</h4>
+        <br />
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.TownItem.Name)
+
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.TownItem.GroupCount)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.TownItem.ValidCount)
+                        @Html.DisplayNameFor(model => model.TownItem.VehicleCount)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.TownItem.InvalidCount)
+                        @Html.DisplayNameFor(model => model.TownItem.DriverCount)
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>
-                        @Html.DisplayFor(model => model.TownItem.Name)
+                        总数
                     </td>
                     <td>
                         @Html.DisplayFor(model => model.TownItem.GroupCount)
                     </td>
                     <td>
+                        @Html.DisplayFor(model => model.TownItem.VehicleCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.TownItem.DriverCount)
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:right">
+                       其中：处于安全状态
+                    </td>
+                    <td>
                         @Html.DisplayFor(model => model.TownItem.ValidCount)
                     </td>
                     <td>
+                        @Html.DisplayFor(model => model.TownItem.VehicleCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.TownItem.DriverCount)
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:right">
+                        处于危险状态
+                    </td>
+                    <td>
                         @Html.DisplayFor(model => model.TownItem.InvalidCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.TownItem.VehicleCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.TownItem.DriverCount)
                     </td>
                 </tr>
             </tbody>
         </table>
         <hr />
-    </div>
 
-    <div>
+        <br />
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">安全单位列表</a></li>
-            <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">车辆列表</a></li>
-            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">司机列表</a></li>
+            <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><b>安全单位列表</b></a></li>
+            <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><b>车辆列表</b></a></li>
+            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><b>驾驶员列表</b></a></li>
 
         </ul>
-        <br />
-        <!-- Tab panes -->
-        <div class="tab-content">
+        <div style="border-bottom:1px solid #ddd;border-left:1px solid #ddd;border-right:1px solid #ddd;padding:20px;">
 
-            <div role="tabpanel" class="tab-pane active" id="profile">
-                <hr />
-                <h4>安全单位列表</h4>
-                <p>
-                    <a class="btn btn-new-item" asp-page="../Group/Create">创建新安全单位</a>
-                    <a class="btn btn-default" asp-page="Index">返回列表</a>
-                </p>
-                <hr />
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.TownItem.Groups[0].Id)
-                            </th>
+            <!-- Tab panes -->
+            <div class="tab-content">
 
-                            <th>
-                                @Html.DisplayNameFor(model => model.TownItem.Groups[0].Name)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.TownItem.Groups[0].ChiefName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.TownItem.Groups[0].ChiefTel)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.TownItem.Groups[0].VehicleCount)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.TownItem.Groups[0].InvalidCount)
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.TownItem.Groups)
-            {
+                <div role="tabpanel" class="tab-pane active" id="profile">
+                    <br />
+                    <h4>安全单位列表</h4>
+
+                    <hr />
+                    <table class="table table-hover">
+                        <thead>
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Id)
-                                </td>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].Code)
+                                </th>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ChiefName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ChiefTel)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.VehicleCount)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.InvalidCount)
-                                </td>
-                                <td>
-                                    <a class="btn btn-item-detail" asp-page="../Group/Details" asp-route-id="@item.Id">查看详细</a> |
-                                    <a asp-page="../Group/Edit" asp-route-id="@item.Id">编辑</a>
-                                </td>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].Type)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].ChiefName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].Address)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].License)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].VehicleCount)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].InvalidCount)
+                                </th>
+                                <th></th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.TownItem.Groups)
+            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Code)
+                                    </td>
 
-            </div>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Type)
+                                    </td>
+                                    <td>
+                                        <b>@Html.DisplayFor(modelItem => item.ChiefTitle)</b>
+                                        @Html.DisplayFor(modelItem => item.ChiefName)
+                                        <span style="color:gray"> (@Html.DisplayFor(modelItem => item.ChiefTel))</span>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.License)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.VehicleCount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.InvalidCount)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-item-detail" asp-page="../Group/Details" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-zoom-in"></span> 查看详细</a>
+                                        @if (await Model.CanEdit())
+                                        {
+                                            <a class="btn btn-edit-item" asp-page="../Group/Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编辑</a>
+                                            <a class="btn btn-del-item" asp-page="../Group/Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删除</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
 
-            <div role="tabpanel" class="tab-pane " id="home">
-                <h4>详细信息</h4>
+                </div>
 
-                <hr />
+                <div role="tabpanel" class="tab-pane " id="home">
 
-            </div>
-            <div role="tabpanel" class="tab-pane" id="messages">
+                    <br />
+                    <h4>车辆信息列表</h4>
+                    <hr />
+                    <table class="table  table-hover">
+                        <thead>
+                            <tr>
 
-                <h4>图片附件</h4>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].GroupName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].License)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].Type)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].Usage)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].Brand)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].Color)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].LastRegisterDate)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].DriverName)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].DriverTel)
+                                </th>
 
 
+
+
+
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.TownItem.Vehicles)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.GroupName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.License)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Type)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Usage)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Brand)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Color)
+                                    </td>
+
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LastRegisterDate)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DriverName)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DriverTel)
+                                    </td>
+
+                                    <td>
+                                        <a class="btn btn-item-detail" asp-page="../Vehicle/Details" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-zoom-in"></span> 查看详细</a>
+                                        @if (await Model.CanEdit())
+                                        {
+                                            <a class="btn btn-edit-item" asp-page="../Vehicle/Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编辑</a>
+                                            <a class="btn btn-del-item" asp-page="../Vehicle/Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删除</a>
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="messages">
+                    <br />
+                    <h4>驾驶员列表</h4>
+
+                    <hr />
+
+                    <table class="table  table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].Gender)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].IdCardNumber)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].LicenseType)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].License)
+                                </th>
+
+
+
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].LicenseIssue)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].ValidYears)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].VehiclesRegistered)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].Tel)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.TownItem.Drivers)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Gender)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdCardNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LicenseType)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.License)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LicenseIssue)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ValidYears)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.VehiclesRegistered)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Tel)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-item-detail" asp-page="../Driver/Details" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-zoom-in"></span> 查看详细</a>
+                                        @if (await Model.CanEdit())
+                                        {
+                                            <a class="btn btn-edit-item" asp-page="../Driver/Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编辑</a>
+                                            <a class="btn btn-del-item" asp-page="../Driver/Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删除</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-
     </div>
 </section>

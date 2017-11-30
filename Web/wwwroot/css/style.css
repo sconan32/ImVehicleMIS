@@ -871,8 +871,113 @@ iframe {
             bottom: -50px;
         }
 
+.btn-edit-item {
+    display: inline-block;
+    padding: 0px 8px;
+    background: transparent;
+    border: 1px solid #4cbb87;
+    line-height: 20px;
+    border-radius: 5px;
+    color: #4cbb87;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    -webkit-transition: all 300ms linear 0s;
+    -o-transition: all 300ms linear 0s;
+    transition: all 300ms linear 0s;
+    z-index: 2;
+}
+
+.btn-edit-item i {
+        padding-left: 20px;
+    }
+
+.btn-edit-item:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        background: #4cbb87;
+        height: 280px;
+        width: 330px;
+        border-radius: 50%;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+        bottom: 100%;
+        -webkit-transition: all .7s;
+        -o-transition: all .7s;
+        transition: all .7s;
+        z-index: -1;
+    }
+
+.btn-edit-item:hover, .btn-edit-item:focus {
+        color: #fff;
+        border: 1px solid #2ecc71;
+    }
+
+.btn-edit-item:hover:before, .btn-edit-item:focus:before {
+            bottom: -50px;
+        }
 
 
+
+.btn-del-item {
+    display: inline-block;
+    padding: 0px 8px;
+    background: transparent;
+    border: 1px solid #f37944;
+    line-height: 20px;
+    border-radius: 5px;
+    color: #f37944;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    -webkit-transition: all 300ms linear 0s;
+    -o-transition: all 300ms linear 0s;
+    transition: all 300ms linear 0s;
+    z-index: 2;
+}
+
+    .btn-del-item i {
+        padding-left: 20px;
+    }
+
+    .btn-del-item:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        background: #f37944;
+        height: 280px;
+        width: 330px;
+        border-radius: 50%;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+        bottom: 100%;
+        -webkit-transition: all .7s;
+        -o-transition: all .7s;
+        transition: all .7s;
+        z-index: -1;
+    }
+
+    .btn-del-item:hover, .btn-del-item:focus {
+        color: #fff;
+        border: 1px solid #2ecc71;
+    }
+
+        .btn-del-item:hover:before, .btn-del-item:focus:before {
+            bottom: -50px;
+        }
 .btn-nav-btn {
     visibility: inherit;
     transition: none;
@@ -1004,7 +1109,7 @@ iframe {
   content: "";
   background: rgba(0, 0, 0, 0.55);
   position: absolute;
-  left: 0x;
+  left: 0px;
   top: 0px;
   z-index: 6;
   width: 100%;
@@ -1339,9 +1444,6 @@ iframe {
 .main_feature_area {
   overflow: hidden;
   background: #fbfbfb;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
 }
 
@@ -1355,7 +1457,7 @@ iframe {
   width: calc(50% + 210px);
   float: left;
   overflow: hidden;
-  -webkit-align-self: center;
+
   -ms-flex-item-align: center;
   align-self: center;
   -webkit-box-flex: 1;
@@ -3442,7 +3544,7 @@ iframe {
 
 .faq_question_list .faq_item h4 {
   font-size: 18px;
-  colo: #58585a;
+  color: #58585a;
   font-family: "Roboto", sans-serif;
   padding-bottom: 15px;
 }
@@ -3805,9 +3907,7 @@ iframe {
 }
 
 .why_choose_area {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
+
   display: flex;
 }
 
@@ -3852,12 +3952,7 @@ iframe {
 .why_choose_area .why_choose_feature {
   width: calc(50% + 200px);
   float: right;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
   flex: 1;
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
   align-self: center;
 }
 
@@ -4667,9 +4762,10 @@ iframe {
 /* Footer Area css
 ============================================================================================ */
 .footer_area {
+  margin-top:50px;
   background: url(../img/footer-bg.jpg) no-repeat scroll center center;
   background-size: cover;
-  padding: 88px 0px 56px 0px;
+  padding: 10px 0px 30px 0px;
 }
 
 .f_title {

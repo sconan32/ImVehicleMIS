@@ -8,41 +8,40 @@ using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
 using ImVehicleCore.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
+using Web.ViewModels;
 
 namespace Web.Pages.Group
 {
     public class IndexModel : PageModel
     {
-        private readonly IGroupRepository _groupRepository;
+        private readonly IGroupService _groupRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public IndexModel(IGroupRepository groupRepository)
+        public IndexModel(IGroupService groupRepository, IAuthorizationService authorizationService)
         {
             _groupRepository = groupRepository;
+            _authorizationService = authorizationService;
         }
 
         public List<GroupListViewModel> Groups { get; set; }
 
 
-        public class GroupListViewModel
-        {
-            public long Id { get; set; }
 
-            [Display(Name="编码")]
-            public string Code { get; set; }
-            [Display(Name = "名称")]
-            public string Name { get; set; }
-            [Display(Name = "负责人")]
-            public string ChiefName { get; set; }
-            [Display(Name = "负责人电话")]
-            public string ChiefTel { get; set; }
-            [Display(Name = "注册车辆数")]
-            public int VehicleCount { get; set; }
-            [Display(Name = "过期车辆数")]
-            public int InvalidCount { get; set; }
+        public async Task<bool> CanEdit()
+        {
+            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireTownManagerRole");
+            var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
+            return (await tm).Succeeded || (await admin).Succeeded;
+        }
+        public async Task<bool> IsAdmin()
+        {
+            var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
+            return (await admin).Succeeded;
         }
         public async Task OnGetAsync()
         {
-            var gs = await _groupRepository.ListAllWithVehiclesAsync();
+            var gs = await _groupRepository.ListAwailableGroupEagerAsync(HttpContext.User);
             Groups = gs.Select(t => new GroupListViewModel()
             {
                 Id = t.Id,

@@ -19,13 +19,21 @@
     <div class="container">
 
         <p>
+       @if (await Model.CanEdit())
+        {
+
           <a class="btn btn-new-item" asp-page="Create"> <span class="glyphicon glyphicon-plus"></span> 创建新安全单位</a>
+        }
         </p>
         <hr />
        
         <table class="table table-hover">
             <thead>
                 <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Groups[0].TownName)
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Groups[0].Code)
                     </th>
@@ -37,7 +45,13 @@
                         @Html.DisplayNameFor(model => model.Groups[0].ChiefName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Groups[0].ChiefTel)
+                        @Html.DisplayNameFor(model => model.Groups[0].Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Groups[0].Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Groups[0].License)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Groups[0].VehicleCount)
@@ -53,6 +67,9 @@
             {
                     <tr>
                         <td>
+                            @Html.DisplayFor(modelItem => item.TownName)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Code)
                         </td>
 
@@ -60,10 +77,17 @@
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ChiefName)
+                            @Html.DisplayFor(modelItem => item.Type)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ChiefTel)
+                            <b>@Html.DisplayFor(modelItem => item.ChiefTitle)</b> @Html.DisplayFor(modelItem => item.ChiefName) 
+                            <span style="color:gray"> (@Html.DisplayFor(modelItem => item.ChiefTel))</span>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.License)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.VehicleCount)
@@ -72,8 +96,12 @@
                             @Html.DisplayFor(modelItem => item.InvalidCount)
                         </td>
                         <td>
-                            <a class="btn btn-item-detail" asp-page="Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查看详细</a> |
-                            <a asp-page="Edit" asp-route-id="@item.Id"><span class="glyphicon glyphicon-edit"></span> 编辑</a>
+                            <a class="btn btn-item-detail" asp-page="Details" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-zoom-in"></span> 查看详细</a>
+                            @if (await Model.CanEdit())
+                            {
+                                <a class="btn btn-edit-item" asp-page="Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编辑</a>
+                                            <a class="btn btn-del-item" asp-page="Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删除</a>
+                            }
                         </td>
                     </tr>
                 }

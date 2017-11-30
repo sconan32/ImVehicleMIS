@@ -28,6 +28,8 @@ namespace ImVehicleCore.Data
 
         public virtual List<VehicleUser> Users { get; set; }
 
+        public virtual List<DriverItem> Drivers { get; set; }
+        
         public int Code { get; set; }
 
 
