@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.Group
 {
@@ -20,7 +21,7 @@ namespace Web.Pages.Group
 
         [BindProperty]
         public GroupItem GroupItem { get; set; }
-
+        [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnGetAsync(long? id)
         {
             if (id == null)
@@ -36,7 +37,7 @@ namespace Web.Pages.Group
             }
             return Page();
         }
-
+        [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnPostAsync(long? id)
         {
             if (id == null)

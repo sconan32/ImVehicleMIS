@@ -22,16 +22,16 @@ namespace Web.Pages.Group
         private readonly UserManager<VehicleUser> _userManager;
         private readonly ITownService _townService;
 
-        public EditModel(ImVehicleCore.Data.VehicleDbContext context,IAuthorizationService authorizationService, UserManager<VehicleUser> userManager,     ITownService townService)
+        public EditModel(ImVehicleCore.Data.VehicleDbContext context, IAuthorizationService authorizationService, UserManager<VehicleUser> userManager, ITownService townService)
         {
             _context = context;
             _authorizationService = authorizationService;
             _userManager = userManager;
             _townService = townService;
-    }
+        }
 
         [BindProperty]
-        public GroupViewModel GroupItem { get; set; }
+        public GroupEditViewModel GroupItem { get; set; }
 
         [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnGetAsync(long? id)
@@ -40,9 +40,9 @@ namespace Web.Pages.Group
             {
                 return NotFound();
             }
-         
-           
-            var group= await _context.Groups.SingleOrDefaultAsync(m => m.Id == id);
+
+
+            var group = await _context.Groups.SingleOrDefaultAsync(m => m.Id == id);
 
 
             if (group == null)
@@ -52,7 +52,26 @@ namespace Web.Pages.Group
             TownList = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User))
            .Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name, })
            .ToList();
-            GroupItem = new GroupViewModel();
+
+            GroupItem = new GroupEditViewModel()
+            {
+                Id = group.Id,
+                Name = group.Name,
+                Address = group.Address,
+                ChiefName = group.ChiefName,
+                ChiefTel = group.ChiefTel,
+                ChiefTitle = group.ChiefTitle,
+                Code = group.Code,
+                Comment = group.Comment,
+                License = group.License,
+
+                RegisterAddress = group.RegisterAddress,
+                TownId = group.TownId ?? 0,
+                Type = group.Type,
+                PhotoMainBase64 = group.PhotoMain != null ? Convert.ToBase64String(group.PhotoMain) : "",
+                PhotoSecurityBase64 = group.PhotoSecurity != null ? Convert.ToBase64String(group.PhotoSecurity) : "",
+                PhotoWarrantyBase64 = group.PhotoWarranty != null ? Convert.ToBase64String(group.PhotoWarranty) : "",
+            };
             return Page();
         }
 
@@ -67,11 +86,7 @@ namespace Web.Pages.Group
         [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
+      
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -79,58 +94,64 @@ namespace Web.Pages.Group
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
 
-            MemoryStream warPhotoS = new MemoryStream();
-            MemoryStream secPhotoS = new MemoryStream();
+            MemoryStream warPhotoS = null;
+            MemoryStream secPhotoS = null;
 
 
-            MemoryStream mainPhotoS = new MemoryStream();
+            MemoryStream mainPhotoS = null;
+
             var acceptableExt = new[] { ".png", ".bmp", ".jpg", ".jpeg", ".tif", };
             if (acceptableExt.Contains(Path.GetExtension(GroupItem.PhotoMain?.FileName)?.ToLower()))
             {
+
+                mainPhotoS = new MemoryStream();
                 await GroupItem.PhotoMain.CopyToAsync(mainPhotoS);
             }
 
             if (acceptableExt.Contains(Path.GetExtension(GroupItem.PhotoSecurity?.FileName)?.ToLower()))
             {
+                secPhotoS = new MemoryStream();
                 await GroupItem.PhotoSecurity.CopyToAsync(secPhotoS);
             }
             if (acceptableExt.Contains(Path.GetExtension(GroupItem.PhotoWarranty?.FileName)?.ToLower()))
             {
+                warPhotoS = new MemoryStream();
                 await GroupItem.PhotoWarranty.CopyToAsync(warPhotoS);
             }
 
+
+
             var townId = await _userManager.IsInRoleAsync(user, "TownManager") ? user.TownId : GroupItem.TownId;
-            var group = new GroupItem()
+            var group = _context.Groups.FirstOrDefault(t => t.Id == GroupItem.Id);
+            if (group == null)
             {
-
-                Name = GroupItem.Name,
-                Address = GroupItem.Address,
-                RegisterAddress = GroupItem.RegisterAddress,
-                License = GroupItem.License,
-                ChiefName = GroupItem.ChiefName,
-                ChiefTel = GroupItem.ChiefTel,
-                Type = GroupItem.Type,
-                TownId = townId,
-                PhotoMain = mainPhotoS.ToArray(),
-                PhotoWarranty = warPhotoS.ToArray(),
-                PhotoSecurity = warPhotoS.ToArray(),
-                Code = GroupItem.Code,
-                ChiefTitle = GroupItem.ChiefTitle,
-                Comment = GroupItem.Comment,
+                return NotFound();
+            }
 
 
-                CreationDate = DateTime.Now,
-                CreateBy = user.Id,
-                Status = StatusType.OK,
-            };
 
-            _context.Groups.Add(group);
-            _context.Attach(GroupItem).State = EntityState.Modified;
+            group.Name = GroupItem.Name;
+            group.Address = GroupItem.Address;
+            group.RegisterAddress = GroupItem.RegisterAddress;
+            group.License = GroupItem.License;
+            group.ChiefName = GroupItem.ChiefName;
+            group.ChiefTel = GroupItem.ChiefTel;
+            group.Type = GroupItem.Type;
+            group.TownId = townId;
+            group.PhotoMain = mainPhotoS?.ToArray() ?? group.PhotoMain;
+            group.PhotoWarranty = warPhotoS?.ToArray() ?? group.PhotoWarranty;
+            group.PhotoSecurity = warPhotoS?.ToArray() ?? group.PhotoSecurity;
+            group.Code = GroupItem.Code;
+            group.ChiefTitle = GroupItem.ChiefTitle;
+            group.Comment = GroupItem.Comment;
 
-            await _context.SaveChangesAsync();
 
-          
-         
+            group.ModificationDate = DateTime.Now;
+            group.ModifyBy = user.Id;
+            group.Status = StatusType.OK;
+
+
+            _context.Attach(group).State = EntityState.Modified;          
 
             try
             {

@@ -7,74 +7,32 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
 using System.ComponentModel.DataAnnotations;
+using Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.Group
 {
     public class DetailsModel : PageModel
     {
         private readonly ImVehicleCore.Data.VehicleDbContext _context;
-
-        public DetailsModel(ImVehicleCore.Data.VehicleDbContext context)
+        private readonly IAuthorizationService _authorizationService;
+        public DetailsModel(ImVehicleCore.Data.VehicleDbContext context, IAuthorizationService authorizationService)
         {
             _context = context;
+            _authorizationService = authorizationService;
         }
 
-        public GroupViewModel GroupItem { get; set; }
+        public GroupDetailViewModel GroupItem { get; set; }
 
-
-        public class GroupViewModel
+        public async Task<bool> CanEdit()
         {
-            public long Id { get; set; }
-            [Display(Name = "名称")]
-            public string Name { get; set; }
-            [Display(Name = "办公地址")]
-            public string Address { get; set; }
-            [Display(Name = "注册地址")]
-            public string RegisterAddress { get; set; }
-            [Display(Name = "注册号")]
-            public string License { get; set; }
-
-            [Display(Name = "负责人")]
-            public string ChiefName { get; set; }
-            [Display(Name = "负责人电话")]
-            public string ChiefTel { get; set; }
-
-            [Display(Name = "单位类型")]
-            public string Type { get; set; }
-
-            [Display(Name = "企业图像")]
-            public string PhotoMain { get; set; }
-            [Display(Name = "资质凭证")]
-            public string PhotoWarranty { get; set; }
-            [Display(Name = "安全生产凭证")]
-            public string PhotoSecurity { get; set; }
-
-            [Display(Name = "注册车辆数目")]
-            public int VehicleCount { get; set; }
-            [Display(Name = "   其中：处于正常状态")]
-            public int ValidCount { get; set; }
-            [Display(Name = "       处于预警状态")]
-            public int InvalidCount { get; set; }
-
-            public List<VehicleListViewModel> Vehicles { get; set; }
-
+            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireTownManagerRole");
+            var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
+            return (await tm).Succeeded || (await admin).Succeeded;
         }
-        public class VehicleListViewModel
-        {
-            public long Id { get; set; }
-            [Display(Name = "车牌号")]
-            public string License { get; set; }
-            [Display(Name = "品牌")]
-            public string Brand { get; set; }
-            [Display(Name = "型号")]
-            public string Name { get; set; }
-            [Display(Name = "类型")]
-            public VehicleType Type { get; set; }
-            [Display(Name = "颜色")]
-            public string Color { get; set; }
-            [Display(Name = "注册时间")]
-            public DateTime LastRegisterDate { get; set; }
-        }
+
+
+
         public async Task<IActionResult> OnGetAsync(long? id)
         {
             if (id == null)
@@ -82,7 +40,7 @@ namespace Web.Pages.Group
                 return NotFound();
             }
             var group = await _context.Groups.Include(t => t.Vehicles).SingleOrDefaultAsync(m => m.Id == id);
-            GroupItem = new GroupViewModel()
+            GroupItem = new GroupDetailViewModel()
             {
                 Id = group.Id,
                 Name = group.Name,

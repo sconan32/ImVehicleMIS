@@ -10,9 +10,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ImVehicleCore.Data
 {
-   public class GroupRepository :EfRepository<GroupItem>, IGroupRepository
+    public class GroupRepository : EfRepository<GroupItem>, IGroupRepository
     {
-       
+
 
         public GroupRepository(VehicleDbContext dbContext) : base(dbContext)
         {
@@ -28,6 +28,7 @@ namespace ImVehicleCore.Data
                 .Include(t => t.Drivers)
                 .Include(t => t.UserFiles)
                 .Include(t => t.SecurityPersons)
+                .Include(t => t.Town)
                 .ToListAsync();
         }
 
@@ -37,9 +38,10 @@ namespace ImVehicleCore.Data
 
             return await _dbContext.Groups
                 .Include(t => t.Vehicles)
-                .Include(t=>t.Drivers)
-                .Include(t=>t.UserFiles)
-                .Include(t=>t.SecurityPersons)
+                .Include(t => t.Drivers)
+                .Include(t => t.UserFiles)
+                .Include(t => t.SecurityPersons)
+                 .Include(t => t.Town)
                 .ToListAsync();
         }
     }

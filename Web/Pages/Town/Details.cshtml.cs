@@ -55,6 +55,7 @@ namespace Web.Pages.Towns
                 Groups = town.Groups.Select(t => new GroupListViewModel()
                 {
                     Id = t.Id,
+                    Code=t.Code,
                     Name = t.Name,
                     ChiefName = t.ChiefName,
                     ChiefTel = t.ChiefTel,

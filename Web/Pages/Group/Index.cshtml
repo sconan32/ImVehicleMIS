@@ -31,22 +31,23 @@
             <thead>
                 <tr>
 
+                   
+                    <th>
+                        @Html.DisplayNameFor(model => model.Groups[0].Code)
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Groups[0].TownName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Groups[0].Code)
-                    </th>
-
-                    <th>
                         @Html.DisplayNameFor(model => model.Groups[0].Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Groups[0].ChiefName)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Groups[0].Type)
                     </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Groups[0].ChiefName)
+                    </th>
+                 
                     <th>
                         @Html.DisplayNameFor(model => model.Groups[0].Address)
                     </th>
@@ -66,13 +67,13 @@
                 @foreach (var item in Model.Groups)
             {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TownName)
-                        </td>
+                       
                         <td>
                             @Html.DisplayFor(modelItem => item.Code)
                         </td>
-
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TownName)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
@@ -96,12 +97,23 @@
                             @Html.DisplayFor(modelItem => item.InvalidCount)
                         </td>
                         <td>
-                            <a class="btn btn-item-detail" asp-page="Details" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-zoom-in"></span> 查看详细</a>
-                            @if (await Model.CanEdit())
-                            {
-                                <a class="btn btn-edit-item" asp-page="Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编辑</a>
-                                            <a class="btn btn-del-item" asp-page="Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删除</a>
-                            }
+                            <div class="btn-group">
+                                <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>
+                                @if (await Model.CanEdit())
+                                {
+                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">向下弹出</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a asp-page="./Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a asp-page="./Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                        <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+
+                                    </ul>
+                                }
+                            </div>
                         </td>
                     </tr>
                 }

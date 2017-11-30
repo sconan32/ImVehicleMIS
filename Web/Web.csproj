@@ -16,4 +16,9 @@
   <ItemGroup>
     <ProjectReference Include="..\ImVehicleCore\ImVehicleCore.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="imvehiclemis.db.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

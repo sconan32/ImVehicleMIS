@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ImVehicleCore.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.Towns
 {
@@ -17,7 +18,7 @@ namespace Web.Pages.Towns
         {
             _context = context;
         }
-
+        [Authorize(Roles = "Admins")]
         public IActionResult OnGet()
         {
             return Page();
@@ -25,7 +26,7 @@ namespace Web.Pages.Towns
 
         [BindProperty]
         public TownItem TownItem { get; set; }
-
+        [Authorize(Roles = "Admins")]
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

@@ -1445,6 +1445,7 @@ iframe {
   overflow: hidden;
   background: #fbfbfb;
   display: flex;
+  padding-bottom:80px;
 }
 
 @media (max-width: 1199px) {

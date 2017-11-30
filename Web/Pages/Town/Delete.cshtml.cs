@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.Towns
 {
@@ -20,7 +21,7 @@ namespace Web.Pages.Towns
 
         [BindProperty]
         public TownItem TownItem { get; set; }
-
+        [Authorize(Roles = "Admins")]
         public async Task<IActionResult> OnGetAsync(long? id)
         {
             if (id == null)
@@ -36,7 +37,7 @@ namespace Web.Pages.Towns
             }
             return Page();
         }
-
+        [Authorize(Roles = "Admins")]
         public async Task<IActionResult> OnPostAsync(long? id)
         {
             if (id == null)

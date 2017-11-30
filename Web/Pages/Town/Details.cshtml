@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Authorization
 @inject IAuthorizationService AuthorizationService
 @{
-    ViewData["Title"] = Html.DisplayFor(model => model.TownItem.Name) ;
+    ViewData["Title"] = Html.DisplayFor(model => model.TownItem.Name);
 }
 
 <section class="banner_area">
@@ -22,7 +22,7 @@
     <div class="container">
 
         <p>
-            @if (await Model.CanEdit() )
+            @if (await Model.CanEdit())
             {
                 <a class="btn btn-new-item" asp-page="../Group/Create"><span class="glyphicon glyphicon-plus"></span> 新增安全单位</a>
                 <a class="btn btn-new-item" asp-page="../Vehicle/Create"><span class="glyphicon glyphicon-plus"></span> 新增车辆</a>
@@ -67,7 +67,7 @@
                 </tr>
                 <tr>
                     <td style="text-align:right">
-                       其中：处于安全状态
+                        其中：处于安全状态
                     </td>
                     <td>
                         @Html.DisplayFor(model => model.TownItem.ValidCount)
@@ -178,12 +178,23 @@
                                         @Html.DisplayFor(modelItem => item.InvalidCount)
                                     </td>
                                     <td>
-                                        <a class="btn btn-item-detail" asp-page="../Group/Details" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-zoom-in"></span> 查看详细</a>
-                                        @if (await Model.CanEdit())
-                                        {
-                                            <a class="btn btn-edit-item" asp-page="../Group/Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编辑</a>
-                                            <a class="btn btn-del-item" asp-page="../Group/Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删除</a>
-                                        }
+                                        <div class="btn-group">
+                                            <a class="btn btn-primary btn-sm" asp-page="../Group/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>
+                                            @if (await Model.CanEdit())
+                                            {
+                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                    <span class="sr-only">向下弹出</span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a asp-page="../Group/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a asp-page="../Group/Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                                    <li><a class="danger" asp-page="../Group/Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+
+                                                </ul>
+                                            }
+                                        </div>
                                     </td>
                                 </tr>
                             }
@@ -283,13 +294,23 @@
                                     </td>
 
                                     <td>
-                                        <a class="btn btn-item-detail" asp-page="../Vehicle/Details" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-zoom-in"></span> 查看详细</a>
-                                        @if (await Model.CanEdit())
-                                        {
-                                            <a class="btn btn-edit-item" asp-page="../Vehicle/Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编辑</a>
-                                            <a class="btn btn-del-item" asp-page="../Vehicle/Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删除</a>
-                                        }
+                                        <div class="btn-group">
+                                            <a class="btn btn-primary btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>
+                                            @if (await Model.CanEdit())
+                                            {
+                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                    <span class="sr-only">向下弹出</span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a asp-page="../Vehicle/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a asp-page="../Vehicle/Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                                    <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
 
+                                                </ul>
+                                            }
+                                        </div>
                                     </td>
                                 </tr>
                             }
@@ -376,12 +397,23 @@
                                         @Html.DisplayFor(modelItem => item.Tel)
                                     </td>
                                     <td>
-                                        <a class="btn btn-item-detail" asp-page="../Driver/Details" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-zoom-in"></span> 查看详细</a>
-                                        @if (await Model.CanEdit())
-                                        {
-                                            <a class="btn btn-edit-item" asp-page="../Driver/Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编辑</a>
-                                            <a class="btn btn-del-item" asp-page="../Driver/Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删除</a>
-                                        }
+                                        <div class="btn-group">
+                                            <a class="btn btn-primary btn-sm" asp-page="../Driver/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>
+                                            @if (await Model.CanEdit())
+                                            {
+                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                    <span class="sr-only">向下弹出</span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a asp-page="../Driver/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a asp-page="../Driver/Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                                    <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+
+                                                </ul>
+                                            }
+                                        </div>
                                     </td>
                                 </tr>
                             }

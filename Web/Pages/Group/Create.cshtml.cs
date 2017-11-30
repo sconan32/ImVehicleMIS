@@ -44,7 +44,7 @@ namespace Web.Pages.Group
         public List<SelectListItem> TownList { get; set; }
 
         [BindProperty]
-        public GroupViewModel GroupItem { get; set; }
+        public GroupEditViewModel GroupItem { get; set; }
 
         [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnPostAsync()

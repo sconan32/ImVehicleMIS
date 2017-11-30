@@ -45,6 +45,11 @@ namespace Web.Pages.Group
             Groups = gs.Select(t => new GroupListViewModel()
             {
                 Id = t.Id,
+                Code=t.Code,
+                TownName = t.Town?.Name,
+                Type = t.Type,
+                Address = t.Address,
+                License = t.License,
                 Name = t.Name,
                 ChiefName = t.ChiefName,
                 ChiefTel = t.ChiefTel,
