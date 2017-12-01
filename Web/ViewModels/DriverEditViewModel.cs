@@ -4,11 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using ImVehicleCore.Data;
+using Microsoft.AspNetCore.Http;
 
 namespace Web.ViewModels
 {
-    public class DriverListViewModel
+    public class DriverEditViewModel
     {
+
         public long Id { get; set; }
 
         [Display(Name = "姓名")]
@@ -36,20 +38,33 @@ namespace Web.ViewModels
         [Display(Name = "注册车辆数")]
         public int VehiclesRegistered { get; set; }
 
-        [Display(Name = "住址")]
-        public string LivingAddress { get; set; }
-        [Display(Name = "职务")]
-        public string Title { get; set; }
 
-        [Display(Name = "首次申领驾驶证日期")]
-        public DateTime FirstLicenseIssueDate { get; set; }
+        [Display(Name = "身份证国徽面照片")]
+        public IFormFile PhotoIdCard1 { get; set; }
 
-        [Display(Name = "驾驶证签发日期")]
-        public DateTime LicenseIssueDate { get; set; }
-        [Display(Name = "驾驶证有效年限")]
-        public int LicenseValidYears { get; set; }
+        public string PhotoIdCard1Base64 { get; set; }
 
+        [Display(Name = "身份证照片面照片")]
+        public IFormFile PhotoIdCard2 { get; set; }
+
+
+        public string PhotoIdCard2Base64 { get; set; }
+
+        [Display(Name = "驾驶证照片")]
+        public IFormFile PhotoDriverLicense { get; set; }
+        public string PhotoDriverLicenseBase64 { get; set; }
+
+
+
+        [Display(Name = "资质证书照片")]
+        public IFormFile PhotoWarranty { get; set; }
+
+        public string PhotoWarrantyBase64 { get; set; }
+
+        [Display(Name = "驾驶员照片")]
+        public IFormFile PhotoAvatar { get; set; }
+
+        public string PhotoAvatarBase64 { get; set; }
 
     }
-
 }

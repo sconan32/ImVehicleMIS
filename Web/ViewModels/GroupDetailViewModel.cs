@@ -36,6 +36,16 @@ namespace Web.ViewModels
 
         [Display(Name = "注册车辆数目")]
         public int VehicleCount { get; set; }
+
+
+        [Display(Name = "驾驶员数目")]
+        public int DriverCount { get; set; }
+
+
+        [Display(Name = "安全员数目")]
+        public int SecuremanCount { get; set; }
+
+
         [Display(Name = "   其中：处于正常状态")]
         public int ValidCount { get; set; }
         [Display(Name = "       处于预警状态")]
@@ -47,6 +57,8 @@ namespace Web.ViewModels
 
 
         public List<UserFileListViewModel> UserFiles { get; set; }
+
+        public List<SecureManListViewModel> Securemans { get; set; }
 
     }
 }

@@ -26,6 +26,7 @@
                 <a class="btn btn-new-item" asp-page="Edit" asp-route-id="@Model.GroupItem.Id" asp-><span class="glyphicon glyphicon-edit"></span> 编辑单位</a>
                 <a class="btn btn-new-item" asp-page="../Vehicle/Create" asp-route-groupId="@Model.GroupItem.Id"><span class="glyphicon glyphicon-plus"></span> 新增车辆</a>
                 <a class="btn btn-new-item" asp-page="../Driver/Create" asp-route-groupId="@Model.GroupItem.Id"><span class="glyphicon glyphicon-plus"></span> 新增驾驶员</a>
+                <a class="btn btn-new-item" asp-page="../Seureman/Create" asp-route-groupId="@Model.GroupItem.Id"><span class="glyphicon glyphicon-plus"></span> 新增安全员</a>
                 <a class="btn btn-new-item" asp-page="../UserFile/Create" asp-route-groupId="@Model.GroupItem.Id"><span class="glyphicon glyphicon-plus"></span> 新增用户文件</a>
             }
             <a class="btn btn-default" asp-page="Index"><span class="glyphicon glyphicon-level-up"></span> 返回列表</a>
@@ -37,54 +38,36 @@
             <thead>
                 <tr>
                     <th>
-
+                        单位状态
                     </th>
                     <th>
-
+                        注册车辆数量
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.GroupItem.VehicleCount)
+                        驾驶员数量
                     </th>
                     <th>
-
+                        安全员数量
                     </th>
+
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>
-                        总数
-                    </td>
-                    <td></td>
-                    <td>
-                        @Html.DisplayFor(model => model.GroupItem.VehicleCount)
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td style="text-align:right">
-                        其中：处于安全状态
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.GroupItem.ValidCount)
+                        @Model.GroupItem.InvalidCount>0?"预警":"正常"
                     </td>
                     <td>
                         @Html.DisplayFor(model => model.GroupItem.VehicleCount)
                     </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td style="text-align:right">
-                        处于危险状态
+                    <td>
+                        @Html.DisplayFor(model => model.GroupItem.DriverCount)
                     </td>
                     <td>
-                        @Html.DisplayFor(model => model.GroupItem.InvalidCount)
+                        @Html.DisplayFor(model => model.GroupItem.SecuremanCount)
                     </td>
-                    <td>
-                        @Html.DisplayFor(model => model.GroupItem.VehicleCount)
-                    </td>
-                    <td></td>
                 </tr>
+
             </tbody>
         </table>
         <hr />
@@ -97,8 +80,9 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><b>车辆列表</b></a></li>
                 <li role="presentation"><a href="#driver" aria-controls="driver" role="tab" data-toggle="tab"><b>驾驶员列表</b></a></li>
-                <li role="presentation"><a href="#userfile" aria-controls="userfile" role="tab" data-toggle="tab"><b>文件附件</b></a></li>
+                <li role="presentation"><a href="#secureman" aria-controls="secureman" role="tab" data-toggle="tab"><b>安全员列表</b></a></li>
                 <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><b>详细信息</b></a></li>
+                <li role="presentation"><a href="#userfile" aria-controls="userfile" role="tab" data-toggle="tab"><b>文件附件</b></a></li>
                 <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><b>图片附件</b></a></li>
 
             </ul>
@@ -318,6 +302,59 @@
                         </table>
 
                     </div>
+                    <div role="tabpanel" class="tab-pane" id="secureman">
+                        <br />
+                        <h4>安全员列表</h4>
+
+                        <hr />
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.GroupItem.Securemans[0].Name)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.GroupItem.Securemans[0].Tel)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.GroupItem.Securemans[0].Title)
+                                    </th>
+
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.GroupItem.Securemans)
+            {
+                                    <tr>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Tel)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Title)
+                                        </td>
+
+                                        <td>
+                                            <div class="btn-group">
+                                                @if (await Model.CanEdit())
+                                                {
+                                                    <a class="btn btn-primary btn-sm" asp-page="../Secureman/Delete" asp-route-id="@item.Id"><span class="glyphicon glyphicon-remove"></span> 删 除 </a>
+
+
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+
+                    </div>
                     <div role="tabpanel" class="tab-pane" id="userfile">
                         <h4>用户文件列表</h4>
 
@@ -420,6 +457,12 @@
                             </dt>
                             <dd>
                                 @Html.DisplayFor(model => model.GroupItem.ChiefTel)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.GroupItem.Type)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.GroupItem.Type)
                             </dd>
 
                         </dl>

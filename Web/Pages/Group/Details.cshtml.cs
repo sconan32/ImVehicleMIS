@@ -39,11 +39,13 @@ namespace Web.Pages.Group
             {
                 return NotFound();
             }
-            var group = await _context.Groups
+            var group = await _context.Groups.Where(m => m.Id == id)
                 .Include(t => t.Vehicles)
                 .Include(t => t.Drivers).ThenInclude(d => d.Vehicles)
                 .Include(t => t.UserFiles)
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .Include(t => t.SecurityPersons).ThenInclude(s => s.Group)
+                .Include(t => t.SecurityPersons).ThenInclude(s => s.Town)
+                .SingleOrDefaultAsync();
             GroupItem = new GroupDetailViewModel()
             {
                 Id = group.Id,
@@ -95,8 +97,22 @@ namespace Web.Pages.Group
                     ServerPath = t.ServerPath,
                     GroupName = group.Name,
                     Name = t.Name,
-                    Size=t.Size,
+                    Size = t.Size,
 
+                }).ToList(),
+
+                Securemans = group.SecurityPersons.Select(t => new SecureManListViewModel()
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    Address = t.Address,
+                    RegisterAddress = t.RegisterAddress,
+                    Company = t.Company,
+                    GroupName = t.Group?.Name,
+                    TownName = t.Town?.Name,
+                    IdCardNum = t.IdCardNum,
+                    Tel = t.Tel,
+                    Title = t.Title,
                 }).ToList(),
             };
 
