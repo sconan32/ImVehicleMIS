@@ -17,6 +17,7 @@ namespace ImVehicleCore.Data
         [Display(Name = "车牌号")]
         public string LicenceNumber { get; set; }
 
+
         public string DriverName { get; set; }
 
         public string DriverTel { get; set; }

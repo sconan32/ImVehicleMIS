@@ -1,126 +1,145 @@
 ﻿@page
 @model Web.Pages.Vehicle.CreateModel
 @{
-    ViewData["Title"] = "全部安全单位 列表";
+    ViewData["Title"] = "新增车辆";
 }
 
-<h2>全部安全单位 列表</h2>
 
-<hr />
-
-<h4>VehicleItem</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.Type" class="control-label"></label>
-                <select asp-for="VehicleItem.Type" class="form-control"></select>
-                <span asp-validation-for="VehicleItem.Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.LicenceNumber" class="control-label"></label>
-                <input asp-for="VehicleItem.LicenceNumber" class="form-control" />
-                <span asp-validation-for="VehicleItem.LicenceNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.DriverName" class="control-label"></label>
-                <input asp-for="VehicleItem.DriverName" class="form-control" />
-                <span asp-validation-for="VehicleItem.DriverName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.DriverTel" class="control-label"></label>
-                <input asp-for="VehicleItem.DriverTel" class="form-control" />
-                <span asp-validation-for="VehicleItem.DriverTel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.Brand" class="control-label"></label>
-                <input asp-for="VehicleItem.Brand" class="form-control" />
-                <span asp-validation-for="VehicleItem.Brand" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.Color" class="control-label"></label>
-                <input asp-for="VehicleItem.Color" class="form-control" />
-                <span asp-validation-for="VehicleItem.Color" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.ProductionDate" class="control-label"></label>
-                <input asp-for="VehicleItem.ProductionDate" class="form-control" />
-                <span asp-validation-for="VehicleItem.ProductionDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.InsuranceExpiredDate" class="control-label"></label>
-                <input asp-for="VehicleItem.InsuranceExpiredDate" class="form-control" />
-                <span asp-validation-for="VehicleItem.InsuranceExpiredDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.LastRegisterDate" class="control-label"></label>
-                <input asp-for="VehicleItem.LastRegisterDate" class="form-control" />
-                <span asp-validation-for="VehicleItem.LastRegisterDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.VehicleStatus" class="control-label"></label>
-                <input asp-for="VehicleItem.VehicleStatus" class="form-control" />
-                <span asp-validation-for="VehicleItem.VehicleStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.Comment" class="control-label"></label>
-                <input asp-for="VehicleItem.Comment" class="form-control" />
-                <span asp-validation-for="VehicleItem.Comment" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="VehicleItem.VersionNumber" class="control-label"></label>
-                <input asp-for="VehicleItem.VersionNumber" class="form-control" />
-                <span asp-validation-for="VehicleItem.VersionNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.Metadata" class="control-label"></label>
-                <input asp-for="VehicleItem.Metadata" class="form-control" />
-                <span asp-validation-for="VehicleItem.Metadata" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.Name" class="control-label"></label>
-                <input asp-for="VehicleItem.Name" class="form-control" />
-                <span asp-validation-for="VehicleItem.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.CreationDate" class="control-label"></label>
-                <input asp-for="VehicleItem.CreationDate" class="form-control" />
-                <span asp-validation-for="VehicleItem.CreationDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.ModificationDate" class="control-label"></label>
-                <input asp-for="VehicleItem.ModificationDate" class="form-control" />
-                <span asp-validation-for="VehicleItem.ModificationDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.CreateBy" class="control-label"></label>
-                <input asp-for="VehicleItem.CreateBy" class="form-control" />
-                <span asp-validation-for="VehicleItem.CreateBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.ModifyBy" class="control-label"></label>
-                <input asp-for="VehicleItem.ModifyBy" class="form-control" />
-                <span asp-validation-for="VehicleItem.ModifyBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VehicleItem.Status" class="control-label"></label>
-                <input asp-for="VehicleItem.Status" class="form-control" />
-                <span asp-validation-for="VehicleItem.Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+<section class="banner_area">
+    <div class="container">
+        <div class="pull-left">
+            <h3>新增车辆</h3>
+        </div>
+        <div class="pull-right">
+            <a asp-page="/">主页</a>&gt;
+            <a asp-page="/Vehicle">车辆</a>&gt;
+            <a asp-page="/Vehicle/Create">新增车辆</a>
+        </div>
     </div>
-</div>
+</section>
+<section class="main_feature_area">
+    <div class="container">
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <button class="btn btn-primary" type="submit" form="newForm"><span class="glyphicon glyphicon-floppy-saved"> </span> 保 存</button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-default" asp-page="Index"><span class="glyphicon glyphicon-trash" /> 放 弃</button>
+            </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">新驾驶员信息</h3>
+                    </div>
+                    <div class="panel-body" style="padding-right:60px;">
+                        <form method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.Type" class="control-label"></label>
+                                <select asp-for="VehicleItem.Type" class="form-control"></select>
+                                <span asp-validation-for="VehicleItem.Type" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.LicenceNumber" class="control-label"></label>
+                                <input asp-for="VehicleItem.LicenceNumber" class="form-control" />
+                                <span asp-validation-for="VehicleItem.LicenceNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.DriverName" class="control-label"></label>
+                                <input asp-for="VehicleItem.DriverName" class="form-control" />
+                                <span asp-validation-for="VehicleItem.DriverName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.DriverTel" class="control-label"></label>
+                                <input asp-for="VehicleItem.DriverTel" class="form-control" />
+                                <span asp-validation-for="VehicleItem.DriverTel" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.Brand" class="control-label"></label>
+                                <input asp-for="VehicleItem.Brand" class="form-control" />
+                                <span asp-validation-for="VehicleItem.Brand" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.Color" class="control-label"></label>
+                                <input asp-for="VehicleItem.Color" class="form-control" />
+                                <span asp-validation-for="VehicleItem.Color" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.ProductionDate" class="control-label"></label>
+                                <input asp-for="VehicleItem.ProductionDate" class="form-control" />
+                                <span asp-validation-for="VehicleItem.ProductionDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.InsuranceExpiredDate" class="control-label"></label>
+                                <input asp-for="VehicleItem.InsuranceExpiredDate" class="form-control" />
+                                <span asp-validation-for="VehicleItem.InsuranceExpiredDate" class="text-danger"></span>
+                            </div>
 
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.VehicleStatus" class="control-label"></label>
+                                <input asp-for="VehicleItem.VehicleStatus" class="form-control" />
+                                <span asp-validation-for="VehicleItem.VehicleStatus" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.Comment" class="control-label"></label>
+                                <input asp-for="VehicleItem.Comment" class="form-control" />
+                                <span asp-validation-for="VehicleItem.Comment" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.VersionNumber" class="control-label"></label>
+                                <input asp-for="VehicleItem.VersionNumber" class="form-control" />
+                                <span asp-validation-for="VehicleItem.VersionNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.Metadata" class="control-label"></label>
+                                <input asp-for="VehicleItem.Metadata" class="form-control" />
+                                <span asp-validation-for="VehicleItem.Metadata" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.Name" class="control-label"></label>
+                                <input asp-for="VehicleItem.Name" class="form-control" />
+                                <span asp-validation-for="VehicleItem.Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.CreationDate" class="control-label"></label>
+                                <input asp-for="VehicleItem.CreationDate" class="form-control" />
+                                <span asp-validation-for="VehicleItem.CreationDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.ModificationDate" class="control-label"></label>
+                                <input asp-for="VehicleItem.ModificationDate" class="form-control" />
+                                <span asp-validation-for="VehicleItem.ModificationDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.CreateBy" class="control-label"></label>
+                                <input asp-for="VehicleItem.CreateBy" class="form-control" />
+                                <span asp-validation-for="VehicleItem.CreateBy" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.ModifyBy" class="control-label"></label>
+                                <input asp-for="VehicleItem.ModifyBy" class="form-control" />
+                                <span asp-validation-for="VehicleItem.ModifyBy" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.Status" class="control-label"></label>
+                                <input asp-for="VehicleItem.Status" class="form-control" />
+                                <span asp-validation-for="VehicleItem.Status" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

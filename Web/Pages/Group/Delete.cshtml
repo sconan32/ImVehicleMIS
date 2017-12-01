@@ -16,14 +16,14 @@
 <section class="main_feature_area">
     <div class="container">
         <div class="row">
-            <h3>?</h3>
+            <h3></h3>
         </div>
         <div class="btn-toolbar">
 
             <div class="btn-group">
 
-                <form method="post">
-                    <input type="hidden" asp-for="GroupItem.Id" />
+                <form method="post" asp-route-id="@Model.GroupItem.Id" asp-route-returnUrl="@ViewBag.ReturnUrl">
+                    <input type="hidden" asp-for="GroupItem.Id" />                  
                     <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-remove"></span> 确 认 删 除</button>
 
                 </form>

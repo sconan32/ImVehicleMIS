@@ -49,6 +49,11 @@ namespace Web.ViewModels
         [Display(Name = "驾驶证有效年限")]
         public int LicenseValidYears { get; set; }
 
+        [Display(Name = "街道")]
+        public string TownName { get; set; }
+
+        [Display(Name = "安全单位")]
+        public string GroupName { get; set; }
 
     }
 

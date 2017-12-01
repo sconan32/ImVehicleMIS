@@ -35,7 +35,11 @@ namespace Web.Pages.Driver
 
         public async Task OnGetAsync()
         {
-            var items = await _dbContext.Drivers.Include(t=>t.Vehicles).ToListAsync();
+            var items = await _dbContext.Drivers
+                .Include(t => t.Vehicles)
+                .Include(t => t.Town)
+                .Include(t => t.Group)
+                .ToListAsync();
             Drivers = items.Select(t => new DriverListViewModel()
             {
                 Id = t.Id,
@@ -47,7 +51,10 @@ namespace Web.Pages.Driver
                 ValidYears = t.LicenseValidYears,
                 Gender = t.Gender,
                 VehiclesRegistered = t.Vehicles.Count,
-                Tel=t.Tel,
+                Tel = t.Tel,
+                Title = t.Title,
+                TownName = t.Town?.Name,
+                GroupName = t.Group?.Name,
             }).ToList();
         }
     }

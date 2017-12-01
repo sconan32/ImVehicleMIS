@@ -22,7 +22,7 @@ namespace Web.Pages.Driver
         [BindProperty]
         public DriverItem DriverItem { get; set; }
         [Authorize(Roles = "TownManager,Admins")]
-        public async Task<IActionResult> OnGetAsync(long? id)
+        public async Task<IActionResult> OnGetAsync(long? id, string returnUrl)
         {
             if (id == null)
             {
@@ -35,10 +35,11 @@ namespace Web.Pages.Driver
             {
                 return NotFound();
             }
+            ViewData["ReturnUrl"] = returnUrl;
             return Page();
         }
         [Authorize(Roles = "TownManager,Admins")]
-        public async Task<IActionResult> OnPostAsync(long? id)
+        public async Task<IActionResult> OnPostAsync(long? id, string returnUrl)
         {
             if (id == null)
             {
@@ -53,7 +54,7 @@ namespace Web.Pages.Driver
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return Redirect( returnUrl);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Web.Pages.Group
         [BindProperty]
         public GroupItem GroupItem { get; set; }
         [Authorize(Roles = "TownManager,Admins")]
-        public async Task<IActionResult> OnGetAsync(long? id)
+        public async Task<IActionResult> OnGetAsync(long? id, string returnUrl)
         {
             if (id == null)
             {
@@ -35,10 +35,11 @@ namespace Web.Pages.Group
             {
                 return NotFound();
             }
+            ViewData["ReturnUrl"] = returnUrl;
             return Page();
         }
         [Authorize(Roles = "TownManager,Admins")]
-        public async Task<IActionResult> OnPostAsync(long? id)
+        public async Task<IActionResult> OnPostAsync(long? id,string returnUrl)
         {
             if (id == null)
             {
@@ -53,7 +54,7 @@ namespace Web.Pages.Group
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return Redirect( returnUrl);
         }
     }
 }

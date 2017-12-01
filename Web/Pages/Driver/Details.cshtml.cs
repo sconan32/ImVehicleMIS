@@ -6,19 +6,34 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
+using ImVehicleCore.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Web.ViewModels;
 
 namespace Web.Pages.Driver
 {
     public class DetailsModel : PageModel
     {
         private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly ITownRepository _townRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public DetailsModel(ImVehicleCore.Data.VehicleDbContext context)
+        IGroupRepository _groupService;
+        public DetailsModel(ImVehicleCore.Data.VehicleDbContext context, ITownRepository townRepository, IGroupRepository groupService, IAuthorizationService authorizationService)
         {
+            _townRepository = townRepository;
+            _groupService = groupService;
+            _authorizationService = authorizationService;
             _context = context;
         }
+        public async Task<bool> CanEdit()
+        {
+            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireTownManagerRole");
+            var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
+            return (await tm).Succeeded || (await admin).Succeeded;
+        }
 
-        public DriverItem DriverItem { get; set; }
+        public DriverDetailViewModel DriverItem { get; set; }
 
         public async Task<IActionResult> OnGetAsync(long? id)
         {
@@ -27,7 +42,50 @@ namespace Web.Pages.Driver
                 return NotFound();
             }
 
-            DriverItem = await _context.Drivers.SingleOrDefaultAsync(m => m.Id == id);
+            var driver = await _context.Drivers
+                .Include(t=>t.Vehicles)
+                .Include(t=>t.Town)
+                .Include(t=>t.Group)
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            DriverItem = new DriverDetailViewModel()
+            {
+                Id = driver.Id,
+                Name = driver.Name,
+                Gender = driver.Gender,
+                FirstLicenseIssueDate = driver.FirstLicenseIssueDate,
+                LicenseIssue = driver.LicenseIssueDate,
+
+                IdCardNumber = driver.IdCardNumber,
+                License = driver.IdCardNumber,
+                LicenseType = driver.LicenseType,
+                ValidYears = driver.LicenseValidYears,
+                LivingAddress = driver.LivingAddress,
+                Tel = driver.Tel,
+                Title = driver.Title,
+                WarrantyCode = driver.WarrantyCode,
+
+                TownName = driver.Town?.Name,
+                GroupName = driver.Group?.Name,
+
+                PhotoDriverLicenseBase64 = driver.PhotoDriverLicense != null ? Convert.ToBase64String(driver.PhotoDriverLicense) : "",
+                PhotoIdCard1Base64 = driver.PhotoIdCard1 != null ? Convert.ToBase64String(driver.PhotoIdCard1) : "",
+                PhotoIdCard2Base64 = driver.PhotoIdCard2 != null ? Convert.ToBase64String(driver.PhotoIdCard2) : "",
+                PhotoWarrantyBase64 = driver.PhotoWarranty != null ? Convert.ToBase64String(driver.PhotoWarranty) : "",
+
+                Vehicles = driver.Vehicles.Select(t => new VehicleListViewModel() {
+
+                    Id = t.Id,
+                    Name = t.Name,
+                    Brand = t.Brand,
+                    Color = t.Color,
+                    License = t.LicenceNumber,
+                    LastRegisterDate = t.RegisterDate,
+                    Type = t.Type,
+
+                }).ToList(),
+                
+            };
 
             if (DriverItem == null)
             {

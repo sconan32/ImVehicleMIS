@@ -1,12 +1,12 @@
 ﻿@page
 @model Web.Pages.Driver.IndexModel
 @{
-    ViewData["Title"] = "全部驾驶员 列表";
+    ViewData["Title"] = "驾驶员 列表";
 }
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3>全部安全单位 列表</h3>
+            <h3>驾驶员 列表</h3>
         </div>
         <div class="pull-right">
             <a asp-page="/Index">主页</a>&gt;
@@ -28,17 +28,19 @@
             <thead>
                 <tr>
                     <th>
+                        @Html.DisplayNameFor(model => model.Drivers[0].TownName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Drivers[0].GroupName)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Drivers[0].Name)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Drivers[0].Gender)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Drivers[0].IdCardNumber)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Drivers[0].LicenseType)
-                    </th>
+                   
+                   
 
                     <th>
                         @Html.DisplayNameFor(model => model.Drivers[0].License)
@@ -68,19 +70,20 @@
                 {
                     <tr>
                         <td>
+                            @Html.DisplayFor(modelItem => item.TownName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GroupName)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Gender)
                         </td>
+                      
                         <td>
-                            @Html.DisplayFor(modelItem => item.IdCardNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LicenseType)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.License)
+                            <b>@Html.DisplayFor(modelItem => item.LicenseType)</b>&nbsp;  @Html.DisplayFor(modelItem => item.License)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.LicenseIssue)
@@ -96,12 +99,27 @@
                             @Html.DisplayFor(modelItem => item.Tel)
                         </td>
                         <td>
-                            <a asp-page="./Edit" asp-route-id="@item.Id">编辑</a> |
-                            <a asp-page="./Details" asp-route-id="@item.Id">查看详情</a>
+                            <div class="btn-group">
+                                <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>
+                                @if (await Model.CanEdit())
+                                {
+                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">向下弹出</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a asp-page="./Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a asp-page="./Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                        <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="/Driver/Index"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+
+                                    </ul>
+                                }
+                            </div>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-        </div>
-    </section>
+    </div>
+</section>

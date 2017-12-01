@@ -34,6 +34,7 @@ namespace Web.Pages.Driver
         [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnGetAsync(long? groupId)
         {
+           
 
 
             var townlist = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User));
