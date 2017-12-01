@@ -39,13 +39,15 @@ namespace Web.Pages.Group
             var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
             return (await admin).Succeeded;
         }
+
+        [Authorize(Roles = "TownManager,Admins")]
         public async Task OnGetAsync()
         {
             var gs = await _groupRepository.ListAwailableGroupEagerAsync(HttpContext.User);
             Groups = gs.Select(t => new GroupListViewModel()
             {
                 Id = t.Id,
-                Code=t.Code,
+                Code = t.Code,
                 TownName = t.Town?.Name,
                 Type = t.Type,
                 Address = t.Address,
@@ -57,5 +59,8 @@ namespace Web.Pages.Group
                 InvalidCount = t.Vehicles.Count(v => v.RegisterDate.Date.AddYears(1) < DateTime.Now.Date)
             }).ToList();
         }
+
+
+        
     }
 }

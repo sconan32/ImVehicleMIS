@@ -47,7 +47,7 @@
 
                                     <label asp-for="GroupItem.TownId" class="col-sm-2 control-label"></label>
                                     <div class="col-sm-4">
-                                        <select asp-for="GroupItem.TownId" class="form-control" asp-items="@Model.TownList">
+                                        <select asp-for="GroupItem.TownId" class="form-control" asp-items="@ViewBag.TownList">
                                             <option>请选择街道 </option>
                                         </select>
                                         <span asp-validation-for="GroupItem.TownId" class="text-danger"></span>

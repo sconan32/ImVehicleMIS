@@ -42,5 +42,26 @@ namespace ImVehicleCore.Services
             }
             return new List<GroupItem>();
         }
+
+        public async Task<List<GroupItem>> ListGroupsForTownEagerAsync(ClaimsPrincipal claim, long townId)
+        {
+            var vUser = await _userManager.GetUserAsync(claim);
+            if (vUser != null)
+            {
+                if (await _userManager.IsInRoleAsync(vUser, "TownManager"))
+                {
+                    var utownId = vUser.TownId;
+                    if (utownId != null && utownId == townId)
+                    {
+                        return await _groupService.GetGroupsOfTown(townId);
+                    }
+                }
+                else
+                {
+                    return await _groupService.GetGroupsOfTown(townId);
+                }
+            }
+            return new List<GroupItem>();
+        }
     }
 }

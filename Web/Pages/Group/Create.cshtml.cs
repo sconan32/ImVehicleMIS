@@ -32,16 +32,17 @@ namespace Web.Pages.Group
         }
 
         [Authorize(Roles = "TownManager,Admins")]
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(long? groupId)
         {
 
-            TownList = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User))
+            ViewData["TownList"] = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User))
                 .Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name, })
                 .ToList();
+            
             return Page();
 
         }
-        public List<SelectListItem> TownList { get; set; }
+    
 
         [BindProperty]
         public GroupEditViewModel GroupItem { get; set; }
@@ -51,7 +52,7 @@ namespace Web.Pages.Group
         {
             if (!ModelState.IsValid)
             {
-                TownList = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User))
+                ViewData["TownList"] = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User))
                 .Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name, })
                 .ToList();
                 return Page();

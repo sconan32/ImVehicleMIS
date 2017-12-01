@@ -11,6 +11,6 @@ namespace ImVehicleCore.Interfaces
     {
 
         Task<List<GroupItem>> ListAwailableGroupEagerAsync(ClaimsPrincipal claim);
-       
+        Task<List<GroupItem>> ListGroupsForTownEagerAsync(ClaimsPrincipal claim, long townId);
     }
 }
