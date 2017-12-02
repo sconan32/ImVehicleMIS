@@ -17,8 +17,11 @@ namespace ImVehicleCore.Data
 
         public string Depart { get; set; }
 
+        public string Company { get; set; }
 
-       
+
+        public string Title { get; set; }
+
 
         public long? TownId { get; set; }
 

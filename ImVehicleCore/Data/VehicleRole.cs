@@ -15,10 +15,15 @@ namespace ImVehicleCore.Data
 
         public string LocalName { get; set; }
 
-      //  public int? TownId { get; set; }
 
-     //   [ForeignKey("TownId")]
-     //   public virtual TownItem Town { get; set; }
+        public string BaseRoleId { get; set; }
+
+        [ForeignKey("BaseRoleId")]
+        public virtual VehicleRole BaseRole { get; set; }
+        //  public int? TownId { get; set; }
+
+        //   [ForeignKey("TownId")]
+        //   public virtual TownItem Town { get; set; }
 
     }
 }

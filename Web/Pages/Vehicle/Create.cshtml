@@ -24,7 +24,7 @@
                 <button class="btn btn-primary" type="submit" form="newForm"><span class="glyphicon glyphicon-floppy-saved"> </span> 保 存</button>
             </div>
             <div class="btn-group">
-                <button class="btn btn-default" asp-page="Index"><span class="glyphicon glyphicon-trash" /> 放 弃</button>
+                <a class="btn btn-default" href="@Model.ReturnUrl"><span class="glyphicon glyphicon-trash" /> 放 弃</a>
             </div>
 
         </div>
@@ -40,7 +40,7 @@
                         <form method="post" class="form-horizontal">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-
+                            <input type="hidden" asp-for="ReturnUrl" />
                             <div class="form-group">
                                 @if (await Model.IsAdmin())
                                 {

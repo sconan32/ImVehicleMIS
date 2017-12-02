@@ -12,7 +12,7 @@ namespace ImVehicleCore.Data
         [Display(Name = "车辆类型")]
         public VehicleType Type { get; set; }
         [Display(Name = "营运类型")]
-        public  UsageType Usage { get; set; }
+        public UsageType Usage { get; set; }
 
         [Display(Name = "车牌号")]
         public string LicenceNumber { get; set; }
@@ -43,6 +43,11 @@ namespace ImVehicleCore.Data
 
         [Display(Name = "备注")]
         public string Comment { get; set; }
+
+
+        public long? TownId { get; set; }
+
+        public TownItem Town { get; set; }
 
         public long? GroupId { get; set; }
 
@@ -77,15 +82,15 @@ namespace ImVehicleCore.Data
     public enum UsageType
     {
         [Display(Name = "非营运")]
-        NonCommercial =0x10000,
+        NonCommercial = 0x10000,
         [Display(Name = "货运")]
-        Freight =0x20000,
+        Freight = 0x20000,
         [Display(Name = "危化品运输")]
-        Danger =0x40000,
+        Danger = 0x40000,
         [Display(Name = "客运")]
-        Passenger =0x80000,
+        Passenger = 0x80000,
         [Display(Name = "救护")]
-        Ambulance =0x100000,
+        Ambulance = 0x100000,
 
 
 
@@ -115,5 +120,5 @@ namespace ImVehicleCore.Data
 
     }
 
-   
+
 }

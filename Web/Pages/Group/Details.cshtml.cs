@@ -46,6 +46,10 @@ namespace Web.Pages.Group
                 .Include(t => t.SecurityPersons).ThenInclude(s => s.Group)
                 .Include(t => t.SecurityPersons).ThenInclude(s => s.Town)
                 .SingleOrDefaultAsync();
+            if (group == null)
+            {
+                return NotFound();
+            }
             GroupItem = new GroupDetailViewModel()
             {
                 Id = group.Id,
@@ -116,10 +120,7 @@ namespace Web.Pages.Group
                 }).ToList(),
             };
 
-            if (GroupItem == null)
-            {
-                return NotFound();
-            }
+          
             return Page();
         }
     }

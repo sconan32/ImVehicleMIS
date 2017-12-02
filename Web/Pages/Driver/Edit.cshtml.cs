@@ -33,19 +33,21 @@ namespace Web.Pages.Driver
 
         }
 
-
+        public string ReturnUrl { get; set; }
 
         [BindProperty]
         public DriverEditViewModel DriverItem { get; set; }
 
         [Authorize(Roles = "TownManager,Admins")]
-        public async Task<IActionResult> OnGetAsync(long? id)
+        public async Task<IActionResult> OnGetAsync(long? id, string returnUrl)
         {
+
+
             if (id == null)
             {
                 return NotFound();
             }
-
+            ReturnUrl = returnUrl;
             var driver = await _context.Drivers.SingleOrDefaultAsync(m => m.Id == id);
 
             if (driver == null)

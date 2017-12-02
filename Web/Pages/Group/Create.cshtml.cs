@@ -31,18 +31,21 @@ namespace Web.Pages.Group
             _townService = townService;
         }
 
+        public string ReturnUrl { get; set; }
+
         [Authorize(Roles = "TownManager,Admins")]
-        public async Task<IActionResult> OnGetAsync(long? groupId)
+        public async Task<IActionResult> OnGetAsync(long? groupId, string returnUrl)
         {
+            ReturnUrl = returnUrl;
 
             ViewData["TownList"] = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User))
                 .Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name, })
                 .ToList();
-            
+
             return Page();
 
         }
-    
+
 
         [BindProperty]
         public GroupEditViewModel GroupItem { get; set; }
@@ -80,7 +83,7 @@ namespace Web.Pages.Group
                 await GroupItem.PhotoWarranty.CopyToAsync(warPhotoS);
             }
 
-            var townId = await _userManager.IsInRoleAsync(user,"TownManager") ? user.TownId : GroupItem.TownId;
+            var townId = await _userManager.IsInRoleAsync(user, "TownManager") ? user.TownId : GroupItem.TownId;
             var group = new GroupItem()
             {
 
@@ -108,14 +111,14 @@ namespace Web.Pages.Group
             _context.Groups.Add(group);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return Redirect(Url.GetLocalUrl(ReturnUrl));
         }
         public async Task<bool> IsAdmin()
         {
             var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
             return (await admin).Succeeded;
         }
-      
+
 
 
     }

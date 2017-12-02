@@ -32,8 +32,11 @@ namespace Web.Pages.Vehicle
             VehicleItem = new VehicleEditViewModel();
         }
 
-        public async Task<IActionResult> OnGetAsync(long? groupId)
+        [BindProperty]
+        public string ReturnUrl { get; set; }
+        public async Task<IActionResult> OnGetAsync(long? groupId, string returnUrl)
         {
+            ReturnUrl = returnUrl;
 
             var townlist = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User));
 
@@ -67,7 +70,7 @@ namespace Web.Pages.Vehicle
                     var groups = (await _groupService.ListGroupsForTownEagerAsync(HttpContext.User, townlist.First().Id));
                     ViewData["GroupList"] = new SelectList(groups, "Id", "Name");
                 }
-            
+
                 return Page();
             }
 
@@ -134,7 +137,7 @@ namespace Web.Pages.Vehicle
             _context.Vehicles.Add(vehicle);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return Redirect(Url.GetLocalUrl(ReturnUrl));
         }
 
         public async Task<bool> IsAdmin()

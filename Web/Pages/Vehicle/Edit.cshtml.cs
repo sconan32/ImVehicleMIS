@@ -30,35 +30,61 @@ namespace Web.Pages.Vehicle
             _townService = townService;
             _userManager = userManager;
             _groupService = groupService;
-            VehicleItem = new VehicleEditViewModel();
+
         }
 
-        public async Task<IActionResult> OnGetAsync(long? groupId, long? driverId, string returnUrl)
+        public async Task<IActionResult> OnGetAsync(long? id, string returnUrl)
         {
+            ReturnUrl = returnUrl;
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(t => t.Id == id);
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
+            VehicleItem = new VehicleEditViewModel()
+            {
+                Id = vehicle.Id,
+                Brand = vehicle.Brand,
+                Color = vehicle.Color,
+                Comment = vehicle.Comment,
+                DriverId = vehicle.DriverId,
+                GroupId = vehicle.GroupId,
+                InsuranceExpiredDate = vehicle.InsuranceExpiredDate,
+                LastRegisterDate = vehicle.RegisterDate,
+                RegisterDate = vehicle.RegisterDate,
+                License = vehicle.LicenceNumber,
+                Name = vehicle.Name,
+                ProductionDate = vehicle.ProductionDate,
+                RealOwner = vehicle.RealOwner,
+                Type = vehicle.Type,
+                Usage = vehicle.Usage,
+                VehicleStatus = vehicle.VehicleStatus,
+                YearlyAuditDate = vehicle.YearlyAuditDate,
 
+                PhotoAuditBase64 = vehicle.PhotoAudit != null ? Convert.ToBase64String(vehicle.PhotoAudit) : "",
+                PhotoFrontBase64 = vehicle.PhotoFront != null ? Convert.ToBase64String(vehicle.PhotoFront) : "",
+                PhotoRearBase64 = vehicle.PhotoRear != null ? Convert.ToBase64String(vehicle.PhotoRear) : "",
+                PhotoInsuaranceBase64 = vehicle.PhotoInsuarance != null ? Convert.ToBase64String(vehicle.PhotoInsuarance) : "",
+
+            };
             var townlist = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User));
-
             ViewData["TownList"] = new SelectList(townlist, "Id", "Name");
             if (townlist.Any())
             {
                 var groups = (await _groupService.ListGroupsForTownEagerAsync(HttpContext.User, townlist.First().Id));
                 ViewData["GroupList"] = new SelectList(groups, "Id", "Name");
             }
-
-            VehicleItem.GroupId = groupId;
-            if (groupId != null)
+            
+            if (VehicleItem.GroupId != null)
             {
-                VehicleItem.TownId = townlist.FirstOrDefault(t => t.Groups.Any(u => u.Id == groupId))?.Id;
+                VehicleItem.TownId = townlist.FirstOrDefault(t => t.Groups.Any(u => u.Id == VehicleItem.GroupId))?.Id;
             }
-            if (driverId != null)
+            if (VehicleItem.DriverId != null)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
                 var drivers = await (_context.Drivers.Where(t => t.TownId == user.TownId)).ToListAsync();
                 ViewData["DriverList"] = new SelectList(drivers, "Id", "Name");
             }
-
-            ReturnUrl = returnUrl;
-
             return Page();
         }
 

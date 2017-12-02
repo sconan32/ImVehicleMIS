@@ -31,11 +31,15 @@ namespace Web.Pages.Driver
             _groupService = groupService;
             DriverItem = new DriverEditViewModel();
         }
-        [Authorize(Roles = "TownManager,Admins")]
-        public async Task<IActionResult> OnGetAsync(long? groupId)
-        {
-           
 
+        [BindProperty]
+        public string ReturnUrl { get; set; }
+
+        [Authorize(Roles = "TownManager,Admins")]
+        public async Task<IActionResult> OnGetAsync(long? groupId, string returnUrl)
+        {
+
+            ReturnUrl = returnUrl;
 
             var townlist = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User));
 
@@ -47,7 +51,7 @@ namespace Web.Pages.Driver
             }
 
             DriverItem.GroupId = groupId;
-            if(groupId!=null)
+            if (groupId != null)
             {
                 DriverItem.TownId = townlist.FirstOrDefault(t => t.Groups.Any(u => u.Id == groupId))?.Id;
             }
@@ -55,7 +59,7 @@ namespace Web.Pages.Driver
             return Page();
         }
 
-        [BindProperty(SupportsGet =true)]
+        [BindProperty(SupportsGet = true)]
         public DriverEditViewModel DriverItem { get; set; }
         [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnPostAsync()
@@ -71,7 +75,7 @@ namespace Web.Pages.Driver
                     ViewData["GroupList"] = new SelectList(groups, "Id", "Name");
                 }
 
-             
+
                 return Page();
             }
 
@@ -85,7 +89,7 @@ namespace Web.Pages.Driver
             MemoryStream photoLicense = new MemoryStream();
 
             var acceptableExt = new[] { ".png", ".bmp", ".jpg", ".jpeg", ".tif", };
-            
+
             if (acceptableExt.Contains(Path.GetExtension(DriverItem.PhotoIdCard1?.FileName)?.ToLower()))
             {
                 await DriverItem.PhotoIdCard1.CopyToAsync(photoIdCard1);
@@ -111,10 +115,10 @@ namespace Web.Pages.Driver
                 Name = DriverItem.Name,
                 Gender = DriverItem.Gender,
                 FirstLicenseIssueDate = DriverItem.FirstLicenseIssueDate,
-                LicenseIssueDate = DriverItem.FirstLicenseIssueDate,
+                LicenseIssueDate = DriverItem.LicenseIssue,
 
                 IdCardNumber = DriverItem.IdCardNumber,
-                LicenseNumber = DriverItem.IdCardNumber,
+                LicenseNumber = DriverItem.License,
                 LicenseType = DriverItem.LicenseType,
                 LicenseValidYears = DriverItem.ValidYears,
                 LivingAddress = DriverItem.LivingAddress,
@@ -137,7 +141,7 @@ namespace Web.Pages.Driver
             _context.Drivers.Add(driver);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return Redirect(Url.GetLocalUrl(ReturnUrl));
         }
 
         public async Task<bool> IsAdmin()

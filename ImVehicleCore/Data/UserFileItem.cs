@@ -26,6 +26,10 @@ namespace ImVehicleCore.Data
         [ForeignKey("GroupId")]
         public virtual GroupItem Group { get; set; }
 
+        public long? TownId;
+
+        [ForeignKey("TownId")]
+        public virtual TownItem Town { get; set; }
 
         [Display(Name = "MIME格式")]
         public string ContentType { get; set; }

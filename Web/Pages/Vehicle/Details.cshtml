@@ -4,128 +4,216 @@
 @{
     ViewData["Title"] = "全部安全单位 列表";
 }
+<section class="banner_area">
+    <div class="container">
+        <div class="pull-left">
+            <h3>@Html.DisplayFor(model => model.VehicleItem.Name) </h3>
+        </div>
+        <div class="pull-right">
+            <a asp-page="/Index">主页</a>
+            &gt; <a asp-page="/Vehicle/Index">驾驶员</a>
+            &gt; <a asp-page="/Vehicle/Details" asp-route-Id="@Model.VehicleItem.Id">@Html.DisplayFor(model => model.VehicleItem.Name) </a>
+        </div>
+    </div>
+</section>
+<section class="main_feature_area">
+    <div class="container">
 
-<h2>全部安全单位 列表</h2>
+        <p>
+            @if (await Model.CanEdit())
+            {
+                <a class="btn btn-new-item" asp-page="./Edit" asp-route-id="@Model.VehicleItem.Id"><span class="glyphicon glyphicon-edit"></span> 编辑驾驶员</a>
+                <a class="btn btn-new-item" asp-page="../Vehicle/Create"><span class="glyphicon glyphicon-plus"></span> 新增车辆</a>
+            }
+            <a class="btn btn-default" href="@ViewBag.ReturnUrl"><span class="glyphicon glyphicon-level-up"></span> 返 回 </a>
+        </p>
+        <hr />
+        <h4>基本信息</h4>
+        <br />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        状态
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VehicleItem.License)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VehicleItem.Brand)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VehicleItem.InsuranceExpiredDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VehicleItem.LastRegisterDate)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        正常
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.VehicleItem.License)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.VehicleItem.Brand) - @Html.DisplayFor(model => model.VehicleItem.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.VehicleItem.InsuranceExpiredDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.VehicleItem.LastRegisterDate)
+                    </td>
+                </tr>
 
-<hr />
-<div>
-    <h4>VehicleItem</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.Type)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.Type)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.LicenceNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.LicenceNumber)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.DriverName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.DriverName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.DriverTel)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.DriverTel)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.Brand)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.Brand)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.Color)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.Color)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.ProductionDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.ProductionDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.InsuranceExpiredDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.InsuranceExpiredDate)
-        </dd>
+            </tbody>
+        </table>
+        <hr />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.VehicleStatus)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.VehicleStatus)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.Comment)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.Comment)
-        </dd>
+        <br />
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.VersionNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.VersionNumber)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.Metadata)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.Metadata)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.CreationDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.CreationDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.ModificationDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.ModificationDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.CreateBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.CreateBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.ModifyBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.ModifyBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleItem.Status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VehicleItem.Status)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.VehicleItem.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
-</div>
+            <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><b>详细信息</b></a></li>
+            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><b>图片附件</b></a></li>
 
+        </ul>
+        <div style="border-bottom:1px solid #ddd;border-left:1px solid #ddd;border-right:1px solid #ddd;padding:20px;">
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="profile">
+                    <br />
+                    <h4>详细信息</h4>
+
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VehicleItem.Id)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.VehicleItem.Id)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VehicleItem.Name)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.VehicleItem.Name)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VehicleItem.TownName)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.VehicleItem.TownName)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VehicleItem.GroupName)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.VehicleItem.GroupName)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VehicleItem.Brand)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.VehicleItem.Brand)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VehicleItem.Color)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.VehicleItem.Color)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VehicleItem.VehicleStatus)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.VehicleItem.VehicleStatus)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VehicleItem.Usage)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.VehicleItem.Usage)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VehicleItem.Type)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.VehicleItem.Type)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VehicleItem.License)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.VehicleItem.License)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VehicleItem.YearlyAuditDate)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.VehicleItem.YearlyAuditDate)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VehicleItem.LastRegisterDate)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.VehicleItem.LastRegisterDate)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VehicleItem.DriverName)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.VehicleItem.DriverName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VehicleItem.Comment)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.VehicleItem.Comment)
+                        </dd>
+
+                    </dl>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="messages">
+                    <br />
+                    <h4>图片附件</h4>
+
+                    <hr />
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">@Html.DisplayNameFor(model => model.VehicleItem.PhotoAuditBase64)</div>
+                        <div class="panel-body">
+                            <img src="data:image;base64,@Model.VehicleItem.PhotoAuditBase64" />
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">@Html.DisplayNameFor(model => model.VehicleItem.PhotoInsuaranceBase64)</div>
+                        <div class="panel-body">
+                            <img src="data:image;base64,@Model.VehicleItem.PhotoInsuaranceBase64" />
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">@Html.DisplayNameFor(model => model.VehicleItem.PhotoFrontBase64)</div>
+                        <div class="panel-body">
+                            <img src="data:image;base64,@Model.VehicleItem.PhotoFrontBase64" />
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">@Html.DisplayNameFor(model => model.VehicleItem.PhotoRearBase64)</div>
+                        <div class="panel-body">
+                            <img src="data:image;base64,@Model.VehicleItem.PhotoRearBase64" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

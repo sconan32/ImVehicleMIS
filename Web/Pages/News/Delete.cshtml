@@ -1,0 +1,112 @@
+﻿@page
+@model Web.Pages.News.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>NewsItem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsItem.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsItem.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsItem.Content)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsItem.Content)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsItem.Excerpt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsItem.Excerpt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsItem.HasDateRange)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsItem.HasDateRange)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsItem.PublishDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsItem.PublishDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsItem.ExpireDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsItem.ExpireDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsItem.Order)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsItem.Order)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsItem.VersionNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsItem.VersionNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsItem.Metadata)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsItem.Metadata)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsItem.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsItem.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsItem.CreationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsItem.CreationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsItem.ModificationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsItem.ModificationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsItem.CreateBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsItem.CreateBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsItem.ModifyBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsItem.ModifyBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsItem.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NewsItem.Status)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="NewsItem.Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

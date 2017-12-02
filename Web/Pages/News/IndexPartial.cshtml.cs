@@ -6,6 +6,7 @@ using ImVehicleCore.Data;
 using ImVehicleCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Web.ViewModels;
 
 namespace Web.Pages.News
 {
@@ -18,25 +19,18 @@ namespace Web.Pages.News
             this._newsRepisitory = newsRepisitory;
         }
 
-        public List<NewsListView> NewsList { get; set; } = new List<NewsListView>();
-        public class NewsListView
-        {
-            public long Id { get; set; }
+        public List<NewsListViewModel> NewsList { get; set; } = new List<NewsListViewModel>();
 
-            public string Name { get; set; }
-
-            public DateTime Date { get; set; }
-        }
 
         public async Task OnGet()
         {
             var news = await _newsRepisitory.ListRangeAsync(0, 10);
 
             NewsList = news
-                .Select(o => new NewsListView()
+                .Select(o => new NewsListViewModel()
                 {
                     Id = o.Id,
-                    Name = o.Name,
+                    Title = o.Title,
                     Date = o.PublishDate
 
                 }).ToList();

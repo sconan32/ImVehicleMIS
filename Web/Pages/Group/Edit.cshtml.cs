@@ -29,19 +29,19 @@ namespace Web.Pages.Group
             _userManager = userManager;
             _townService = townService;
         }
-
+        public string ReturnUrl { get; set; }
         [BindProperty]
         public GroupEditViewModel GroupItem { get; set; }
 
         [Authorize(Roles = "TownManager,Admins")]
-        public async Task<IActionResult> OnGetAsync(long? id)
+        public async Task<IActionResult> OnGetAsync(long? id, string returnUrl)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-
+            ReturnUrl = returnUrl;
             var group = await _context.Groups.SingleOrDefaultAsync(m => m.Id == id);
 
 
@@ -86,7 +86,7 @@ namespace Web.Pages.Group
         [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnPostAsync()
         {
-      
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -151,7 +151,7 @@ namespace Web.Pages.Group
             group.Status = StatusType.OK;
 
 
-            _context.Attach(group).State = EntityState.Modified;          
+            _context.Attach(group).State = EntityState.Modified;
 
             try
             {
@@ -169,7 +169,7 @@ namespace Web.Pages.Group
                 }
             }
 
-            return RedirectToPage("./Index");
+            return Redirect(Url.GetLocalUrl(ReturnUrl));
         }
 
         private bool GroupItemExists(long id)

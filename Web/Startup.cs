@@ -59,7 +59,7 @@ namespace ImVehicleMIS
             {
                 options.AddPolicy("RequireTownManagerRole", policy => policy.RequireRole("TownManager"));
                 options.AddPolicy("RequireAdminsRole", policy => policy.RequireRole("Admins"));
-
+                options.AddPolicy("RequireGlobalVisitorRole", policy => policy.RequireRole("GlobalVisitor"));
             });
 
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));

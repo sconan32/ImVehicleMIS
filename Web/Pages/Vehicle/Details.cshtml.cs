@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
 using Microsoft.AspNetCore.Authorization;
+using ImVehicleCore.Interfaces;
+using Web.ViewModels;
 
 namespace Web.Pages.Vehicle
 {
@@ -14,13 +16,27 @@ namespace Web.Pages.Vehicle
     {
         private readonly ImVehicleCore.Data.VehicleDbContext _context;
         private readonly IAuthorizationService _authorizationService;
-        public DetailsModel(ImVehicleCore.Data.VehicleDbContext context, IAuthorizationService authorizationService)
+        private readonly ITownRepository _townRepository;
+        IGroupRepository _groupService;
+
+
+        public DetailsModel(ImVehicleCore.Data.VehicleDbContext context, ITownRepository townRepository, IGroupRepository groupService, IAuthorizationService authorizationService)
         {
-            _context = context;
+            _townRepository = townRepository;
+            _groupService = groupService;
             _authorizationService = authorizationService;
+            _context = context;
+
+        }
+        public async Task<bool> CanEdit()
+        {
+            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireTownManagerRole");
+            var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
+            return (await tm).Succeeded || (await admin).Succeeded;
         }
 
-        public VehicleItem VehicleItem { get; set; }
+
+        public VehicleEditViewModel VehicleItem { get; set; }
 
         public async Task<IActionResult> OnGetAsync(long? id)
         {
@@ -29,12 +45,42 @@ namespace Web.Pages.Vehicle
                 return NotFound();
             }
 
-            VehicleItem = await _context.Vehicles.SingleOrDefaultAsync(m => m.Id == id);
+            var vehicle = await _context.Vehicles.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (VehicleItem == null)
+            if (vehicle == null)
             {
                 return NotFound();
             }
+
+
+            VehicleItem = new VehicleEditViewModel()
+            {
+                Id = vehicle.Id,
+                Brand = vehicle.Brand,
+                Color = vehicle.Color,
+                Comment = vehicle.Comment,
+                DriverId = vehicle.DriverId,
+                GroupId = vehicle.GroupId,
+                InsuranceExpiredDate = vehicle.InsuranceExpiredDate,
+                LastRegisterDate = vehicle.RegisterDate,
+                RegisterDate = vehicle.RegisterDate,
+                License = vehicle.LicenceNumber,
+                Name = vehicle.Name,
+                ProductionDate = vehicle.ProductionDate,
+                RealOwner = vehicle.RealOwner,
+                Type = vehicle.Type,
+                Usage = vehicle.Usage,
+                VehicleStatus = vehicle.VehicleStatus,
+                YearlyAuditDate = vehicle.YearlyAuditDate,
+
+                PhotoAuditBase64 = vehicle.PhotoAudit != null ? Convert.ToBase64String(vehicle.PhotoAudit) : "",
+                PhotoFrontBase64 = vehicle.PhotoFront != null ? Convert.ToBase64String(vehicle.PhotoFront) : "",
+                PhotoRearBase64 = vehicle.PhotoRear != null ? Convert.ToBase64String(vehicle.PhotoRear) : "",
+                PhotoInsuaranceBase64 = vehicle.PhotoInsuarance != null ? Convert.ToBase64String(vehicle.PhotoInsuarance) : "",
+
+            };
+
+
             return Page();
         }
     }
