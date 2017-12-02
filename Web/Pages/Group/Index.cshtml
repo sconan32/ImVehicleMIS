@@ -22,7 +22,9 @@
        @if (await Model.CanEdit())
         {
 
-          <a class="btn btn-new-item" asp-page="Create"> <span class="glyphicon glyphicon-plus"></span> 创建新安全单位</a>
+          <a class="btn btn-new-item" asp-page="Create" asp-route-returnUrl="@Request.Path">
+            <span class="glyphicon glyphicon-plus"></span> 创建新安全单位
+          </a>
         }
         </p>
         <hr />
@@ -60,7 +62,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Groups[0].InvalidCount)
                     </th>
-                    <th></th>
+                    <th width="90"></th>
                 </tr>
             </thead>
             <tbody>
@@ -108,7 +110,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a asp-page="./Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a asp-page="./Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                        <li><a asp-page="./Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
                                         <li><a  asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
 
                                     </ul>

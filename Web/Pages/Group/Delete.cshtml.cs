@@ -18,6 +18,8 @@ namespace Web.Pages.Group
         {
             _context = context;
         }
+        [BindProperty]
+        public string ReturnUrl { get; set; }
 
         [BindProperty]
         public GroupItem GroupItem { get; set; }
@@ -35,11 +37,11 @@ namespace Web.Pages.Group
             {
                 return NotFound();
             }
-            ViewData["ReturnUrl"] = returnUrl;
+            ReturnUrl = returnUrl;
             return Page();
         }
         [Authorize(Roles = "TownManager,Admins")]
-        public async Task<IActionResult> OnPostAsync(long? id,string returnUrl)
+        public async Task<IActionResult> OnPostAsync(long? id)
         {
             if (id == null)
             {
@@ -54,7 +56,7 @@ namespace Web.Pages.Group
                 await _context.SaveChangesAsync();
             }
 
-            return Redirect( returnUrl);
+            return Redirect(Url.GetLocalUrl(ReturnUrl));
         }
     }
 }

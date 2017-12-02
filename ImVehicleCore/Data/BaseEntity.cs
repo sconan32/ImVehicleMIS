@@ -24,7 +24,7 @@ namespace ImVehicleCore.Data
         [Display(Name = "创建日期")]
         public DateTime CreationDate { get; set; }
         [Display(Name = "修改日期")]
-        public DateTime ModificationDate { get; set; }
+        public DateTime? ModificationDate { get; set; }
 
         [Display(Name = "修改用户")]
         public string CreateBy { get; set; }
@@ -44,8 +44,8 @@ namespace ImVehicleCore.Data
         [Display(Name = "删除")]
         Deleted =404,
 
-        [Display(Name = "待申")]
-        Authorizing=403,
+        [Display(Name = "待审")]
+        Authorizing=401,
         [Display(Name = "脏")]
         Dirty =302,
         [Display(Name = "出错")]

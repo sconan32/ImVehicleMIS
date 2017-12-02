@@ -13,7 +13,9 @@ namespace Web.ViewModels
 
         [Display(Name = "内容")]
         public string Content { get; set; }
-      
+
+        [Display(Name = "来源")]
+        public string Source { get; set; }
         public bool HasDateRange { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "发布日期")]
@@ -21,7 +23,7 @@ namespace Web.ViewModels
         public DateTime PublishDate { get; set; }
         [Display(Name = "失效日期")]
         [DataType(DataType.Date)]
-        public DateTime ExpireDate { get; set; }
+        public DateTime? ExpireDate { get; set; }
 
         [Display(Name = "顺序")]
         public int Order { get; set; }

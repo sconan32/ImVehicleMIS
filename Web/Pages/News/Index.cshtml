@@ -22,7 +22,7 @@
         <p>
             @if (await Model.CanEdit())
             {
-                <a class="btn btn-new-item" asp-page="Create"> <span class="glyphicon glyphicon-plus"></span> 创建新闻</a>
+                <a class="btn btn-new-item" asp-page="Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <span class="glyphicon glyphicon-plus"></span> 创建新闻</a>
             }
         </p>
         <hr />
@@ -67,8 +67,8 @@
                                     <ul class="dropdown-menu">
                                         <li><a asp-page="./Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a asp-page="./Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
-                                        <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+                                        <li><a asp-page="./Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                        <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
 
                                     </ul>
                                 }

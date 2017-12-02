@@ -9,7 +9,7 @@
         <div class="pull-right">
             <a asp-page="/Index">主页</a>&gt;
             <a asp-page="/Group/Index">安全单位</a>&gt;
-            <a asp-page="/Group/Delete?id=@Model.GroupItem.Id">删除安全单位 @Model.GroupItem.Name</a>
+            <a asp-page="/Group/Delete" asp-route-id="@Model.GroupItem.Id">删除安全单位 @Model.GroupItem.Name</a>
         </div>
     </div>
 </section>
@@ -22,8 +22,9 @@
 
             <div class="btn-group">
 
-                <form method="post" asp-route-id="@Model.GroupItem.Id" asp-route-returnUrl="@ViewBag.ReturnUrl">
+                <form method="post" >
                     <input type="hidden" asp-for="GroupItem.Id" />                  
+                    <input type="hidden" asp-for="ReturnUrl"/>
                     <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-remove"></span> 确 认 删 除</button>
 
                 </form>
@@ -31,7 +32,7 @@
             </div>
             <div class="btn-group">
 
-                <button class="btn btn-default" asp-page="./Index"><span class="glyphicon glyphicon-trash" /> 放 弃</button>
+                <a class="btn btn-default" href="@Model.ReturnUrl"><span class="glyphicon glyphicon-trash" /> 放 弃</a>
             </div>
 
         </div>

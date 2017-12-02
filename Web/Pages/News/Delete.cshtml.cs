@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.News
 {
@@ -20,14 +21,17 @@ namespace Web.Pages.News
 
         [BindProperty]
         public NewsItem NewsItem { get; set; }
+        [BindProperty]
+        public string ReturnUrl { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(long? id)
+        [Authorize(Roles = "GlobalVisitor,Admins")]
+        public async Task<IActionResult> OnGetAsync(long? id, string returnUrl)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
+            ReturnUrl = returnUrl;
             NewsItem = await _context.Newses.SingleOrDefaultAsync(m => m.Id == id);
 
             if (NewsItem == null)
@@ -36,7 +40,7 @@ namespace Web.Pages.News
             }
             return Page();
         }
-
+        [Authorize(Roles = "GlobalVisitor,Admins")]
         public async Task<IActionResult> OnPostAsync(long? id)
         {
             if (id == null)
@@ -52,7 +56,7 @@ namespace Web.Pages.News
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return Redirect(Url.GetLocalUrl(ReturnUrl));
         }
     }
 }

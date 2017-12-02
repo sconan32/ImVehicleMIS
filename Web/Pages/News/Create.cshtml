@@ -12,7 +12,7 @@
         </div>
         <div class="pull-right">
             <a asp-page="/">主页</a>&gt;
-            <a asp-page="/News">车辆</a>&gt;
+            <a asp-page="/News">新闻</a>&gt;
             <a asp-page="/News/Create">新建新闻 </a>
         </div>
     </div>
@@ -33,29 +33,47 @@
             <div class="col-sm-10">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">新车辆信息</h3>
+                        <h3 class="panel-title">新建新闻</h3>
                     </div>
                     <div class="panel-body" style="padding-right:60px;">
 
-                        <form method="post" class="form-horizontal">
+                        <form method="post" id="newForm">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                             <input type="hidden" asp-for="ReturnUrl" />
 
                             <div class="form-group">
-                                <label asp-for="NewsItem.Title" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-                                    <input asp-for="NewsItem.Title" class="form-control" />
-                                    <span asp-validation-for="NewsItem.Title" class="text-danger"></span>
-                                </div>
+                                <label asp-for="NewsItem.Title" class="control-label"></label>
+
+                                <input asp-for="NewsItem.Title" class="form-control" />
+                                <span asp-validation-for="NewsItem.Title" class="text-danger"></span>
+
 
                             </div>
-                            <div class="form-group">
-                                <label asp-for="NewsItem.Content" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-4">
-                                    <textarea asp-for="NewsItem.Content" rows="20" class="form-control" ></textarea>
-                                    <span asp-validation-for="NewsItem.Content" class="text-danger"></span>
+                            <div class="row">
+                                <div class="form-group col-sm-5">
+                                    <label asp-for="NewsItem.Source" class="control-label"></label>
+
+                                    <input asp-for="NewsItem.Source" class="form-control" />
+                                    <span asp-validation-for="NewsItem.Source" class="text-danger"></span>
+
+
                                 </div>
+                                <div class="form-group col-sm-5">
+                                    <label asp-for="NewsItem.PublishDate" class="control-label"></label>
+
+                                    <input asp-for="NewsItem.PublishDate" class="form-control" value="@DateTime.Now.Date.ToString()" />
+                                    <span asp-validation-for="NewsItem.PublishDate" class="text-danger"></span>
+
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="NewsItem.Content" class=" control-label"></label>
+
+                                <textarea asp-for="NewsItem.Content" rows="20" class="form-control"></textarea>
+                                <span asp-validation-for="NewsItem.Content" class="text-danger"></span>
+
 
                             </div>
 
@@ -72,6 +90,6 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-
-    <script>tinymce.init({ selector: 'textarea' });</script>
+    <script src="~/js/tinymce/tinymce.min.js"></script>
+    <script>tinymce.init({ selector: 'textarea', language: 'zh_CN' });</script>
 }

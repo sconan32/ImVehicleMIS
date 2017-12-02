@@ -30,7 +30,7 @@ namespace Web.Pages.Group
             _authorizationService = authorizationService;
             _townService = townService;
         }
-
+        [BindProperty]
         public string ReturnUrl { get; set; }
 
         [Authorize(Roles = "TownManager,Admins")]

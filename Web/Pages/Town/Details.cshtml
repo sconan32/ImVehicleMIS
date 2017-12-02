@@ -24,11 +24,11 @@
         <p>
             @if (await Model.CanEdit())
             {
-                <a class="btn btn-new-item" asp-page="../Group/Create" asp-route-returnUrl="@Url.GetLocalUrl(HttpContext.Request.Path+HttpContext.Request.QueryString)"><span class="glyphicon glyphicon-plus"></span> 新增安全单位</a>
-                <a class="btn btn-new-item" asp-page="../Vehicle/Create" asp-route-returnUrl="@Url.GetLocalUrl(HttpContext.Request.Path+HttpContext.Request.QueryString)"><span class="glyphicon glyphicon-plus"></span> 新增车辆</a>
-                <a class="btn btn-new-item" asp-page="../Driver/Create" asp-route-returnUrl="@Url.GetLocalUrl(HttpContext.Request.Path+HttpContext.Request.QueryString)"><span class="glyphicon glyphicon-plus"></span> 新增驾驶员</a>
+                <a class="btn btn-new-item" asp-page="../Group/Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><span class="glyphicon glyphicon-plus"></span> 新增安全单位</a>
+                <a class="btn btn-new-item" asp-page="../Vehicle/Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><span class="glyphicon glyphicon-plus"></span> 新增车辆</a>
+                <a class="btn btn-new-item" asp-page="../Driver/Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><span class="glyphicon glyphicon-plus"></span> 新增驾驶员</a>
             }
-            <a class="btn btn-default" asp-page="Index"><span class="glyphicon glyphicon-level-up"></span> 返回列表</a>
+          
         </p>
         <hr />
         <h4>基本信息</h4>
@@ -143,7 +143,7 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Groups[0].InvalidCount)
                                 </th>
-                                <th></th>
+                                <th width="90"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -182,7 +182,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a class="btn btn-primary btn-sm" asp-page="../Group/Details" asp-route-id="@item.Id" ><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>
+                                            <a class="btn btn-primary btn-sm" asp-page="../Group/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>
                                             @if (await Model.CanEdit())
                                             {
                                                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -190,10 +190,10 @@
                                                     <span class="sr-only">向下弹出</span>
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a asp-page="../Group/Details" asp-route-id="@item.Id" ><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
+                                                    <li><a asp-page="../Group/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
                                                     <li role="separator" class="divider"></li>
-                                                    <li><a asp-page="../Group/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@HttpContext.Request.Path@HttpContext.Request.QueryString"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
-                                                    <li><a class="danger" asp-page="../Group/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@HttpContext.Request.Path@HttpContext.Request.QueryString"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+                                                    <li><a asp-page="../Group/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                                    <li><a class="danger" asp-page="../Group/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
 
                                                 </ul>
                                             }
@@ -253,7 +253,7 @@
 
 
 
-                                <th></th>
+                                <th width="90"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -308,8 +308,8 @@
                                                 <ul class="dropdown-menu">
                                                     <li><a asp-page="../Vehicle/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
                                                     <li role="separator" class="divider"></li>
-                                                    <li><a asp-page="../Vehicle/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@HttpContext.Request.Path@HttpContext.Request.QueryString"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
-                                                    <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@HttpContext.Request.Path@HttpContext.Request.QueryString"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+                                                    <li><a asp-page="../Vehicle/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                                    <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
 
                                                 </ul>
                                             }
@@ -364,7 +364,7 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].Tel)
                                 </th>
-                                <th></th>
+                                <th width="90"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -411,8 +411,8 @@
                                                 <ul class="dropdown-menu">
                                                     <li><a asp-page="../Driver/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
                                                     <li role="separator" class="divider"></li>
-                                                    <li><a asp-page="../Driver/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@HttpContext.Request.Path@HttpContext.Request.QueryString"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
-                                                    <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@HttpContext.Request.Path@HttpContext.Request.QueryString"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+                                                    <li><a asp-page="../Driver/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+HttpContext.Request.QueryString)"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                                    <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
 
                                                 </ul>
                                             }

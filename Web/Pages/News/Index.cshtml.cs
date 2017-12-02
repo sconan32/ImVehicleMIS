@@ -37,7 +37,7 @@ namespace Web.Pages.News
             {
                 Id = t.Id,
                 Order = t.Order,
-                Date = t.CreationDate,
+                Date = t.PublishDate,
                 Title = t.Title
 
             }).ToList();

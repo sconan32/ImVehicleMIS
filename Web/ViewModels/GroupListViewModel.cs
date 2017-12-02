@@ -44,7 +44,7 @@ namespace Web.ViewModels
         public string License { get; set; }
 
      
-
+        public bool IsValid { get; set; }
 
     }
 }

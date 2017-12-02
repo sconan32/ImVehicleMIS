@@ -9,6 +9,25 @@ namespace Web.ViewModels
 {
     public class VehicleListViewModel
     {
+
+        public VehicleListViewModel(VehicleItem t = null)
+        {
+            var nowDate = DateTime.Now.Date;
+            if (t != null)
+            {
+                Id = t.Id;
+                Name = t.Name;
+                Brand = t.Brand;
+                Color = t.Color;
+                License = t.LicenceNumber;
+                LastRegisterDate = t.RegisterDate;
+                Type = t.Type;
+                IsValid =
+                    (t.InsuranceExpiredDate >= nowDate) &&
+                    (t.YearlyAuditDate.AddYears(1) >= nowDate);
+                    
+            }
+        }
         public long Id { get; set; }
         [Display(Name = "车牌号")]
         public string License { get; set; }
@@ -22,11 +41,11 @@ namespace Web.ViewModels
         public string Brand { get; set; }
         [Display(Name = "型号")]
         public string Name { get; set; }
-       
+
         [Display(Name = "颜色")]
         public string Color { get; set; }
 
-        [DataType( DataType.Date)]
+        [DataType(DataType.Date)]
         [Display(Name = "注册时间")]
         public DateTime LastRegisterDate { get; set; }
         [Display(Name = "安全单位")]
@@ -38,6 +57,9 @@ namespace Web.ViewModels
         [Display(Name = "驾驶员电话")]
         public string DriverTel { get; set; }
 
-        public bool IsValid { get; set; }
+
+
+
+        public bool IsValid { get; private set; }
     }
 }

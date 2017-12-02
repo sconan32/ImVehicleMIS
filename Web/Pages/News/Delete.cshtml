@@ -2,111 +2,66 @@
 @model Web.Pages.News.DeleteModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "删除新闻";
 }
+<section class="banner_area">
+    <div class="container">
+        <div class="pull-left">
+            <h3>确认删除如下新闻吗？</h3>
+        </div>
+        <div class="pull-right">
+            <a asp-page="/Index">主页</a>&gt;
+            <a asp-page="/Driver/Index">新闻</a>&gt;
+            <a asp-page="/Driver/Delete" asp-route-id="@Model.NewsItem.Id">删除新闻</a>
+        </div>
+    </div>
+</section>
+<section class="main_feature_area">
+    <div class="container">
+        <div class="row">
+            <h3></h3>
+        </div>
+        <div class="btn-toolbar">
 
-<h2>Delete</h2>
+            <div class="btn-group">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>NewsItem</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.Content)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.Content)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.Excerpt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.Excerpt)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.HasDateRange)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.HasDateRange)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.PublishDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.PublishDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.ExpireDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.ExpireDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.Order)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.Order)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.VersionNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.VersionNumber)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.Metadata)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.Metadata)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.CreationDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.CreationDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.ModificationDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.ModificationDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.CreateBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.CreateBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.ModifyBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.ModifyBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.Status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.Status)
-        </dd>
-    </dl>
-    
-    <form method="post">
-        <input type="hidden" asp-for="NewsItem.Id" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-page="./Index">Back to List</a>
-    </form>
-</div>
+                <form method="post" >
+                    <input type="hidden" asp-for="NewsItem.Id" />
+                    <input type="hidden" asp-for="ReturnUrl" />
+                    <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-remove"></span> 确 认 删 除</button>
+
+                </form>
+
+            </div>
+            <div class="btn-group">
+
+                <a class="btn btn-default" href="@ViewBag.ReturnUrl"><span class="glyphicon glyphicon-trash" /> 放 弃</a>
+            </div>
+
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">【删除】新闻  </h3>
+                    </div>
+                    <div class="panel-body" style="padding-right:60px;">
+
+
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.NewsItem.Title)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.NewsItem.Title)
+                            </dd>
+                           
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

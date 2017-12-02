@@ -66,34 +66,11 @@ namespace Web.Pages.Group
 
 
                 VehicleCount = group.Vehicles.Count,
-                InvalidCount = group.Vehicles.Count(v => v.RegisterDate.Date.AddYears(1) < DateTime.Now.Date),
-                ValidCount = group.Vehicles.Count(v => v.RegisterDate.Date.AddYears(1) >= DateTime.Now.Date),
+                DriverCount = group.Drivers.Count,
+                SecuremanCount = group.Drivers.Count,
 
-                Vehicles = group.Vehicles.Select(t => new VehicleListViewModel()
-                {
-                    Id = t.Id,
-                    Name = t.Name,
-                    Brand = t.Brand,
-                    Color = t.Color,
-                    License = t.LicenceNumber,
-                    LastRegisterDate = t.RegisterDate,
-                    Type = t.Type,
-                }).ToList(),
-                Drivers = group.Drivers.Select(t => new DriverListViewModel()
-                {
-                    Id = t.Id,
-                    Name = t.Name,
-                    IdCardNumber = t.IdCardNumber,
-                    License = t.LicenseNumber,
-                    LicenseType = t.LicenseType,
-                    LicenseIssue = t.LicenseIssueDate,
-                    ValidYears = t.LicenseValidYears,
-                    Gender = t.Gender,
-                    VehiclesRegistered = t.Vehicles?.Count ?? 0,
-                    Tel = t.Tel,
-
-                }).ToList(),
-
+                Vehicles = group.Vehicles.Select(t => new VehicleListViewModel(t)).ToList(),
+                Drivers = group.Drivers.Select(t => new DriverListViewModel(t)).ToList(),
                 UserFiles = group.UserFiles.Select(t => new UserFileListViewModel()
                 {
                     Id = t.Id,
@@ -119,8 +96,10 @@ namespace Web.Pages.Group
                     Title = t.Title,
                 }).ToList(),
             };
+            GroupItem.DriverInvalidCount = GroupItem.Drivers.Count(t => !t.IsValid);
+            GroupItem.VehicleInvalidCount = GroupItem.Vehicles.Count(t => !t.IsValid);
+            GroupItem.IsValid = (GroupItem.VehicleInvalidCount + GroupItem.DriverInvalidCount) <= 0;
 
-          
             return Page();
         }
     }

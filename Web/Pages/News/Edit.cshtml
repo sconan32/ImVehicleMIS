@@ -2,106 +2,92 @@
 @model Web.Pages.News.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "编辑新闻";
 }
 
-<h2>Edit</h2>
+<section class="banner_area">
+    <div class="container">
+        <div class="pull-left">
+            <h3>编辑新闻</h3>
+        </div>
+        <div class="pull-right">
+            <a asp-page="/">主页</a>&gt;
+            <a asp-page="/News">新闻</a>&gt;
+            <a asp-page="/News/Edit" asp-route-id="@Model.NewsItem.Id">编辑新闻 </a>
+        </div>
+    </div>
+</section>
+<section class="main_feature_area">
+    <div class="container">
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <button class="btn btn-primary" type="submit" form="newForm"><span class="glyphicon glyphicon-floppy-saved"> </span> 保 存</button>
+            </div>
+            <div class="btn-group">
+                <a class="btn btn-default" href="@Model.ReturnUrl"><span class="glyphicon glyphicon-trash" /> 放 弃</a>
+            </div>
 
-<h4>NewsItem</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NewsItem.Title" class="control-label"></label>
-                <input asp-for="NewsItem.Title" class="form-control" />
-                <span asp-validation-for="NewsItem.Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewsItem.Content" class="control-label"></label>
-                <input asp-for="NewsItem.Content" class="form-control" />
-                <span asp-validation-for="NewsItem.Content" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewsItem.Excerpt" class="control-label"></label>
-                <input asp-for="NewsItem.Excerpt" class="form-control" />
-                <span asp-validation-for="NewsItem.Excerpt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="NewsItem.HasDateRange" /> @Html.DisplayNameFor(model => model.HasDateRange)
-                    </label>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">新建新闻</h3>
+                    </div>
+                    <div class="panel-body" style="padding-right:60px;">
+
+                        <form method="post" id="newForm">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <input type="hidden" asp-for="ReturnUrl" />
+                            <input type="hidden" asp-for="NewsItem.Id" />
+                            <div class="form-group">
+                                <label asp-for="NewsItem.Title" class="control-label"></label>
+
+                                <input asp-for="NewsItem.Title" class="form-control" />
+                                <span asp-validation-for="NewsItem.Title" class="text-danger"></span>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-5">
+                                    <label asp-for="NewsItem.Source" class="control-label"></label>
+                                    <input asp-for="NewsItem.Source" class="form-control" />
+                                    <span asp-validation-for="NewsItem.Source" class="text-danger"></span>
+
+
+                                </div>
+                                <div class="form-group col-sm-5">
+                                    <label asp-for="NewsItem.PublishDate" class="control-label"></label>
+                                    <input asp-for="NewsItem.PublishDate" class="form-control" value="@DateTime.Now.Date.ToString()" />
+                                    <span asp-validation-for="NewsItem.PublishDate" class="text-danger"></span>
+
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="NewsItem.Content" class=" control-label"></label>
+
+                                <textarea asp-for="NewsItem.Content" rows="20" class="form-control"></textarea>
+                                <span asp-validation-for="NewsItem.Content" class="text-danger"></span>
+
+
+                            </div>
+
+
+
+                        </form>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="NewsItem.PublishDate" class="control-label"></label>
-                <input asp-for="NewsItem.PublishDate" class="form-control" />
-                <span asp-validation-for="NewsItem.PublishDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewsItem.ExpireDate" class="control-label"></label>
-                <input asp-for="NewsItem.ExpireDate" class="form-control" />
-                <span asp-validation-for="NewsItem.ExpireDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewsItem.Order" class="control-label"></label>
-                <input asp-for="NewsItem.Order" class="form-control" />
-                <span asp-validation-for="NewsItem.Order" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="NewsItem.Id" />
-            <div class="form-group">
-                <label asp-for="NewsItem.VersionNumber" class="control-label"></label>
-                <input asp-for="NewsItem.VersionNumber" class="form-control" />
-                <span asp-validation-for="NewsItem.VersionNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewsItem.Metadata" class="control-label"></label>
-                <input asp-for="NewsItem.Metadata" class="form-control" />
-                <span asp-validation-for="NewsItem.Metadata" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewsItem.Name" class="control-label"></label>
-                <input asp-for="NewsItem.Name" class="form-control" />
-                <span asp-validation-for="NewsItem.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewsItem.CreationDate" class="control-label"></label>
-                <input asp-for="NewsItem.CreationDate" class="form-control" />
-                <span asp-validation-for="NewsItem.CreationDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewsItem.ModificationDate" class="control-label"></label>
-                <input asp-for="NewsItem.ModificationDate" class="form-control" />
-                <span asp-validation-for="NewsItem.ModificationDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewsItem.CreateBy" class="control-label"></label>
-                <input asp-for="NewsItem.CreateBy" class="form-control" />
-                <span asp-validation-for="NewsItem.CreateBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewsItem.ModifyBy" class="control-label"></label>
-                <input asp-for="NewsItem.ModifyBy" class="form-control" />
-                <span asp-validation-for="NewsItem.ModifyBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewsItem.Status" class="control-label"></label>
-                <select asp-for="NewsItem.Status" class="form-control"></select>
-                <span asp-validation-for="NewsItem.Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
+</section>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/js/tinymce/tinymce.min.js"></script>
+    <script>tinymce.init({ selector: 'textarea', language: 'zh_CN' });</script>
 }

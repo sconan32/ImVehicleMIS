@@ -47,6 +47,7 @@ namespace ImVehicleMIS
          
             services.AddMvc().AddRazorPagesOptions(options =>
                 {
+                    options.Conventions.AuthorizeFolder("/News").AllowAnonymousToPage("/News/Detail");
                     options.Conventions.AuthorizeFolder("/Vehicle");
                     options.Conventions.AuthorizeFolder("/Driver");
                     options.Conventions.AuthorizeFolder("/Group");

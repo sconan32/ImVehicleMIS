@@ -34,6 +34,9 @@ namespace Web.Pages.Vehicle
 
         [BindProperty]
         public string ReturnUrl { get; set; }
+
+
+        [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnGetAsync(long? groupId, string returnUrl)
         {
             ReturnUrl = returnUrl;
@@ -58,6 +61,8 @@ namespace Web.Pages.Vehicle
         [BindProperty]
         public VehicleEditViewModel VehicleItem { get; set; }
 
+
+        [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

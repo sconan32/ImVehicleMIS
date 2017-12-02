@@ -33,7 +33,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 
@@ -77,7 +77,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 
@@ -141,7 +141,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 
@@ -183,13 +183,13 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Excerpt");
 
-                    b.Property<DateTime>("ExpireDate");
+                    b.Property<DateTime?>("ExpireDate");
 
-                    b.Property<bool>("HasDateRange");
+                    b.Property<bool?>("HasDateRange");
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 
@@ -198,6 +198,8 @@ namespace ImVehicleCore.Data.Migrations
                     b.Property<int>("Order");
 
                     b.Property<DateTime>("PublishDate");
+
+                    b.Property<string>("Source");
 
                     b.Property<int>("Status");
 
@@ -229,7 +231,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 
@@ -273,7 +275,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 
@@ -311,7 +313,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 
@@ -367,7 +369,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 

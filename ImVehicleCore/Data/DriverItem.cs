@@ -21,7 +21,7 @@ namespace ImVehicleCore.Data
 
         [Display(Name = "驾驶证号")]
         public string LicenseNumber { get; set; }
-        [Display(Name = "首次申领驾驶证日期")]
+        [Display(Name = "首次申领驾驶证于")]
         public DateTime FirstLicenseIssueDate { get; set; }
 
         [Display(Name = "驾驶证签发日期")]

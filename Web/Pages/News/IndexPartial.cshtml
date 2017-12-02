@@ -18,7 +18,7 @@
             {
                 <article class="esh-orders-items row">
                     <section class="esh-orders-item col-xs-2">@Html.DisplayFor(modelItem => item.Id)</section>
-                    <section class="esh-orders-item col-xs-4"><a class="esh-orders-link" asp-page="Detail" asp-route-orderId="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
+                    <section class="esh-orders-item col-xs-4"><a class="esh-orders-link" asp-page="Detail" asp-route-orderId="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a></section>
                     <section class="esh-orders-item col-xs-2">$ @Html.DisplayFor(modelItem => item.Date)</section>
 
                 </article>

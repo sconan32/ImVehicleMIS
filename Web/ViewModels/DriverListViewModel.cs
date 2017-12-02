@@ -9,6 +9,25 @@ namespace Web.ViewModels
 {
     public class DriverListViewModel
     {
+        public DriverListViewModel(DriverItem t=null)
+        {
+            var nowDate = DateTime.Now.Date;
+            if (t != null)
+            {
+                Id = t.Id;
+                Name = t.Name;
+                IdCardNumber = t.IdCardNumber;
+                License = t.LicenseNumber;
+                LicenseType = t.LicenseType;
+                LicenseIssue = t.LicenseIssueDate;
+                ValidYears = t.LicenseValidYears;
+                Gender = t.Gender;
+                VehiclesRegistered = t.Vehicles?.Count ?? 0;
+                Tel = t.Tel;
+                IsValid = (t.LicenseIssueDate.AddYears(t.LicenseValidYears) >= nowDate);
+            }
+        }
+
         public long Id { get; set; }
 
         [Display(Name = "姓名")]
@@ -55,6 +74,7 @@ namespace Web.ViewModels
         [Display(Name = "安全单位")]
         public string GroupName { get; set; }
 
+        public bool IsValid { get; private set; }
     }
 
 }

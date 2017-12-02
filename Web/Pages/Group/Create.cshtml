@@ -41,6 +41,8 @@
 
                         <form class="form-horizontal" method="post" enctype="multipart/form-data" id="newForm">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                           <input type="hidden" asp-for="ReturnUrl" />
                             @if (await Model.IsAdmin())
                             {
                                 <div class="form-group">

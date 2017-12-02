@@ -20,6 +20,7 @@ namespace Web.Pages.News
 
         public NewsItem NewsItem { get; set; }
 
+       
         public async Task<IActionResult> OnGetAsync(long? id)
         {
             if (id == null)

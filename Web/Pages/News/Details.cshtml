@@ -2,108 +2,37 @@
 @model Web.Pages.News.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "查看新闻";
 }
 
-<h2>Details</h2>
+<section class="banner_area">
+    <div class="container">
+        <div class="pull-left">
+            <h3>@Html.DisplayFor(model => model.NewsItem.Title) </h3>
+        </div>
+        <div class="pull-right">
+            <a asp-page="/Index">主页</a>
+            &gt; <a asp-page="/News/Index">新闻</a>
+            &gt; <a asp-page="/News/Details" asp-route-Id="@Model.NewsItem.Id">查看新闻 </a>
+        </div>
+    </div>
+</section>
+<section class="main_feature_area">
+    <div class="container">
 
-<div>
-    <h4>NewsItem</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.Content)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.Content)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.Excerpt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.Excerpt)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.HasDateRange)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.HasDateRange)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.PublishDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.PublishDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.ExpireDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.ExpireDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.Order)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.Order)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.VersionNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.VersionNumber)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.Metadata)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.Metadata)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.CreationDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.CreationDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.ModificationDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.ModificationDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.CreateBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.CreateBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.ModifyBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.ModifyBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NewsItem.Status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NewsItem.Status)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.NewsItem.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
-</div>
+      <br/>
+        <div class="row">
+            <div class="col-sm-1">日期:</div>
+            <div class="col-sm-2">@Html.DisplayFor(model => model.NewsItem.PublishDate)</div>
+            <div class="col-sm-1">来源:</div>
+            <div class="col-sm-2">@Html.DisplayFor(model => model.NewsItem.Source)</div>
+          
+        </div>
+        <hr />
+       
+        <br />
+        <div class="row" style="margin:30px">
+           @Html.Raw(Model.NewsItem.Content)
+        </div>
+    </div>
+</section>
