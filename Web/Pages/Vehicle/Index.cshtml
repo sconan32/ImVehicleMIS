@@ -121,8 +121,8 @@
                                     <ul class="dropdown-menu">
                                         <li><a asp-page="./Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a asp-page="./Edit" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
-                                        <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+                                        <li><a asp-page="./Edit" asp-route-id="@item.Id" asp-route-returnUrl="@HttpContext.Request.Path"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                        <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
 
                                     </ul>
                                 }

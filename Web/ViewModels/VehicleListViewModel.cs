@@ -37,5 +37,7 @@ namespace Web.ViewModels
         public string DriverName { get; set; }
         [Display(Name = "驾驶员电话")]
         public string DriverTel { get; set; }
+
+        public bool IsValid { get; set; }
     }
 }

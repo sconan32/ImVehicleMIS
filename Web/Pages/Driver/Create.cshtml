@@ -55,7 +55,9 @@
                                 }
                                 <label asp-for="DriverItem.GroupId" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <select id="group_select" asp-for="DriverItem.GroupId" class="form-control" asp-items="ViewBag.GroupList"></select>
+                                    <select id="group_select" asp-for="DriverItem.GroupId" class="form-control" asp-items="ViewBag.GroupList">
+                                        <option>请选择安全单位 </option>
+                                    </select>
                                     <span asp-validation-for="DriverItem.GroupId" class="text-danger"></span>
                                 </div>
 

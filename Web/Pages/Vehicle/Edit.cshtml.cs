@@ -7,68 +7,168 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
+using Microsoft.AspNetCore.Authorization;
+using ImVehicleCore.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using Web.ViewModels;
+using System.IO;
 
 namespace Web.Pages.Vehicle
 {
     public class EditModel : PageModel
     {
         private readonly ImVehicleCore.Data.VehicleDbContext _context;
-
-        public EditModel(ImVehicleCore.Data.VehicleDbContext context)
+        private readonly IAuthorizationService _authorizationService;
+        private readonly ITownService _townService;
+        private readonly UserManager<VehicleUser> _userManager;
+        private readonly IGroupService _groupService;
+        public EditModel(ImVehicleCore.Data.VehicleDbContext context, IAuthorizationService authorizationService, ITownService townService, UserManager<VehicleUser> userManager,
+            IGroupService groupService)
         {
             _context = context;
+            _authorizationService = authorizationService;
+            _townService = townService;
+            _userManager = userManager;
+            _groupService = groupService;
+            VehicleItem = new VehicleEditViewModel();
         }
 
-        [BindProperty]
-        public VehicleItem VehicleItem { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(long? id)
+        public async Task<IActionResult> OnGetAsync(long? groupId, long? driverId, string returnUrl)
         {
-            if (id == null)
+
+            var townlist = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User));
+
+            ViewData["TownList"] = new SelectList(townlist, "Id", "Name");
+            if (townlist.Any())
             {
-                return NotFound();
+                var groups = (await _groupService.ListGroupsForTownEagerAsync(HttpContext.User, townlist.First().Id));
+                ViewData["GroupList"] = new SelectList(groups, "Id", "Name");
             }
 
-            VehicleItem = await _context.Vehicles.SingleOrDefaultAsync(m => m.Id == id);
-
-            if (VehicleItem == null)
+            VehicleItem.GroupId = groupId;
+            if (groupId != null)
             {
-                return NotFound();
+                VehicleItem.TownId = townlist.FirstOrDefault(t => t.Groups.Any(u => u.Id == groupId))?.Id;
             }
+            if (driverId != null)
+            {
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                var drivers = await (_context.Drivers.Where(t => t.TownId == user.TownId)).ToListAsync();
+                ViewData["DriverList"] = new SelectList(drivers, "Id", "Name");
+            }
+
+            ReturnUrl = returnUrl;
+
             return Page();
         }
 
+        [BindProperty]
+        public VehicleEditViewModel VehicleItem { get; set; }
+
+        public string ReturnUrl { get; set; }
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
+                var townlist = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User));
+
+                ViewData["TownList"] = new SelectList(townlist, "Id", "Name");
+                if (townlist.Any())
+                {
+                    var groups = (await _groupService.ListGroupsForTownEagerAsync(HttpContext.User, townlist.First().Id));
+                    ViewData["GroupList"] = new SelectList(groups, "Id", "Name");
+                }
+
                 return Page();
             }
 
-            _context.Attach(VehicleItem).State = EntityState.Modified;
+            var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            try
+            MemoryStream spFront = null;
+            MemoryStream spRear = null;
+            MemoryStream spAudit = null;
+            MemoryStream spInsuarance = null;
+
+            var acceptableExt = new[] { ".png", ".bmp", ".jpg", ".jpeg", ".tif", };
+
+            if (acceptableExt.Contains(Path.GetExtension(VehicleItem.PhotoRear?.FileName)?.ToLower()))
             {
-                await _context.SaveChangesAsync();
+                spRear = new MemoryStream();
+                await VehicleItem.PhotoRear.CopyToAsync(spRear);
             }
-            catch (DbUpdateConcurrencyException)
+            if (acceptableExt.Contains(Path.GetExtension(VehicleItem.PhotoFront?.FileName)?.ToLower()))
             {
-                if (!VehicleItemExists(VehicleItem.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                spFront = new MemoryStream();
+                await VehicleItem.PhotoFront.CopyToAsync(spFront);
             }
 
-            return RedirectToPage("./Index");
+            if (acceptableExt.Contains(Path.GetExtension(VehicleItem.PhotoAudit?.FileName)?.ToLower()))
+            {
+                spAudit = new MemoryStream();
+                await VehicleItem.PhotoAudit.CopyToAsync(spAudit);
+            }
+            if (acceptableExt.Contains(Path.GetExtension(VehicleItem.PhotoInsuarance?.FileName)?.ToLower()))
+            {
+                spInsuarance = new MemoryStream();
+                await VehicleItem.PhotoInsuarance.CopyToAsync(spInsuarance);
+            }
+
+
+
+            var vehicle = _context.Vehicles.FirstOrDefault(v => v.Id == VehicleItem.Id);
+            if (vehicle != null)
+            {
+                return NotFound();
+            }
+
+            vehicle.Id = VehicleItem.Id;
+            vehicle.Name = VehicleItem.Name;
+            vehicle.Brand = VehicleItem.Brand;
+            vehicle.Color = VehicleItem.Color;
+            vehicle.Comment = VehicleItem.Comment;
+            vehicle.InsuranceExpiredDate = VehicleItem.InsuranceExpiredDate;
+            vehicle.LicenceNumber = VehicleItem.License;
+            vehicle.ProductionDate = VehicleItem.ProductionDate;
+            vehicle.RealOwner = VehicleItem.RealOwner;
+            vehicle.RegisterDate = VehicleItem.RegisterDate;
+            vehicle.Type = VehicleItem.Type;
+            vehicle.Usage = VehicleItem.Usage;
+            vehicle.YearlyAuditDate = VehicleItem.YearlyAuditDate;
+            vehicle.VehicleStatus = VehicleItem.VehicleStatus;
+
+            if (spFront != null)
+            {
+                vehicle.PhotoFront = spFront.ToArray();
+            }
+            if (spRear != null)
+            {
+                vehicle.PhotoRear = spRear.ToArray();
+            }
+            if (spAudit != null)
+            {
+                vehicle.PhotoAudit = spAudit.ToArray();
+            }
+            if (spInsuarance != null)
+            {
+                vehicle.PhotoInsuarance = spInsuarance.ToArray();
+            }
+
+            vehicle.CreateBy = user.Id;
+            vehicle.CreationDate = DateTime.Now;
+            vehicle.Status = StatusType.OK;
+
+
+
+            _context.Vehicles.Add(vehicle);
+            await _context.SaveChangesAsync();
+
+            return Redirect(Url.GetLocalUrl(ReturnUrl));
         }
 
-        private bool VehicleItemExists(long id)
+        public async Task<bool> IsAdmin()
         {
-            return _context.Vehicles.Any(e => e.Id == id);
+            var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
+            return (await admin).Succeeded;
         }
     }
 }

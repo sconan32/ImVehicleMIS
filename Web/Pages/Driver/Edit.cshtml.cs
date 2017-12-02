@@ -70,7 +70,7 @@ namespace Web.Pages.Driver
                 LicenseIssue = driver.LicenseIssueDate,
 
                 IdCardNumber = driver.IdCardNumber,
-                License = driver.IdCardNumber,
+                License = driver.LicenseNumber,
                 LicenseType = driver.LicenseType,
                 ValidYears = driver.LicenseValidYears,
                 LivingAddress = driver.LivingAddress,

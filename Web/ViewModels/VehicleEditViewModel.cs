@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Web.ViewModels
 {
-    public class VihicleEditViewModel
+    public class VehicleEditViewModel
     {
         public long Id { get; set; }
 
@@ -40,12 +40,22 @@ namespace Web.ViewModels
         [Display(Name = "驾驶员电话")]
         public string DriverTel { get; set; }
 
+
+        [DataType(DataType.Date)]
         [Display(Name = "生产日期")]
         public DateTime ProductionDate { get; set; }
+
+
+        [DataType(DataType.Date)]
         [Display(Name = "强制保险有效期")]
         public DateTime InsuranceExpiredDate { get; set; }
+
+
+        [DataType(DataType.Date)]
         [Display(Name = "注册日期")]
         public DateTime RegisterDate { get; set; }
+
+        [DataType(DataType.Date)]
         [Display(Name = "年检日期")]
         public DateTime YearlyAuditDate { get; set; }
 
@@ -54,28 +64,35 @@ namespace Web.ViewModels
 
         [Display(Name = "备注")]
         public string Comment { get; set; }
-
-        public long? GroupId { get; set; }      
-
+        [Display(Name = "街道")]
+        public long? TownId { get; set; }
+        [Display(Name = "安全单位")]
+        public long? GroupId { get; set; }
+        [Display(Name = "驾驶员")]
 
         public long? DriverId { get; set; }
 
       
         [Display(Name = "车正面照片")]
         public IFormFile PhotoFront { get; set; }
+        public string PhotoFrontBase64 { get; set; }
 
         [Display(Name = "车背面照片")]
         public IFormFile PhotoRear { get; set; }
+        public string PhotoRearBase64 { get; set; }
 
         [Display(Name = "年检照片")]
         public IFormFile PhotoAudit { get; set; }
-
+        public string PhotoAuditBase64 { get; set; }
 
         [Display(Name = "强制保险照片")]
         public IFormFile PhotoInsuarance { get; set; }
-
+        public string PhotoInsuaranceBase64 { get; set; }
 
         [Display(Name = "实际车主")]
         public string RealOwner { get; set; }
+
+
+        public bool IsValid { get; set; }
     }
 }
