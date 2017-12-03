@@ -28,7 +28,7 @@
                 <a class="btn btn-new-item" asp-page="../Vehicle/Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><span class="glyphicon glyphicon-plus"></span> 新增车辆</a>
                 <a class="btn btn-new-item" asp-page="../Driver/Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><span class="glyphicon glyphicon-plus"></span> 新增驾驶员</a>
             }
-          
+
         </p>
         <hr />
         <h4>基本信息</h4>
@@ -37,7 +37,7 @@
             <thead>
                 <tr>
                     <th>
-
+                        状态
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.TownItem.GroupCount)
@@ -53,46 +53,31 @@
             <tbody>
                 <tr>
                     <td>
-                        总数
+                        @(Model.TownItem.IsValid ? "安全" : "预警")
                     </td>
                     <td>
                         @Html.DisplayFor(model => model.TownItem.GroupCount)
+                        @if (Model.TownItem.InvalidGroupCount > 0)
+                        {
+                            <span style="color:darkred">( 预警状态 @Model.TownItem.InvalidGroupCount  )</span>
+                        }
                     </td>
                     <td>
                         @Html.DisplayFor(model => model.TownItem.VehicleCount)
+                        @if (Model.TownItem.InvalidVehicleCount > 0)
+                        {
+                            <span style="color:darkred">( 预警状态 @Model.TownItem.InvalidVehicleCount )</span>
+                        }
                     </td>
                     <td>
                         @Html.DisplayFor(model => model.TownItem.DriverCount)
+                        @if (Model.TownItem.InvalidDriverCount > 0)
+                        {
+                            <span style="color:darkred">( 预警状态 @Model.TownItem.InvalidDriverCount )</span>
+                        }
                     </td>
                 </tr>
-                <tr>
-                    <td style="text-align:right">
-                        其中：处于安全状态
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.TownItem.ValidCount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.TownItem.VehicleCount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.TownItem.DriverCount)
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align:right">
-                        处于危险状态
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.TownItem.InvalidCount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.TownItem.VehicleCount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.TownItem.DriverCount)
-                    </td>
-                </tr>
+
             </tbody>
         </table>
         <hr />
@@ -143,7 +128,7 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Groups[0].InvalidCount)
                                 </th>
-                                <th width="90"></th>
+                                <th width="110"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -253,7 +238,7 @@
 
 
 
-                                <th width="90"></th>
+                                <th width="110"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -364,7 +349,7 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].Tel)
                                 </th>
-                                <th width="90"></th>
+                                <th width="110"></th>
                             </tr>
                         </thead>
                         <tbody>

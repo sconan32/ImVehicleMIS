@@ -45,57 +45,8 @@ namespace Web.Pages.Towns
                 return NotFound();
             }
             var town = await _townRepository.GetByIdEagerAsync(id.Value);
-            TownItem = new TownDetailViewModel()
-            {
-                Id = town.Id,
-                Name = town.Name,
-                GroupCount = town.Groups.Count,
-                ValidCount = town.Groups.Count(t => t.Vehicles.Any(v => v.RegisterDate.Date.AddYears(1) >= DateTime.Now.Date)),
-                InvalidCount = town.Groups.Count(t => t.Vehicles.Any(v => v.RegisterDate.Date.AddYears(1) < DateTime.Now.Date)),
-                Groups = town.Groups.Select(t => new GroupListViewModel()
-                {
-                    Id = t.Id,
-                    Code=t.Code,
-                    Name = t.Name,
-                    ChiefName = t.ChiefName,
-                    ChiefTel = t.ChiefTel,
-                    ChiefTitle = t.ChiefTitle,
-                    Address = t.Address,
-                    License = t.License,
-                    Type = t.Type,
-                    VehicleCount = t.Vehicles.Count,
-                    InvalidCount = t.Vehicles.Count(v => v.RegisterDate.Date.AddYears(1) < DateTime.Now.Date)
-                }).ToList(),
-                Drivers = town.Drivers.Select(t => new DriverListViewModel()
-                {
-                    Id = t.Id,
-                    Name = t.Name,
-                    IdCardNumber = t.IdCardNumber,
-                    License = t.LicenseNumber,
-                    LicenseType = t.LicenseType,
-                    LicenseIssue = t.LicenseIssueDate,
-                    ValidYears = t.LicenseValidYears,
-                    Gender = t.Gender,
-                    VehiclesRegistered = t.Vehicles?.Count ?? 0,
-                    Tel = t.Tel,
-
-                }).ToList(),
-                Vehicles = town.Groups.SelectMany(g => g.Vehicles).Select(t => new VehicleListViewModel()
-                {
-                    Id = t.Id,
-                    License = t.LicenceNumber,
-                    Name = t.Name,
-                    Brand = t.Brand,
-                    Type = t.Type,
-                    Color = t.Color,
-                    LastRegisterDate = t.RegisterDate,
-                    GroupName = t.Group?.Name,
-                    TownName = t.Group?.Town?.Name,
-                    DriverName = t?.Driver?.Name,
-                    DriverTel = t?.Driver?.Tel,
-                }).ToList(),
-            };
-
+            TownItem = new TownDetailViewModel(town);
+           
             if (TownItem == null)
             {
                 return NotFound();

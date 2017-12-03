@@ -85,7 +85,7 @@ namespace ImVehicleMIS.Pages.Account
                 .Select(o => new NewsListView()
                 {
                     Id = o.Id,
-                    Name = o.Name,
+                    Name = o.Title,
                     Date = o.PublishDate
 
                 }).ToList();

@@ -10,9 +10,26 @@ namespace Web.ViewModels
     public class TownDetailViewModel
     {
 
-        public TownDetailViewModel(TownItem t)
+        public TownDetailViewModel(TownItem town = null)
         {
+            if (town == null)
+            {
+                return;
+            }
 
+            Id = town.Id;
+            Name = town.Name;
+            GroupCount = town.Groups.Count;
+            Groups = town.Groups.Select(t => new GroupListViewModel(t)).ToList();
+            Drivers = town.Drivers.Select(t => new DriverListViewModel(t)).ToList();
+            Vehicles = town.Groups.SelectMany(g => g.Vehicles).Select(t => new VehicleListViewModel(t)).ToList();
+
+            DriverCount = Drivers.Count;
+            VehicleCount = Vehicles.Count;
+            InvalidGroupCount = Groups.Count(t => !t.IsValid);
+            InvalidDriverCount = Drivers.Count(t => !t.IsValid);
+            InvalidVehicleCount = Vehicles.Count(t => !t.IsValid);
+            IsValid = (InvalidGroupCount <= 0) && (InvalidDriverCount <= 0) && (InvalidVehicleCount <= 0);
         }
         public long Id { get; set; }
 
@@ -26,15 +43,19 @@ namespace Web.ViewModels
         [Display(Name = "驾驶员数量")]
         public int DriverCount { get; set; }
 
-        public int ValidCount { get; set; }
 
-        public int InvalidCount { get; set; }
+        [Display(Name = "预警数量")]
+        public int InvalidGroupCount { get; set; }
+        [Display(Name = "预警数量")]
 
-        public int ValidCount2 { get; set; }
-        public int InvalidCount2 { get; set; }
+        public int InvalidDriverCount { get; set; }
 
-        public int ValidCount3 { get; set; }
-        public int InvalidCount3 { get; set; }
+        [Display(Name = "预警数量")]
+        public int InvalidVehicleCount { get; set; }
+
+
+        public bool IsValid { get; set; }
+
         public List<GroupListViewModel> Groups { get; set; }
 
         public List<DriverListViewModel> Drivers { get; set; }

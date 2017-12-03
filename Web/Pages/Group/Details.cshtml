@@ -75,14 +75,14 @@
                         @Html.DisplayFor(model => model.GroupItem.VehicleCount)
                         @if (Model.GroupItem.VehicleInvalidCount > 0)
                         {
-                            <span>( 预警状态 @Model.GroupItem.VehicleInvalidCount )</span>
+                            <span style="color:darkred">( 预警状态 @Model.GroupItem.VehicleInvalidCount )</span>
                         }
                     </td>
                     <td>
                         @Html.DisplayFor(model => model.GroupItem.DriverCount)
                         @if (Model.GroupItem.DriverInvalidCount > 0)
                         {
-                            <span>( 预警状态 @Model.GroupItem.DriverInvalidCount )</span>
+                            <span style="color:darkred">( 预警状态 @Model.GroupItem.DriverInvalidCount )</span>
                         }
                     </td>
                     <td>
@@ -159,7 +159,7 @@
 
 
 
-                                    <th width="90"></th>
+                                    <th width="110"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -266,7 +266,7 @@
                                     <th>
                                         @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].Tel)
                                     </th>
-                                    <th width="90"></th>
+                                    <th width="110"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -344,7 +344,7 @@
                                         @Html.DisplayNameFor(model => model.GroupItem.Securemans[0].Title)
                                     </th>
 
-                                    <th width="90"></th>
+                                    <th width="110"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -398,7 +398,7 @@
                                         @Html.DisplayNameFor(model => model.GroupItem.UserFiles[0].SizeString)
                                     </th>
 
-                                    <th width="90"></th>
+                                    <th width="110"></th>
                                 </tr>
                             </thead>
                             <tbody>
