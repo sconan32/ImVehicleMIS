@@ -126,7 +126,7 @@
                                     @Html.DisplayNameFor(model => model.TownItem.Groups[0].VehicleCount)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].InvalidCount)
+                                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].DriverCount)
                                 </th>
                                 <th width="110"></th>
                             </tr>
@@ -135,7 +135,7 @@
                             @foreach (var item in Model.TownItem.Groups)
                             {
 
-                                <tr @((item.InvalidCount > 0) ? "class=bg-danger" : "class=")>
+                                <tr @((!item.IsValid) ? "class=bg-danger" : "class=")>
 
 
                                     <td>
@@ -163,7 +163,7 @@
                                         @Html.DisplayFor(modelItem => item.VehicleCount)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.InvalidCount)
+                                        @Html.DisplayFor(modelItem => item.DriverCount)
                                     </td>
                                     <td>
                                         <div class="btn-group">
@@ -224,15 +224,7 @@
 
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].LastRegisterDate)
-                                </th>
-
-                                <th>
-                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].DriverName)
-                                </th>
-
-                                <th>
-                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].DriverTel)
-                                </th>
+                                </th>                               
 
 
 
@@ -271,15 +263,7 @@
 
                                     <td>
                                         @Html.DisplayFor(modelItem => item.LastRegisterDate)
-                                    </td>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DriverName)
-                                    </td>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DriverTel)
-                                    </td>
+                                    </td>                                 
 
                                     <td>
                                         <div class="btn-group">
@@ -337,10 +321,10 @@
 
 
                                 <th>
-                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].LicenseIssue)
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].LicenseIssueDate)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].ValidYears)
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].LicenseValidYears)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].VehiclesRegistered)
@@ -372,11 +356,11 @@
                                         @Html.DisplayFor(modelItem => item.License)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.LicenseIssue)
+                                        @Html.DisplayFor(modelItem => item.LicenseIssueDate)
                                     </td>
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.ValidYears)
+                                        @Html.DisplayFor(modelItem => item.LicenseValidYears)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.VehiclesRegistered)

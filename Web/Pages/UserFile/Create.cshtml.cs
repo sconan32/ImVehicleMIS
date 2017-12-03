@@ -17,7 +17,7 @@ namespace Web.Pages.UserFile
         private readonly ImVehicleCore.Data.VehicleDbContext _context;
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public CreateModel(ImVehicleCore.Data.VehicleDbContext context,IHostingEnvironment hostingEnvironment)
+        public CreateModel(ImVehicleCore.Data.VehicleDbContext context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _hostingEnvironment = hostingEnvironment;
@@ -36,7 +36,7 @@ namespace Web.Pages.UserFile
 
         [BindProperty]
         public UserFileEditViewModel UserFile { get; set; }
-
+        [BindProperty]
         public string ReturnUrl { get; set; }
 
 
@@ -54,10 +54,10 @@ namespace Web.Pages.UserFile
 
             try
             {
-                string serverFileName=Guid.NewGuid().ToString() + ".ufile";
-                string serverPath =Path.Combine(_hostingEnvironment.WebRootPath,"upload",serverFileName);
+                string serverFileName = Guid.NewGuid().ToString() + ".ufile";
+                string serverPath = Path.Combine(_hostingEnvironment.WebRootPath, "upload", serverFileName);
 
-                FileStream fileToWrite = new FileStream( serverPath, FileMode.Create, FileAccess.Write);
+                FileStream fileToWrite = new FileStream(serverPath, FileMode.Create, FileAccess.Write);
                 await UserFile.UploadFile.CopyToAsync(fileToWrite);
                 fileToWrite.Close();
                 var ufile = new UserFileItem()
@@ -79,7 +79,7 @@ namespace Web.Pages.UserFile
                 _context.Files.Add(ufile);
                 await _context.SaveChangesAsync();
 
-                return RedirectToPage(ReturnUrl);
+                return RedirectToPage(Url.GetLocalUrl(ReturnUrl));
             }
             catch (Exception ex)
             {

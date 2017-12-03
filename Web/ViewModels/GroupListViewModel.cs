@@ -27,10 +27,10 @@ namespace Web.ViewModels
             License = t.License;
             Type = t.Type;
             VehicleCount = t.Vehicles.Count;
-            InvalidCount = t.Vehicles.Count(u=>
-                u.InsuranceExpiredDate.Date.AddYears(1)>=DateTime.Now.Date 
-                && u.YearlyAuditDate.Date.AddYears(1)>=DateTime.Now.Date);
-            IsValid = InvalidCount <= 0;
+            InvalidVehicleCount = t.Vehicles.Count(v=>!v.IsValid());
+            DriverCount = t.Drivers.Count;
+            InvalidDriverCount = t.Drivers.Count(d => !d.IsValid());
+            IsValid = t.IsValid();
         }
         public long Id { get; set; }
 
@@ -56,8 +56,11 @@ namespace Web.ViewModels
         public int VehicleCount { get; set; }
 
         [Display(Name = "预警车辆数")]
-        public int InvalidCount { get; set; }
-
+        public int InvalidVehicleCount { get; set; }
+        [Display(Name = "注册驾驶员数")]
+        public int DriverCount { get; private set; }
+        [Display(Name = "预警驾驶员数")]
+        public int InvalidDriverCount { get; private set; }
         [Display(Name = "单位类型")]
         public string Type { get; set; }
 

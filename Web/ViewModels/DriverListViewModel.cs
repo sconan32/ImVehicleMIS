@@ -11,7 +11,7 @@ namespace Web.ViewModels
     {
         public DriverListViewModel(DriverItem t=null)
         {
-            var nowDate = DateTime.Now.Date;
+            
             if (t != null)
             {
                 Id = t.Id;
@@ -19,12 +19,12 @@ namespace Web.ViewModels
                 IdCardNumber = t.IdCardNumber;
                 License = t.LicenseNumber;
                 LicenseType = t.LicenseType;
-                LicenseIssue = t.LicenseIssueDate;
-                ValidYears = t.LicenseValidYears;
+                LicenseIssueDate = t.LicenseIssueDate;
+                LicenseValidYears = t.LicenseValidYears;
                 Gender = t.Gender;
                 VehiclesRegistered = t.Vehicles?.Count ?? 0;
                 Tel = t.Tel;
-                IsValid = (t.LicenseIssueDate.AddYears(t.LicenseValidYears) >= nowDate);
+                IsValid = t.IsValid();
             }
         }
 
@@ -46,11 +46,8 @@ namespace Web.ViewModels
         public VehicleLicenseType LicenseType { get; set; }
         [Display(Name = "性别")]
         public GenderType Gender { get; set; }
-        [DataType(DataType.Date)]
-        [Display(Name = "发证时间")]
-        public DateTime LicenseIssue { get; set; }
-        [Display(Name = "有效期限")]
-        public int ValidYears { get; set; }
+
+        
 
         [Display(Name = "注册车辆数")]
         public int VehiclesRegistered { get; set; }
@@ -60,13 +57,16 @@ namespace Web.ViewModels
         [Display(Name = "职务")]
         public string Title { get; set; }
 
-        [Display(Name = "首次申领驾驶证日期")]
-        public DateTime FirstLicenseIssueDate { get; set; }
 
+        [DataType(DataType.Date)]
+        [Display(Name = "首次申领驾驶证日期")]
+        public DateTime? FirstLicenseIssueDate { get; set; }
+
+        [DataType( DataType.Date)]
         [Display(Name = "驾驶证签发日期")]
-        public DateTime LicenseIssueDate { get; set; }
+        public DateTime? LicenseIssueDate { get; set; }
         [Display(Name = "驾驶证有效年限")]
-        public int LicenseValidYears { get; set; }
+        public int? LicenseValidYears { get; set; }
 
         [Display(Name = "街道")]
         public string TownName { get; set; }

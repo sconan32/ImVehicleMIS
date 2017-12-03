@@ -2,17 +2,17 @@
 @model Web.Pages.Vehicle.DetailsModel
 
 @{
-    ViewData["Title"] = "全部安全单位 列表";
+    ViewData["Title"] = "车辆列表";
 }
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3>@Html.DisplayFor(model => model.VehicleItem.Name) </h3>
+            <h3>【车辆信息】@Html.DisplayFor(model => model.VehicleItem.License) </h3>
         </div>
         <div class="pull-right">
             <a asp-page="/Index">主页</a>
-            &gt; <a asp-page="/Vehicle/Index">驾驶员</a>
-            &gt; <a asp-page="/Vehicle/Details" asp-route-Id="@Model.VehicleItem.Id">@Html.DisplayFor(model => model.VehicleItem.Name) </a>
+            &gt; <a asp-page="/Vehicle/Index">车辆</a>
+            &gt; <a asp-page="/Vehicle/Details" asp-route-Id="@Model.VehicleItem.Id">@Html.DisplayFor(model => model.VehicleItem.License) </a>
         </div>
     </div>
 </section>
@@ -22,10 +22,10 @@
         <p>
             @if (await Model.CanEdit())
             {
-                <a class="btn btn-new-item" asp-page="./Edit" asp-route-id="@Model.VehicleItem.Id"><span class="glyphicon glyphicon-edit"></span> 编辑驾驶员</a>
-                <a class="btn btn-new-item" asp-page="../Vehicle/Create"><span class="glyphicon glyphicon-plus"></span> 新增车辆</a>
+                <a class="btn btn-new-item" asp-page="./Edit" asp-route-id="@Model.VehicleItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><span class="glyphicon glyphicon-edit"></span> 编辑车辆</a>
+           
             }
-            <a class="btn btn-default" href="@ViewBag.ReturnUrl"><span class="glyphicon glyphicon-level-up"></span> 返 回 </a>
+  
         </p>
         <hr />
         <h4>基本信息</h4>

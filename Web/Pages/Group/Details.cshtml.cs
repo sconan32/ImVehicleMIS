@@ -40,6 +40,7 @@ namespace Web.Pages.Group
                 return NotFound();
             }
             var group = await _context.Groups.Where(m => m.Id == id)
+                .Include(t=>t.Town)
                 .Include(t => t.Vehicles)
                 .Include(t => t.Drivers).ThenInclude(d => d.Vehicles)
                 .Include(t => t.UserFiles)
@@ -64,10 +65,15 @@ namespace Web.Pages.Group
                 PhotoWarranty = group.PhotoWarranty != null ? Convert.ToBase64String(group.PhotoWarranty) : "",
                 PhotoSecurity = group.PhotoSecurity != null ? Convert.ToBase64String(group.PhotoSecurity) : "",
 
-
+                TownName = group.Town.Name,
                 VehicleCount = group.Vehicles.Count,
+
                 DriverCount = group.Drivers.Count,
                 SecuremanCount = group.Drivers.Count,
+                DriverInvalidCount = group.Drivers.Count(d => !d.IsValid()),
+                VehicleInvalidCount = group.Vehicles.Count(v => !v.IsValid()),
+                IsValid = group.IsValid(),
+
 
                 Vehicles = group.Vehicles.Select(t => new VehicleListViewModel(t)).ToList(),
                 Drivers = group.Drivers.Select(t => new DriverListViewModel(t)).ToList(),
@@ -96,9 +102,9 @@ namespace Web.Pages.Group
                     Title = t.Title,
                 }).ToList(),
             };
-            GroupItem.DriverInvalidCount = GroupItem.Drivers.Count(t => !t.IsValid);
-            GroupItem.VehicleInvalidCount = GroupItem.Vehicles.Count(t => !t.IsValid);
-            GroupItem.IsValid = (GroupItem.VehicleInvalidCount + GroupItem.DriverInvalidCount) <= 0;
+         
+      
+            
 
             return Page();
         }

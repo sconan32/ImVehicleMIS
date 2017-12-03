@@ -20,7 +20,7 @@
         <p>
             @if (await Model.CanEdit())
             {
-                <a class="btn btn-new-item" asp-page="Create"> <span class="glyphicon glyphicon-plus"></span> 创建新驾驶员</a>
+                <a class="btn btn-new-item" asp-page="Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <span class="glyphicon glyphicon-plus"></span> 创建新驾驶员</a>
             }
         </p>
         <hr />
@@ -50,10 +50,10 @@
 
 
                     <th>
-                        @Html.DisplayNameFor(model => model.Drivers[0].LicenseIssue)
+                        @Html.DisplayNameFor(model => model.Drivers[0].LicenseIssueDate)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Drivers[0].ValidYears)
+                        @Html.DisplayNameFor(model => model.Drivers[0].LicenseValidYears)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Drivers[0].VehiclesRegistered)
@@ -86,11 +86,11 @@
                             <b>@Html.DisplayFor(modelItem => item.LicenseType)</b>&nbsp;  @Html.DisplayFor(modelItem => item.License)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.LicenseIssue)
+                            @Html.DisplayFor(modelItem => item.LicenseIssueDate)
                         </td>
 
                         <td>
-                            @Html.DisplayFor(modelItem => item.ValidYears)
+                            @Html.DisplayFor(modelItem => item.LicenseValidYears)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.VehiclesRegistered)

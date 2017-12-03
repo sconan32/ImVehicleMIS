@@ -21,6 +21,8 @@ namespace ImVehicleCore.Data
 
         public int DownloadCount { get; set; }
 
+       
+
         public long? GroupId { get; set; }
 
         [ForeignKey("GroupId")]

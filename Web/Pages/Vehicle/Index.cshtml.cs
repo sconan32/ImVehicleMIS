@@ -47,7 +47,7 @@ namespace Web.Pages.Vehicle
                 Brand = t.Brand,
                 Type = t.Type,
                 Color = t.Color,
-                LastRegisterDate = t.RegisterDate,
+                LastRegisterDate = t.LastRegisterDate,
                 GroupName = t.Group?.Name,
                 TownName = t.Group?.Town?.Name,
                 DriverName = t?.Driver?.Name,

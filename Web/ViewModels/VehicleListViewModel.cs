@@ -20,11 +20,9 @@ namespace Web.ViewModels
                 Brand = t.Brand;
                 Color = t.Color;
                 License = t.LicenceNumber;
-                LastRegisterDate = t.RegisterDate;
+                LastRegisterDate = t.LastRegisterDate;
                 Type = t.Type;
-                IsValid =
-                    (t.InsuranceExpiredDate >= nowDate) &&
-                    (t.YearlyAuditDate.AddYears(1) >= nowDate);
+                IsValid = t.IsValid();
                     
             }
         }
@@ -47,7 +45,7 @@ namespace Web.ViewModels
 
         [DataType(DataType.Date)]
         [Display(Name = "注册时间")]
-        public DateTime LastRegisterDate { get; set; }
+        public DateTime? LastRegisterDate { get; set; }
         [Display(Name = "安全单位")]
         public string GroupName { get; set; }
         [Display(Name = "街道")]

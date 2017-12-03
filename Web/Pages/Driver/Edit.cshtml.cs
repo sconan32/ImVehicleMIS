@@ -32,7 +32,7 @@ namespace Web.Pages.Driver
             _groupService = groupService;
 
         }
-
+        [BindProperty]
         public string ReturnUrl { get; set; }
 
         [BindProperty]

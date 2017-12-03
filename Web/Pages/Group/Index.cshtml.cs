@@ -56,7 +56,7 @@ namespace Web.Pages.Group
                 ChiefName = t.ChiefName,
                 ChiefTel = t.ChiefTel,
                 VehicleCount = t.Vehicles.Count,
-                InvalidCount = t.Vehicles.Count(v => v.RegisterDate.Date.AddYears(1) < DateTime.Now.Date)
+                InvalidVehicleCount = t.Vehicles.Count(v=>!v.IsValid())
             }).ToList();
         }
 

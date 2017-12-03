@@ -22,12 +22,12 @@ namespace ImVehicleCore.Data
         [Display(Name = "驾驶证号")]
         public string LicenseNumber { get; set; }
         [Display(Name = "首次申领驾驶证于")]
-        public DateTime FirstLicenseIssueDate { get; set; }
+        public DateTime? FirstLicenseIssueDate { get; set; }
 
         [Display(Name = "驾驶证签发日期")]
-        public DateTime LicenseIssueDate { get; set; }
+        public DateTime? LicenseIssueDate { get; set; }
         [Display(Name = "驾驶证有效年限")]
-        public int LicenseValidYears { get; set; }
+        public int? LicenseValidYears { get; set; }
 
 
         //public DateTime LicenseExpireDate { get; set; }
@@ -63,6 +63,18 @@ namespace ImVehicleCore.Data
         public string LivingAddress { get; set; }
         [Display(Name = "职务")]
         public string Title { get; set; }
+
+        public bool IsValid()
+        {
+            var nowDate = DateTime.Now.Date;
+
+            if (LicenseIssueDate?.AddYears(LicenseValidYears ?? 0) <= nowDate)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
     public enum VehicleLicenseType
     {

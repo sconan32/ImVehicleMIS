@@ -119,7 +119,7 @@ namespace Web.Pages.Vehicle
                 LicenceNumber = VehicleItem.License,
                 ProductionDate = VehicleItem.ProductionDate,
                 RealOwner = VehicleItem.RealOwner,
-                RegisterDate = VehicleItem.RegisterDate,
+                LastRegisterDate = VehicleItem.RegisterDate,
                 Type = VehicleItem.Type,
                 Usage = VehicleItem.Usage,
                 YearlyAuditDate = VehicleItem.YearlyAuditDate,

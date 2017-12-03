@@ -12,7 +12,7 @@
         <div class="pull-right">
             <a asp-page="/">主页</a>&gt;
             <a asp-page="/Vehicle">车辆</a>&gt;
-            <a asp-page="/Vehicle/Edit" asp-route-id="@Model.VehicleItem.Id">新增车辆</a>
+            <a asp-page="/Vehicle/Edit" asp-route-id="@Model.VehicleItem.Id">编辑车辆信息</a>
         </div>
     </div>
 </section>
@@ -32,7 +32,7 @@
             <div class="col-sm-10">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">新车辆信息</h3>
+                        <h3 class="panel-title">车辆信息</h3>
                     </div>
                     <div class="panel-body" style="padding-right:60px;">
 
@@ -184,7 +184,7 @@
                             </div>
 
                             <input type="hidden" asp-for="VehicleItem.Id" />
-
+                            <input type="hidden" asp-for="ReturnUrl" />
                         </form>
                     </div>
                 </div>

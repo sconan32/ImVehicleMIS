@@ -26,7 +26,7 @@
             </div>
             <div class="btn-group">
 
-                <button class="btn btn-default" asp-page="/Group/Details" asp-route-id="@Model.UserFile.GroupId"><span class="glyphicon glyphicon-trash" /> 放 弃</button>
+                <a class="btn btn-default" href="@Model.ReturnUrl"><span class="glyphicon glyphicon-trash" /> 放 弃</a>
             </div>
 
         </div>
@@ -40,6 +40,8 @@
                     <div class="panel-body" style="padding-right:60px;">
                         <form method="post" id="newForm" enctype="multipart/form-data">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <input type="hidden" asp-for="ReturnUrl" />
                             <input asp-for="UserFile.GroupId" type="hidden" />
 
 

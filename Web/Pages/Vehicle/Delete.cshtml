@@ -12,7 +12,7 @@
         </div>
         <div class="pull-right">
             <a asp-page="/Index">主页</a>&gt;
-            <a asp-page="/Vehicle/Index">安全单位</a>&gt;
+            <a asp-page="/Vehicle/Index">车辆</a>&gt;
             <a asp-page="/Vehicle/Delete" asp-route-id="@Model.VehicleItem.Id">删除车辆 @Model.VehicleItem.LicenceNumber</a>
         </div>
     </div>
@@ -29,7 +29,7 @@
                 <form method="post" >
                     <input type="hidden" asp-for="VehicleItem.Id" />
                     <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-remove"></span> 确 认 删 除</button>
-
+                    <input type="hidden" asp-for="ReturnUrl" />
                 </form>
 
             </div>

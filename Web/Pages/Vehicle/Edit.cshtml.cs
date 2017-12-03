@@ -50,8 +50,8 @@ namespace Web.Pages.Vehicle
                 DriverId = vehicle.DriverId,
                 GroupId = vehicle.GroupId,
                 InsuranceExpiredDate = vehicle.InsuranceExpiredDate,
-                LastRegisterDate = vehicle.RegisterDate,
-                RegisterDate = vehicle.RegisterDate,
+                LastRegisterDate = vehicle.LastRegisterDate,
+                RegisterDate = vehicle.LastRegisterDate,
                 License = vehicle.LicenceNumber,
                 Name = vehicle.Name,
                 ProductionDate = vehicle.ProductionDate,
@@ -90,7 +90,7 @@ namespace Web.Pages.Vehicle
 
         [BindProperty]
         public VehicleEditViewModel VehicleItem { get; set; }
-
+        [BindProperty]
         public string ReturnUrl { get; set; }
         public async Task<IActionResult> OnPostAsync()
         {
@@ -156,7 +156,7 @@ namespace Web.Pages.Vehicle
             vehicle.LicenceNumber = VehicleItem.License;
             vehicle.ProductionDate = VehicleItem.ProductionDate;
             vehicle.RealOwner = VehicleItem.RealOwner;
-            vehicle.RegisterDate = VehicleItem.RegisterDate;
+            vehicle.LastRegisterDate = VehicleItem.RegisterDate;
             vehicle.Type = VehicleItem.Type;
             vehicle.Usage = VehicleItem.Usage;
             vehicle.YearlyAuditDate = VehicleItem.YearlyAuditDate;

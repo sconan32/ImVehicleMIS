@@ -29,6 +29,7 @@ namespace Web.Pages.Group
             _userManager = userManager;
             _townService = townService;
         }
+        [BindProperty]
         public string ReturnUrl { get; set; }
         [BindProperty]
         public GroupEditViewModel GroupItem { get; set; }

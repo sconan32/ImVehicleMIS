@@ -50,13 +50,13 @@
                         单位状态
                     </th>
                     <th>
-                        注册车辆数量
+                        注册车辆数
                     </th>
                     <th>
-                        驾驶员数量
+                        驾驶员数
                     </th>
                     <th>
-                        单位类型
+                       所属街道
                     </th>
                     <th>
                         单位类型
@@ -86,10 +86,13 @@
                         }
                     </td>
                     <td>
+                        @Html.DisplayFor(model => model.GroupItem.TownName)
+                    </td>
+                    <td>
                         @Html.DisplayFor(model => model.GroupItem.Type)
                     </td>
                     <td>
-                        @Html.DisplayFor(model => model.GroupItem.ChiefName) <span style="color:gray">( @Html.DisplayFor(model => model.GroupItem.ChiefName) )</span>
+                        @Html.DisplayFor(model => model.GroupItem.ChiefName) <span style="color:gray">( @Html.DisplayFor(model => model.GroupItem.ChiefTel) )</span>
                     </td>
                     <td></td>
                 </tr>
@@ -254,10 +257,10 @@
 
 
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].LicenseIssue)
+                                        @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].LicenseIssueDate)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].ValidYears)
+                                        @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].LicenseValidYears)
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].VehiclesRegistered)
@@ -289,11 +292,11 @@
                                             @Html.DisplayFor(modelItem => item.License)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.LicenseIssue)
+                                            @Html.DisplayFor(modelItem => item.LicenseIssueDate)
                                         </td>
 
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.ValidYears)
+                                            @Html.DisplayFor(modelItem => item.LicenseValidYears)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.VehiclesRegistered)

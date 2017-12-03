@@ -80,7 +80,7 @@ namespace Web.Pages.Driver
                     Brand = t.Brand,
                     Color = t.Color,
                     License = t.LicenceNumber,
-                    LastRegisterDate = t.RegisterDate,
+                    LastRegisterDate = t.LastRegisterDate,
                     Type = t.Type,
 
                 }).ToList(),

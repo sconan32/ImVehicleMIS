@@ -27,16 +27,17 @@ namespace ImVehicleCore.Data
         [Display(Name = "颜色")]
 
         public string Color { get; set; }
-
+        [Display(Name = "首次注册日期")]
+        public DateTime? FirstRegisterDate { get; set; }
 
         [Display(Name = "生产日期")]
-        public DateTime ProductionDate { get; set; }
+        public DateTime? ProductionDate { get; set; }
         [Display(Name = "强制保险有效期")]
-        public DateTime InsuranceExpiredDate { get; set; }
-        [Display(Name = "注册日期")]
-        public DateTime RegisterDate { get; set; }
+        public DateTime? InsuranceExpiredDate { get; set; }
+        [Display(Name = "上次注册日期")]
+        public DateTime? LastRegisterDate { get; set; }
         [Display(Name = "年检日期")]
-        public DateTime YearlyAuditDate { get; set; }
+        public DateTime? YearlyAuditDate { get; set; }
 
         [Display(Name = "车辆状态")]
         public string VehicleStatus { get; set; }
@@ -76,7 +77,24 @@ namespace ImVehicleCore.Data
         [Display(Name = "实际车主")]
         public string RealOwner { get; set; }
 
+        public bool IsValid ()
+        {
+            var nowDate = DateTime.Now.Date;
+            if(InsuranceExpiredDate<=nowDate)
+            {
+                return false;
+            }
+            if(YearlyAuditDate?.AddYears(1) <= nowDate)
+            {
+                return false;
+            }
+            if(LastRegisterDate?.AddYears(1)<=nowDate)
+            {
+                return false;
+            }
 
+            return true;
+        }
     }
 
     public enum UsageType

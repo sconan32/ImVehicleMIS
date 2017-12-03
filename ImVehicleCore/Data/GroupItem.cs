@@ -13,11 +13,11 @@ namespace ImVehicleCore.Data
 
 
 
-        [Display(Name = "编码")]    
+        [Display(Name = "编码")]
         public string Code { get; set; }
 
 
-        [Display(Name = "办公地址")]    
+        [Display(Name = "办公地址")]
         public string Address { get; set; }
         [Display(Name = "注册地址")]
         public string RegisterAddress { get; set; }
@@ -25,6 +25,7 @@ namespace ImVehicleCore.Data
         public string License { get; set; }
         [Display(Name = "单位类型")]
         public string Type { get; set; }
+
 
         public virtual List<SecurityPerson> SecurityPersons { get; set; }
 
@@ -57,7 +58,21 @@ namespace ImVehicleCore.Data
         [Display(Name = "企业照片")]
         public byte[] PhotoMain { get; set; }
 
-      
+        public bool IsValid()
+        {
+            var nowDate = DateTime.Now.Date;
+
+            if (Vehicles?.Count(v => !v.IsValid()) > 0)
+            {
+                return false;
+            }
+            if (Drivers?.Count(d => !d.IsValid()) > 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
 
     }
 }

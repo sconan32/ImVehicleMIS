@@ -37,6 +37,8 @@ namespace Web.ViewModels
         [Display(Name = "注册车辆数目")]
         public int VehicleCount { get; set; }
 
+        [Display(Name = "所属街道")]
+        public string TownName { get; set; }
 
         [Display(Name = "驾驶员数目")]
         public int DriverCount { get; set; }

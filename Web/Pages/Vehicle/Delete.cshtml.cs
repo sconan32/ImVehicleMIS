@@ -21,7 +21,7 @@ namespace Web.Pages.Vehicle
 
         [BindProperty]
         public VehicleItem VehicleItem { get; set; }
-
+        [BindProperty]
         public string ReturnUrl { get; set; }
 
 

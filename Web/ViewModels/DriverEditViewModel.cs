@@ -33,9 +33,9 @@ namespace Web.ViewModels
         public GenderType Gender { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "发证时间")]
-        public DateTime LicenseIssue { get; set; }
+        public DateTime? LicenseIssue { get; set; }
         [Display(Name = "有效期限")]
-        public int ValidYears { get; set; }
+        public int? ValidYears { get; set; }
 
         [Display(Name = "注册车辆数")]
         public int VehiclesRegistered { get; set; }
@@ -58,7 +58,7 @@ namespace Web.ViewModels
 
         [DataType(DataType.Date)]
         [Display(Name = "首次申领驾驶证于")]
-        public DateTime FirstLicenseIssueDate { get; set; }
+        public DateTime? FirstLicenseIssueDate { get; set; }
         [Display(Name = "资质证书编号")]
         public string WarrantyCode { get; set; }
 
