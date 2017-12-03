@@ -56,7 +56,7 @@
                         驾驶员数
                     </th>
                     <th>
-                       所属街道
+                        所属街道
                     </th>
                     <th>
                         单位类型
@@ -257,11 +257,9 @@
 
 
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].LicenseIssueDate)
+                                        @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].LicenseExpiredDate)
                                     </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].LicenseValidYears)
-                                    </th>
+
                                     <th>
                                         @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].VehiclesRegistered)
                                     </th>
@@ -292,12 +290,10 @@
                                             @Html.DisplayFor(modelItem => item.License)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.LicenseIssueDate)
+                                            @Html.DisplayFor(modelItem => item.LicenseExpiredDate)
                                         </td>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.LicenseValidYears)
-                                        </td>
+
                                         <td>
                                             @Html.DisplayFor(modelItem => item.VehiclesRegistered)
                                         </td>
@@ -344,6 +340,9 @@
                                         @Html.DisplayNameFor(model => model.GroupItem.Securemans[0].Tel)
                                     </th>
                                     <th>
+                                        @Html.DisplayNameFor(model => model.GroupItem.Securemans[0].Company)
+                                    </th>
+                                    <th>
                                         @Html.DisplayNameFor(model => model.GroupItem.Securemans[0].Title)
                                     </th>
 
@@ -360,6 +359,9 @@
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Tel)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Company)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Title)
@@ -398,6 +400,9 @@
                                         @Html.DisplayNameFor(model => model.GroupItem.UserFiles[0].FileName)
                                     </th>
                                     <th>
+                                        @Html.DisplayNameFor(model => model.GroupItem.UserFiles[0].UploadDate)
+                                    </th>
+                                    <th>
                                         @Html.DisplayNameFor(model => model.GroupItem.UserFiles[0].SizeString)
                                     </th>
 
@@ -414,6 +419,9 @@
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.FileName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.UploadDate)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.SizeString)

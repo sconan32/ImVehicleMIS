@@ -28,9 +28,15 @@
                         @Html.DisplayNameFor(model => model.TownList[0].Name)
                     </th>
                     <th>
+                       状态
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.TownList[0].GroupCount)
                     </th>
-
+                   
+                    <th>
+                        @Html.DisplayNameFor(model => model.TownList[0].DriverCount)
+                    </th>
                     <th width="110"></th>
                 </tr>
             </thead>
@@ -45,8 +51,16 @@
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
+                          @(item.IsValid?"正常":"预警")
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.GroupCount)
                         </td>
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DriverCount)
+                        </td>
+
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>

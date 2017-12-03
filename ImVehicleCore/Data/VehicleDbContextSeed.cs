@@ -15,15 +15,12 @@ namespace ImVehicleCore.Data
           ILoggerFactory loggerFactory, int? retry = 0)
         {
 
-            dbContext.Newses.RemoveRange(dbContext.Newses);
-            dbContext.Drivers.RemoveRange(dbContext.Drivers);
-            dbContext.Vehicles.RemoveRange(dbContext.Vehicles);
-            dbContext.Groups.RemoveRange(dbContext.Groups);
-            dbContext.Towns.RemoveRange(dbContext.Towns);
-            dbContext.Districts.RemoveRange(dbContext.Districts);
+            await dbContext.Database.EnsureCreatedAsync();
 
-            dbContext.SaveChanges();
-
+            if (await dbContext.Districts.AnyAsync())
+            {
+                return;
+            }
 
             DistrictItem district = new DistrictItem() { Id = 1, Name = "甘井子区", };
             await dbContext.Districts.AddAsync(district);

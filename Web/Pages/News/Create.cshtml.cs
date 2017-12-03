@@ -19,6 +19,7 @@ namespace Web.Pages.News
         {
             _context = context;
             _userManager = userManager;
+            NewsItem = new NewsItem();
         }
 
         [BindProperty]
@@ -30,6 +31,7 @@ namespace Web.Pages.News
         {
 
             ReturnUrl = returnUrl;
+           
             return Page();
         }
 
@@ -45,6 +47,7 @@ namespace Web.Pages.News
 
            
             var user = await _userManager.GetUserAsync(HttpContext.User);
+
             NewsItem.CreationDate = DateTime.Now;
             NewsItem.CreateBy = user.Id;
 
@@ -53,5 +56,6 @@ namespace Web.Pages.News
 
             return Redirect(Url.GetLocalUrl(ReturnUrl));
         }
+       
     }
 }

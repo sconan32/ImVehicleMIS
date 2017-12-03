@@ -19,6 +19,10 @@ namespace Web.ViewModels
         [Display(Name = "安全单位")]
         public string GroupName { get; set; }
 
+        [DataType(DataType.Date)]
+        [Display(Name = "上传时间")]
+        public DateTime UploadDate { get; set; }
+
 
         [Display(Name = "服务器路径")]
         public string ServerPath { get; set; }

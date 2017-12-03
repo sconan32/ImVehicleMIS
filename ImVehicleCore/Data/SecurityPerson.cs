@@ -33,13 +33,13 @@ namespace ImVehicleCore.Data
         public string RegisterAddress { get; set; }
 
 
-
+        [Display(Name = "安全单位")]
         public long? GroupId { get; set; }
 
         [ForeignKey("GroupId")]
         public virtual GroupItem Group { get; set; }
 
-
+        [Display(Name = "街道")]
         public long? TownId { get; set; }
 
         [ForeignKey("TownId")]

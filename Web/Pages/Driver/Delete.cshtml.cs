@@ -20,6 +20,9 @@ namespace Web.Pages.Driver
         }
 
         [BindProperty]
+        public string ReturnUrl { get; set; }
+
+        [BindProperty]
         public DriverItem DriverItem { get; set; }
         [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnGetAsync(long? id, string returnUrl)
@@ -28,18 +31,18 @@ namespace Web.Pages.Driver
             {
                 return NotFound();
             }
-
+            ReturnUrl = returnUrl;
             DriverItem = await _context.Drivers.SingleOrDefaultAsync(m => m.Id == id);
 
             if (DriverItem == null)
             {
                 return NotFound();
             }
-            ViewData["ReturnUrl"] = returnUrl;
+
             return Page();
         }
         [Authorize(Roles = "TownManager,Admins")]
-        public async Task<IActionResult> OnPostAsync(long? id, string returnUrl)
+        public async Task<IActionResult> OnPostAsync(long? id)
         {
             if (id == null)
             {
@@ -54,7 +57,7 @@ namespace Web.Pages.Driver
                 await _context.SaveChangesAsync();
             }
 
-            return Redirect( returnUrl);
+            return Redirect(Url.GetLocalUrl(ReturnUrl));
         }
     }
 }

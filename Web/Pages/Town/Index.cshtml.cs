@@ -35,20 +35,28 @@ namespace Web.Pages.Towns
             [Display(Name = "安全单位数量")]
             public int GroupCount { get; set; }
 
+            public bool IsValid { get; set; }
+
+            public int VehicleCount { get; set; }
+            [Display(Name = "驾驶员数量")]
+            public int DriverCount { get; set; }
+
         }
         public async Task OnGetAsync()
         {
             var towns = await _townRepository.GetAvailableTownsEagerAsync(HttpContext.User);
 
-            TownList =  towns.OrderBy(t=>t.Code).Select(  t =>
-           new TownItemListViewModel()
-           {
-               Id = t.Id,
-               Code=t.Code,
-               Name = t.Name,
-               GroupCount = t.Groups.Count,
+            TownList = towns.OrderBy(t => t.Code).Select(t =>
+          new TownItemListViewModel()
+          {
+              Id = t.Id,
+              Code = t.Code,
+              Name = t.Name,
+              GroupCount = t.Groups.Count,
+              DriverCount = t.Drivers.Count,
+              IsValid = t.IsValid()
 
-           }).ToList();
+          }).ToList();
         }
     }
 }

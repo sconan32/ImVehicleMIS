@@ -41,20 +41,22 @@ namespace ImVehicleMIS
             // options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
 
 
-            services.AddIdentity<VehicleUser,VehicleRole>()
+            services.AddIdentity<VehicleUser, VehicleRole>()
                 .AddEntityFrameworkStores<VehicleDbContext>()
                 .AddDefaultTokenProviders();
-         
+
             services.AddMvc().AddRazorPagesOptions(options =>
-                {
-                    options.Conventions.AuthorizeFolder("/News").AllowAnonymousToPage("/News/Detail");
-                    options.Conventions.AuthorizeFolder("/Vehicle");
-                    options.Conventions.AuthorizeFolder("/Driver");
-                    options.Conventions.AuthorizeFolder("/Group");
-                    options.Conventions.AuthorizeFolder("/Town");
-                    options.Conventions.AuthorizeFolder("/Account/Manage");
-                    options.Conventions.AuthorizePage("/Account/Logout");
-                });
+            {
+                options.Conventions.AuthorizeFolder("/Secureman");
+                options.Conventions.AuthorizeFolder("/UserFile");
+                options.Conventions.AuthorizeFolder("/News").AllowAnonymousToPage("/News/Details");
+                options.Conventions.AuthorizeFolder("/Vehicle");
+                options.Conventions.AuthorizeFolder("/Driver");
+                options.Conventions.AuthorizeFolder("/Group");
+                options.Conventions.AuthorizeFolder("/Town");
+                options.Conventions.AuthorizeFolder("/Account/Manage");
+                options.Conventions.AuthorizePage("/Account/Logout");
+            });
 
             services.AddAuthorization(options =>
             {
@@ -68,7 +70,7 @@ namespace ImVehicleMIS
 
 
 
-            services.AddScoped<ITownRepository,TownRepository>();
+            services.AddScoped<ITownRepository, TownRepository>();
             services.AddScoped<ITownService, TownService>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IGroupService, GroupService>();
@@ -101,7 +103,7 @@ namespace ImVehicleMIS
 
             app.UseStaticFiles();
 
-           
+
 
 
 
@@ -113,7 +115,7 @@ namespace ImVehicleMIS
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
-        
+
         }
     }
 }

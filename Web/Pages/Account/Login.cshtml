@@ -32,7 +32,7 @@
                 @foreach (var item in Model.NewsList)
                 {
                     <article class=" row">
-                        <section class="col-xs-9"><a class="esh-orders-link" asp-page="Detail" asp-route-orderId="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
+                        <section class="col-xs-9"><a class="esh-orders-link" asp-page="/News/Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
                         <section class="col-xs-2"> @Html.DisplayFor(modelItem => item.Date)</section>
                     </article>
                 }

@@ -31,9 +31,11 @@ namespace Web.ViewModels
         public VehicleLicenseType LicenseType { get; set; }
         [Display(Name = "性别")]
         public GenderType Gender { get; set; }
+        [Required]
         [DataType(DataType.Date)]
         [Display(Name = "发证时间")]
         public DateTime? LicenseIssue { get; set; }
+        [Required]
         [Display(Name = "有效期限")]
         public int? ValidYears { get; set; }
 

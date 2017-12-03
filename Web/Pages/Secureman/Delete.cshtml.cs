@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.Secureman
 {
@@ -19,9 +20,13 @@ namespace Web.Pages.Secureman
         }
 
         [BindProperty]
+
+        public string ReturnUrl { get; set; }
+        [BindProperty]
         public SecurityPerson SecurityPerson { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(long? id)
+        [Authorize(Roles = "TownManager,Admins")]
+        public async Task<IActionResult> OnGetAsync(long? id, string returnUrl)
         {
             if (id == null)
             {
@@ -31,7 +36,7 @@ namespace Web.Pages.Secureman
             SecurityPerson = await _context.SecurityPersons
                 .Include(s => s.Group)
                 .Include(s => s.Town).SingleOrDefaultAsync(m => m.Id == id);
-
+            ReturnUrl = returnUrl;
             if (SecurityPerson == null)
             {
                 return NotFound();
@@ -39,6 +44,7 @@ namespace Web.Pages.Secureman
             return Page();
         }
 
+        [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnPostAsync(long? id)
         {
             if (id == null)
@@ -54,7 +60,7 @@ namespace Web.Pages.Secureman
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return Redirect(Url.GetLocalUrl(ReturnUrl));
         }
     }
 }

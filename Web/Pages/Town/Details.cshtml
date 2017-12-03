@@ -321,11 +321,9 @@
 
 
                                 <th>
-                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].LicenseIssueDate)
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].LicenseExpiredDate)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].LicenseValidYears)
-                                </th>
+                                
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].VehiclesRegistered)
                                 </th>
@@ -356,12 +354,10 @@
                                         @Html.DisplayFor(modelItem => item.License)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.LicenseIssueDate)
+                                        @Html.DisplayFor(modelItem => item.LicenseExpiredDate)
                                     </td>
 
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.LicenseValidYears)
-                                    </td>
+                                   
                                     <td>
                                         @Html.DisplayFor(modelItem => item.VehiclesRegistered)
                                     </td>

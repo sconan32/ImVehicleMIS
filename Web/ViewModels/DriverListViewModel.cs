@@ -9,9 +9,9 @@ namespace Web.ViewModels
 {
     public class DriverListViewModel
     {
-        public DriverListViewModel(DriverItem t=null)
+        public DriverListViewModel(DriverItem t = null)
         {
-            
+
             if (t != null)
             {
                 Id = t.Id;
@@ -25,6 +25,9 @@ namespace Web.ViewModels
                 VehiclesRegistered = t.Vehicles?.Count ?? 0;
                 Tel = t.Tel;
                 IsValid = t.IsValid();
+                TownName = t.Town?.Name;
+                TownName = t.Group?.Name;
+
             }
         }
 
@@ -47,7 +50,7 @@ namespace Web.ViewModels
         [Display(Name = "性别")]
         public GenderType Gender { get; set; }
 
-        
+
 
         [Display(Name = "注册车辆数")]
         public int VehiclesRegistered { get; set; }
@@ -62,12 +65,14 @@ namespace Web.ViewModels
         [Display(Name = "首次申领驾驶证日期")]
         public DateTime? FirstLicenseIssueDate { get; set; }
 
-        [DataType( DataType.Date)]
+        [DataType(DataType.Date)]
         [Display(Name = "驾驶证签发日期")]
         public DateTime? LicenseIssueDate { get; set; }
         [Display(Name = "驾驶证有效年限")]
         public int? LicenseValidYears { get; set; }
-
+        [DataType(DataType.Date)]
+        [Display(Name = "驾驶证有效期至")]
+        public DateTime? LicenseExpiredDate { get { return LicenseIssueDate?.AddYears(LicenseValidYears ?? 0); } }
         [Display(Name = "街道")]
         public string TownName { get; set; }
 

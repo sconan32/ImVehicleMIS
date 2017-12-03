@@ -19,15 +19,20 @@ namespace Web.Pages.UserFile
         }
 
         [BindProperty]
+
+        public string ReturnUrl { get; set; }
+
+
+        [BindProperty]
         public UserFileItem UserFile { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(long? id)
+        public async Task<IActionResult> OnGetAsync(long? id ,string returnUrl)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
+            ReturnUrl = returnUrl;
             UserFile = await _context.Files.SingleOrDefaultAsync(m => m.Id == id);
 
             if (UserFile == null)
@@ -49,10 +54,18 @@ namespace Web.Pages.UserFile
             if (UserFile != null)
             {
                 _context.Files.Remove(UserFile);
+                try
+                {
+                    System.IO.File.Delete(UserFile.ServerPath);
+                }
+                catch(Exception ex)
+                {
+
+                }
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return Redirect(Url.GetLocalUrl(ReturnUrl));
         }
     }
 }

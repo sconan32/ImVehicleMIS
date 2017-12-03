@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace ImVehicleCore.Interfaces
 {
-    public interface IVihecleService
+    public interface IVehicleService
     {
         Task<int> GetVihecleItemCountAsync(string userName);
         Task TransferVihecleAsync(string anonymousId, string userName);

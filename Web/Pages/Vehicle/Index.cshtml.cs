@@ -17,10 +17,12 @@ namespace Web.Pages.Vehicle
     {
         private readonly VehicleDbContext _dbContext;
         private readonly IAuthorizationService _authorizationService;
-        public IndexModel(VehicleDbContext dbContext, IAuthorizationService authorizationService)
+        private readonly ITownService _townService;
+        public IndexModel(VehicleDbContext dbContext, IAuthorizationService authorizationService,ITownService townService)
         {
             _dbContext = dbContext;
             _authorizationService = authorizationService;
+            _townService = townService;
         }
 
         public List<VehicleListViewModel> Vehicles { get; set; }
@@ -34,7 +36,8 @@ namespace Web.Pages.Vehicle
 
         public async Task OnGetAsync()
         {
-            var items = await _dbContext.Vehicles
+            var townIdList = await _townService.GetAvailableTownIdsAsync(HttpContext.User);
+            var items = await _dbContext.Vehicles.Where(t=>townIdList.Contains(t.Id))
                  .Include(t => t.Group).ThenInclude(g => g.Town)
                  .Include(t => t.Driver)
                  .ToListAsync();

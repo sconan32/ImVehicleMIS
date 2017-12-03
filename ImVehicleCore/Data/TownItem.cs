@@ -33,6 +33,20 @@ namespace ImVehicleCore.Data
         public int Code { get; set; }
 
 
+        public bool IsValid()
+        {
+            if(Groups?.Count(g=>!g.IsValid())>0)
+            {
+                return false;
+            }
+            if(Drivers?.Count(d=>!d.IsValid())>0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public void AddSecurityItem (string name)
         {
             if(!Groups.Any(s=>s.Name==name))

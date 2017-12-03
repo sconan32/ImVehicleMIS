@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.News
 {
@@ -20,7 +21,7 @@ namespace Web.Pages.News
 
         public NewsItem NewsItem { get; set; }
 
-       
+        [AllowAnonymous]
         public async Task<IActionResult> OnGetAsync(long? id)
         {
             if (id == null)

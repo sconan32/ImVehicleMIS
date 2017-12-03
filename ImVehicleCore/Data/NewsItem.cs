@@ -9,17 +9,11 @@ namespace ImVehicleCore.Data
     public class NewsItem : BaseEntity
     {
 
-        public NewsItem()
-        {
-            Order = 1;
-            PublishDate = DateTime.Now;
-            ExpireDate = DateTime.Now.AddDays(7);
-           
-        }
-
+       
+        [Required]
         [Display(Name = "标题")]
         public string Title { get; set; }
-
+        [Required]
         [Display(Name = "内容")]
         public string Content { get; set; }
         public string Excerpt { get; set; }

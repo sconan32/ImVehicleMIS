@@ -63,8 +63,12 @@ namespace ImVehicleCore.Data
                 .Include(t => t.Groups).
                     ThenInclude(u => u.Drivers)
                 .Include(t => t.Users)
-                .Include(t=>t.Drivers)
-                    .ThenInclude(d=>d.Vehicles)
+                .Include(t => t.Drivers)
+                    .ThenInclude(d => d.Vehicles)
+                 .Include(t => t.Drivers)
+                    .ThenInclude(d => d.Town)
+                 .Include(t => t.Drivers)
+                    .ThenInclude(d => d.Group)
                 .FirstOrDefaultAsync(t => t.Id == id);
         }
     }

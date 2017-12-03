@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.UserFile
 {
@@ -20,6 +21,8 @@ namespace Web.Pages.UserFile
 
         public IList<UserFileItem> UserFile { get;set; }
 
+
+        [Authorize(Roles = "Admins")]
         public async Task OnGetAsync()
         {
             UserFile = await _context.Files.ToListAsync();

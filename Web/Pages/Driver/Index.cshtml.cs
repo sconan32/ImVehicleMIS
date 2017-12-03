@@ -17,10 +17,12 @@ namespace Web.Pages.Driver
     {
         private readonly VehicleDbContext _dbContext;
         private readonly IAuthorizationService _authorizationService;
-        public IndexModel(VehicleDbContext dbContext, IAuthorizationService authorizationService)
+        private readonly ITownService _townService;
+        public IndexModel(VehicleDbContext dbContext, IAuthorizationService authorizationService,ITownService townService)
         {
             _dbContext = dbContext;
             _authorizationService = authorizationService;
+            _townService = townService;
         }
 
         public List<DriverListViewModel> Drivers { get; set; }
@@ -35,7 +37,8 @@ namespace Web.Pages.Driver
 
         public async Task OnGetAsync()
         {
-            var items = await _dbContext.Drivers
+            var townidlist = await _townService.GetAvailableTownIdsAsync(HttpContext.User);
+            var items = await _dbContext.Drivers.Where(t=>townidlist.Contains(t.TownId??-1))
                 .Include(t => t.Vehicles)
                 .Include(t => t.Town)
                 .Include(t => t.Group)

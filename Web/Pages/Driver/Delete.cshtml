@@ -25,8 +25,9 @@
 
             <div class="btn-group">
 
-                <form method="post" asp-route-id="@Model.DriverItem.Id"  asp-route-returnUrl="@ViewBag.ReturnUrl">
+                <form method="post" >
                     <input type="hidden" asp-for="DriverItem.Id" />
+                    <input type="hidden" asp-for="ReturnUrl" />
                     <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-remove"></span> 确 认 删 除</button>
 
                 </form>
@@ -34,7 +35,7 @@
             </div>
             <div class="btn-group">
 
-                <a class="btn btn-default"  href="@ViewBag.ReturnUrl"><span class="glyphicon glyphicon-trash" /> 放 弃</a>
+                <a class="btn btn-default"  href="@Model.ReturnUrl"><span class="glyphicon glyphicon-trash" /> 放 弃</a>
             </div>
 
         </div>
@@ -43,7 +44,7 @@
             <div class="col-sm-10">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">【删除】安全单位信息  @Model.DriverItem.Name</h3>
+                        <h3 class="panel-title">【删除】驾驶员  @Model.DriverItem.Name</h3>
                     </div>
                     <div class="panel-body" style="padding-right:60px;">
 

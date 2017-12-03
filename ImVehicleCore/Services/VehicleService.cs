@@ -7,7 +7,7 @@ using ImVehicleCore.Interfaces;
 
 namespace ImVehicleCore.Data
 {
-    public class VehicleService : IVihecleService
+    public class VehicleService : IVehicleService
     {
         private readonly IAsyncRepository<VehicleItem> _vehicleRespository;
         private readonly IUriComposer _uriComposer;

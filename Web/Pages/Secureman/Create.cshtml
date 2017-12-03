@@ -2,106 +2,141 @@
 @model Web.Pages.Secureman.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "新建安全员";
 }
-
-<h2>Create</h2>
-
-<h4>SecurityPerson</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.Tel" class="control-label"></label>
-                <input asp-for="SecurityPerson.Tel" class="form-control" />
-                <span asp-validation-for="SecurityPerson.Tel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.IdCardNum" class="control-label"></label>
-                <input asp-for="SecurityPerson.IdCardNum" class="form-control" />
-                <span asp-validation-for="SecurityPerson.IdCardNum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.Title" class="control-label"></label>
-                <input asp-for="SecurityPerson.Title" class="form-control" />
-                <span asp-validation-for="SecurityPerson.Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.Company" class="control-label"></label>
-                <input asp-for="SecurityPerson.Company" class="form-control" />
-                <span asp-validation-for="SecurityPerson.Company" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.Address" class="control-label"></label>
-                <input asp-for="SecurityPerson.Address" class="form-control" />
-                <span asp-validation-for="SecurityPerson.Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.RegisterAddress" class="control-label"></label>
-                <input asp-for="SecurityPerson.RegisterAddress" class="form-control" />
-                <span asp-validation-for="SecurityPerson.RegisterAddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.GroupId" class="control-label"></label>
-                <select asp-for="SecurityPerson.GroupId" class ="form-control" asp-items="ViewBag.GroupId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.TownId" class="control-label"></label>
-                <select asp-for="SecurityPerson.TownId" class ="form-control" asp-items="ViewBag.TownId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.VersionNumber" class="control-label"></label>
-                <input asp-for="SecurityPerson.VersionNumber" class="form-control" />
-                <span asp-validation-for="SecurityPerson.VersionNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.Metadata" class="control-label"></label>
-                <input asp-for="SecurityPerson.Metadata" class="form-control" />
-                <span asp-validation-for="SecurityPerson.Metadata" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.Name" class="control-label"></label>
-                <input asp-for="SecurityPerson.Name" class="form-control" />
-                <span asp-validation-for="SecurityPerson.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.CreationDate" class="control-label"></label>
-                <input asp-for="SecurityPerson.CreationDate" class="form-control" />
-                <span asp-validation-for="SecurityPerson.CreationDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.ModificationDate" class="control-label"></label>
-                <input asp-for="SecurityPerson.ModificationDate" class="form-control" />
-                <span asp-validation-for="SecurityPerson.ModificationDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.CreateBy" class="control-label"></label>
-                <input asp-for="SecurityPerson.CreateBy" class="form-control" />
-                <span asp-validation-for="SecurityPerson.CreateBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.ModifyBy" class="control-label"></label>
-                <input asp-for="SecurityPerson.ModifyBy" class="form-control" />
-                <span asp-validation-for="SecurityPerson.ModifyBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityPerson.Status" class="control-label"></label>
-                <select asp-for="SecurityPerson.Status" class="form-control"></select>
-                <span asp-validation-for="SecurityPerson.Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+<section class="banner_area">
+    <div class="container">
+        <div class="pull-left">
+            <h3>新建安全员</h3>
+        </div>
+        <div class="pull-right">
+            <a asp-page="/">主页</a>&gt;
+            <a asp-page="/Group">安全单位</a>&gt;
+            <a asp-page="/Secureman/Create">新建安全员</a>
+        </div>
     </div>
-</div>
+</section>
+<section class="main_feature_area">
+    <div class="container">
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <button class="btn btn-primary" type="submit" form="newForm"><span class="glyphicon glyphicon-floppy-saved"> </span> 保 存</button>
+            </div>
+            <div class="btn-group">
+                <a class="btn btn-default" href="@Model.ReturnUrl"><span class="glyphicon glyphicon-trash" /> 放 弃</a>
+            </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">新安全员信息</h3>
+                    </div>
+                    <div class="panel-body" style="padding-right:60px;">
 
+                        <form method="post" class="form-horizontal" id="newForm">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                           
+                            <input type="hidden" asp-for="ReturnUrl" />
+                            <div class="form-group" >
+                                @if (await Model.IsAdmin())
+                                {
+                                    <label asp-for="SecurityPerson.TownId" class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-4">
+                                        <select id="town_select" asp-for="SecurityPerson.TownId" class="form-control" asp-items="ViewBag.TownList">
+                                            <option>请选择街道 </option>
+                                        </select>
+                                        <span asp-validation-for="SecurityPerson.TownId" class="text-danger"></span>
+                                    </div>
+
+                                }
+                                <label asp-for="SecurityPerson.GroupId" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <select id="group_select" asp-for="SecurityPerson.GroupId" class="form-control" asp-items="ViewBag.GroupList">
+                                        <option>请选择安全单位 </option>
+                                    </select>
+                                    <span asp-validation-for="SecurityPerson.GroupId" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="SecurityPerson.Name" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <input asp-for="SecurityPerson.Name" class="form-control" />
+                                    <span asp-validation-for="SecurityPerson.Name" class="text-danger"></span>
+                                </div>
+                                <label asp-for="SecurityPerson.IdCardNum" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <input asp-for="SecurityPerson.IdCardNum" class="form-control" />
+                                    <span asp-validation-for="SecurityPerson.IdCardNum" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="SecurityPerson.Company" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <input asp-for="SecurityPerson.Company" class="form-control" />
+                                    <span asp-validation-for="SecurityPerson.Company" class="text-danger"></span>
+                                </div>
+                                <label asp-for="SecurityPerson.Title" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <input asp-for="SecurityPerson.Title" class="form-control" />
+                                    <span asp-validation-for="SecurityPerson.Title" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="SecurityPerson.Tel" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <input asp-for="SecurityPerson.Tel" class="form-control" asp-items="ViewBag.GroupList" />
+                                    <span asp-validation-for="SecurityPerson.Tel" class="text-danger"></span>
+                                </div>
+                                <label asp-for="SecurityPerson.Address" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <input asp-for="SecurityPerson.Address" class="form-control" asp-items="ViewBag.GroupList" />
+                                    <span asp-validation-for="SecurityPerson.Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="SecurityPerson.RegisterAddress" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <input asp-for="SecurityPerson.RegisterAddress" class="form-control" asp-items="ViewBag.GroupList" />
+                                    <span asp-validation-for="SecurityPerson.RegisterAddress" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            //Dropdownlist Selectedchange event
+
+            $("#town_select").change(function () {
+                $("#group_select").empty();
+                $.ajax({
+                    type: "GET",
+                    url: "/Group/GetDropDownList?townId=" + $('#town_select').val(),
+                    success: function (states) {
+                        $("#group_select").append('<option value="' + "-1" + '">' + "请选择安全单位" + '</option>');
+                        debugger;
+                        $.each(states, function (i, state) {
+                            $("#group_select").append('<option value="' + state.value + '">' + state.text + '</option>');
+                            // here we are adding option for States
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve states.' + ex);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
 }

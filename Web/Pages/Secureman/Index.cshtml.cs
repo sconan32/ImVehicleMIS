@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.Secureman
 {
@@ -19,7 +20,7 @@ namespace Web.Pages.Secureman
         }
 
         public IList<SecurityPerson> SecurityPerson { get;set; }
-
+        [Authorize(Roles = "Admins")]
         public async Task OnGetAsync()
         {
             SecurityPerson = await _context.SecurityPersons

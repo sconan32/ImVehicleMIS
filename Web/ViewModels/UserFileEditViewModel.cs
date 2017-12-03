@@ -11,6 +11,7 @@ namespace Web.ViewModels
     {
         public long Id { get; set; }
 
+        [Required]
         [Display(Name = "名称")]
         public string Name { get; set; }
 
@@ -18,7 +19,7 @@ namespace Web.ViewModels
         public string FileName { get; set; }
 
         [Display(Name = "安全单位")]
-        public long GroupId { get; set; }
+        public long? GroupId { get; set; }
 
         [Display(Name = "服务器路径")]
         public string ServerPath { get; set; }
@@ -29,6 +30,7 @@ namespace Web.ViewModels
         [Display(Name = "下载次数")]
         public int DownloadCount { get; set; }
 
+        [Required]
         [Display(Name = "文件")]
         public IFormFile UploadFile { get; set; }
 

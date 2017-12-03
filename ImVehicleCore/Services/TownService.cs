@@ -30,34 +30,57 @@ namespace ImVehicleCore.Data
             this._userManager = userManager;
             this._roleManager = roleManager;
         }
-        
 
-
-        public async Task<List<TownItem>> GetAvailableTownsEagerAsync(ClaimsPrincipal user)
+        public async Task<List<long>> GetAvailableTownIdsAsync(ClaimsPrincipal user)
         {
-
-           
             var vUser = await _userManager.GetUserAsync(user);
-            if(vUser==null)
+            if (vUser != null)
             {
-                return new List<TownItem>();
-            }
-            if( await _userManager.IsInRoleAsync(vUser,"TownManager"))
-            {
-                var townId = vUser.TownId;
-                if (townId != null)
+
+                if (await _userManager.IsInRoleAsync(vUser, "TownManager"))
                 {
-                    return new List<TownItem>() { await _townRepository.GetByIdEagerAsync(townId.Value) };
+                    var townId = vUser.TownId;
+                    if (townId != null)
+                    {
+                        return new List<long> { townId.Value };
+                    }
+                }
+                else
+                {
+                    return (await _townRepository.ListAllEagerAsync()).Select(t => t.Id).ToList();
+
                 }
             }
-            else
-            {
-                return await _townRepository.ListAllEagerAsync();
-            }
-            return new List<TownItem>();
+            return new List<long>();
 
         }
+    
 
-        
+    public async Task<List<TownItem>> GetAvailableTownsEagerAsync(ClaimsPrincipal user)
+    {
+
+
+        var vUser = await _userManager.GetUserAsync(user);
+        if (vUser == null)
+        {
+            return new List<TownItem>();
+        }
+        if (await _userManager.IsInRoleAsync(vUser, "TownManager"))
+        {
+            var townId = vUser.TownId;
+            if (townId != null)
+            {
+                return new List<TownItem>() { await _townRepository.GetByIdEagerAsync(townId.Value) };
+            }
+        }
+        else
+        {
+            return await _townRepository.ListAllEagerAsync();
+        }
+        return new List<TownItem>();
+
     }
+
+
+}
 }

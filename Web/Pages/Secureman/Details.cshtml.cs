@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.Secureman
 {
@@ -18,8 +19,10 @@ namespace Web.Pages.Secureman
             _context = context;
         }
 
+
         public SecurityPerson SecurityPerson { get; set; }
 
+        [Authorize(Roles = "Admins")]
         public async Task<IActionResult> OnGetAsync(long? id)
         {
             if (id == null)

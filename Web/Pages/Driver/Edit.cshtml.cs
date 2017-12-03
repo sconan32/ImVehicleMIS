@@ -209,7 +209,7 @@ namespace Web.Pages.Driver
                 }
             }
 
-            return RedirectToPage("./Index");
+            return Redirect(Url.GetLocalUrl(ReturnUrl));
         }
 
         private bool DriverItemExists(long id)

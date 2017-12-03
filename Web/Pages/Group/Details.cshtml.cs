@@ -85,6 +85,7 @@ namespace Web.Pages.Group
                     GroupName = group.Name,
                     Name = t.Name,
                     Size = t.Size,
+                    UploadDate=t.CreationDate,
 
                 }).ToList(),
 

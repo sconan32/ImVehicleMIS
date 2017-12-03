@@ -21,14 +21,15 @@ namespace Web.Pages.UserFile
         {
             _context = context;
             _hostingEnvironment = hostingEnvironment;
-            UserFile = new UserFileEditViewModel();
+            
         }
 
-        public IActionResult OnGet(long groupId)
+        public IActionResult OnGet(long? groupId, string returnUrl)
         {
 
+            UserFile = new UserFileEditViewModel();
             UserFile.GroupId = groupId;
-            ReturnUrl = "/Group/Details?Id=" + groupId;
+            ReturnUrl = returnUrl;
 
             return Page();
 
@@ -45,12 +46,7 @@ namespace Web.Pages.UserFile
             if (!ModelState.IsValid)
             {
                 return Page();
-            }
-
-            if (UserFile.UploadFile == null)
-            {
-                return Page();
-            }
+            }       
 
             try
             {
@@ -71,15 +67,15 @@ namespace Web.Pages.UserFile
                     Name = UserFile.Name,
                     Type = Path.GetExtension(UserFile.UploadFile?.FileName),
 
-
+                    CreationDate = DateTime.Now,
                 };
 
-
+                
 
                 _context.Files.Add(ufile);
                 await _context.SaveChangesAsync();
 
-                return RedirectToPage(Url.GetLocalUrl(ReturnUrl));
+                return Redirect(Url.GetLocalUrl(ReturnUrl));
             }
             catch (Exception ex)
             {
