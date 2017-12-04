@@ -7,17 +7,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ImVehicleCore.Data;
 using ImVehicleCore.Interfaces;
-using System.ComponentModel.DataAnnotations;
 using Web.ViewModels;
+using ImVehicleCore.Specifications;
+using Web.ViewModels.Specifications;
 
-namespace Web.Pages.Towns
+namespace Web.Pages.Town
 {
-    public class IndexModel : PageModel
+    public class QueryModel : PageModel
     {
+
         private readonly ITownService _townRepository;
 
         IGroupRepository _groupService;
-        public IndexModel(ITownService townRepository, IGroupRepository groupService)
+        public QueryModel(ITownService townRepository, IGroupRepository groupService)
         {
             _townRepository = townRepository;
             _groupService = groupService;
@@ -26,9 +28,11 @@ namespace Web.Pages.Towns
         public List<TownItemListViewModel> TownList { get; set; }
 
 
-       
-        public async Task OnGetAsync()
+
+        public async Task OnGetAsync(string queryString)
         {
+
+            ViewData["QueryString"] = queryString;
             var towns = await _townRepository.GetAvailableTownsEagerAsync(HttpContext.User);
 
             TownList = towns.OrderBy(t => t.Code).Select(t =>
@@ -39,9 +43,10 @@ namespace Web.Pages.Towns
               Name = t.Name,
               GroupCount = t.Groups.Count,
               DriverCount = t.Drivers.Count,
-              IsValid = t.IsValid(),
-               StatusText = t.IsValid() ? "正常" : "预警",
-          }).ToList();
-        }
+              StatusText = t.IsValid() ? "正常" : "预警",
+            IsValid = t.IsValid()
+          }).Where(new TownListVmQueryStringSpecification(queryString).Criteria.Compile()).ToList();
     }
+}
+
 }

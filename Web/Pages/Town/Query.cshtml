@@ -1,22 +1,28 @@
 ﻿@page
-@model Web.Pages.Towns.IndexModel
+@model Web.Pages.Town.QueryModel
 
 @{
-    ViewData["Title"] = "街道/镇 列表";
+    ViewData["Title"] = "街道/镇 查找结果";
 }
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3>街道/镇 列表</h3>
+            <h3>街道/镇 查找结果</h3>
         </div>
         <div class="pull-right">
-           <a asp-page="/">主页</a>&gt;
-            <a asp-page="/Town">街道</a>
+            <a asp-page="/">主页</a>&gt;
+            <a asp-page="/Town">街道</a>&gt;
+            <a asp-page="/Town/Query" asp-route-queryString="@ViewBag.QueryString">查找结果</a>
         </div>
     </div>
 </section>
 <section class="main_feature_area">
-    <div class="container">
+        <div class="container">
+            <br />
+            <div class="row">
+                查找结果： 条件 @ViewBag.QueryString
+            </div>
+            <hr />
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -28,12 +34,12 @@
                         @Html.DisplayNameFor(model => model.TownList[0].Name)
                     </th>
                     <th>
-                      @Html.DisplayNameFor(model => model.TownList[0].StatusText)
+                        状态
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.TownList[0].GroupCount)
                     </th>
-                   
+
                     <th>
                         @Html.DisplayNameFor(model => model.TownList[0].DriverCount)
                     </th>
@@ -51,12 +57,12 @@
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.StatusText)
+                            @(item.IsValid ? "正常" : "预警")
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.GroupCount)
                         </td>
-                        
+
                         <td>
                             @Html.DisplayFor(modelItem => item.DriverCount)
                         </td>
@@ -64,7 +70,7 @@
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>
-                               
+
                             </div>
                         </td>
                     </tr>

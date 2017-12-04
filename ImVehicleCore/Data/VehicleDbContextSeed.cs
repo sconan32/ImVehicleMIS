@@ -84,6 +84,7 @@ namespace ImVehicleCore.Data
                 new GroupItem(){Name="周北社区", ChiefName="贾十一",ChiefTel="124444774435",TownId=towns[0].Id,},
             };
             await dbContext.Groups.AddRangeAsync(groups);
+            await dbContext.SaveChangesAsync();
 
             DriverItem[] drivers =
             {
@@ -103,7 +104,7 @@ namespace ImVehicleCore.Data
 
             };
             await dbContext.Drivers.AddRangeAsync(drivers);
-
+            await dbContext.SaveChangesAsync();
 
 
             VehicleItem[] vehicles =
@@ -126,7 +127,7 @@ namespace ImVehicleCore.Data
             };
 
             await dbContext.Vehicles.AddRangeAsync(vehicles);
-
+            await dbContext.SaveChangesAsync();
 
 
             NewsItem[] newses =

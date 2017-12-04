@@ -10,5 +10,7 @@ namespace ImVehicleCore.Interfaces
         Task<List<TownItem>> GetAvailableTownsEagerAsync(ClaimsPrincipal user);
 
         Task<List<long>> GetAvailableTownIdsAsync(ClaimsPrincipal user);
+
+        Task<List<TownItem>> ListForUser(ClaimsPrincipal user, ISpecification<TownItem> specification);
     }
 }

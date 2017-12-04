@@ -23,15 +23,9 @@
             <div class="container">
                 <div class="pull-left">
                     <img src="~/img/logo.png" alt="">
-                   
                 </div>
-              
-                 
-                   
-                        @await Html.PartialAsync("_LoginPartial")
-                   
-                   
-              
+                @await Html.PartialAsync("_LoginPartial")
+
             </div>
         </div>
         <div class="main_menu_area">
@@ -55,13 +49,14 @@
                             <li><a asp-page="/Vehicle/Index">车辆</a></li>
                             <li><a asp-page="/Driver/Index">驾驶员</a></li>
                             <li><a asp-page="/News/Index">新闻</a></li>
+                            <li><a asp-page="/Account/Index">用户</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search here...">
+                                    <input type="text" id="search_box" class="form-control" placeholder="过滤条件">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                        <button class="btn btn-default" type="button" id="submit_search"><i class="fa fa-search" aria-hidden="true"></i></button>
                                     </span>
                                 </div>
                             </li>
@@ -74,13 +69,13 @@
         </div>
     </header>
     <!--================End Header Area =================-->
-    
-        @RenderBody()
+
+    @RenderBody()
 
 
     <!--================Footer Area =================-->
     <footer class="footer_area">
-       
+
         <div class="footer_copy_right">
             <div class="container">
                 <h4>Copyright &copy; 2017. 甘井子区重点车辆管理系统.</h4>
@@ -107,7 +102,38 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
     @RenderSection("Scripts", required: false)
+    <script>
+         function query_search() {
+            $.ajax({
+                type: "GET",
+                url: "/Search/Index?queryString=" + $('#search_box').val(),
+                success: function (states) {
+                    // similar behavior as an HTTP redirect
+                    window.location.replace(states.requestUrl);
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+
+        }
+        $(document).ready(function () {
+            //Dropdownlist Selectedchange event
+
+            $("#submit_search").click(function () {
+                query_search();
+              
+            });
+            $("body").keydown(function (event) {
+                if (event.keyCode == "13") {//keyCode=13是回车键
+                    $('#submit_search').click();
+                }
+            });
+
+           
+        });
+
+    </script>
 </body>
 </html>

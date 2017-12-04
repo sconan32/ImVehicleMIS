@@ -34,7 +34,7 @@ namespace ImVehicleCore.Data
             var user1 = await userManager.FindByNameAsync("admin");
             if (user1 == null)
             {
-                var user = new VehicleUser { UserName = "admin", Email = "admin@admin.com" };
+                user1 = new VehicleUser { UserName = "admin", Email = "admin@admin.com" };
                 await userManager.CreateAsync(user1, "Pass@word1");
             }
             if (!await userManager.IsInRoleAsync(user1, "Admins"))
