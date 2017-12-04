@@ -190,7 +190,7 @@ namespace Web.Pages.Driver
             driver.ModifyBy = user.Id;
             driver.ModificationDate = DateTime.Now;
             driver.Status = StatusType.OK;
-
+            driver.VersionNumber += 1;
             _context.Attach(driver).State = EntityState.Modified;
 
             try

@@ -50,6 +50,7 @@ namespace Web.Pages.Vehicle
                 DriverId = vehicle.DriverId,
                 GroupId = vehicle.GroupId,
                 InsuranceExpiredDate = vehicle.InsuranceExpiredDate,
+                DumpDate=vehicle.DumpDate,
                 LastRegisterDate = vehicle.LastRegisterDate,
                 RegisterDate = vehicle.LastRegisterDate,
                 License = vehicle.LicenceNumber,
@@ -154,6 +155,7 @@ namespace Web.Pages.Vehicle
             vehicle.Comment = VehicleItem.Comment;
             vehicle.InsuranceExpiredDate = VehicleItem.InsuranceExpiredDate;
             vehicle.LicenceNumber = VehicleItem.License;
+            vehicle.DumpDate = VehicleItem.DumpDate;
             vehicle.ProductionDate = VehicleItem.ProductionDate;
             vehicle.RealOwner = VehicleItem.RealOwner;
             vehicle.LastRegisterDate = VehicleItem.RegisterDate;
@@ -182,7 +184,7 @@ namespace Web.Pages.Vehicle
             vehicle.ModifyBy  = user.Id;
             vehicle.ModificationDate  = DateTime.Now;
             vehicle.Status = StatusType.OK;
-
+            vehicle.VersionNumber += 1;
 
 
             _context.Entry (vehicle).State = EntityState.Modified;

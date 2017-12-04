@@ -103,10 +103,22 @@
                                     <input asp-for="VehicleItem.Color" class="form-control" />
                                     <span asp-validation-for="VehicleItem.Color" class="text-danger"></span>
                                 </div>
-                                <label asp-for="VehicleItem.YearlyAuditDate" class="col-sm-2 control-label"></label>
+                                <label asp-for="VehicleItem.Comment" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.YearlyAuditDate" class="form-control" />
-                                    <span asp-validation-for="VehicleItem.YearlyAuditDate" class="text-danger"></span>
+                                    <input asp-for="VehicleItem.Comment" class="form-control" />
+                                    <span asp-validation-for="VehicleItem.Comment" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.ProductionDate" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <input asp-for="VehicleItem.ProductionDate" class="form-control" />
+                                    <span asp-validation-for="VehicleItem.ProductionDate" class="text-danger"></span>
+                                </div>
+                                <label asp-for="VehicleItem.DumpDate" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <input asp-for="VehicleItem.DumpDate" class="form-control" />
+                                    <span asp-validation-for="VehicleItem.DumpDate" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -127,24 +139,13 @@
                                     <input asp-for="VehicleItem.RegisterDate" class="form-control" />
                                     <span asp-validation-for="VehicleItem.RegisterDate" class="text-danger"></span>
                                 </div>
-                                <label asp-for="VehicleItem.LastRegisterDate" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.LastRegisterDate" class="form-control" />
-                                    <span asp-validation-for="VehicleItem.LastRegisterDate" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="VehicleItem.ProductionDate" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.ProductionDate" class="form-control" />
-                                    <span asp-validation-for="VehicleItem.ProductionDate" class="text-danger"></span>
-                                </div>
                                 <label asp-for="VehicleItem.VehicleStatus" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
                                     <input asp-for="VehicleItem.VehicleStatus" class="form-control" />
                                     <span asp-validation-for="VehicleItem.VehicleStatus" class="text-danger"></span>
                                 </div>
                             </div>
+                           
                             <div class="form-group">
                                 <label asp-for="VehicleItem.DriverId" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
@@ -182,7 +183,7 @@
                                     <span asp-validation-for="VehicleItem.PhotoInsuarance" class="text-danger"></span>
                                 </div>
                             </div>
-
+                            <input type="hidden" asp-for="VehicleItem.TownId" />
                             <input type="hidden" asp-for="VehicleItem.Id" />
                             <input type="hidden" asp-for="ReturnUrl" />
                         </form>

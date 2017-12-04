@@ -116,16 +116,19 @@ namespace Web.Pages.Vehicle
                 Color = VehicleItem.Color,
                 Comment = VehicleItem.Comment,
                 InsuranceExpiredDate = VehicleItem.InsuranceExpiredDate,
+                DumpDate = VehicleItem.DumpDate,
                 LicenceNumber = VehicleItem.License,
                 ProductionDate = VehicleItem.ProductionDate,
                 RealOwner = VehicleItem.RealOwner,
                 LastRegisterDate = VehicleItem.RegisterDate,
                 Type = VehicleItem.Type,
                 Usage = VehicleItem.Usage,
+
                 YearlyAuditDate = VehicleItem.YearlyAuditDate,
                 VehicleStatus = VehicleItem.VehicleStatus,
 
-GroupId=VehicleItem.GroupId,TownId=VehicleItem.TownId,
+                GroupId=VehicleItem.GroupId,
+                TownId =VehicleItem.TownId,
 
                 PhotoFront = spFront.ToArray(),
                 PhotoRear = spRear.ToArray(),

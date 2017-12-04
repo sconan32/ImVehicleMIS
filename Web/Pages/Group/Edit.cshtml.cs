@@ -150,7 +150,7 @@ namespace Web.Pages.Group
             group.ModificationDate = DateTime.Now;
             group.ModifyBy = user.Id;
             group.Status = StatusType.OK;
-
+            group.VersionNumber += 1;
 
             _context.Attach(group).State = EntityState.Modified;
 

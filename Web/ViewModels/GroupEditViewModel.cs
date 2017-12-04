@@ -11,7 +11,7 @@ namespace Web.ViewModels
     {
         public long Id { get; set; }
 
-        [Required]
+ 
         [Display(Name = "编号")]
         public string Code { get; set; }
 
@@ -25,17 +25,16 @@ namespace Web.ViewModels
         [Display(Name = "注册地址")]
         public string RegisterAddress { get; set; }
 
-        [Display(Name = "注册号")]
+        [Display(Name = "法人识别号")]
         public string License { get; set; }
 
-        [Required]
         [Display(Name = "负责人")]
         public string ChiefName { get; set; }
 
         [Display(Name = "负责人电话")]
         public string ChiefTel { get; set; }
 
-        [Required]
+   
         [Display(Name = "单位类型")]
         public string Type { get; set; }
 

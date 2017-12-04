@@ -18,7 +18,7 @@ namespace Web.ViewModels
         [Display(Name = "类型")]
         public VehicleType Type { get; set; }
 
-        [Display(Name = "营运方式")]
+        [Display(Name = "使用性质")]
         public UsageType Usage { get; set; }
         [Display(Name = "品牌")]
         public string Brand { get; set; }
@@ -45,6 +45,10 @@ namespace Web.ViewModels
         [Display(Name = "生产日期")]
         public DateTime? ProductionDate { get; set; }
 
+        [DataType(DataType.Date)]
+        [Display(Name = "报废日期")]
+        public DateTime? DumpDate { get; set; }
+
 
         [DataType(DataType.Date)]
         [Display(Name = "强制保险有效期")]
@@ -52,7 +56,7 @@ namespace Web.ViewModels
 
 
         [DataType(DataType.Date)]
-        [Display(Name = "首次注册日期")]
+        [Display(Name = "登记日期")]
         public DateTime? RegisterDate { get; set; }
 
         [DataType(DataType.Date)]
@@ -98,7 +102,7 @@ namespace Web.ViewModels
         [Display(Name = "强制保险照片")]
         public string PhotoInsuaranceBase64 { get; set; }
 
-        [Display(Name = "实际车主")]
+        [Display(Name = "挂靠单位")]
         public string RealOwner { get; set; }
 
 

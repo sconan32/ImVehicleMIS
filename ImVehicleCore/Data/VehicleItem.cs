@@ -100,7 +100,7 @@ namespace ImVehicleCore.Data
     public enum UsageType
     {
         [Display(Name = "非营运")]
-        NonCommercial = 0x10000,
+        NonCommercial = 0x00,
         [Display(Name = "货运")]
         Freight = 0x20000,
         [Display(Name = "危化品运输")]
@@ -133,7 +133,7 @@ namespace ImVehicleCore.Data
         [Display(Name = "私家车")]
         PrivateCar = 0x200,
         [Display(Name = "其他")]
-        Other = 0x1000,
+        Other = 0x0,
 
 
     }

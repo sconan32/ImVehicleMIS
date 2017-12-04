@@ -56,6 +56,7 @@ namespace Web.Pages.News
             var user = await _userManager.GetUserAsync(HttpContext.User);
             NewsItem.ModificationDate = DateTime.Now;
             NewsItem.ModifyBy = user.Id;
+            NewsItem.VersionNumber += 1;
             _context.Attach(NewsItem).State = EntityState.Modified;
 
 
