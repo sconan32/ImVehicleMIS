@@ -60,7 +60,7 @@ namespace Web.Pages.Vehicle
                 Usage = vehicle.Usage,
                 VehicleStatus = vehicle.VehicleStatus,
                 YearlyAuditDate = vehicle.YearlyAuditDate,
-
+                TownId=vehicle.TownId,
                 PhotoAuditBase64 = vehicle.PhotoAudit != null ? Convert.ToBase64String(vehicle.PhotoAudit) : "",
                 PhotoFrontBase64 = vehicle.PhotoFront != null ? Convert.ToBase64String(vehicle.PhotoFront) : "",
                 PhotoRearBase64 = vehicle.PhotoRear != null ? Convert.ToBase64String(vehicle.PhotoRear) : "",
@@ -142,12 +142,12 @@ namespace Web.Pages.Vehicle
 
 
             var vehicle = _context.Vehicles.FirstOrDefault(v => v.Id == VehicleItem.Id);
-            if (vehicle != null)
+            if (vehicle == null)
             {
                 return NotFound();
             }
 
-            vehicle.Id = VehicleItem.Id;
+           
             vehicle.Name = VehicleItem.Name;
             vehicle.Brand = VehicleItem.Brand;
             vehicle.Color = VehicleItem.Color;
@@ -161,7 +161,7 @@ namespace Web.Pages.Vehicle
             vehicle.Usage = VehicleItem.Usage;
             vehicle.YearlyAuditDate = VehicleItem.YearlyAuditDate;
             vehicle.VehicleStatus = VehicleItem.VehicleStatus;
-
+            vehicle.GroupId = VehicleItem.GroupId;vehicle.TownId = VehicleItem.TownId;
             if (spFront != null)
             {
                 vehicle.PhotoFront = spFront.ToArray();
@@ -179,13 +179,13 @@ namespace Web.Pages.Vehicle
                 vehicle.PhotoInsuarance = spInsuarance.ToArray();
             }
 
-            vehicle.CreateBy = user.Id;
-            vehicle.CreationDate = DateTime.Now;
+            vehicle.ModifyBy  = user.Id;
+            vehicle.ModificationDate  = DateTime.Now;
             vehicle.Status = StatusType.OK;
 
 
 
-            _context.Vehicles.Add(vehicle);
+            _context.Entry (vehicle).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return Redirect(Url.GetLocalUrl(ReturnUrl));

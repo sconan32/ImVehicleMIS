@@ -37,7 +37,7 @@ namespace Web.Pages.Vehicle
         public async Task OnGetAsync()
         {
             var townIdList = await _townService.GetAvailableTownIdsAsync(HttpContext.User);
-            var items = await _dbContext.Vehicles.Where(t=>townIdList.Contains(t.Id))
+            var items = await _dbContext.Vehicles.Where(t=>townIdList.Contains(t.TownId??-1))
                  .Include(t => t.Group).ThenInclude(g => g.Town)
                  .Include(t => t.Driver)
                  .ToListAsync();

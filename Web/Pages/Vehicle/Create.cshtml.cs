@@ -125,7 +125,7 @@ namespace Web.Pages.Vehicle
                 YearlyAuditDate = VehicleItem.YearlyAuditDate,
                 VehicleStatus = VehicleItem.VehicleStatus,
 
-
+GroupId=VehicleItem.GroupId,TownId=VehicleItem.TownId,
 
                 PhotoFront = spFront.ToArray(),
                 PhotoRear = spRear.ToArray(),

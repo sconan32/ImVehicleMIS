@@ -54,8 +54,8 @@ namespace ImVehicleCore.Data
 
         [ForeignKey("GroupId")]
         public virtual GroupItem Group { get; set; }
-
-
+        public DateTime ? DumpDate { get; set; }
+        public byte [] PhotoGps { get; set; }
         public long? DriverId { get; set; }
 
         [ForeignKey("DriverId")]
