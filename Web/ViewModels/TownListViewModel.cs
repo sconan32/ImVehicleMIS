@@ -17,7 +17,7 @@ namespace Web.ViewModels
         public int GroupCount { get; set; }
 
         public bool IsValid { get; set; }
-        [Display(Name = "安全状态",ShortName ="状态")]
+        [Display(Name = "状态")]
         public string StatusText { get; set; }
         public int VehicleCount { get; set; }
         [Display(Name = "驾驶员数量")]

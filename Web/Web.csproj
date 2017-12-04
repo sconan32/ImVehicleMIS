@@ -4,6 +4,16 @@
     <UserSecretsId>aspnet-ImVehicleMIS-4448F31F-8840-4453-A56D-6B6379BAEF8C</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="imvehiclemis.db.dll" />
+    <None Remove="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Remove="Properties\PublishProfiles\FolderProfile1.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="imvehiclemis.db.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" PrivateAssets="All" />
@@ -17,11 +27,7 @@
     <ProjectReference Include="..\ImVehicleCore\ImVehicleCore.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="imvehiclemis.db.dll">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\upload\" />
   </ItemGroup>
 </Project>

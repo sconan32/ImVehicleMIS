@@ -34,7 +34,7 @@
                         @Html.DisplayNameFor(model => model.TownList[0].Name)
                     </th>
                     <th>
-                        状态
+                        @Html.DisplayNameFor(model => model.TownList[0].StatusText)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.TownList[0].GroupCount)
@@ -57,7 +57,7 @@
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            @(item.IsValid ? "正常" : "预警")
+                            @Html.DisplayFor(modelItem => item.StatusText)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.GroupCount)

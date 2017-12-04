@@ -7,13 +7,13 @@ using ImVehicleCore.Specifications;
 
 namespace Web.ViewModels.Specifications
 {
-    public class TownListVmQueryStringSpecification : QueryStringSpecification<TownItemListViewModel>
+    public class GroupListVmQueryStringSpecification : QueryStringSpecification<GroupListViewModel>
     {
-        public TownListVmQueryStringSpecification(string queryString) : base(queryString) { }
+        public GroupListVmQueryStringSpecification(string queryString) : base(queryString) { }
 
 
 
-      
+       
 
     }
 }

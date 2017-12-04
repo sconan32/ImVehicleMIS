@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
 namespace ImVehicleCore.Specifications
 {
-    public abstract class QueryStringSpecificationBase<T> : BaseSpecification<T>
+    public  class QueryStringSpecification<T> : BaseSpecification<T>
     {
 
-        public QueryStringSpecificationBase(string queryString)
+        public QueryStringSpecification(string queryString)
         {
             Criteria = BuildCriteria(queryString);
 
@@ -107,10 +109,34 @@ namespace ImVehicleCore.Specifications
 
             }
             return t => true;
-            
+
         }
 
-        protected abstract Dictionary<string, Tuple<string, Type>> GetNamePropertyMap();
+
+             protected virtual Dictionary<string, Tuple<string, Type>> GetNamePropertyMap()
+        {
+            Dictionary<string, Tuple<string, Type>> dictionary = new Dictionary<string, Tuple<string, Type>>();
+
+            foreach (var propInfo in typeof(T).GetProperties())
+            {
+                var type = propInfo.PropertyType;
+                var prop = propInfo.Name;
+                dictionary.Add(prop, new Tuple<string, Type>(prop, type));
+                var dd = propInfo.GetCustomAttributes(typeof(DisplayAttribute), true);
+                if (dd.Length > 0)
+                {
+                    var name = dd.FirstOrDefault(a => a is DisplayAttribute);
+                    if (name != null)
+                    {
+                        dictionary[(name as DisplayAttribute).Name] = new Tuple<string, Type>(prop, type);
+                    }
+                }
+            }
+
+
+            return dictionary;
+        }
+
 
         private object ConvertStringToType(string value, Type type)
         {

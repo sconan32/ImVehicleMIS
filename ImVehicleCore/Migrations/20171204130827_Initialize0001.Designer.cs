@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace ImVehicleCore.Data.Migrations
+namespace ImVehicleCore.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    [Migration("20171130170301_userfile0013")]
-    partial class userfile0013
+    [Migration("20171204130827_Initialize0001")]
+    partial class Initialize0001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,7 +34,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 
@@ -58,7 +58,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<DateTime>("CreationDate");
 
-                    b.Property<DateTime>("FirstLicenseIssueDate");
+                    b.Property<DateTime?>("FirstLicenseIssueDate");
 
                     b.Property<int>("Gender");
 
@@ -66,19 +66,19 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("IdCardNumber");
 
-                    b.Property<DateTime>("LicenseIssueDate");
+                    b.Property<DateTime?>("LicenseIssueDate");
 
                     b.Property<string>("LicenseNumber");
 
                     b.Property<int>("LicenseType");
 
-                    b.Property<int>("LicenseValidYears");
+                    b.Property<int?>("LicenseValidYears");
 
                     b.Property<string>("LivingAddress");
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 
@@ -142,7 +142,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 
@@ -176,7 +176,8 @@ namespace ImVehicleCore.Data.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Content");
+                    b.Property<string>("Content")
+                        .IsRequired();
 
                     b.Property<string>("CreateBy");
 
@@ -184,13 +185,13 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Excerpt");
 
-                    b.Property<DateTime>("ExpireDate");
+                    b.Property<DateTime?>("ExpireDate");
 
-                    b.Property<bool>("HasDateRange");
+                    b.Property<bool?>("HasDateRange");
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 
@@ -200,9 +201,12 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<DateTime>("PublishDate");
 
+                    b.Property<string>("Source");
+
                     b.Property<int>("Status");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired();
 
                     b.Property<int>("VersionNumber");
 
@@ -230,7 +234,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 
@@ -274,7 +278,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 
@@ -312,7 +316,7 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 
@@ -324,6 +328,8 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<int>("Status");
 
+                    b.Property<long?>("TownId");
+
                     b.Property<string>("Type");
 
                     b.Property<int>("VersionNumber");
@@ -331,6 +337,8 @@ namespace ImVehicleCore.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("GroupId");
+
+                    b.HasIndex("TownId");
 
                     b.ToTable("Files");
                 });
@@ -356,15 +364,21 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("DriverTel");
 
+                    b.Property<DateTime?>("DumpDate");
+
+                    b.Property<DateTime?>("FirstRegisterDate");
+
                     b.Property<long?>("GroupId");
 
-                    b.Property<DateTime>("InsuranceExpiredDate");
+                    b.Property<DateTime?>("InsuranceExpiredDate");
+
+                    b.Property<DateTime?>("LastRegisterDate");
 
                     b.Property<string>("LicenceNumber");
 
                     b.Property<string>("Metadata");
 
-                    b.Property<DateTime>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate");
 
                     b.Property<string>("ModifyBy");
 
@@ -374,17 +388,19 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<byte[]>("PhotoFront");
 
+                    b.Property<byte[]>("PhotoGps");
+
                     b.Property<byte[]>("PhotoInsuarance");
 
                     b.Property<byte[]>("PhotoRear");
 
-                    b.Property<DateTime>("ProductionDate");
+                    b.Property<DateTime?>("ProductionDate");
 
                     b.Property<string>("RealOwner");
 
-                    b.Property<DateTime>("RegisterDate");
-
                     b.Property<int>("Status");
+
+                    b.Property<long?>("TownId");
 
                     b.Property<int>("Type");
 
@@ -394,13 +410,15 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<int>("VersionNumber");
 
-                    b.Property<DateTime>("YearlyAuditDate");
+                    b.Property<DateTime?>("YearlyAuditDate");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DriverId");
 
                     b.HasIndex("GroupId");
+
+                    b.HasIndex("TownId");
 
                     b.ToTable("Vehicles");
                 });
@@ -409,6 +427,8 @@ namespace ImVehicleCore.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("BaseRoleId");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -425,6 +445,8 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BaseRoleId");
+
                     b.HasIndex("NormalizedName")
                         .IsUnique()
                         .HasName("RoleNameIndex")
@@ -439,6 +461,8 @@ namespace ImVehicleCore.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("Company");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -471,6 +495,8 @@ namespace ImVehicleCore.Data.Migrations
                     b.Property<string>("SecurityStamp");
 
                     b.Property<string>("Serial");
+
+                    b.Property<string>("Title");
 
                     b.Property<long?>("TownId");
 
@@ -620,6 +646,10 @@ namespace ImVehicleCore.Data.Migrations
                     b.HasOne("ImVehicleCore.Data.GroupItem", "Group")
                         .WithMany("UserFiles")
                         .HasForeignKey("GroupId");
+
+                    b.HasOne("ImVehicleCore.Data.TownItem", "Town")
+                        .WithMany()
+                        .HasForeignKey("TownId");
                 });
 
             modelBuilder.Entity("ImVehicleCore.Data.VehicleItem", b =>
@@ -631,6 +661,17 @@ namespace ImVehicleCore.Data.Migrations
                     b.HasOne("ImVehicleCore.Data.GroupItem", "Group")
                         .WithMany("Vehicles")
                         .HasForeignKey("GroupId");
+
+                    b.HasOne("ImVehicleCore.Data.TownItem", "Town")
+                        .WithMany()
+                        .HasForeignKey("TownId");
+                });
+
+            modelBuilder.Entity("ImVehicleCore.Data.VehicleRole", b =>
+                {
+                    b.HasOne("ImVehicleCore.Data.VehicleRole", "BaseRole")
+                        .WithMany()
+                        .HasForeignKey("BaseRoleId");
                 });
 
             modelBuilder.Entity("ImVehicleCore.Data.VehicleUser", b =>

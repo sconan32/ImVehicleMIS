@@ -27,9 +27,9 @@ namespace ImVehicleCore.Data
             dbContext.Database.OpenConnection();
             try
             {
-                dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Districts ON");
+              //  dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Districts ON");
                 await dbContext.SaveChangesAsync();
-                dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Districts OFF");
+              //  dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Districts OFF");
             }
             finally
             {
@@ -60,9 +60,9 @@ namespace ImVehicleCore.Data
             dbContext.Database.OpenConnection();
             try
             {
-                dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Towns ON");
+              //  dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Towns ON");
                 dbContext.SaveChanges();
-                dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Towns OFF");
+              //  dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Towns OFF");
             }
             finally
             {

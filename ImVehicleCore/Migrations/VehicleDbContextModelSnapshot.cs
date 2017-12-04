@@ -8,13 +8,12 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace ImVehicleCore.Data.Migrations
+namespace ImVehicleCore.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    [Migration("20171203102725_changenullable0016")]
-    partial class changenullable0016
+    partial class VehicleDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,7 +175,8 @@ namespace ImVehicleCore.Data.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Content");
+                    b.Property<string>("Content")
+                        .IsRequired();
 
                     b.Property<string>("CreateBy");
 
@@ -204,7 +204,8 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<int>("Status");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired();
 
                     b.Property<int>("VersionNumber");
 
@@ -362,6 +363,8 @@ namespace ImVehicleCore.Data.Migrations
 
                     b.Property<string>("DriverTel");
 
+                    b.Property<DateTime?>("DumpDate");
+
                     b.Property<DateTime?>("FirstRegisterDate");
 
                     b.Property<long?>("GroupId");
@@ -383,6 +386,8 @@ namespace ImVehicleCore.Data.Migrations
                     b.Property<byte[]>("PhotoAudit");
 
                     b.Property<byte[]>("PhotoFront");
+
+                    b.Property<byte[]>("PhotoGps");
 
                     b.Property<byte[]>("PhotoInsuarance");
 

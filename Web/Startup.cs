@@ -33,12 +33,12 @@ namespace ImVehicleMIS
         {
 
 
-            services.AddDbContext<VehicleDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+           // services.AddDbContext<VehicleDbContext>(options =>
+            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             //services.AddDbContext<VehicleDbContext>(options =>
             //options.UseSqlServer(Configuration.GetConnectionString("ReleaseConnection")));
-            //services.AddDbContext<VehicleDbContext>(options =>
-            // options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+            services.AddDbContext<VehicleDbContext>(options =>
+             options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
 
 
             services.AddIdentity<VehicleUser, VehicleRole>()

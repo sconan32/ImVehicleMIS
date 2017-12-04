@@ -8,7 +8,7 @@ using ImVehicleCore.Data;
 
 namespace ImVehicleCore.Specifications
 {
-   public class TownQueryStringSpecification : QueryStringSpecificationBase<TownItem>
+   public class TownQueryStringSpecification : QueryStringSpecification<TownItem>
     {
         public TownQueryStringSpecification(string queryString) : base(queryString) { }
 
