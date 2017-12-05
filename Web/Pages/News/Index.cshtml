@@ -53,7 +53,7 @@
                         </td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id" ><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>
+                                <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id" ><i class="fa fa-search-plus" aria-hidden="true"></i>查 看 </a>
                                 @if (await Model.CanEdit())
                                 {
                                     <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -61,9 +61,9 @@
                                         <span class="sr-only">向下弹出</span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a asp-page="./Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
+                                        <li><a asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a asp-page="./Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                        <li><a asp-page="./Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
                                         <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
 
                                     </ul>

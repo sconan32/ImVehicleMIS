@@ -23,7 +23,7 @@
             @if (await Model.CanEdit())
             {
                 <a class="btn btn-new-item" asp-page="Edit" asp-route-id="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
-                    <span class="glyphicon glyphicon-edit"></span> 编辑单位
+                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>编辑单位
                 </a>
                 <a class="btn btn-new-item" asp-page="../Vehicle/Create" asp-route-groupId="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
                     <span class="glyphicon glyphicon-plus"></span> 新增车辆
@@ -107,12 +107,12 @@
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><b>车辆列表</b></a></li>
-                <li role="presentation"><a href="#driver" aria-controls="driver" role="tab" data-toggle="tab"><b>驾驶员列表</b></a></li>
-                <li role="presentation"><a href="#secureman" aria-controls="secureman" role="tab" data-toggle="tab"><b>安全员列表</b></a></li>
+                <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-truck" aria-hidden="true"></i><b>车辆列表</b></a></li>
+                <li role="presentation"><a href="#driver" aria-controls="driver" role="tab" data-toggle="tab"><i class="fa fa-id-card-o" aria-hidden="true"></i><b>驾驶员列表</b></a></li>
+                <li role="presentation"><a href="#secureman" aria-controls="secureman" role="tab" data-toggle="tab"><i class="fa fa-address-book-o" aria-hidden="true"></i><b>安全员列表</b></a></li>
                 <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><b>详细信息</b></a></li>
-                <li role="presentation"><a href="#userfile" aria-controls="userfile" role="tab" data-toggle="tab"><b>文件附件</b></a></li>
-                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><b>图片附件</b></a></li>
+                <li role="presentation"><a href="#userfile" aria-controls="userfile" role="tab" data-toggle="tab"><i class="fa fa-file-archive-o" aria-hidden="true"></i><b>文件附件</b></a></li>
+                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><i class="fa fa-picture-o" aria-hidden="true"></i><b>图片附件</b></a></li>
 
             </ul>
             <div style="border-bottom:1px solid #ddd;border-left:1px solid #ddd;border-right:1px solid #ddd;padding:20px;">
@@ -121,7 +121,7 @@
 
                     <div role="tabpanel" class="tab-pane active" id="profile">
                         <br />
-                        <h4>车辆信息列表</h4>
+                        <h4><i class="fa fa-truck" aria-hidden="true"></i>车辆信息列表</h4>
                         <hr />
                         <table class="table  table-hover">
                             <thead>
@@ -203,7 +203,7 @@
 
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-primary btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>
+                                                <a class="btn btn-primary btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                                                 @if (await Model.CanEdit())
                                                 {
                                                     <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -211,9 +211,9 @@
                                                         <span class="sr-only">向下弹出</span>
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a asp-page="../Vehicle/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
+                                                        <li><a asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
                                                         <li role="separator" class="divider"></li>
-                                                        <li><a asp-page="../Vehicle/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                                        <li><a asp-page="../Vehicle/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
                                                         <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
 
                                                     </ul>
@@ -229,7 +229,7 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="driver">
                         <br />
-                        <h4>驾驶员列表</h4>
+                        <h4><i class="fa fa-id-card-o" aria-hidden="true"></i>驾驶员列表</h4>
 
                         <hr />
 
@@ -302,7 +302,7 @@
                                         </td>
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-primary btn-sm" asp-page="../Driver/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>
+                                                <a class="btn btn-primary btn-sm" asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                                                 @if (await Model.CanEdit())
                                                 {
                                                     <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -310,9 +310,9 @@
                                                         <span class="sr-only">向下弹出</span>
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a asp-page="../Driver/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
+                                                        <li><a asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
                                                         <li role="separator" class="divider"></li>
-                                                        <li><a asp-page="../Driver/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                                        <li><a asp-page="../Driver/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
                                                         <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
 
                                                     </ul>
@@ -385,7 +385,7 @@
 
                     </div>
                     <div role="tabpanel" class="tab-pane" id="userfile">
-                        <h4>用户文件列表</h4>
+                        <h4><i class="fa fa-file-archive-o" aria-hidden="true"></i>用户文件列表</h4>
 
                         <hr />
                         <table class="table">
@@ -415,7 +415,7 @@
                                     <tr>
 
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Name)
+                                            <i class="fa fa-file-archive-o" aria-hidden="true"></i>    @Html.DisplayFor(modelItem => item.Name)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.FileName)
@@ -429,7 +429,7 @@
 
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-primary btn-sm" asp-page="../UserFile/Download" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 下 载</a>
+                                                <a class="btn btn-primary btn-sm" asp-page="../UserFile/Download" asp-route-id="@item.Id"><i class="fa fa-download" aria-hidden="true"></i> 下 载</a>
                                                 @if (await Model.CanEdit())
                                                 {
                                                     <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -506,24 +506,24 @@
                     <div role="tabpanel" class="tab-pane" id="messages">
 
                         <br />
-                        <h4>图片附件</h4>
+                        <h4><i class="fa fa-picture-o" aria-hidden="true"></i>图片附件</h4>
 
                         <hr />
 
                         <div class="panel panel-default">
-                            <div class="panel-heading">@Html.DisplayNameFor(model => model.GroupItem.PhotoMain)</div>
+                            <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.GroupItem.PhotoMain)</div>
                             <div class="panel-body">
                                 <img src="data:image;base64,@Model.GroupItem.PhotoMain" />
                             </div>
                         </div>
                         <div class="panel panel-default">
-                            <div class="panel-heading">@Html.DisplayNameFor(model => model.GroupItem.PhotoWarranty)</div>
+                            <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.GroupItem.PhotoWarranty)</div>
                             <div class="panel-body">
                                 <img src="data:image;base64,@Model.GroupItem.PhotoWarranty" />
                             </div>
                         </div>
                         <div class="panel panel-default">
-                            <div class="panel-heading">@Html.DisplayNameFor(model => model.GroupItem.PhotoSecurity)</div>
+                            <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.GroupItem.PhotoSecurity)</div>
                             <div class="panel-body">
                                 <img src="data:image;base64,@Model.GroupItem.PhotoSecurity" />
                             </div>

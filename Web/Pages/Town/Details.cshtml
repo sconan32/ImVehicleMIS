@@ -86,7 +86,7 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><b>安全单位列表</b></a></li>
-            <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><b>车辆列表</b></a></li>
+            <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-truck" aria-hidden="true"></i><b>车辆列表</b></a></li>
             <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><b>驾驶员列表</b></a></li>
 
         </ul>
@@ -135,7 +135,7 @@
                             @foreach (var item in Model.TownItem.Groups)
                             {
 
-                                <tr @((!item.IsValid) ? "class=bg-danger" : "class=")>
+                                <tr @((!item.IsValid) ? "class=text-danger" : "class=")>
 
 
                                     <td>
@@ -167,7 +167,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a class="btn btn-primary btn-sm" asp-page="../Group/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>
+                                            <a class="btn btn-primary btn-sm" asp-page="../Group/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                                             @if (await Model.CanEdit())
                                             {
                                                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -175,9 +175,9 @@
                                                     <span class="sr-only">向下弹出</span>
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a asp-page="../Group/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
+                                                    <li><a asp-page="../Group/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
                                                     <li role="separator" class="divider"></li>
-                                                    <li><a asp-page="../Group/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                                    <li><a asp-page="../Group/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
                                                     <li><a class="danger" asp-page="../Group/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
 
                                                 </ul>
@@ -194,7 +194,7 @@
                 <div role="tabpanel" class="tab-pane " id="home">
 
                     <br />
-                    <h4>车辆信息列表</h4>
+                    <h4><i class="fa fa-truck" aria-hidden="true"></i>车辆信息列表</h4>
                     <hr />
                     <table class="table  table-hover">
                         <thead>
@@ -236,7 +236,7 @@
                         <tbody>
                             @foreach (var item in Model.TownItem.Vehicles)
                             {
-                                <tr>
+                                <tr @((!item.IsValid) ? "class=text-danger" : "class=")>
 
                                     <td>
                                         @Html.DisplayFor(modelItem => item.GroupName)
@@ -263,11 +263,11 @@
 
                                     <td>
                                         @Html.DisplayFor(modelItem => item.LastRegisterDate)
-                                    </td>                                 
+                                    </td>
 
                                     <td>
                                         <div class="btn-group">
-                                            <a class="btn btn-primary btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>
+                                            <a class="btn btn-primary btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                                             @if (await Model.CanEdit())
                                             {
                                                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -275,9 +275,9 @@
                                                     <span class="sr-only">向下弹出</span>
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a asp-page="../Vehicle/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
+                                                    <li><a asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
                                                     <li role="separator" class="divider"></li>
-                                                    <li><a asp-page="../Vehicle/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                                    <li><a asp-page="../Vehicle/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
                                                     <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
 
                                                 </ul>
@@ -337,7 +337,7 @@
                         <tbody>
                             @foreach (var item in Model.TownItem.Drivers)
                             {
-                                <tr>
+                                <tr @((!item.IsValid) ? "class=text-danger" : "class=")>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Name)
                                     </td>
@@ -357,7 +357,7 @@
                                         @Html.DisplayFor(modelItem => item.LicenseExpiredDate)
                                     </td>
 
-                                   
+
                                     <td>
                                         @Html.DisplayFor(modelItem => item.VehiclesRegistered)
                                     </td>
@@ -366,7 +366,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a class="btn btn-primary btn-sm" asp-page="../Driver/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a>
+                                            <a class="btn btn-primary btn-sm" asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                                             @if (await Model.CanEdit())
                                             {
                                                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -374,9 +374,9 @@
                                                     <span class="sr-only">向下弹出</span>
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a asp-page="../Driver/Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-zoom-in"></span> 查 看 </a></li>
+                                                    <li><a asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
                                                     <li role="separator" class="divider"></li>
-                                                    <li><a asp-page="../Driver/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+HttpContext.Request.QueryString)"> <span class="glyphicon glyphicon-edit"></span> 编 辑 </a></li>
+                                                    <li><a asp-page="../Driver/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+HttpContext.Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
                                                     <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
 
                                                 </ul>
