@@ -11,15 +11,14 @@ using System;
 namespace ImVehicleCore.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    [Migration("20171204130827_Initialize0001")]
-    partial class Initialize0001
+    [Migration("20171205065641_revised0003")]
+    partial class revised0003
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
 
             modelBuilder.Entity("ImVehicleCore.Data.DistrictItem", b =>
                 {
@@ -30,7 +29,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime>("CreationDate");
+                    b.Property<DateTime?>("CreationDate");
 
                     b.Property<string>("Metadata");
 
@@ -56,7 +55,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime>("CreationDate");
+                    b.Property<DateTime?>("CreationDate");
 
                     b.Property<DateTime?>("FirstLicenseIssueDate");
 
@@ -136,7 +135,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime>("CreationDate");
+                    b.Property<DateTime?>("CreationDate");
 
                     b.Property<string>("License");
 
@@ -181,7 +180,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime>("CreationDate");
+                    b.Property<DateTime?>("CreationDate");
 
                     b.Property<string>("Excerpt");
 
@@ -226,7 +225,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime>("CreationDate");
+                    b.Property<DateTime?>("CreationDate");
 
                     b.Property<long?>("GroupId");
 
@@ -272,7 +271,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime>("CreationDate");
+                    b.Property<DateTime?>("CreationDate");
 
                     b.Property<long>("DirstrictId");
 
@@ -306,7 +305,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime>("CreationDate");
+                    b.Property<DateTime?>("CreationDate");
 
                     b.Property<int>("DownloadCount");
 
@@ -334,6 +333,8 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<int>("VersionNumber");
 
+                    b.Property<int>("Visibility");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GroupId");
@@ -348,6 +349,9 @@ namespace ImVehicleCore.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Agent")
+                        .HasMaxLength(128);
+
                     b.Property<string>("Brand");
 
                     b.Property<string>("Color");
@@ -356,7 +360,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime>("CreationDate");
+                    b.Property<DateTime?>("CreationDate");
 
                     b.Property<long?>("DriverId");
 
@@ -367,6 +371,8 @@ namespace ImVehicleCore.Migrations
                     b.Property<DateTime?>("DumpDate");
 
                     b.Property<DateTime?>("FirstRegisterDate");
+
+                    b.Property<bool>("GpsEnabled");
 
                     b.Property<long?>("GroupId");
 
@@ -391,6 +397,8 @@ namespace ImVehicleCore.Migrations
                     b.Property<byte[]>("PhotoGps");
 
                     b.Property<byte[]>("PhotoInsuarance");
+
+                    b.Property<byte[]>("PhotoLicense");
 
                     b.Property<byte[]>("PhotoRear");
 
@@ -449,8 +457,7 @@ namespace ImVehicleCore.Migrations
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -512,8 +519,7 @@ namespace ImVehicleCore.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasName("UserNameIndex");
 
                     b.HasIndex("TownId");
 

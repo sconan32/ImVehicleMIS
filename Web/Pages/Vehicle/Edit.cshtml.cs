@@ -41,7 +41,7 @@ namespace Web.Pages.Vehicle
             {
                 return NotFound();
             }
-            VehicleItem = new VehicleEditViewModel()
+            VehicleItem = new VehicleViewModel()
             {
                 Id = vehicle.Id,
                 Brand = vehicle.Brand,
@@ -50,7 +50,7 @@ namespace Web.Pages.Vehicle
                 DriverId = vehicle.DriverId,
                 GroupId = vehicle.GroupId,
                 InsuranceExpiredDate = vehicle.InsuranceExpiredDate,
-                DumpDate=vehicle.DumpDate,
+                DumpDate = vehicle.DumpDate,
                 LastRegisterDate = vehicle.LastRegisterDate,
                 RegisterDate = vehicle.LastRegisterDate,
                 License = vehicle.LicenceNumber,
@@ -61,12 +61,17 @@ namespace Web.Pages.Vehicle
                 Usage = vehicle.Usage,
                 VehicleStatus = vehicle.VehicleStatus,
                 YearlyAuditDate = vehicle.YearlyAuditDate,
-                TownId=vehicle.TownId,
+                TownId = vehicle.TownId,
+                Agent = vehicle.Agent,
+                GpsEnabled = vehicle.GpsEnabled ?? false,
+
+
                 PhotoAuditBase64 = vehicle.PhotoAudit != null ? Convert.ToBase64String(vehicle.PhotoAudit) : "",
                 PhotoFrontBase64 = vehicle.PhotoFront != null ? Convert.ToBase64String(vehicle.PhotoFront) : "",
                 PhotoRearBase64 = vehicle.PhotoRear != null ? Convert.ToBase64String(vehicle.PhotoRear) : "",
                 PhotoInsuaranceBase64 = vehicle.PhotoInsuarance != null ? Convert.ToBase64String(vehicle.PhotoInsuarance) : "",
-
+                PhotoGpsBase64 = vehicle.PhotoGps != null ? Convert.ToBase64String(vehicle.PhotoGps) : "",
+                PhotoLicenseBase64 = vehicle.PhotoGps != null ? Convert.ToBase64String(vehicle.PhotoLicense) : "",
             };
             var townlist = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User));
             ViewData["TownList"] = new SelectList(townlist, "Id", "Name");
@@ -90,7 +95,7 @@ namespace Web.Pages.Vehicle
         }
 
         [BindProperty]
-        public VehicleEditViewModel VehicleItem { get; set; }
+        public VehicleViewModel VehicleItem { get; set; }
         [BindProperty]
         public string ReturnUrl { get; set; }
         public async Task<IActionResult> OnPostAsync()
@@ -115,7 +120,8 @@ namespace Web.Pages.Vehicle
             MemoryStream spRear = null;
             MemoryStream spAudit = null;
             MemoryStream spInsuarance = null;
-
+            MemoryStream spGps = null;
+            MemoryStream spLicense = null;
             var acceptableExt = new[] { ".png", ".bmp", ".jpg", ".jpeg", ".tif", };
 
             if (acceptableExt.Contains(Path.GetExtension(VehicleItem.PhotoRear?.FileName)?.ToLower()))
@@ -139,8 +145,16 @@ namespace Web.Pages.Vehicle
                 spInsuarance = new MemoryStream();
                 await VehicleItem.PhotoInsuarance.CopyToAsync(spInsuarance);
             }
-
-
+            if (acceptableExt.Contains(Path.GetExtension(VehicleItem.PhotoGps?.FileName)?.ToLower()))
+            {
+                spGps = new MemoryStream();
+                await VehicleItem.PhotoGps.CopyToAsync(spGps);
+            }
+            if (acceptableExt.Contains(Path.GetExtension(VehicleItem.PhotoLicense?.FileName)?.ToLower()))
+            {
+                spLicense = new MemoryStream();
+                await VehicleItem.PhotoLicense.CopyToAsync(spLicense);
+            }
 
             var vehicle = _context.Vehicles.FirstOrDefault(v => v.Id == VehicleItem.Id);
             if (vehicle == null)
@@ -163,7 +177,11 @@ namespace Web.Pages.Vehicle
             vehicle.Usage = VehicleItem.Usage;
             vehicle.YearlyAuditDate = VehicleItem.YearlyAuditDate;
             vehicle.VehicleStatus = VehicleItem.VehicleStatus;
-            vehicle.GroupId = VehicleItem.GroupId;vehicle.TownId = VehicleItem.TownId;
+            vehicle.GroupId = VehicleItem.GroupId;
+            vehicle.TownId = VehicleItem.TownId;
+            vehicle.DriverId = VehicleItem.DriverId;
+            vehicle.GpsEnabled = VehicleItem.GpsEnabled;
+            vehicle.Agent = VehicleItem.Agent;
             if (spFront != null)
             {
                 vehicle.PhotoFront = spFront.ToArray();
@@ -180,7 +198,14 @@ namespace Web.Pages.Vehicle
             {
                 vehicle.PhotoInsuarance = spInsuarance.ToArray();
             }
-
+            if (spGps != null)
+            {
+                vehicle.PhotoGps = spGps.ToArray();
+            }
+            if (spLicense != null)
+            {
+                vehicle.PhotoLicense = spLicense.ToArray();
+            }
             vehicle.ModifyBy  = user.Id;
             vehicle.ModificationDate  = DateTime.Now;
             vehicle.Status = StatusType.OK;

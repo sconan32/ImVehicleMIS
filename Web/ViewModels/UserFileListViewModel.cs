@@ -21,7 +21,7 @@ namespace Web.ViewModels
 
         [DataType(DataType.Date)]
         [Display(Name = "上传时间")]
-        public DateTime UploadDate { get; set; }
+        public DateTime? UploadDate { get; set; }
 
 
         [Display(Name = "服务器路径")]

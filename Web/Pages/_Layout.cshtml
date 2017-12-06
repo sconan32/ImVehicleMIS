@@ -55,7 +55,7 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <div class="input-group">
+                                <div class="input-group" >
                                     <input type="text" id="search_box" class="form-control" placeholder="过滤条件">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button" id="submit_search"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -105,6 +105,7 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
     @RenderSection("Scripts", required: false)
+
     <script>
          function query_search() {
             $.ajax({

@@ -42,20 +42,7 @@ namespace Web.Pages.Vehicle
                  .Include(t => t.Driver)
                  .ToListAsync();
 
-            Vehicles = items.Select(t => new VehicleListViewModel()
-            {
-                Id = t.Id,
-                License = t.LicenceNumber,
-                Name = t.Name,
-                Brand = t.Brand,
-                Type = t.Type,
-                Color = t.Color,
-                LastRegisterDate = t.LastRegisterDate,
-                GroupName = t.Group?.Name,
-                TownName = t.Group?.Town?.Name,
-                DriverName = t?.Driver?.Name,
-                DriverTel = t?.Driver?.Tel,
-            }).ToList();
+            Vehicles = items.Select(t => new VehicleListViewModel(t)).ToList();
         }
 
 

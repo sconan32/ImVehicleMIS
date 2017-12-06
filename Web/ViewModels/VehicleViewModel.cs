@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Web.ViewModels
 {
-    public class VehicleEditViewModel
+    public class VehicleViewModel
     {
         public long Id { get; set; }
 
@@ -49,11 +49,12 @@ namespace Web.ViewModels
         [Display(Name = "报废日期")]
         public DateTime? DumpDate { get; set; }
 
+        public bool IsDumpValid { get; set; }
 
         [DataType(DataType.Date)]
-        [Display(Name = "强制保险有效期")]
+        [Display(Name = "强制保险日期")]
         public DateTime? InsuranceExpiredDate { get; set; }
-
+        public bool IsInsuranceValid { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "登记日期")]
@@ -62,6 +63,7 @@ namespace Web.ViewModels
         [DataType(DataType.Date)]
         [Display(Name = "年检日期")]
         public DateTime? YearlyAuditDate { get; set; }
+        public bool IsAuditValid { get; set; }
 
         [Display(Name = "车辆状态")]
         public string VehicleStatus { get; set; }
@@ -98,14 +100,27 @@ namespace Web.ViewModels
         [Display(Name = "强制保险照片")]
         public IFormFile PhotoInsuarance { get; set; }
 
-
+        
         [Display(Name = "强制保险照片")]
         public string PhotoInsuaranceBase64 { get; set; }
 
         [Display(Name = "挂靠单位")]
+
+        public string Agent { get; set; }
+        [Display(Name = "行驶证照片")]
+
+        public IFormFile PhotoLicense { get; set; }
+        [Display(Name = "行驶证照片")]
+        public string PhotoLicenseBase64 { get; set; }
+        [Display(Name = "GPS照片")]
+        public IFormFile PhotoGps { get; set; }
+        [Display(Name = "GPS照片")]
+        public string PhotoGpsBase64 { get; set; }
+
+        [Display(Name = "实际车主")]
         public string RealOwner { get; set; }
-
-
+        [Display(Name = "已装GPS")]
+        public bool GpsEnabled { get; set; }
         public bool IsValid { get; set; }
     }
 }

@@ -20,10 +20,10 @@
     <div class="container">
         <div class="btn-toolbar">
             <div class="btn-group">
-                <button class="btn btn-primary" type="submit" form="newForm"><span class="glyphicon glyphicon-floppy-saved"> </span> 保 存</button>
+                <button class="btn btn-primary" type="submit" form="newForm"><i class="fa fa-floppy-o"></i> 保 存</button>
             </div>
             <div class="btn-group">
-                <a class="btn btn-default" href="@Model.ReturnUrl"><span class="glyphicon glyphicon-trash" /> 放 弃</a>
+                <a class="btn btn-default" href="@Model.ReturnUrl"><i class="fa fa-reply" aria-hidden="true"></i>放 弃</a>
             </div>
 
         </div>
@@ -36,10 +36,12 @@
                     </div>
                     <div class="panel-body" style="padding-right:60px;">
 
-                        <form id="newForm" method="post" class="form-horizontal" enctype="multipart/form-data">
+
+                        <form method="post" class="form-horizontal" id="newForm">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-
+                            <input type="hidden" asp-for="VehicleItem.TownId" />
+                            <input type="hidden" asp-for="VehicleItem.Id" />
+                            <input type="hidden" asp-for="ReturnUrl" />
                             <div class="form-group">
                                 @if (await Model.IsAdmin())
                                 {
@@ -62,15 +64,26 @@
 
                             </div>
                             <div class="form-group">
+                                <label asp-for="VehicleItem.DriverId" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <select asp-for="VehicleItem.DriverId" id="driver_select" class="form-control" asp-items="ViewBag.DriverList">
+                                        <option>请选择驾驶员 </option>
+                                    </select>
+                                    <span asp-validation-for="VehicleItem.DriverId" class="text-danger"></span>
+                                </div>
+                                <div class="col-sm-4">名字前带有*表示当前单位驾驶员</div>
+                            </div>
+                            <div class="form-group">
                                 <label asp-for="VehicleItem.License" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
                                     <input asp-for="VehicleItem.License" class="form-control" />
                                     <span asp-validation-for="VehicleItem.License" class="text-danger"></span>
                                 </div>
-                                <label asp-for="VehicleItem.Type" class="col-sm-2 control-label"></label>
+
+                                <label asp-for="VehicleItem.GpsEnabled" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <select asp-for="VehicleItem.Type" class="form-control" asp-items="@Html.GetEnumSelectList<VehicleType>()"></select>
-                                    <span asp-validation-for="VehicleItem.Type" class="text-danger"></span>
+                                    <input asp-for="VehicleItem.GpsEnabled" class="form-control" />
+                                    <span asp-validation-for="VehicleItem.GpsEnabled" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -79,81 +92,93 @@
                                     <select asp-for="VehicleItem.Usage" class="form-control" asp-items="@Html.GetEnumSelectList<UsageType>()"></select>
                                     <span asp-validation-for="VehicleItem.Usage" class="text-danger"></span>
                                 </div>
-                                <label asp-for="VehicleItem.RealOwner" class="col-sm-2 control-label"></label>
+                                <label asp-for="VehicleItem.Type" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.RealOwner" class="form-control" />
-                                    <span asp-validation-for="VehicleItem.RealOwner" class="text-danger"></span>
+                                    <select asp-for="VehicleItem.Type" class="form-control" asp-items="@Html.GetEnumSelectList<VehicleType>()"></select>
+                                    <span asp-validation-for="VehicleItem.Type" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label asp-for="VehicleItem.Brand" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.Brand" class="form-control" />
+                                    <input asp-for="VehicleItem.Brand" class="form-control" asp-items="ViewBag.GroupList" />
                                     <span asp-validation-for="VehicleItem.Brand" class="text-danger"></span>
                                 </div>
                                 <label asp-for="VehicleItem.Name" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.Name" class="form-control" />
+                                    <input asp-for="VehicleItem.Name" class="form-control" asp-items="ViewBag.GroupList" />
                                     <span asp-validation-for="VehicleItem.Name" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label asp-for="VehicleItem.Color" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.Color" class="form-control" />
+                                    <input asp-for="VehicleItem.Color" class="form-control" asp-items="ViewBag.GroupList" />
                                     <span asp-validation-for="VehicleItem.Color" class="text-danger"></span>
                                 </div>
                                 <label asp-for="VehicleItem.Comment" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.Comment" class="form-control" />
+                                    <input asp-for="VehicleItem.Comment" class="form-control" asp-items="ViewBag.GroupList" />
                                     <span asp-validation-for="VehicleItem.Comment" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.RealOwner" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <input asp-for="VehicleItem.RealOwner" class="form-control" />
+                                    <span asp-validation-for="VehicleItem.RealOwner" class="text-danger"></span>
+                                </div>
+                                <label asp-for="VehicleItem.Agent" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <input asp-for="VehicleItem.Agent" class="form-control" />
+                                    <span asp-validation-for="VehicleItem.Agent" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label asp-for="VehicleItem.ProductionDate" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.ProductionDate" class="form-control" />
+                                    <input asp-for="VehicleItem.ProductionDate" class="form-control" asp-items="ViewBag.GroupList" />
                                     <span asp-validation-for="VehicleItem.ProductionDate" class="text-danger"></span>
                                 </div>
                                 <label asp-for="VehicleItem.DumpDate" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.DumpDate" class="form-control" />
+                                    <input asp-for="VehicleItem.DumpDate" class="form-control" asp-items="ViewBag.GroupList" />
                                     <span asp-validation-for="VehicleItem.DumpDate" class="text-danger"></span>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label asp-for="VehicleItem.YearlyAuditDate" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.YearlyAuditDate" class="form-control">
+                                    <input asp-for="VehicleItem.YearlyAuditDate" class="form-control" asp-items="ViewBag.GroupList" />
                                     <span asp-validation-for="VehicleItem.YearlyAuditDate" class="text-danger"></span>
                                 </div>
                                 <label asp-for="VehicleItem.InsuranceExpiredDate" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.InsuranceExpiredDate" class="form-control" />
+                                    <input asp-for="VehicleItem.InsuranceExpiredDate" class="form-control" asp-items="ViewBag.GroupList" />
                                     <span asp-validation-for="VehicleItem.InsuranceExpiredDate" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label asp-for="VehicleItem.RegisterDate" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.RegisterDate" class="form-control" />
+                                    <input asp-for="VehicleItem.RegisterDate" class="form-control" asp-items="ViewBag.GroupList" />
                                     <span asp-validation-for="VehicleItem.RegisterDate" class="text-danger"></span>
                                 </div>
                                 <label asp-for="VehicleItem.VehicleStatus" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.VehicleStatus" class="form-control" />
+                                    <input asp-for="VehicleItem.VehicleStatus" class="form-control" asp-items="ViewBag.GroupList" />
                                     <span asp-validation-for="VehicleItem.VehicleStatus" class="text-danger"></span>
                                 </div>
                             </div>
-                           
+
                             <div class="form-group">
-                                <label asp-for="VehicleItem.DriverId" class="col-sm-2 control-label"></label>
+                                <label asp-for="VehicleItem.PhotoLicense" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
-                                    <select asp-for="VehicleItem.DriverId" id="driver_select" class="form-control" asp-items="ViewBag.DriverList"></select>
-                                    <span asp-validation-for="VehicleItem.DriverId" class="text-danger"></span>
+                                    <input asp-for="VehicleItem.PhotoLicense" class="form-control" />
+                                    <span asp-validation-for="VehicleItem.PhotoLicense" class="text-danger"></span>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label asp-for="VehicleItem.PhotoFront" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
@@ -165,7 +190,7 @@
                             <div class="form-group">
                                 <label asp-for="VehicleItem.PhotoRear" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
-                                    <input asp-for="VehicleItem.PhotoRear" class="form-control">
+                                    <input asp-for="VehicleItem.PhotoRear" class="form-control" />
                                     <span asp-validation-for="VehicleItem.PhotoRear" class="text-danger"></span>
                                 </div>
                             </div>
@@ -183,9 +208,14 @@
                                     <span asp-validation-for="VehicleItem.PhotoInsuarance" class="text-danger"></span>
                                 </div>
                             </div>
-                            <input type="hidden" asp-for="VehicleItem.TownId" />
-                            <input type="hidden" asp-for="VehicleItem.Id" />
-                            <input type="hidden" asp-for="ReturnUrl" />
+
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.PhotoGps" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="VehicleItem.PhotoGps" class="form-control" />
+                                    <span asp-validation-for="VehicleItem.PhotoGps" class="text-danger"></span>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -196,15 +226,16 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-        $(document).ready(function () {
-            //Dropdownlist Selectedchange event
+    $(document).ready(function () {
+        //Dropdownlist Selectedchange event
 
-            $("#town_select").change(function () {
+        $("#town_select").change(function () {
+            town_id =@(await Model.IsAdmin()?" $('#town_select').val()":Model.VehicleItem.TownId?.ToString());
                 $("#group_select").empty();
                 $("#driver_select").empty();
                 $.ajax({
                     type: "GET",
-                    url: "/Group/GetDropDownList?townId=" + $('#town_select').val(),
+                    url: "/Group/GetDropDownList?townId=" + town_id,
                     success: function (states) {
                         $("#group_select").append('<option value="' + "-1" + '">' + "请选择安全单位" + '</option>');
                         debugger;
@@ -219,7 +250,23 @@
                 });
                 $.ajax({
                     type: "GET",
-                    url: "/Driver/GetDropDownList?townId=" + $('#town_select').val(),
+                    url: "/Driver/GetDropDownList?townId=" + town_id + "&groupId=" + $('#group_select').val(),
+                    success: function (states) {
+                        $("#driver_select").append('<option value="' + "-1" + '">' + "请选择驾驶员" + '</option>');
+                        debugger;
+                        $.each(states, function (i, state) {
+                            $("#driver_select").append('<option value="' + state.value + '">' + state.text + '</option>');
+                        });
+                    }
+                });
+                return false;
+            });
+        $("#group_select").change(function () {
+                $("#driver_select").empty();
+                 town_id =@(await Model.IsAdmin()?" $('#town_select').val()":Model.VehicleItem.TownId?.ToString());
+                $.ajax({
+                    type: "GET",
+                    url: "/Driver/GetDropDownList?townId=" + town_id + "&groupId=" + $('#group_select').val(),
                     success: function (states) {
                         $("#driver_select").append('<option value="' + "-1" + '">' + "请选择驾驶员" + '</option>');
                         debugger;
@@ -232,7 +279,6 @@
                         alert('Failed to retrieve states.' + ex);
                     }
                 });
-                return false;
             });
         });
     </script>

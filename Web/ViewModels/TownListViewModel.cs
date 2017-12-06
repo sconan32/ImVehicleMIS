@@ -19,6 +19,7 @@ namespace Web.ViewModels
         public bool IsValid { get; set; }
         [Display(Name = "状态")]
         public string StatusText { get; set; }
+        [Display(Name = "注册车辆数量")]
         public int VehicleCount { get; set; }
         [Display(Name = "驾驶员数量")]
         public int DriverCount { get; set; }

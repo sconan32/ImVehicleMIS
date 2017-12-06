@@ -32,10 +32,13 @@ namespace ImVehicleCore.Data
 
         [Display(Name = "生产日期")]
         public DateTime? ProductionDate { get; set; }
-        [Display(Name = "强制保险有效期")]
+
+        [Display(Name = "强制保险日期")]
         public DateTime? InsuranceExpiredDate { get; set; }
+
         [Display(Name = "上次注册日期")]
         public DateTime? LastRegisterDate { get; set; }
+
         [Display(Name = "年检日期")]
         public DateTime? YearlyAuditDate { get; set; }
 
@@ -54,8 +57,8 @@ namespace ImVehicleCore.Data
 
         [ForeignKey("GroupId")]
         public virtual GroupItem Group { get; set; }
-        public DateTime ? DumpDate { get; set; }
-        public byte [] PhotoGps { get; set; }
+        public DateTime? DumpDate { get; set; }
+        public byte[] PhotoGps { get; set; }
         public long? DriverId { get; set; }
 
         [ForeignKey("DriverId")]
@@ -65,6 +68,9 @@ namespace ImVehicleCore.Data
 
         [Display(Name = "车背面照片")]
         public byte[] PhotoRear { get; set; }
+
+        [Display(Name = "行驶证照片")]
+        public byte[] PhotoLicense { get; set; }
 
         [Display(Name = "年检照片")]
         public byte[] PhotoAudit { get; set; }
@@ -77,18 +83,25 @@ namespace ImVehicleCore.Data
         [Display(Name = "实际车主")]
         public string RealOwner { get; set; }
 
-        public bool IsValid ()
+        [Display(Name = "挂靠单位")]
+        [MaxLength(128)]
+        public string Agent { get; set; }
+
+        [Display(Name = "GPS服务")]
+        public bool? GpsEnabled { get; set; }
+
+        public bool IsValid()
         {
             var nowDate = DateTime.Now.Date;
-            if(InsuranceExpiredDate<=nowDate)
+            if (InsuranceExpiredDate?.AddYears(1) <= nowDate)
             {
                 return false;
             }
-            if(YearlyAuditDate?.AddYears(1) <= nowDate)
+            if (YearlyAuditDate?.AddYears(1) <= nowDate)
             {
                 return false;
             }
-            if(LastRegisterDate?.AddYears(1)<=nowDate)
+            if (LastRegisterDate?.AddYears(1) <= nowDate)
             {
                 return false;
             }

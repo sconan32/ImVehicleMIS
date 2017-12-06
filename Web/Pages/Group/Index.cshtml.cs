@@ -56,7 +56,9 @@ namespace Web.Pages.Group
                 ChiefName = t.ChiefName,
                 ChiefTel = t.ChiefTel,
                 VehicleCount = t.Vehicles.Count,
-                InvalidVehicleCount = t.Vehicles.Count(v=>!v.IsValid())
+                InvalidVehicleCount = t.Vehicles.Count(v => !v.IsValid()),
+                IsValid = t.IsValid(),
+               
             }).ToList();
         }
 

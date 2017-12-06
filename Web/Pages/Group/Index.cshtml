@@ -7,7 +7,7 @@
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3>全部安全单位 列表</h3>
+            <h3><i class="fa fa-flag-checkered" aria-hidden="true"></i>全部安全单位 列表</h3>
         </div>
         <div class="pull-right">
             <a asp-page="/">主页</a>&gt;
@@ -23,7 +23,7 @@
         {
 
           <a class="btn btn-new-item" asp-page="Create" asp-route-returnUrl="@Request.Path">
-            <span class="glyphicon glyphicon-plus"></span> 创建新安全单位
+            <i class="fa fa-plus" aria-hidden="true"></i> 创建新安全单位
           </a>
         }
         </p>
@@ -37,9 +37,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Groups[0].Code)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Groups[0].TownName)
-                    </th>
+                  
                     <th>
                         @Html.DisplayNameFor(model => model.Groups[0].Name)
                     </th>
@@ -49,7 +47,7 @@
                     </th>
                  
                     <th>
-                        @Html.DisplayNameFor(model => model.Groups[0].Address)
+                        @Html.DisplayNameFor(model => model.Groups[0].TownName)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Groups[0].License)
@@ -71,11 +69,13 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Code)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TownName)
-                        </td>
+                       
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
+                            @if (!item.IsValid)
+                            {
+                                <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+                            }
                         </td>
                        
                         <td>
@@ -83,7 +83,7 @@
                             <span style="color:gray"> (@Html.DisplayFor(modelItem => item.ChiefTel))</span>
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Address)
+                            @Html.DisplayFor(modelItem => item.TownName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.License)
@@ -107,7 +107,7 @@
                                         <li><a asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a asp-page="./Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                                        <li><a  asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+                                        <li><a  asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
 
                                     </ul>
                                 }

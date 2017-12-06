@@ -21,6 +21,11 @@ namespace Web.ViewModels
                 Color = t.Color;
                 License = t.LicenceNumber;
                 LastRegisterDate = t.LastRegisterDate;
+                YearlyAuditDate = t.YearlyAuditDate;
+                InsuranceExpiredDate = t.InsuranceExpiredDate;
+                DriverName = t.Driver?.Name;
+                TownName = t.Town?.Name;
+                GroupName = t.Group?.Name;
                 Type = t.Type;
                 IsValid = t.IsValid();
                     
@@ -56,6 +61,16 @@ namespace Web.ViewModels
         public string DriverTel { get; set; }
 
 
+        [DataType(DataType.Date)]
+        [Display(Name = "年检日期")]
+        public DateTime? YearlyAuditDate { get; set; }
+        public bool IsAuditValid { get; set; }
+
+
+        [DataType(DataType.Date)]
+        [Display(Name = "强制保险日期")]
+        public DateTime? InsuranceExpiredDate { get; set; }
+        public bool IsInsuranceValid { get; set; }
 
 
         public bool IsValid { get; private set; }

@@ -21,7 +21,7 @@
         <p>
             @if (await Model.CanEdit())
             {
-                <a class="btn btn-new-item" asp-page="Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <span class="glyphicon glyphicon-plus"></span> 创建新车辆</a>
+                <a class="btn btn-new-item" asp-page="Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <i class="fa fa-plus" aria-hidden="true"></i> 创建新车辆</a>
             }
         </p>
         <hr />
@@ -29,38 +29,38 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Vehicles[0].TownName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Vehicles[0].GroupName)
-                    </th>
+                   
                     <th>
                         @Html.DisplayNameFor(model => model.Vehicles[0].License)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].Usage)
+                    </th>
+                   
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].Brand)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Vehicles[0].Type)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Vehicles[0].Brand)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Vehicles[0].Name)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Vehicles[0].Color)
                     </th>
-
                     <th>
-                        @Html.DisplayNameFor(model => model.Vehicles[0].LastRegisterDate)
+                        @Html.DisplayNameFor(model => model.Vehicles[0].YearlyAuditDate)
                     </th>
-
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].InsuranceExpiredDate)
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Vehicles[0].DriverName)
                     </th>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.Vehicles[0].DriverTel)
+                        @Html.DisplayNameFor(model => model.Vehicles[0].TownName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].GroupName)
                     </th>
 
 
@@ -74,41 +74,48 @@
                 @foreach (var item in Model.Vehicles)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TownName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.GroupName)
-                        </td>
+                     
                         <td>
                             @Html.DisplayFor(modelItem => item.License)
+                            @if (!item.IsValid)
+                            {
+                                <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+                            }
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Type)
+                            @Html.DisplayFor(modelItem => item.Usage)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Brand)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                            @Html.DisplayFor(modelItem => item.Type)
                         </td>
+                        
                         <td>
                             @Html.DisplayFor(modelItem => item.Color)
                         </td>
 
 
                         <td>
-                            @Html.DisplayFor(modelItem => item.LastRegisterDate)
+                            @Html.DisplayFor(modelItem => item.YearlyAuditDate)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InsuranceExpiredDate)
                         </td>
 
                         <td>
                             @Html.DisplayFor(modelItem => item.DriverName)
+                            <span style="color:gray">@Html.DisplayFor(modelItem => item.DriverTel)</span>
                         </td>
-
                         <td>
-                            @Html.DisplayFor(modelItem => item.DriverTel)
-                        </td>
+                            @Html.DisplayFor(modelItem => item.TownName)
 
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GroupName)
+                        </td>
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
@@ -122,7 +129,7 @@
                                         <li><a asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a asp-page="./Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                                        <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+                                        <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
 
                                     </ul>
                                 }

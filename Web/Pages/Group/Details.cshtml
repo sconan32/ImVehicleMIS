@@ -8,7 +8,7 @@
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3>@Model.GroupItem.Name</h3>
+            <h3><i class="fa fa-flag-checkered" aria-hidden="true"></i>@Model.GroupItem.Name</h3>
         </div>
         <div class="pull-right">
             <a asp-page="/Index">主页</a>
@@ -26,16 +26,16 @@
                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>编辑单位
                 </a>
                 <a class="btn btn-new-item" asp-page="../Vehicle/Create" asp-route-groupId="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
-                    <span class="glyphicon glyphicon-plus"></span> 新增车辆
+                    <i class="fa fa-plus" aria-hidden="true"></i> 新增车辆
                 </a>
                 <a class="btn btn-new-item" asp-page="../Driver/Create" asp-route-groupId="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
-                    <span class="glyphicon glyphicon-plus"></span> 新增驾驶员
+                    <i class="fa fa-plus" aria-hidden="true"></i> 新增驾驶员
                 </a>
                 <a class="btn btn-new-item" asp-page="../Secureman/Create" asp-route-groupId="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
-                    <span class="glyphicon glyphicon-plus"></span> 新增安全员
+                    <i class="fa fa-plus" aria-hidden="true"></i> 新增安全员
                 </a>
                 <a class="btn btn-new-item" asp-page="../UserFile/Create" asp-route-groupId="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
-                    <span class="glyphicon glyphicon-plus"></span> 新增用户文件
+                    <i class="fa fa-plus" aria-hidden="true"></i> 新增用户文件
                 </a>
             }
 
@@ -110,8 +110,8 @@
                 <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-truck" aria-hidden="true"></i><b>车辆列表</b></a></li>
                 <li role="presentation"><a href="#driver" aria-controls="driver" role="tab" data-toggle="tab"><i class="fa fa-id-card-o" aria-hidden="true"></i><b>驾驶员列表</b></a></li>
                 <li role="presentation"><a href="#secureman" aria-controls="secureman" role="tab" data-toggle="tab"><i class="fa fa-address-book-o" aria-hidden="true"></i><b>安全员列表</b></a></li>
-                <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><b>详细信息</b></a></li>
-                <li role="presentation"><a href="#userfile" aria-controls="userfile" role="tab" data-toggle="tab"><i class="fa fa-file-archive-o" aria-hidden="true"></i><b>文件附件</b></a></li>
+                <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list" aria-hidden="true"></i><b>详细信息</b></a></li>
+                <li role="presentation"><a href="#userfile" aria-controls="userfile" role="tab" data-toggle="tab"><i class="fa fa-file-archive-o" aria-hidden="true"></i><b>用户文件</b></a></li>
                 <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><i class="fa fa-picture-o" aria-hidden="true"></i><b>图片附件</b></a></li>
 
             </ul>
@@ -171,6 +171,10 @@
                                     <tr>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.License)
+                                            @if (!item.IsValid)
+                                            {
+                                                <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+                                            }
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Type)
@@ -214,7 +218,7 @@
                                                         <li><a asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
                                                         <li role="separator" class="divider"></li>
                                                         <li><a asp-page="../Vehicle/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                                                        <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+                                                        <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
 
                                                     </ul>
                                                 }
@@ -276,6 +280,10 @@
                                     <tr>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Name)
+                                            @if (!item.IsValid)
+                                            {
+                                                <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+                                            }
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Gender)
@@ -313,7 +321,7 @@
                                                         <li><a asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
                                                         <li role="separator" class="divider"></li>
                                                         <li><a asp-page="../Driver/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                                                        <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+                                                        <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
 
                                                     </ul>
                                                 }
@@ -327,7 +335,7 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="secureman">
                         <br />
-                        <h4>安全员列表</h4>
+                        <h4><i class="fa fa-address-book-o" aria-hidden="true"></i>安全员列表</h4>
 
                         <hr />
                         <table class="table">
@@ -371,7 +379,7 @@
                                             <div class="btn-group">
                                                 @if (await Model.CanEdit())
                                                 {
-                                                    <a class="btn btn-primary btn-sm" asp-page="../Secureman/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><span class="glyphicon glyphicon-remove"></span> 删 除 </a>
+                                                    <a class="btn btn-primary btn-sm" asp-page="../Secureman/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a>
 
 
                                                 }
@@ -385,7 +393,8 @@
 
                     </div>
                     <div role="tabpanel" class="tab-pane" id="userfile">
-                        <h4><i class="fa fa-file-archive-o" aria-hidden="true"></i>用户文件列表</h4>
+                        <br />
+                        <h4><i class="fa fa-file-archive-o" aria-hidden="true"></i>用户文件</h4>
 
                         <hr />
                         <table class="table">
@@ -437,7 +446,7 @@
                                                         <span class="sr-only">向下弹出</span>
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a class="danger" asp-page="../UserFile/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+                                                        <li><a class="danger" asp-page="../UserFile/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
 
                                                     </ul>
                                                 }
@@ -452,7 +461,7 @@
                     </div>
                     <div role="tabpanel" class="tab-pane " id="home">
                         <br />
-                        <h4>详细信息</h4>
+                        <h4><i class="fa fa-list" aria-hidden="true"></i>详细信息</h4>
 
                         <hr />
                         <dl class="dl-horizontal">

@@ -22,8 +22,8 @@
         <p>
             @if (await Model.CanEdit())
             {
-                <a class="btn btn-new-item" asp-page="./Edit" asp-route-id="@Model.DriverItem.Id"><span class="glyphicon glyphicon-edit"></span> 编辑驾驶员</a>
-                <a class="btn btn-new-item" asp-page="../Vehicle/Create"><span class="glyphicon glyphicon-plus"></span> 新增车辆</a>
+                <a class="btn btn-new-item" asp-page="./Edit" asp-route-id="@Model.DriverItem.Id">  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 编辑驾驶员</a>
+                <a class="btn btn-new-item" asp-page="../Vehicle/Create"><i class="fa fa-plus" aria-hidden="true"></i> 新增车辆</a>
             }
             <a class="btn btn-default" href="@ViewBag.ReturnUrl"><span class="glyphicon glyphicon-level-up"></span> 返 回 </a>
         </p>
@@ -179,7 +179,7 @@
                                                     <li><a asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
                                                     <li role="separator" class="divider"></li>
                                                     <li><a asp-page="../Vehicle/Edit" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                                                    <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-remove"></span> 删 除 </a></li>
+                                                    <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
 
                                                 </ul>
                                             }

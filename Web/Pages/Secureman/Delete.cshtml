@@ -28,14 +28,14 @@
                 <form method="post" >
                     <input type="hidden" asp-for="SecurityPerson.Id" />
                     <input type="hidden" asp-for="ReturnUrl" />
-                    <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-remove"></span> 确 认 删 除</button>
+                    <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i>确 认 删 除</button>
 
                 </form>
 
             </div>
             <div class="btn-group">
 
-                <a class="btn btn-default" href="@Model.ReturnUrl"><span class="glyphicon glyphicon-trash" /> 放 弃</a>
+                <a class="btn btn-default" href="@Model.ReturnUrl"><i class="fa fa-reply" aria-hidden="true"></i></i>放 弃</a>
             </div>
 
         </div>

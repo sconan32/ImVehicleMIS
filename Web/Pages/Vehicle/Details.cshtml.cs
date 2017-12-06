@@ -36,7 +36,7 @@ namespace Web.Pages.Vehicle
         }
 
 
-        public VehicleEditViewModel VehicleItem { get; set; }
+        public VehicleViewModel VehicleItem { get; set; }
 
         public async Task<IActionResult> OnGetAsync(long? id)
         {
@@ -45,7 +45,11 @@ namespace Web.Pages.Vehicle
                 return NotFound();
             }
 
-            var vehicle = await _context.Vehicles.SingleOrDefaultAsync(m => m.Id == id);
+            var vehicle = await _context.Vehicles
+                .Include(t=>t.Group)
+                .Include(t=>t.Town)
+                .Include(t=>t.Driver)
+                .SingleOrDefaultAsync(m => m.Id == id);
 
             if (vehicle == null)
             {
@@ -53,7 +57,7 @@ namespace Web.Pages.Vehicle
             }
 
 
-            VehicleItem = new VehicleEditViewModel()
+            VehicleItem = new VehicleViewModel()
             {
                 Id = vehicle.Id,
                 Brand = vehicle.Brand,
@@ -72,15 +76,29 @@ namespace Web.Pages.Vehicle
                 Usage = vehicle.Usage,
                 VehicleStatus = vehicle.VehicleStatus,
                 YearlyAuditDate = vehicle.YearlyAuditDate,
+                Agent = vehicle.Agent,
+                DumpDate = vehicle.DumpDate,
+                GroupName = vehicle.Group?.Name,
+                TownName = vehicle.Town?.Name,
 
+
+
+                PhotoLicenseBase64 = vehicle.PhotoLicense != null ? Convert.ToBase64String(vehicle.PhotoLicense) : "",
+                PhotoGpsBase64 = vehicle.PhotoGps != null ? Convert.ToBase64String(vehicle.PhotoGps) : "",
                 PhotoAuditBase64 = vehicle.PhotoAudit != null ? Convert.ToBase64String(vehicle.PhotoAudit) : "",
                 PhotoFrontBase64 = vehicle.PhotoFront != null ? Convert.ToBase64String(vehicle.PhotoFront) : "",
                 PhotoRearBase64 = vehicle.PhotoRear != null ? Convert.ToBase64String(vehicle.PhotoRear) : "",
                 PhotoInsuaranceBase64 = vehicle.PhotoInsuarance != null ? Convert.ToBase64String(vehicle.PhotoInsuarance) : "",
 
+
+
+
             };
-
-
+            var nowDate = DateTime.Now.Date;
+            VehicleItem.IsAuditValid = VehicleItem.YearlyAuditDate?.AddYears(1) >= nowDate;
+            VehicleItem.IsInsuranceValid = vehicle.InsuranceExpiredDate?.AddYears(1) >= nowDate;
+            VehicleItem.IsDumpValid = vehicle.DumpDate >= nowDate;
+            VehicleItem.IsValid = VehicleItem.IsAuditValid && VehicleItem.IsInsuranceValid && VehicleItem.IsDumpValid;
             return Page();
         }
     }

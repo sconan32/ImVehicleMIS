@@ -22,7 +22,7 @@ namespace ImVehicleCore.Data
         public string Name { get; set; }
 
         [Display(Name = "创建日期")]
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
         [Display(Name = "修改日期")]
         public DateTime? ModificationDate { get; set; }
 

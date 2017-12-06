@@ -11,9 +11,10 @@ using System;
 namespace ImVehicleCore.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    partial class VehicleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171205055648_revised0002")]
+    partial class revised0002
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,7 +29,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime?>("CreationDate");
+                    b.Property<DateTime>("CreationDate");
 
                     b.Property<string>("Metadata");
 
@@ -54,7 +55,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime?>("CreationDate");
+                    b.Property<DateTime>("CreationDate");
 
                     b.Property<DateTime?>("FirstLicenseIssueDate");
 
@@ -134,7 +135,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime?>("CreationDate");
+                    b.Property<DateTime>("CreationDate");
 
                     b.Property<string>("License");
 
@@ -179,7 +180,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime?>("CreationDate");
+                    b.Property<DateTime>("CreationDate");
 
                     b.Property<string>("Excerpt");
 
@@ -224,7 +225,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime?>("CreationDate");
+                    b.Property<DateTime>("CreationDate");
 
                     b.Property<long?>("GroupId");
 
@@ -270,7 +271,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime?>("CreationDate");
+                    b.Property<DateTime>("CreationDate");
 
                     b.Property<long>("DirstrictId");
 
@@ -304,7 +305,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime?>("CreationDate");
+                    b.Property<DateTime>("CreationDate");
 
                     b.Property<int>("DownloadCount");
 
@@ -359,7 +360,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<string>("CreateBy");
 
-                    b.Property<DateTime?>("CreationDate");
+                    b.Property<DateTime>("CreationDate");
 
                     b.Property<long?>("DriverId");
 

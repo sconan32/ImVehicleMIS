@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
 namespace ImVehicleCore.Migrations
 {
-    public partial class Initialize0001 : Migration
+    public partial class revised0002 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -37,7 +36,7 @@ namespace ImVehicleCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Address = table.Column<string>(nullable: true),
                     CreateBy = table.Column<string>(nullable: true),
                     CreationDate = table.Column<DateTime>(nullable: false),
@@ -58,7 +57,7 @@ namespace ImVehicleCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Content = table.Column<string>(nullable: false),
                     CreateBy = table.Column<string>(nullable: true),
                     CreationDate = table.Column<DateTime>(nullable: false),
@@ -86,7 +85,7 @@ namespace ImVehicleCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true),
                     RoleId = table.Column<string>(nullable: false)
@@ -107,7 +106,7 @@ namespace ImVehicleCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Address = table.Column<string>(nullable: true),
                     Code = table.Column<int>(nullable: false),
                     CreateBy = table.Column<string>(nullable: true),
@@ -173,7 +172,7 @@ namespace ImVehicleCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Address = table.Column<string>(nullable: true),
                     AttachmentFilePath = table.Column<string>(nullable: true),
                     ChiefName = table.Column<string>(nullable: true),
@@ -213,7 +212,7 @@ namespace ImVehicleCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
@@ -298,7 +297,7 @@ namespace ImVehicleCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     CreateBy = table.Column<string>(nullable: true),
                     CreationDate = table.Column<DateTime>(nullable: false),
                     FirstLicenseIssueDate = table.Column<DateTime>(nullable: true),
@@ -348,7 +347,7 @@ namespace ImVehicleCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ClientPath = table.Column<string>(nullable: true),
                     ContentType = table.Column<string>(nullable: true),
                     CreateBy = table.Column<string>(nullable: true),
@@ -365,7 +364,8 @@ namespace ImVehicleCore.Migrations
                     Status = table.Column<int>(nullable: false),
                     TownId = table.Column<long>(nullable: true),
                     Type = table.Column<string>(nullable: true),
-                    VersionNumber = table.Column<int>(nullable: false)
+                    VersionNumber = table.Column<int>(nullable: false),
+                    Visibility = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -389,7 +389,7 @@ namespace ImVehicleCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Address = table.Column<string>(nullable: true),
                     Company = table.Column<string>(nullable: true),
                     CreateBy = table.Column<string>(nullable: true),
@@ -429,7 +429,8 @@ namespace ImVehicleCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Agent = table.Column<string>(maxLength: 128, nullable: true),
                     Brand = table.Column<string>(nullable: true),
                     Color = table.Column<string>(nullable: true),
                     Comment = table.Column<string>(nullable: true),
@@ -440,6 +441,7 @@ namespace ImVehicleCore.Migrations
                     DriverTel = table.Column<string>(nullable: true),
                     DumpDate = table.Column<DateTime>(nullable: true),
                     FirstRegisterDate = table.Column<DateTime>(nullable: true),
+                    GpsEnabled = table.Column<bool>(nullable: false),
                     GroupId = table.Column<long>(nullable: true),
                     InsuranceExpiredDate = table.Column<DateTime>(nullable: true),
                     LastRegisterDate = table.Column<DateTime>(nullable: true),
@@ -452,6 +454,7 @@ namespace ImVehicleCore.Migrations
                     PhotoFront = table.Column<byte[]>(nullable: true),
                     PhotoGps = table.Column<byte[]>(nullable: true),
                     PhotoInsuarance = table.Column<byte[]>(nullable: true),
+                    PhotoLicense = table.Column<byte[]>(nullable: true),
                     PhotoRear = table.Column<byte[]>(nullable: true),
                     ProductionDate = table.Column<DateTime>(nullable: true),
                     RealOwner = table.Column<string>(nullable: true),
@@ -500,8 +503,7 @@ namespace ImVehicleCore.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -527,8 +529,7 @@ namespace ImVehicleCore.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_TownId",

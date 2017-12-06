@@ -29,7 +29,7 @@ namespace Web.Pages.Vehicle
             _townService = townService;
             _userManager = userManager;
             _groupService = groupService;
-            VehicleItem = new VehicleEditViewModel();
+  
         }
 
         [BindProperty]
@@ -49,17 +49,21 @@ namespace Web.Pages.Vehicle
                 var groups = (await _groupService.ListGroupsForTownEagerAsync(HttpContext.User, townlist.First().Id));
                 ViewData["GroupList"] = new SelectList(groups, "Id", "Name");
             }
-
+            VehicleItem = new VehicleViewModel();
             VehicleItem.GroupId = groupId;
             if (groupId != null)
             {
                 VehicleItem.TownId = townlist.FirstOrDefault(t => t.Groups.Any(u => u.Id == groupId))?.Id;
             }
+            else
+            {
+                VehicleItem.TownId = townlist.FirstOrDefault()?.Id;
+            }
             return Page();
         }
 
-        [BindProperty]
-        public VehicleEditViewModel VehicleItem { get; set; }
+        [BindProperty(SupportsGet =true)]
+        public VehicleViewModel VehicleItem { get; set; }
 
 
         [Authorize(Roles = "TownManager,Admins")]
@@ -85,6 +89,8 @@ namespace Web.Pages.Vehicle
             MemoryStream spRear = new MemoryStream();
             MemoryStream spAudit = new MemoryStream();
             MemoryStream spInsuarance = new MemoryStream();
+            MemoryStream spGps = new MemoryStream();
+            MemoryStream spLicense = new MemoryStream();
 
             var acceptableExt = new[] { ".png", ".bmp", ".jpg", ".jpeg", ".tif", };
 
@@ -105,8 +111,14 @@ namespace Web.Pages.Vehicle
             {
                 await VehicleItem.PhotoInsuarance.CopyToAsync(spInsuarance);
             }
-
-
+            if (acceptableExt.Contains(Path.GetExtension(VehicleItem.PhotoGps?.FileName)?.ToLower()))
+            {
+                await VehicleItem.PhotoGps.CopyToAsync(spGps);
+            }
+            if (acceptableExt.Contains(Path.GetExtension(VehicleItem.PhotoLicense?.FileName)?.ToLower()))
+            {
+                await VehicleItem.PhotoLicense.CopyToAsync(spLicense);
+            }
 
             var vehicle = new VehicleItem()
             {
@@ -120,21 +132,26 @@ namespace Web.Pages.Vehicle
                 LicenceNumber = VehicleItem.License,
                 ProductionDate = VehicleItem.ProductionDate,
                 RealOwner = VehicleItem.RealOwner,
-                LastRegisterDate = VehicleItem.RegisterDate,
+
                 Type = VehicleItem.Type,
                 Usage = VehicleItem.Usage,
+                Agent = VehicleItem.Agent,
+                DriverId = VehicleItem.DriverId,
+                GpsEnabled = VehicleItem.GpsEnabled,
+                FirstRegisterDate = VehicleItem.RegisterDate,
 
                 YearlyAuditDate = VehicleItem.YearlyAuditDate,
                 VehicleStatus = VehicleItem.VehicleStatus,
 
-                GroupId=VehicleItem.GroupId,
-                TownId =VehicleItem.TownId,
+                GroupId = VehicleItem.GroupId,
+                TownId = VehicleItem.TownId,
 
                 PhotoFront = spFront.ToArray(),
                 PhotoRear = spRear.ToArray(),
                 PhotoAudit = spAudit.ToArray(),
                 PhotoInsuarance = spInsuarance.ToArray(),
-
+                PhotoGps = spGps.ToArray(),
+                PhotoLicense = spLicense.ToArray(),
 
                 CreateBy = user.Id,
                 CreationDate = DateTime.Now,

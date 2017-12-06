@@ -24,17 +24,17 @@ namespace Web.Controllers
         }
 
         [Authorize(Roles = "TownManager,Admins")]
-        public async Task<IActionResult> GetDropDownList(long? townId)
+        public async Task<IActionResult> GetDropDownList(long? townId, long? groupId)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             IEnumerable<DriverItem> drivers = new List<DriverItem>();
-            if (!(await _userManager.IsInRoleAsync(user, "TownManager") || user.TownId == townId))
+            if (!(await _userManager.IsInRoleAsync(user, "TownManager")) || user.TownId == townId)
             {
-                drivers = _context.Drivers.Where(t => t.TownId == townId);
+                drivers = _context.Drivers.Where(t => t.TownId == townId || t.GroupId == t.GroupId);
 
             }
 
-            var list = drivers.Select(t => new { Value = t.Id, Text = t.Name });
+            var list = drivers.Select(t => new { Value = t.Id, Text = (t.GroupId == groupId ? "*" : "") + t.Name + " (" + t.IdCardNumber + ")" });
             return new JsonResult(list);
 
         }

@@ -64,7 +64,7 @@ namespace Web.Pages.Group
                 PhotoMain = group.PhotoMain != null ? Convert.ToBase64String(group.PhotoMain) : "",
                 PhotoWarranty = group.PhotoWarranty != null ? Convert.ToBase64String(group.PhotoWarranty) : "",
                 PhotoSecurity = group.PhotoSecurity != null ? Convert.ToBase64String(group.PhotoSecurity) : "",
-
+                
                 TownName = group.Town.Name,
                 VehicleCount = group.Vehicles.Count,
 

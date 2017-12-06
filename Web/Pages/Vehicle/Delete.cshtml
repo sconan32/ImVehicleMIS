@@ -8,7 +8,7 @@
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3>确认删除如下车辆吗？</h3>
+            <h3><i class="fa fa-trash-o" aria-hidden="true"></i>删除确认</h3>
         </div>
         <div class="pull-right">
             <a asp-page="/Index">主页</a>&gt;
@@ -20,24 +20,26 @@
 <section class="main_feature_area">
     <div class="container">
         <div class="row">
-            <h3></h3>
+            <h3>是否确认删除如下车辆</h3>
         </div>
-        <div class="btn-toolbar">
+        <div class="row">
+            <div class="btn-toolbar">
 
-            <div class="btn-group">
+                <div class="btn-group">
 
-                <form method="post" >
-                    <input type="hidden" asp-for="VehicleItem.Id" />
-                    <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-remove"></span> 确 认 删 除</button>
-                    <input type="hidden" asp-for="ReturnUrl" />
-                </form>
+                    <form method="post">
+                        <input type="hidden" asp-for="VehicleItem.Id" />
+                        <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i> 确 认 删 除</button>
+                        <input type="hidden" asp-for="ReturnUrl" />
+                    </form>
+
+                </div>
+                <div class="btn-group">
+
+                    <a class="btn btn-default" href="@Model.ReturnUrl"><i class="fa fa-reply" aria-hidden="true"></i> 放 弃</a>
+                </div>
 
             </div>
-            <div class="btn-group">
-
-                <a class="btn btn-default"  href="@Model.ReturnUrl"><span class="glyphicon glyphicon-trash" /> 放 弃</a>
-            </div>
-
         </div>
         <br />
         <div class="row">
@@ -61,12 +63,12 @@
                             </dt>
                             <dd>
                                 @Html.DisplayFor(model => model.VehicleItem.Type)
-                            </dd>                            
+                            </dd>
                             <dt>
                                 @Html.DisplayNameFor(model => model.VehicleItem.Usage)
                             </dt>
                             <dd>
-                                @Html.DisplayFor(model => model.VehicleItem.Usage) 
+                                @Html.DisplayFor(model => model.VehicleItem.Usage)
                             </dd>
 
                         </dl>
