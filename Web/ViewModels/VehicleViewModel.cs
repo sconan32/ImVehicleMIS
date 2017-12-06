@@ -12,6 +12,7 @@ namespace Web.ViewModels
     {
         public long Id { get; set; }
 
+        [Required]
         [Display(Name = "车牌号")]
         public string License { get; set; }
 

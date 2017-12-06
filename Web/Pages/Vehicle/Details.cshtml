@@ -57,6 +57,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.VehicleItem.DumpDate)
                     </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VehicleItem.DriverName)
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -99,6 +102,13 @@
                         @if (!Model.VehicleItem.IsDumpValid)
                         {
                             <i class="fa fa-exclamation-circle text-danger"> </i>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.VehicleItem.DriverName)
+                        @if (!string.IsNullOrWhiteSpace(Model.VehicleItem.DriverTel))
+                        {
+                            <span style="color:gray">(@Html.DisplayFor(model => model.VehicleItem.DriverTel))</span>
                         }
                     </td>
                 </tr>
@@ -228,7 +238,12 @@
                         <dd>
                             @Html.DisplayFor(model => model.VehicleItem.DriverName)
                         </dd>
-
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VehicleItem.DriverTel)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.VehicleItem.DriverTel)
+                        </dd>
                         <dt>
                             @Html.DisplayNameFor(model => model.VehicleItem.Comment)
                         </dt>

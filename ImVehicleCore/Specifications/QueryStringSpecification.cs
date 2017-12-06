@@ -46,7 +46,7 @@ namespace ImVehicleCore.Specifications
                     var valueIdx = expr.IndexOf(exprSplit[1]);
                     string op = expr.Substring(innerLength, valueIdx - innerLength);
                     var type = propertyInfo.Item2;
-                    var value = ConvertStringToType(exprSplit[1].Trim(), type);
+                    object value = ConvertStringToType(exprSplit[1].Trim(), type);
                     if (value == null)
                     {
                         continue;
@@ -55,22 +55,22 @@ namespace ImVehicleCore.Specifications
                     {
                         case "=":
                         case "==":
-                            expressions.Add(Expression.Equal(property, Expression.Constant(value)));
+                            expressions.Add(Expression.Equal(property, Expression.Convert(Expression.Constant(value), type)));
                             break;
                         case "!=":
-                            expressions.Add(Expression.NotEqual(property, Expression.Constant(value)));
+                            expressions.Add(Expression.NotEqual(property, Expression.Convert(Expression.Constant(value), type)));
                             break;
                         case ">":
-                            expressions.Add(Expression.GreaterThan(property, Expression.Constant(value)));
+                            expressions.Add(Expression.GreaterThan(property, Expression.Convert(Expression.Constant(value),type)));
                             break;
                         case "<":
-                            expressions.Add(Expression.LessThan(property, Expression.Constant(value)));
+                            expressions.Add(Expression.LessThan(property, Expression.Convert(Expression.Constant(value), type)));
                             break;
                         case ">=":
-                            expressions.Add(Expression.GreaterThanOrEqual(property, Expression.Constant(value)));
+                            expressions.Add(Expression.GreaterThanOrEqual(property, Expression.Convert(Expression.Constant(value), type)));
                             break;
                         case "<=":
-                            expressions.Add(Expression.LessThanOrEqual(property, Expression.Constant(value)));
+                            expressions.Add(Expression.LessThanOrEqual(property, Expression.Convert(Expression.Constant(value), type)));
                             break;
                         default:
                             continue;
@@ -140,6 +140,35 @@ namespace ImVehicleCore.Specifications
 
         private object ConvertStringToType(string value, Type type)
         {
+            if(type == typeof(DateTime?))
+            {
+                try
+                {
+                   return new DateTime?(Convert.ToDateTime(value));
+                }
+                catch(FormatException ex)
+                {
+                    return null;
+                }
+            }
+             if(type.IsEnum)
+            {
+                foreach(var enumv in type.GetEnumValues())
+                {
+                    var evalues = (Enum)enumv;
+                    var attr = type.GetMember(evalues.ToString()).First().GetCustomAttributes(typeof(DisplayAttribute), false);
+                    if (attr.Any())
+                    {
+                        var disAttr = (DisplayAttribute)attr.First();
+                        if(disAttr.Name==value || evalues.ToString()==value)
+                        {
+                            return evalues;
+                        }
+
+                    }
+                    return null;
+                }
+            }
             return Convert.ChangeType(value, type);
         }
     }

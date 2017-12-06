@@ -80,8 +80,8 @@ namespace Web.Pages.Vehicle
                 DumpDate = vehicle.DumpDate,
                 GroupName = vehicle.Group?.Name,
                 TownName = vehicle.Town?.Name,
-
-
+                DriverName = vehicle.Driver?.Name,
+                DriverTel = vehicle.Driver?.Tel,
 
                 PhotoLicenseBase64 = vehicle.PhotoLicense != null ? Convert.ToBase64String(vehicle.PhotoLicense) : "",
                 PhotoGpsBase64 = vehicle.PhotoGps != null ? Convert.ToBase64String(vehicle.PhotoGps) : "",

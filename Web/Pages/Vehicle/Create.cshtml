@@ -47,7 +47,7 @@
                                     <label asp-for="VehicleItem.TownId" class="col-sm-2 control-label"></label>
                                     <div class="col-sm-4">
                                         <select id="town_select" asp-for="VehicleItem.TownId" class="form-control" asp-items="ViewBag.TownList">
-                                            <option>请选择街道 </option>
+                                            <option value="">请选择街道 </option>
                                         </select>
                                         <span asp-validation-for="VehicleItem.TownId" class="text-danger"></span>
                                     </div>
@@ -56,7 +56,7 @@
                                 <label asp-for="VehicleItem.GroupId" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
                                     <select id="group_select" asp-for="VehicleItem.GroupId" class="form-control" asp-items="ViewBag.GroupList">
-                                        <option>请选择安全单位 </option>
+                                        <option value="">请选择安全单位 </option>
                                     </select>
                                     <span asp-validation-for="VehicleItem.GroupId" class="text-danger"></span>
                                 </div>
@@ -66,7 +66,7 @@
                                 <label asp-for="VehicleItem.DriverId" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
                                     <select asp-for="VehicleItem.DriverId" id="driver_select" class="form-control" asp-items="ViewBag.DriverList">
-                                        <option>请选择驾驶员 </option>
+                                        <option value="">请选择驾驶员 </option>
                                     </select>
                                     <span asp-validation-for="VehicleItem.DriverId" class="text-danger"></span>
                                 </div>
@@ -225,18 +225,18 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-    $(document).ready(function () {
-        //Dropdownlist Selectedchange event
+        $(document).ready(function () {
+            //Dropdownlist Selectedchange event
 
-        $("#town_select").change(function () {
-            town_id =@(await Model.IsAdmin()?" $('#town_select').val()":Model.VehicleItem.TownId?.ToString());
+            var update_group = function () {
+                town_id =@(await Model.IsAdmin()?Html.Raw(" $('#town_select').val()"): Html.Raw(Model.VehicleItem.TownId?.ToString()));
                 $("#group_select").empty();
-                $("#driver_select").empty();
+
                 $.ajax({
                     type: "GET",
                     url: "/Group/GetDropDownList?townId=" + town_id,
                     success: function (states) {
-                        $("#group_select").append('<option value="' + "-1" + '">' + "请选择安全单位" + '</option>');
+                        $("#group_select").append('<option value="">' + "请选择安全单位" + '</option>');
                         debugger;
                         $.each(states, function (i, state) {
                             $("#group_select").append('<option value="' + state.value + '">' + state.text + '</option>');
@@ -247,37 +247,38 @@
                         alert('Failed to retrieve states.' + ex);
                     }
                 });
-                $.ajax({
-                    type: "GET",
-                    url: "/Driver/GetDropDownList?townId=" + town_id + "&groupId=" + $('#group_select').val(),
-                    success: function (states) {
-                        $("#driver_select").append('<option value="' + "-1" + '">' + "请选择驾驶员" + '</option>');
-                        debugger;
-                        $.each(states, function (i, state) {
-                            $("#driver_select").append('<option value="' + state.value + '">' + state.text + '</option>');
-                        });
-                    }
-                });
-                return false;
-            });
-        $("#group_select").change(function () {
+
+            };
+           // update_group();
+            var update_driver = function () {
+                  town_id =@(await Model.IsAdmin()?Html.Raw(" $('#town_select').val()"): Html.Raw(Model.VehicleItem.TownId?.ToString()));
                 $("#driver_select").empty();
-                 town_id =@(await Model.IsAdmin()?" $('#town_select').val()":Model.VehicleItem.TownId?.ToString());
                 $.ajax({
                     type: "GET",
                     url: "/Driver/GetDropDownList?townId=" + town_id + "&groupId=" + $('#group_select').val(),
                     success: function (states) {
-                        $("#driver_select").append('<option value="' + "-1" + '">' + "请选择驾驶员" + '</option>');
+                        $("#driver_select").append('<option value="">' + "请选择驾驶员" + '</option>');
                         debugger;
                         $.each(states, function (i, state) {
                             $("#driver_select").append('<option value="' + state.value + '">' + state.text + '</option>');
-                            // here we are adding option for States
                         });
                     },
                     error: function (ex) {
                         alert('Failed to retrieve states.' + ex);
                     }
                 });
+
+            };
+         //   update_driver();
+
+            $("#town_select").change(function () {
+                update_group();
+                update_driver();
+                return false;
+            });
+            $("#group_select").change(function () {
+                update_driver();
+                return false;
             });
         });
     </script>

@@ -7,7 +7,7 @@
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3>车辆 查找结果</h3>
+            <h3><i class="fa fa-truck" aria-hidden="true"></i>车辆 查找结果</h3>
         </div>
         <div class="pull-right">
             <a asp-page="/Index">主页</a>&gt;
@@ -19,115 +19,122 @@
     <div class="container">
 
         <p>
-            <h4>车辆查找结果  条件：@ViewBag.QueryString</h4>
+            <h4><i class="fa fa-search"></i>车辆查找结果  条件：@ViewBag.QueryString</h4>
             </p>
             <hr />
 
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Vehicles[0].TownName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Vehicles[0].GroupName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Vehicles[0].License)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Vehicles[0].Type)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Vehicles[0].Brand)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Vehicles[0].Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Vehicles[0].Color)
-                        </th>
+        <table class="table table-hover">
+            <thead>
+                <tr>
 
-                        <th>
-                            @Html.DisplayNameFor(model => model.Vehicles[0].LastRegisterDate)
-                        </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].License)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].Usage)
+                    </th>
 
-                        <th>
-                            @Html.DisplayNameFor(model => model.Vehicles[0].DriverName)
-                        </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].Brand)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].Color)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].YearlyAuditDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].InsuranceExpiredDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].DriverName)
+                    </th>
 
-                        <th>
-                            @Html.DisplayNameFor(model => model.Vehicles[0].DriverTel)
-                        </th>
-
-
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].TownName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehicles[0].GroupName)
+                    </th>
 
 
 
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Vehicles)
+
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Vehicles)
                 {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TownName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.GroupName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.License)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Type)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Brand)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Color)
-                            </td>
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.License)
+                            @if (!item.IsValid)
+                            {
+                                <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Usage)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Brand)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Color)
+                        </td>
 
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.LastRegisterDate)
-                            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.YearlyAuditDate)
+                        </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DriverName)
-                            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InsuranceExpiredDate)
+                        </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DriverTel)
-                            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DriverName)
+                            <span style="color:gray">@Html.DisplayFor(modelItem => item.DriverTel)</span>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TownName)
 
-                            <td>
-                                <div class="btn-group">
-                                    <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
-                                    @if (await Model.CanEdit())
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GroupName)
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                                @if (await Model.CanEdit())
                                 {
-                                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="caret"></span>
-                                            <span class="sr-only">向下弹出</span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
-                                            <li role="separator" class="divider"></li>
-                                            <li><a asp-page="./Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                                            <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">向下弹出</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a asp-page="./Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
+                                        <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
 
-                                        </ul>
+                                    </ul>
                                 }
-                                </div>
-                            </td>
-                        </tr>
+                            </div>
+                        </td>
+                    </tr>
                 }
-                </tbody>
-            </table>
+            </tbody>
+        </table>
         </div>
     </section>

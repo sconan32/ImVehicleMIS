@@ -110,10 +110,10 @@
          function query_search() {
             $.ajax({
                 type: "GET",
-                url: "/Search/Index?queryString=" + $('#search_box').val(),
+                url: "/Search/Index?queryString=" + encodeURIComponent($('#search_box').val()),
                 success: function (states) {
                     // similar behavior as an HTTP redirect
-                    window.location.replace(states.requestUrl);
+                    window.location.href = states.requestUrl;
                 },
                 error: function (ex) {
                     alert('Failed to retrieve states.' + ex);

@@ -44,11 +44,7 @@ namespace Web.Pages.Vehicle
             var townlist = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User));
 
             ViewData["TownList"] = new SelectList(townlist, "Id", "Name");
-            if (townlist.Any())
-            {
-                var groups = (await _groupService.ListGroupsForTownEagerAsync(HttpContext.User, townlist.First().Id));
-                ViewData["GroupList"] = new SelectList(groups, "Id", "Name");
-            }
+           
             VehicleItem = new VehicleViewModel();
             VehicleItem.GroupId = groupId;
             if (groupId != null)
@@ -58,6 +54,11 @@ namespace Web.Pages.Vehicle
             else
             {
                 VehicleItem.TownId = townlist.FirstOrDefault()?.Id;
+            }
+            if (townlist.Any())
+            {
+                var groups = (await _groupService.ListGroupsForTownEagerAsync(HttpContext.User, VehicleItem.TownId??-1));
+                ViewData["GroupList"] = new SelectList(groups, "Id", "Name");
             }
             return Page();
         }
@@ -73,10 +74,12 @@ namespace Web.Pages.Vehicle
             {
                 var townlist = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User));
 
-                ViewData["TownList"] = new SelectList(townlist, "Id", "Name");
+                ViewData["TownList"] = new SelectList(townlist, "Id", "Name");           
+                         
+              
                 if (townlist.Any())
                 {
-                    var groups = (await _groupService.ListGroupsForTownEagerAsync(HttpContext.User, townlist.First().Id));
+                    var groups = (await _groupService.ListGroupsForTownEagerAsync(HttpContext.User, VehicleItem.TownId??-1));
                     ViewData["GroupList"] = new SelectList(groups, "Id", "Name");
                 }
 
