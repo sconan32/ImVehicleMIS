@@ -30,6 +30,8 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<DateTime?>("CreationDate");
 
+                    b.Property<int>("DivisionType");
+
                     b.Property<string>("Metadata");
 
                     b.Property<DateTime?>("ModificationDate");
@@ -51,6 +53,8 @@ namespace ImVehicleCore.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ContactAddress");
 
                     b.Property<string>("CreateBy");
 
@@ -371,7 +375,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<DateTime?>("FirstRegisterDate");
 
-                    b.Property<bool>("GpsEnabled");
+                    b.Property<bool?>("GpsEnabled");
 
                     b.Property<long?>("GroupId");
 
@@ -641,7 +645,7 @@ namespace ImVehicleCore.Migrations
             modelBuilder.Entity("ImVehicleCore.Data.TownItem", b =>
                 {
                     b.HasOne("ImVehicleCore.Data.DistrictItem", "District")
-                        .WithMany()
+                        .WithMany("Towns")
                         .HasForeignKey("DirstrictId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

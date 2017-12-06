@@ -29,10 +29,10 @@ namespace ImVehicleCore.Data
         [Display(Name = "驾驶证有效年限")]
         public int? LicenseValidYears { get; set; }
 
+        [Display(Name = "注册单位")]
+        public string ContactAddress { get; set; }
 
-        //public DateTime LicenseExpireDate { get; set; }
-
-
+        
 
         public virtual List<VehicleItem> Vehicles { get; set; }
 

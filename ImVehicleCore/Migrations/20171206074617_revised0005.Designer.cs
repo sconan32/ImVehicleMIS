@@ -11,8 +11,8 @@ using System;
 namespace ImVehicleCore.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    [Migration("20171205065641_revised0003")]
-    partial class revised0003
+    [Migration("20171206074617_revised0005")]
+    partial class revised0005
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,6 +30,8 @@ namespace ImVehicleCore.Migrations
                     b.Property<string>("CreateBy");
 
                     b.Property<DateTime?>("CreationDate");
+
+                    b.Property<int>("DivisionType");
 
                     b.Property<string>("Metadata");
 
@@ -52,6 +54,8 @@ namespace ImVehicleCore.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ContactAddress");
 
                     b.Property<string>("CreateBy");
 
@@ -372,7 +376,7 @@ namespace ImVehicleCore.Migrations
 
                     b.Property<DateTime?>("FirstRegisterDate");
 
-                    b.Property<bool>("GpsEnabled");
+                    b.Property<bool?>("GpsEnabled");
 
                     b.Property<long?>("GroupId");
 
@@ -642,7 +646,7 @@ namespace ImVehicleCore.Migrations
             modelBuilder.Entity("ImVehicleCore.Data.TownItem", b =>
                 {
                     b.HasOne("ImVehicleCore.Data.DistrictItem", "District")
-                        .WithMany()
+                        .WithMany("Towns")
                         .HasForeignKey("DirstrictId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

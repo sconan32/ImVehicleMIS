@@ -40,8 +40,7 @@ namespace ImVehicleCore.Data
         [ForeignKey("TownId")]
         public virtual TownItem Town { get; set; }
 
-        [Display(Name = "资质照片")]
-        public byte[] PhotoWarranty { get; set; }
+      
 
         [Display(Name = "安全资质照片")]
         public byte[] PhotoSecurity { get; set; }
@@ -55,8 +54,13 @@ namespace ImVehicleCore.Data
         public string ChiefTel { get; set; }
         [Display(Name = "介绍")]
         public string Comment { get; set; }
+
+
         [Display(Name = "企业照片")]
         public byte[] PhotoMain { get; set; }
+
+        [Display(Name = "资质照片")]
+        public byte[] PhotoWarranty { get; set; }
 
         public bool IsValid()
         {

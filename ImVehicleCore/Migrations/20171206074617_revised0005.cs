@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ImVehicleCore.Migrations
 {
-    public partial class revised0002 : Migration
+    public partial class revised0005 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,7 +39,8 @@ namespace ImVehicleCore.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Address = table.Column<string>(nullable: true),
                     CreateBy = table.Column<string>(nullable: true),
-                    CreationDate = table.Column<DateTime>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: true),
+                    DivisionType = table.Column<int>(nullable: false),
                     Metadata = table.Column<string>(nullable: true),
                     ModificationDate = table.Column<DateTime>(nullable: true),
                     ModifyBy = table.Column<string>(nullable: true),
@@ -60,7 +61,7 @@ namespace ImVehicleCore.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Content = table.Column<string>(nullable: false),
                     CreateBy = table.Column<string>(nullable: true),
-                    CreationDate = table.Column<DateTime>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: true),
                     Excerpt = table.Column<string>(nullable: true),
                     ExpireDate = table.Column<DateTime>(nullable: true),
                     HasDateRange = table.Column<bool>(nullable: true),
@@ -110,7 +111,7 @@ namespace ImVehicleCore.Migrations
                     Address = table.Column<string>(nullable: true),
                     Code = table.Column<int>(nullable: false),
                     CreateBy = table.Column<string>(nullable: true),
-                    CreationDate = table.Column<DateTime>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: true),
                     DirstrictId = table.Column<long>(nullable: false),
                     Metadata = table.Column<string>(nullable: true),
                     ModificationDate = table.Column<DateTime>(nullable: true),
@@ -181,7 +182,7 @@ namespace ImVehicleCore.Migrations
                     Code = table.Column<string>(nullable: true),
                     Comment = table.Column<string>(nullable: true),
                     CreateBy = table.Column<string>(nullable: true),
-                    CreationDate = table.Column<DateTime>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: true),
                     License = table.Column<string>(nullable: true),
                     Metadata = table.Column<string>(nullable: true),
                     ModificationDate = table.Column<DateTime>(nullable: true),
@@ -298,8 +299,9 @@ namespace ImVehicleCore.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    ContactAddress = table.Column<string>(nullable: true),
                     CreateBy = table.Column<string>(nullable: true),
-                    CreationDate = table.Column<DateTime>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: true),
                     FirstLicenseIssueDate = table.Column<DateTime>(nullable: true),
                     Gender = table.Column<int>(nullable: false),
                     GroupId = table.Column<long>(nullable: true),
@@ -351,7 +353,7 @@ namespace ImVehicleCore.Migrations
                     ClientPath = table.Column<string>(nullable: true),
                     ContentType = table.Column<string>(nullable: true),
                     CreateBy = table.Column<string>(nullable: true),
-                    CreationDate = table.Column<DateTime>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: true),
                     DownloadCount = table.Column<int>(nullable: false),
                     FileName = table.Column<string>(nullable: true),
                     GroupId = table.Column<long>(nullable: true),
@@ -393,7 +395,7 @@ namespace ImVehicleCore.Migrations
                     Address = table.Column<string>(nullable: true),
                     Company = table.Column<string>(nullable: true),
                     CreateBy = table.Column<string>(nullable: true),
-                    CreationDate = table.Column<DateTime>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: true),
                     GroupId = table.Column<long>(nullable: true),
                     IdCardNum = table.Column<string>(nullable: true),
                     Metadata = table.Column<string>(nullable: true),
@@ -435,13 +437,13 @@ namespace ImVehicleCore.Migrations
                     Color = table.Column<string>(nullable: true),
                     Comment = table.Column<string>(nullable: true),
                     CreateBy = table.Column<string>(nullable: true),
-                    CreationDate = table.Column<DateTime>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: true),
                     DriverId = table.Column<long>(nullable: true),
                     DriverName = table.Column<string>(nullable: true),
                     DriverTel = table.Column<string>(nullable: true),
                     DumpDate = table.Column<DateTime>(nullable: true),
                     FirstRegisterDate = table.Column<DateTime>(nullable: true),
-                    GpsEnabled = table.Column<bool>(nullable: false),
+                    GpsEnabled = table.Column<bool>(nullable: true),
                     GroupId = table.Column<long>(nullable: true),
                     InsuranceExpiredDate = table.Column<DateTime>(nullable: true),
                     LastRegisterDate = table.Column<DateTime>(nullable: true),

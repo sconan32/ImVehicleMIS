@@ -24,9 +24,4 @@
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\upload\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="imvehiclemis.db.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 </Project>
