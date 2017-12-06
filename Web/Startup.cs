@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using ImVehicleCore.Services;
 
+
 namespace ImVehicleMIS
 {
     public class Startup
@@ -75,11 +76,13 @@ namespace ImVehicleMIS
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IGroupService, GroupService>();
             services.AddScoped<INewsService, NewsService>();
+            services.AddScoped<IVehicleService, VehicleService>();
             // Register no-op EmailSender used by account confirmation and password reset during development
             // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
-
+            // Add default bootstrap-styled pager implementation
+        
 
         }
 

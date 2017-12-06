@@ -26,7 +26,7 @@
         </p>
         <hr />
 
-        <table class="table table-hover">
+        <table id="list-table" class="table table-hover">
             <thead>
                 <tr>
                    
@@ -137,7 +137,147 @@
                         </td>
                     </tr>
                 }
+                <tr id="loading-mark" hidden>
+                    <td colspan="7" align="center">
+                        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                        <span class="sr-only">正在加载...</span>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
 </section>
+<script id="rowTmpl" type="text/x-jsrender">
+    <tr>
+
+        <td>
+           {{:license}}            
+                <i class="fa fa-exclamation-circle text-danger" aria-hidden="true" {{:hiddenText}}></i>
+            
+        </td>
+        <td>
+            {{:usage}}
+          
+        </td>
+        <td>
+           {{:brand}}
+        </td>
+        <td>
+           {{:type}}
+        </td>
+
+        <td>
+           {{:color}}
+        </td>
+
+        <td>
+            {{:yearlyAuditDate}}
+        </td>
+
+        <td>
+            {{:insuranceExpiredDate}}
+        </td>
+
+        <td>
+            {{:driverName}}
+            <span style="color:gray">{{:driverTel}}</span>
+        </td>
+        <td>
+           {{:townName}}
+
+        </td>
+        <td>
+           {{:groupName}}
+        </td>
+        <td>
+        <div class="btn-group">
+            <a class="btn btn-primary btn-sm" href="/Vehicle/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+            @if (await Model.CanEdit())
+            {
+                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">向下弹出</span>
+                </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="/Vehicle/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/Vehicle/Edit?id={{:id}}&returnUrl=@Request.Path"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
+                        <li><a href="/Vehicle/Delete?id={{:id}}&returnUrl=@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+
+                    </ul>
+            }
+        </div>
+        </td>
+    </tr>
+
+
+
+</script>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        var pageSize = 20;
+        var pageIndex = 0;
+        var loading = false;
+        var completed = false;
+
+
+        $(document).ready(function () {
+            GetData();
+
+            $(window).scroll(function () {
+                if ($(window).scrollTop() ==
+                    $(document).height() - $(window).height()) {
+                    if (loading == false && completed == false) {
+                        GetData();
+                    }
+                }
+            });
+        });
+
+        function GetData() {
+            $.ajax({
+                type: 'GET',
+                url: '/Vehicle/LoadData',
+                data: { "page": pageIndex, "pageSize": pageSize },
+                dataType: 'json',
+                success: function (data) {
+                    if (data != null) {
+                        if (data.length == 0) {
+                            completed = true;
+                            return;
+                        }
+
+                        for (var i = 0; i < data.length; i++) {
+                            var item = data[i];
+                            if (item.isValid) {
+                                item.hiddenText = "style='display:none'";
+                            }
+                            var tmpl = $.templates('#rowTmpl')
+                            var trHtml = tmpl.render(item);
+                            $("#list-table tr:last").before(trHtml);
+
+                        }
+                        pageIndex++;
+                    }
+
+                },
+                beforeSend: function () {
+                    loading = true;
+                    $("#loading-mark").show();
+                },
+                complete: function () {
+                    loading = false;
+                    $("#loading-mark").hide();
+                },
+                error: function () {
+                    alert("Error while retrieving data!");
+                }
+            });
+        }
+    </script>
+
+
+}

@@ -10,18 +10,22 @@ using ImVehicleCore.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Web.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using Web.ViewModels.Specifications;
 
 namespace Web.Pages.Group
 {
     public class IndexModel : PageModel
     {
-        private readonly IGroupService _groupRepository;
+        private readonly IGroupService _groupService;
         private readonly IAuthorizationService _authorizationService;
+        private readonly UserManager<VehicleUser> _userManager;
 
-        public IndexModel(IGroupService groupRepository, IAuthorizationService authorizationService)
+        public IndexModel(IGroupService groupService, IAuthorizationService authorizationService, UserManager<VehicleUser> userManager)
         {
-            _groupRepository = groupRepository;
+            _groupService = groupService;
             _authorizationService = authorizationService;
+            _userManager = userManager;
         }
 
         public List<GroupListViewModel> Groups { get; set; }
@@ -43,23 +47,20 @@ namespace Web.Pages.Group
         [Authorize(Roles = "TownManager,Admins")]
         public async Task OnGetAsync()
         {
-            var gs = await _groupRepository.ListAwailableGroupEagerAsync(HttpContext.User);
-            Groups = gs.Select(t => new GroupListViewModel()
-            {
-                Id = t.Id,
-                Code = t.Code,
-                TownName = t.Town?.Name,
-                Type = t.Type,
-                Address = t.Address,
-                License = t.License,
-                Name = t.Name,
-                ChiefName = t.ChiefName,
-                ChiefTel = t.ChiefTel,
-                VehicleCount = t.Vehicles.Count,
-                InvalidVehicleCount = t.Vehicles.Count(v => !v.IsValid()),
-                IsValid = t.IsValid(),
-               
-            }).ToList();
+            var page = 0;
+            var pageSize = 20;
+
+            var specification = await Group4UserSpecification.CreateAsync(HttpContext.User, _userManager);
+            specification.Includes.Add(t => t.Drivers);
+            specification.Includes.Add(t => t.SecurityPersons);
+            specification.Includes.Add(t => t.Vehicles);
+            specification.Includes.Add(t => t.UserFiles);
+            specification.Includes.Add(t => t.Town);
+
+            var startIdx = (page) ;
+            startIdx = Math.Max(0, startIdx);
+            var groups = new List<GroupItem>(); //await _groupService.ListRangeAsync(specification, startIdx, pageSize );
+            Groups = groups.Select(t => new GroupListViewModel(t)).ToList();
         }
 
 

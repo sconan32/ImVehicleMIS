@@ -4,7 +4,7 @@ using ImVehicleCore.Data;
 
 namespace ImVehicleCore.Interfaces
 {
-    public interface IGroupRepository
+    public interface IGroupRepository:IAsyncRepository<GroupItem>
     {
         Task<List<GroupItem>> GetGroupsOfTown(long townId);
 

@@ -31,6 +31,7 @@ namespace Web.ViewModels
             DriverCount = t.Drivers.Count;
             InvalidDriverCount = t.Drivers.Count(d => !d.IsValid());
             IsValid = t.IsValid();
+            TownName = t.Town?.Name;
         }
         public long Id { get; set; }
 

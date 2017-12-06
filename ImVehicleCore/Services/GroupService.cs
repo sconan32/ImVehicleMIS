@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ImVehicleCore.Data;
 using ImVehicleCore.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Web.ViewModels.Specifications;
 
 namespace ImVehicleCore.Services
 {
@@ -20,6 +21,11 @@ namespace ImVehicleCore.Services
         {
             this._groupService = groupService;
             this._userManager = userManager;
+        }
+
+        public Task<List<GroupItem>> ListRangeAsync(Group4UserSpecification canFetch, int start, int count)
+        {
+            return _groupService.ListRangeAsync(canFetch, start, count);
         }
 
         public async Task<List<GroupItem>> ListAwailableGroupEagerAsync(ClaimsPrincipal claim)

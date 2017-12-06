@@ -9,16 +9,15 @@ namespace ImVehicleCore.Data
 {
     public class VehicleService : IVehicleService
     {
-        private readonly IAsyncRepository<VehicleItem> _vehicleRespository;
-        private readonly IUriComposer _uriComposer;
+        private readonly IAsyncRepository<VehicleItem> _vehicleRespository;   
         private readonly IAppLogger<VehicleService> _logger;
 
         public VehicleService(IAsyncRepository<VehicleItem> vehicleRespository,         
-          IUriComposer uriComposer,
+       
           IAppLogger<VehicleService> logger)
         {
             _vehicleRespository = vehicleRespository;
-            _uriComposer = uriComposer;
+           
             this._logger = logger;           
         }
 
@@ -52,6 +51,11 @@ namespace ImVehicleCore.Data
         public Task TransferVihecleAsync(string anonymousId, string userName)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<VehicleItem>> ListRangeAsync(ISpecification<VehicleItem> specification, int start, int count)
+        {
+            return await _vehicleRespository.ListRangeAsync(specification, start, count);
         }
     }
 }
