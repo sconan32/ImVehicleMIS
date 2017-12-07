@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ImVehicleCore.Data;
-using ImVehicleCore.Interfaces;
+using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Core.Interfaces;
 
-namespace ImVehicleCore.Data
+namespace Socona.ImVehicle.Core.Services
 {
     public class VehicleService : IVehicleService
     {

@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.Vehicle
 {
     public class DeleteModel : PageModel
     {
-        private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly VehicleDbContext _context;
 
-        public DeleteModel(ImVehicleCore.Data.VehicleDbContext context)
+        public DeleteModel(VehicleDbContext context)
         {
             _context = context;
         }

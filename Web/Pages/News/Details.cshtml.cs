@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.News
 {
     public class DetailsModel : PageModel
     {
-        private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly VehicleDbContext _context;
 
-        public DetailsModel(ImVehicleCore.Data.VehicleDbContext context)
+        public DetailsModel(VehicleDbContext context)
         {
             _context = context;
         }

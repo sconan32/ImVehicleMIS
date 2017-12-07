@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ImVehicleCore.Data;
-using ImVehicleCore.Interfaces;
+using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Core.Interfaces;
+using Socona.ImVehicle.Core.Specifications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Web.ViewModels;
 
 namespace Web.Controllers
 {
@@ -15,12 +17,15 @@ namespace Web.Controllers
     {
 
 
-        private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly VehicleDbContext _context;
         private readonly UserManager<VehicleUser> _userManager;
-        public DriverController(VehicleDbContext context, UserManager<VehicleUser> userManager)
+        private IAsyncRepository<DriverItem> _driverPepository;
+
+        public DriverController(VehicleDbContext context, UserManager<VehicleUser> userManager, IAsyncRepository<DriverItem> driverPepository)
         {
             _context = context;
             _userManager = userManager;
+            _driverPepository = driverPepository;
         }
 
         [Authorize(Roles = "TownManager,Admins")]
@@ -45,5 +50,22 @@ namespace Web.Controllers
             return new JsonResult(list);
 
         }
+
+        [Authorize(Roles = "TownManager,Admins")]
+        public async Task<IActionResult> LoadData(int? page = 0, int? pageSize = 20)
+        {
+            var specification = await Driver4UserSpecification.CreateAsync(HttpContext.User, _userManager);
+            specification.Includes.Add(t => t.Vehicles);
+            specification.Includes.Add(t => t.Town);
+            specification.Includes.Add(t => t.Group);
+
+            var startIdx = (page) * pageSize ?? 0;
+            startIdx = Math.Max(0, startIdx);
+            var groups = await _driverPepository.ListRangeAsync(specification, startIdx, pageSize ?? 0);
+            var list = groups.Select(t => new DriverListViewModel(t));
+            return new JsonResult(list);
+        }
+
+       
     }
 }

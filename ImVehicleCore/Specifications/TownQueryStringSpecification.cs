@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 
-namespace ImVehicleCore.Specifications
+namespace Socona.ImVehicle.Core.Specifications
 {
    public class TownQueryStringSpecification : QueryStringSpecification<TownItem>
     {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using ImVehicleCore.Data;
-using Web.ViewModels.Specifications;
+using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Core.Specifications;
 
-namespace ImVehicleCore.Interfaces
+namespace Socona.ImVehicle.Core.Interfaces
 {
    public interface IGroupService
     {
@@ -14,7 +14,7 @@ namespace ImVehicleCore.Interfaces
         Task<List<GroupItem>> ListAwailableGroupEagerAsync(ClaimsPrincipal claim);
         Task<List<GroupItem>> ListGroupsForTownEagerAsync(ClaimsPrincipal claim, long townId);
 
-        Task<List<GroupItem>> ListRangeAsync(Group4UserSpecification canFetch, int start, int count);
+        Task<List<GroupItem>> ListRangeAsync(ISpecification<GroupItem> canFetch, int start, int count);
         
     }
 }

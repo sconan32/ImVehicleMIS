@@ -5,22 +5,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Authorization;
-using ImVehicleCore.Interfaces;
+using Socona.ImVehicle.Core.Interfaces;
 using Web.ViewModels;
 
 namespace Web.Pages.Vehicle
 {
     public class DetailsModel : PageModel
     {
-        private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly VehicleDbContext _context;
         private readonly IAuthorizationService _authorizationService;
         private readonly ITownRepository _townRepository;
         IGroupRepository _groupService;
 
 
-        public DetailsModel(ImVehicleCore.Data.VehicleDbContext context, ITownRepository townRepository, IGroupRepository groupService, IAuthorizationService authorizationService)
+        public DetailsModel(VehicleDbContext context, ITownRepository townRepository, IGroupRepository groupService, IAuthorizationService authorizationService)
         {
             _townRepository = townRepository;
             _groupService = groupService;

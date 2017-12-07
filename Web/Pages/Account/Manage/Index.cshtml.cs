@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-using ImVehicleMIS.Services;
-using ImVehicleCore.Interfaces;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Interfaces;
+using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Core.Extensions;
 
 namespace ImVehicleMIS.Pages.Account.Manage
 {

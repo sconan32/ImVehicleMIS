@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 
-namespace ImVehicleCore.Interfaces
+namespace Socona.ImVehicle.Core.Interfaces
 {
     public interface ITownService
     {

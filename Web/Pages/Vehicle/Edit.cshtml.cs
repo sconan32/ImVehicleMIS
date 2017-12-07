@@ -6,23 +6,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Authorization;
-using ImVehicleCore.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Web.ViewModels;
 using System.IO;
+using Socona.ImVehicle.Core.Interfaces;
 
 namespace Web.Pages.Vehicle
 {
     public class EditModel : PageModel
     {
-        private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly VehicleDbContext _context;
         private readonly IAuthorizationService _authorizationService;
         private readonly ITownService _townService;
         private readonly UserManager<VehicleUser> _userManager;
         private readonly IGroupService _groupService;
-        public EditModel(ImVehicleCore.Data.VehicleDbContext context, IAuthorizationService authorizationService, ITownService townService, UserManager<VehicleUser> userManager,
+        public EditModel(VehicleDbContext context, IAuthorizationService authorizationService, ITownService townService, UserManager<VehicleUser> userManager,
             IGroupService groupService)
         {
             _context = context;

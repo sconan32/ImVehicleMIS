@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ImVehicleCore.Data;
-using ImVehicleCore.Interfaces;
-using ImVehicleCore.Specifications;
+using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Core.Interfaces;
+using Socona.ImVehicle.Core.Specifications;
 using Microsoft.EntityFrameworkCore;
 
-namespace ImVehicleCore.Data
+namespace Socona.ImVehicle.Core.Data
 {
     public class GroupRepository : EfRepository<GroupItem>, IGroupRepository
     {

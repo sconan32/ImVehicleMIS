@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace ImVehicleCore.Data
+namespace Socona.ImVehicle.Core.Data
 {
     public class VehicleRole : IdentityRole<string>
     {

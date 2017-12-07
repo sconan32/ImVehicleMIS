@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using ImVehicleCore.Interfaces;
-using ImVehicleMIS.Services;
+using Socona.ImVehicle.Core.Interfaces;
 
-namespace ImVehicleMIS.Services
+namespace Socona.ImVehicle.Core.Extensions
 {
     public static class EmailSenderExtensions
     {

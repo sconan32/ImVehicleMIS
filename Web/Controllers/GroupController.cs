@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using ImVehicleCore.Interfaces;
-using Web.ViewModels.Specifications;
 using Microsoft.AspNetCore.Identity;
-using ImVehicleCore.Data;
+using Microsoft.AspNetCore.Mvc;
+using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Core.Interfaces;
+using Socona.ImVehicle.Core.Specifications;
 using Web.ViewModels;
 
 namespace Web.Controllers

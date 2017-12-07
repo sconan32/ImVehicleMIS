@@ -2,9 +2,9 @@
 
 using System;
 using System.Linq.Expressions;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 
-namespace ImVehicleCore.Specifications
+namespace Socona.ImVehicle.Core.Specifications
 {
 
     public class GroupsInTownSpecification : BaseSpecification<GroupItem>

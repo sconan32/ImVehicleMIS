@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace ImVehicleCore.Specifications
+namespace Socona.ImVehicle.Core.Specifications
 {
     public  class QueryStringSpecification<T> : BaseSpecification<T>
     {

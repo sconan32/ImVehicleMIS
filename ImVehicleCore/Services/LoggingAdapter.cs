@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ImVehicleCore.Interfaces;
+using Socona.ImVehicle.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace ImVehicleCore.Data
+namespace Socona.ImVehicle.Core.Services
 {
     public class LoggerAdapter<T> : IAppLogger<T>
     {

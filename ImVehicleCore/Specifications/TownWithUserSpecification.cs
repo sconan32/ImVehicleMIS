@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 
-namespace ImVehicleCore.Specifications
+namespace Socona.ImVehicle.Core.Specifications
 {
   public  class TownWithUserSpecification:BaseSpecification<TownItem>
     {

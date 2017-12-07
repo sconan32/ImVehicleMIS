@@ -6,11 +6,11 @@ using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using ImVehicleCore.Data;
-using ImVehicleCore.Specifications;
+using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Core.Specifications;
 using Microsoft.AspNetCore.Identity;
 
-namespace Web.ViewModels.Specifications
+namespace Socona.ImVehicle.Core.Specifications
 {
    public class Group4UserSpecification : BaseSpecification<GroupItem>
     {

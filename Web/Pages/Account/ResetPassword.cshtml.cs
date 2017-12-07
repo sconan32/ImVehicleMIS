@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 
 namespace ImVehicleMIS.Pages.Account
 {

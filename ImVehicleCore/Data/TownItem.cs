@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ImVehicleCore.Data
+namespace Socona.ImVehicle.Core.Data
 {
     public class TownItem : BaseEntity
     {

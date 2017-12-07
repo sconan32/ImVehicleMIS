@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace ImVehicleCore.Interfaces
+namespace Socona.ImVehicle.Core.Interfaces
 {
     public interface ISpecification<T>
     {

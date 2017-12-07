@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 
@@ -14,9 +14,9 @@ namespace Web.Pages.News
 {
     public class EditModel : PageModel
     {
-        private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly VehicleDbContext _context;
         private readonly UserManager<VehicleUser> _userManager;
-        public EditModel(ImVehicleCore.Data.VehicleDbContext context, UserManager<VehicleUser> userManager)
+        public EditModel(Socona.ImVehicle.Core.Data.VehicleDbContext context, UserManager<VehicleUser> userManager)
         {
             _context = context;
             _userManager = userManager;

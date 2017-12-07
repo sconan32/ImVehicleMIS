@@ -1,4 +1,4 @@
-﻿namespace ImVehicleCore.Interfaces
+﻿namespace Socona.ImVehicle.Core.Interfaces
 {
     /// <summary>
     /// This type eliminates the need to depend directly on the ASP.NET Core logging types.

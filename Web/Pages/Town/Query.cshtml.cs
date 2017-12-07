@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ImVehicleCore.Data;
-using ImVehicleCore.Interfaces;
+using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Core.Interfaces;
 using Web.ViewModels;
-using ImVehicleCore.Specifications;
+using Socona.ImVehicle.Core.Specifications;
 using Web.ViewModels.Specifications;
 
 namespace Web.Pages.Town

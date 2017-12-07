@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 using System.ComponentModel.DataAnnotations;
 using Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -14,9 +14,9 @@ namespace Web.Pages.Group
 {
     public class DetailsModel : PageModel
     {
-        private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly VehicleDbContext _context;
         private readonly IAuthorizationService _authorizationService;
-        public DetailsModel(ImVehicleCore.Data.VehicleDbContext context, IAuthorizationService authorizationService)
+        public DetailsModel(VehicleDbContext context, IAuthorizationService authorizationService)
         {
             _context = context;
             _authorizationService = authorizationService;

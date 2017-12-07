@@ -1,8 +1,8 @@
 ﻿
 using System.Collections.Generic;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 
-namespace ImVehicleCore.Interfaces
+namespace Socona.ImVehicle.Core.Interfaces
 {
     public interface IRepository<T> where T : BaseEntity
     {

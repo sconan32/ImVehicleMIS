@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +12,7 @@ namespace Web.Controllers
     [Route("[controller]/[action]")]
     public class SearchController : Controller
     {
-        private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly VehicleDbContext _context;
         private readonly UserManager<VehicleUser> _userManager;
         public SearchController(VehicleDbContext context, UserManager<VehicleUser> userManager)
         {

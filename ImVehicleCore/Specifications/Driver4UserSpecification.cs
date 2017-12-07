@@ -1,8 +1,5 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
@@ -12,18 +9,18 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Socona.ImVehicle.Core.Specifications
 {
-    public class Vehicle4UserSpecification : BaseSpecification<VehicleItem>
+    public class Driver4UserSpecification : BaseSpecification<DriverItem>
     {
-        private Vehicle4UserSpecification(Expression<Func<VehicleItem, bool>> expression) : base(expression)
+        private Driver4UserSpecification(Expression<Func<DriverItem, bool>> expression) : base(expression)
         {
         }
 
-        public async static Task<Vehicle4UserSpecification> CreateAsync(ClaimsPrincipal user, UserManager<VehicleUser> userManager)
+        public async static Task<Driver4UserSpecification> CreateAsync(ClaimsPrincipal user, UserManager<VehicleUser> userManager)
         {
             var expression = await BuildCriteriaAsync(user, userManager);
-            return new Vehicle4UserSpecification(expression);
+            return new Driver4UserSpecification(expression);
         }
-        private async static Task<Expression<Func<VehicleItem, bool>>> BuildCriteriaAsync(ClaimsPrincipal user, UserManager<VehicleUser> userManager)
+        private async static Task<Expression<Func<DriverItem, bool>>> BuildCriteriaAsync(ClaimsPrincipal user, UserManager<VehicleUser> userManager)
         {
             var vUser = await userManager.GetUserAsync(user);
             var isTownManager = await userManager.IsInRoleAsync(vUser, "TownManager");

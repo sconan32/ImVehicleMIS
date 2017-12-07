@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
@@ -13,9 +13,9 @@ namespace Web.Pages.News
 {
     public class CreateModel : PageModel
     {
-        private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly Socona.ImVehicle.Core.Data.VehicleDbContext _context;
         private readonly UserManager<VehicleUser> _userManager;
-        public CreateModel(ImVehicleCore.Data.VehicleDbContext context,UserManager<VehicleUser> userManager)
+        public CreateModel(Socona.ImVehicle.Core.Data.VehicleDbContext context,UserManager<VehicleUser> userManager)
         {
             _context = context;
             _userManager = userManager;

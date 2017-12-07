@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
@@ -13,10 +13,10 @@ namespace Web.Pages.UserFile
 {
     public class DownloadModel : PageModel
     {
-        private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly VehicleDbContext _context;
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public DownloadModel(ImVehicleCore.Data.VehicleDbContext context, IHostingEnvironment hostingEnvironment)
+        public DownloadModel(VehicleDbContext context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _hostingEnvironment = hostingEnvironment;

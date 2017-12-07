@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ImVehicleCore.Data;
-using ImVehicleCore.Interfaces;
+using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Core.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -37,29 +37,15 @@ namespace Web.Pages.Driver
 
         public async Task OnGetAsync()
         {
-            var townidlist = await _townService.GetAvailableTownIdsAsync(HttpContext.User);
-            var items = await _dbContext.Drivers.Where(t=>townidlist.Contains(t.TownId??-1))
-                .Include(t => t.Vehicles)
-                .Include(t => t.Town)
-                .Include(t => t.Group)
-                .ToListAsync();
-            Drivers = items.Select(t => new DriverListViewModel()
-            {
-                Id = t.Id,
-                Name = t.Name,
-                IdCardNumber = t.IdCardNumber,
-                License = t.LicenseNumber,
-                LicenseType = t.LicenseType,
-                LicenseIssueDate = t.LicenseIssueDate,
-                LicenseValidYears = t.LicenseValidYears,
-                 FirstLicenseIssueDate=t.FirstLicenseIssueDate,
-                Gender = t.Gender,
-                VehiclesRegistered = t.Vehicles.Count,
-                Tel = t.Tel,
-                Title = t.Title,
-                TownName = t.Town?.Name,
-                GroupName = t.Group?.Name,
-            }).ToList();
+            //var townidlist = await _townService.GetAvailableTownIdsAsync(HttpContext.User);
+            //var items = await _dbContext.Drivers.Where(t=>townidlist.Contains(t.TownId??-1))
+            //    .Include(t => t.Vehicles)
+            //    .Include(t => t.Town)
+            //    .Include(t => t.Group)
+            //    .ToListAsync();
+
+            var items = new List<DriverItem>();
+            Drivers = items.Select(t => new DriverListViewModel(t)).ToList();
         }
     }
 }

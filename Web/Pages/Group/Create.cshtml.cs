@@ -5,25 +5,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
-using ImVehicleCore.Interfaces;
+using Socona.ImVehicle.Core.Interfaces;
 using Web.ViewModels;
+using Socona.ImVehicle.Core.Extensions;
 
 namespace Web.Pages.Group
 {
     public class CreateModel : PageModel
     {
-        private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly VehicleDbContext _context;
         private readonly UserManager<VehicleUser> _userManager;
         private readonly ITownService _townService;
         private readonly IAuthorizationService _authorizationService;
 
-        public CreateModel(ImVehicleCore.Data.VehicleDbContext context, UserManager<VehicleUser> signInManager, IAuthorizationService authorizationService, ITownService townService)
+        public CreateModel(VehicleDbContext context, UserManager<VehicleUser> signInManager, IAuthorizationService authorizationService, ITownService townService)
         {
             _context = context;
             _userManager = signInManager;

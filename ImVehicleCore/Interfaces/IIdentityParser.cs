@@ -1,6 +1,6 @@
 ﻿using System.Security.Principal;
 
-namespace ImVehicleCore.Interfaces
+namespace Socona.ImVehicle.Core.Interfaces
 {
     public interface IIdentityParser<T>
     {

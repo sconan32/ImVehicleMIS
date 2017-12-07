@@ -1,9 +1,9 @@
-﻿using ImVehicleCore.Interfaces;
+﻿using Socona.ImVehicle.Core.Interfaces;
 using System;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 
-namespace ImVehicleCore.Specifications
+namespace Socona.ImVehicle.Core.Specifications
 {
     public abstract class BaseSpecification<T> : ISpecification<T>
     {

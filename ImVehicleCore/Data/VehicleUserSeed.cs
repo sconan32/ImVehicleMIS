@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace ImVehicleCore.Data
+namespace Socona.ImVehicle.Core.Data
 {
     public static class VehicleUserSeed
     {

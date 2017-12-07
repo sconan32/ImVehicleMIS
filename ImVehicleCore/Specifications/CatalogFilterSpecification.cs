@@ -1,6 +1,6 @@
 ﻿
-using ImVehicleCore.Data;
-using ImVehicleCore.Specifications;
+using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Core.Specifications;
 
 namespace ApplicationCore.Specifications
 {

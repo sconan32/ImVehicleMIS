@@ -5,21 +5,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Authorization;
-using ImVehicleCore.Interfaces;
+using Socona.ImVehicle.Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
 namespace Web.Pages.Secureman
 {
     public class CreateModel : PageModel
     {
-        private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly Socona.ImVehicle.Core.Data.VehicleDbContext _context;
         private readonly IAuthorizationService _authorizationService;
         private readonly ITownService _townService;
         private readonly UserManager<VehicleUser> _userManager;
         private readonly IGroupService _groupService;
-        public CreateModel(ImVehicleCore.Data.VehicleDbContext context, IAuthorizationService authorizationService, ITownService townService, UserManager<VehicleUser> userManager,
+        public CreateModel(Socona.ImVehicle.Core.Data.VehicleDbContext context, IAuthorizationService authorizationService, ITownService townService, UserManager<VehicleUser> userManager,
             IGroupService groupService)
         {
             _context = context;

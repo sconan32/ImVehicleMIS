@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using ImVehicleCore.Interfaces;
+using Socona.ImVehicle.Core.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace ImVehicleCore.Data
+
+namespace Socona.ImVehicle.Core.Data
 {
     /// <summary>
     /// "There's some repetition here - couldn't we have some the sync methods call the async?"
@@ -155,9 +156,9 @@ namespace ImVehicleCore.Data
                     (current, include) => current.Include(include));
 
             // return the result of the query using the specification's criteria expression
-            return await secondaryResult
-                            .Where(spec.Criteria).Skip(start).Take(count)
-                            .ToListAsync();
+            var query = secondaryResult
+                            .Where(spec.Criteria).Skip(start).Take(count);
+            return await query.ToListAsync();
         }
 
         public IEnumerable<T> ListRange(int start, int count)
@@ -167,7 +168,8 @@ namespace ImVehicleCore.Data
 
         public async Task<List<T>> ListRangeAsync(int start, int count)
         {
-            return await _dbContext.Set<T>().Skip(start).Take(count).ToListAsync();
+            var query = _dbContext.Set<T>().Skip(start).Take(count);
+            return await query.ToListAsync();
         }
     }
 }

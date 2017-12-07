@@ -171,11 +171,11 @@
         </td>
 
         <td>
-            {{:yearlyAuditDate}}
+            {{cnDate:yearlyAuditDate}}
         </td>
 
         <td>
-            {{:insuranceExpiredDate}}
+            {{cnDate:insuranceExpiredDate}}
         </td>
 
         <td>
@@ -223,7 +223,13 @@
         var loading = false;
         var completed = false;
 
+        $.views.converters({
+            cnDate: function (value) {
+                return (new Date(value)).toLocaleDateString();
 
+            }
+
+        })
         $(document).ready(function () {
             GetData();
 

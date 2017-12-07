@@ -5,12 +5,12 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
-using ImVehicleCore.Data;
-using ImVehicleCore.Interfaces;
-using ImVehicleCore.Specifications;
+using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Core.Interfaces;
+using Socona.ImVehicle.Core.Specifications;
 using Microsoft.AspNetCore.Identity;
 
-namespace ImVehicleCore.Data
+namespace Socona.ImVehicle.Core.Services
 {
     public class TownService : ITownService
     {

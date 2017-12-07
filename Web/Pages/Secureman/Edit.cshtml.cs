@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.Secureman
 {
     public class EditModel : PageModel
     {
-        private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly VehicleDbContext _context;
 
-        public EditModel(ImVehicleCore.Data.VehicleDbContext context)
+        public EditModel(VehicleDbContext context)
         {
             _context = context;
         }

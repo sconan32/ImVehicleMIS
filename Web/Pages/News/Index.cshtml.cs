@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Authorization;
 using Web.ViewModels;
 
@@ -13,11 +13,11 @@ namespace Web.Pages.News
 {
     public class IndexModel : PageModel
     {
-        private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly Socona.ImVehicle.Core.Data.VehicleDbContext _context;
 
         private readonly IAuthorizationService _authorizationService;
 
-        public IndexModel(ImVehicleCore.Data.VehicleDbContext context, IAuthorizationService authorizationService)
+        public IndexModel(Socona.ImVehicle.Core.Data.VehicleDbContext context, IAuthorizationService authorizationService)
         {
             _context = context;
             _authorizationService = authorizationService;

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ImVehicleCore.Data;
-using ImVehicleCore.Interfaces;
+using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Web.ViewModels;
 
@@ -14,12 +14,12 @@ namespace Web.Pages.Driver
 {
     public class DetailsModel : PageModel
     {
-        private readonly ImVehicleCore.Data.VehicleDbContext _context;
+        private readonly Socona.ImVehicle.Core.Data.VehicleDbContext _context;
         private readonly ITownRepository _townRepository;
         private readonly IAuthorizationService _authorizationService;
 
         IGroupRepository _groupService;
-        public DetailsModel(ImVehicleCore.Data.VehicleDbContext context, ITownRepository townRepository, IGroupRepository groupService, IAuthorizationService authorizationService)
+        public DetailsModel(Socona.ImVehicle.Core.Data.VehicleDbContext context, ITownRepository townRepository, IGroupRepository groupService, IAuthorizationService authorizationService)
         {
             _townRepository = townRepository;
             _groupService = groupService;

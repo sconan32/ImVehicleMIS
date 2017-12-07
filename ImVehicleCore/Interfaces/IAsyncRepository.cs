@@ -1,9 +1,9 @@
 ﻿
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ImVehicleCore.Data;
+using Socona.ImVehicle.Core.Data;
 
-namespace ImVehicleCore.Interfaces
+namespace Socona.ImVehicle.Core.Interfaces
 {
     public interface IAsyncRepository<T> where T : BaseEntity
     {

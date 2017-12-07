@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using ImVehicleCore.Data;
-using ImVehicleCore.Interfaces;
+using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Web.ViewModels.Specifications;
 
-namespace ImVehicleCore.Services
+namespace Socona.ImVehicle.Core.Services
 {
     public class GroupService : IGroupService
     {
@@ -23,7 +22,7 @@ namespace ImVehicleCore.Services
             this._userManager = userManager;
         }
 
-        public Task<List<GroupItem>> ListRangeAsync(Group4UserSpecification canFetch, int start, int count)
+        public Task<List<GroupItem>> ListRangeAsync(ISpecification<GroupItem> canFetch, int start, int count)
         {
             return _groupService.ListRangeAsync(canFetch, start, count);
         }

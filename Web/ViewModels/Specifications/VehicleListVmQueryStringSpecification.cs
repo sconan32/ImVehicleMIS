@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ImVehicleCore.Specifications;
+using Socona.ImVehicle.Core.Specifications;
 
 namespace Web.ViewModels.Specifications
 {
