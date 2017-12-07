@@ -51,7 +51,6 @@ namespace Web.Controllers
 
         }
 
-        [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> LoadData(int? townId, int? page = 0, int? pageSize = 20)
         {
             ISpecification<DriverItem> canFetch = await Driver4UserSpecification.CreateAsync(HttpContext.User, _userManager);

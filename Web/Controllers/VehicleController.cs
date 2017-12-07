@@ -26,7 +26,7 @@ namespace Socona.ImVehicle.Web.Controllers
         }
 
 
-        [Authorize(Roles = "TownManager,Admins")]
+
         public async Task<IActionResult> LoadData(int? townId, int? page = 0, int? pageSize = 20)
         {
             ISpecification<VehicleItem> canFetch = await Vehicle4UserSpecification.CreateAsync(HttpContext.User, _userManager);
