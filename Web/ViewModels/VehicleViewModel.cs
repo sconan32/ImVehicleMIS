@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Http;
 
-namespace Web.ViewModels
+namespace Socona.ImVehicle.Web.ViewModels
 {
     public class VehicleViewModel
     {

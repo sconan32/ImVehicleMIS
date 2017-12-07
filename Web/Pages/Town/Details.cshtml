@@ -1,6 +1,7 @@
 ﻿@page
 @model Web.Pages.Towns.DetailsModel
 @using Microsoft.AspNetCore.Authorization
+@using Socona.ImVehicle.Core.Extensions
 @inject IAuthorizationService AuthorizationService
 @{
     ViewData["Title"] = Html.DisplayFor(model => model.TownItem.Name);
@@ -31,7 +32,8 @@
 
         </p>
         <hr />
-        <h4>基本信息</h4>
+        <br />
+        <h4><i class="fa fa-info-circle" aria-hidden="true"></i>基本信息</h4>
         <br />
         <table class="table table-bordered">
             <thead>
@@ -80,14 +82,15 @@
 
             </tbody>
         </table>
+        <br />
         <hr />
 
         <br />
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-flag-checkered" aria-hidden="true"></i><b>安全单位列表</b></a></li>
-            <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-truck" aria-hidden="true"></i><b>车辆列表</b></a></li>
-            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><i class="fa fa-id-card-o" aria-hidden="true"></i><b>驾驶员列表</b></a></li>
+            <li role="presentation" class="active"><a href="#groups" aria-controls="groups" role="tab" data-toggle="tab"><i class="fa fa-flag-checkered" aria-hidden="true"></i><b>安全单位列表</b></a></li>
+            <li role="presentation"><a href="#vehicles" aria-controls="vehicles" role="tab" data-toggle="tab"><i class="fa fa-truck" aria-hidden="true"></i><b>车辆列表</b></a></li>
+            <li role="presentation"><a href="#drivers" aria-controls="drivers" role="tab" data-toggle="tab"><i class="fa fa-id-card-o" aria-hidden="true"></i><b>驾驶员列表</b></a></li>
 
         </ul>
         <div style="border-bottom:1px solid #ddd;border-left:1px solid #ddd;border-right:1px solid #ddd;padding:20px;">
@@ -95,12 +98,12 @@
             <!-- Tab panes -->
             <div class="tab-content">
 
-                <div role="tabpanel" class="tab-pane active" id="profile">
+                <div role="tabpanel" class="tab-pane fade in active" id="groups">
                     <br />
                     <h4><i class="fa fa-flag-checkered" aria-hidden="true"></i>安全单位列表</h4>
 
                     <hr />
-                    <table class="table table-hover">
+                    <table id="Group-table" class="table table-hover">
                         <thead>
                             <tr>
                                 <th>
@@ -116,9 +119,7 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Groups[0].ChiefName)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.TownItem.Groups[0].Address)
-                                </th>
+                              
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Groups[0].License)
                                 </th>
@@ -157,9 +158,7 @@
                                         @Html.DisplayFor(modelItem => item.ChiefName)
                                         <span style="color:gray"> (@Html.DisplayFor(modelItem => item.ChiefTel))</span>
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Address)
-                                    </td>
+                                  
                                     <td>
                                         @Html.DisplayFor(modelItem => item.License)
                                     </td>
@@ -190,27 +189,31 @@
                                     </td>
                                 </tr>
                             }
+                            <tr id="Group-loading-mark" hidden>
+                                <td colspan="8" align="center">
+                                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                                    <span class="sr-only">正在加载...</span>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 
                 </div>
 
-                <div role="tabpanel" class="tab-pane " id="home">
+                <div role="tabpanel" class="tab-pane fade" id="vehicles">
 
                     <br />
                     <h4><i class="fa fa-truck" aria-hidden="true"></i>车辆信息列表</h4>
                     <hr />
-                    <table class="table  table-hover">
+                    <table id="Vehicle-table" class="table  table-hover">
                         <thead>
                             <tr>
 
-                               
+
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].License)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].Type)
-                                </th>
+                              
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].Usage)
                                 </th>
@@ -218,18 +221,21 @@
                                     @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].Brand)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].Name)
+                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].Type)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].Color)
                                 </th>
-
+                           
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].YearlyAuditDate)
-                                </th>     
+                                </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].InsuranceExpiredDate)
-                                </th> 
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].DriverName)
+                                </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].GroupName)
                                 </th>
@@ -245,7 +251,7 @@
                             {
                                 <tr @((!item.IsValid) ? "class=text-danger" : "class=")>
 
-                                    
+
                                     <td>
                                         @Html.DisplayFor(modelItem => item.License)
                                         @if (!item.IsValid)
@@ -253,9 +259,7 @@
                                             <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
                                         }
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Type)
-                                    </td>
+
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Usage)
                                     </td>
@@ -263,8 +267,9 @@
                                         @Html.DisplayFor(modelItem => item.Brand)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Name)
+                                        @Html.DisplayFor(modelItem => item.Type)
                                     </td>
+                                   
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Color)
                                     </td>
@@ -301,18 +306,24 @@
                                     </td>
                                 </tr>
                             }
+                            <tr id="Vehicle-loading-mark" hidden>
+                                <td colspan="8" align="center">
+                                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                                    <span class="sr-only">正在加载...</span>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 
 
                 </div>
-                <div role="tabpanel" class="tab-pane" id="messages">
+                <div role="tabpanel" class="tab-pane fades" id="drivers">
                     <br />
                     <h4><i class="fa fa-id-card-o" aria-hidden="true"></i>驾驶员列表</h4>
 
                     <hr />
 
-                    <table class="table  table-hover">
+                    <table id="Driver-table" class="table  table-hover">
                         <thead>
                             <tr>
                                 <th>
@@ -321,13 +332,8 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].Gender)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].IdCardNumber)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].LicenseType)
-                                </th>
-
+                                
+                               
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].License)
                                 </th>
@@ -338,11 +344,16 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].LicenseExpiredDate)
                                 </th>
-                                
+
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].VehiclesRegistered)
                                 </th>
-
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].FirstLicenseIssueDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].IdCardNumber)
+                                </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].Tel)
                                 </th>
@@ -363,14 +374,10 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Gender)
                                     </td>
+                                   
+                                  
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.IdCardNumber)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.LicenseType)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.License)
+                                        @Html.DisplayFor(modelItem => item.LicenseType)  @Html.DisplayFor(modelItem => item.License)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.LicenseExpiredDate)
@@ -379,6 +386,14 @@
 
                                     <td>
                                         @Html.DisplayFor(modelItem => item.VehiclesRegistered)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FirstLicenseIssueDate)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdCardNumber)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Tel)
@@ -404,6 +419,12 @@
                                     </td>
                                 </tr>
                             }
+                            <tr id="Driver-loading-mark" hidden>
+                                <td colspan="8" align="center">
+                                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                                    <span class="sr-only">正在加载...</span>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -411,3 +432,291 @@
         </div>
     </div>
 </section>
+
+
+<script id="DriverRowTmpl" type="text/x-jsrender">
+    <tr {{if !isValid}} class="text-danger"{{/if}}>
+
+        <td>
+            {{:name}}
+            {{if !isValid}}
+            <i class="fa fa-exclamation-circle text-danger" aria-hidden="true" ></i>
+            {{/if}}
+        </td>
+        <td>
+            {{genderType:gender}}
+        </td>
+
+        <td>
+            <span class="label label-warning"><b>{{licenseType:licenseType}}</b></span>&nbsp; {{:license}}
+        </td>
+        <td>
+            {{cnDate:licenseExpiredDate}}
+        </td>
+
+        <td>
+            {{:vehiclesRegistered}}
+        </td>
+        <td>
+            {{:firstLicenseIssueDate}}
+        </td>
+        <td>
+            {{:idCardNumber}}
+        </td>
+        <td>
+            {{:tel}}
+        </td>
+        <td>
+            <div class="btn-group">
+                <a class="btn btn-primary btn-sm" href="/Driver/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                @if (await Model.CanEdit())
+                {
+                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">向下弹出</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="/Driver/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/Driver/Edit?id={{:id}}&returnUrl=@(Request.Path+Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
+                        <li><a class="danger" href="/Driver/Delete?id={{:id}}&returnUrl=@(Request.Path+Request.QueryString)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+
+                    </ul>
+                }
+            </div>
+        </td>
+    </tr>
+
+</script>
+
+<script id="GroupRowTmpl" type="text/x-jsrender">
+    <tr {{if !isValid}} class="text-danger"{{/if}}>
+        <td> {{:code}}          </td>
+        <td>
+            {{:name}}
+            {{if !isValid}}
+            <i class="fa fa-exclamation-circle text-danger" aria-hidden="true" ></i>
+            {{/if}}
+        </td>
+        <td> {{:type}}       </td>
+        <td>
+            <b>{{:chiefTitle}}</b> {{:chiefName}}
+            <span style="color:gray"> ( {{:chiefTel}})</span>
+        </td>
+
+        <td> {{:license}}        </td>
+        <td> {{:vehicleCount}}   </td>
+        <td> {{:driverCount}}    </td>
+        <td>
+            <div class="btn-group">
+                <a class="btn btn-primary btn-sm" href="/Group/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                @if (await Model.CanEdit())
+                {
+                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">向下弹出</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="/Group/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/Group/Edit?id={{:id}}&returnUrl=@(Request.Path+Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
+                        <li><a href="/Group/Delete?id={{:id}}&returnUrl=@(Request.Path+Request.QueryString)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+
+                    </ul>
+                }
+            </div>
+        </td>
+    </tr>
+
+</script>
+
+<script id="VehicleRowTmpl" type="text/x-jsrender">
+    <tr {{if !isValid}} class="text-danger"{{/if}}>
+
+        <td>
+            {{:license}}
+            {{if !isValid}}
+            <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+            {{/if}}
+
+        </td>
+        <td>
+            {{usageType:usage}}
+
+        </td>
+        <td>
+            {{:brand}}
+        </td>
+        <td>
+            {{vehicleType:type}}
+        </td>
+
+        <td>
+            {{:color}}
+        </td>
+
+        <td>
+            {{cnDate:yearlyAuditDate}}
+        </td>
+
+        <td>
+            {{cnDate:insuranceExpiredDate}}
+        </td>
+
+        <td>
+            {{:driverName}}
+            <span style="color:gray">{{:driverTel}}</span>
+        </td>
+     
+        <td>
+            {{:groupName}}
+        </td>
+        <td>
+            <div class="btn-group">
+                <a class="btn btn-primary btn-sm" href="/Vehicle/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                @if (await Model.CanEdit())
+            {
+                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">向下弹出</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="/Vehicle/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/Vehicle/Edit?id={{:id}}&returnUrl=@Request.Path"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
+                        <li><a href="/Vehicle/Delete?id={{:id}}&returnUrl=@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+
+                    </ul>
+                }
+            </div>
+        </td>
+    </tr>
+
+
+
+</script>
+@section Scripts {
+
+    <script type="text/javascript">
+
+
+
+        var pageSize = 20;
+
+        var groupMeta = { page: 0, loading: false, completed: false, controller: 'Group', table: $('#Group-table tr:last'), loadmark: $('#Group-loading-mark'), template: $.templates("#GroupRowTmpl"), };
+        var vehicleMeta = { page: 0, loading: false, completed: false, controller: 'Vehicle', table: $('#Vehicle-table tr:last'), loadmark: $('#Vehicle-loading-mark'), template: $.templates("#VehicleRowTmpl"), };
+        var driverMeta = { page: 0, loading: false, completed: false, controller: 'Driver', table: $('#Driver-table tr:last'), loadmark: $('#Driver-loading-mark'), template: $.templates("#DriverRowTmpl"), };
+
+
+
+        $.views.converters({
+            cnDate: function (value) {
+                return (new Date(value)).toLocaleDateString();
+            },
+            licenseType: function (value) {
+                var map = @(Html.EnumToHtmlString<Socona.ImVehicle.Core.Data.VehicleLicenseType>());
+                for (var i = 0; i < map.length; i++) {
+                    if (map[i].value == value) {
+                        return map[i].name;
+                    }
+                }
+            },
+            genderType: function (value) {
+                var map = @(Html.EnumToHtmlString<Socona.ImVehicle.Core.Data.GenderType>());
+                for (var i = 0; i < map.length; i++) {
+                    if (map[i].value == value) {
+                        return map[i].name;
+                    }
+                }
+            },
+             usageType: function (value) {
+                var map = @(Html.EnumToHtmlString<Socona.ImVehicle.Core.Data.UsageType>());
+                for (var i = 0; i < map.length; i++) {
+                    if (map[i].value == value) {
+                        return map[i].name;
+                    }
+                }
+            },
+            vehicleType: function (value) {
+                var map = @(Html.EnumToHtmlString<Socona.ImVehicle.Core.Data.VehicleType>());
+                for (var i = 0; i < map.length; i++) {
+                    if (map[i].value == value) {
+                        return map[i].name;
+                    }
+                }
+            }
+        })
+        $(document).ready(function () {
+
+            GetData(groupMeta);
+            GetData(vehicleMeta);
+            GetData(driverMeta);
+
+
+            $(window).scroll(function () {
+                            if ($(window).scrollTop() ==  $(document).height() - $(window).height()) {
+
+                                var meta = GetControllerForActiveTab();
+                                if (meta.completed == false && meta.loading==false) {
+
+                                        GetData(meta);
+                                }
+                            }
+                        });
+                    });
+        function GetControllerForActiveTab()
+        {
+            var activeTab = $('.nav-tabs .active');
+            if (activeTab.text() == "车辆列表") {
+                return vehicleMeta;
+            }
+            else if (activeTab.text() == "驾驶员列表") {
+                return driverMeta;
+            }
+            else if (activeTab.text() == "安全单位列表"){
+                return groupMeta;
+            }
+
+
+        }
+        function GetData(meta) {
+            $.ajax({
+                type: 'GET',
+                url: '/' + meta.controller + '/LoadData',
+                data: { "page": meta.page, "pageSize": pageSize,'townId':@Model.TownItem.Id, },
+                dataType: 'json',
+                success: function (data) {
+                    if (data != null) {
+                        if (data.length == 0) {
+                            meta.completed = true;
+                            return;
+                        }
+
+                        for (var i = 0; i < data.length; i++) {
+                            var item = data[i];
+                            var tmpl = meta.template;
+                            var trHtml = tmpl.render(item);
+                            meta.table.before(trHtml);
+
+                        }
+                        meta.page++;
+                    }
+
+                },
+                beforeSend: function () {
+                    meta.loading = true;
+                    meta.loadmark.show();
+                },
+                complete: function () {
+                    meta.loading = false;
+                    meta.loadmark.hide();
+                },
+                error: function () {
+                    alert("Error while retrieving data!");
+                }
+            });
+        }
+    </script>
+
+
+}

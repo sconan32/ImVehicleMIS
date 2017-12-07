@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 using System.ComponentModel.DataAnnotations;
-using Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.Group

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Authorization;
-using Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels;
 using Socona.ImVehicle.Core.Interfaces;
 using System.IO;
 using Microsoft.AspNetCore.Identity;

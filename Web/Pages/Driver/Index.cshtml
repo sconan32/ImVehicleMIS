@@ -1,5 +1,6 @@
 ﻿@page
 @model Web.Pages.Driver.IndexModel
+@using Socona.ImVehicle.Core.Extensions
 @{
     ViewData["Title"] = "驾驶员 列表";
 }
@@ -135,11 +136,11 @@
             {{:name}}
         </td>
         <td>
-            {{:gender}}
+            {{genderType:gender}}
         </td>
 
         <td>
-            <span class="label label-warning"><b>{{:licenseType}}</b></span>&nbsp; {{:license}}
+            <span class="label label-warning"><b>{{licenseType:licenseType}}</b></span>&nbsp; {{:license}}
         </td>
         <td>
             {{cnDate:licenseExpiredDate}}
@@ -170,7 +171,7 @@
                         <li><a href="/Driver/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="/Driver/Edit?id={{:id}}&returnUrl=@Request.Path"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                        <li><a class="danger" href="/Driver/Details?id={{:id}}&returnUrl=@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+                        <li><a class="danger" href="/Driver/Delete?id={{:id}}&returnUrl=@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
 
                     </ul>
                 }
@@ -184,6 +185,8 @@
 
     <script type="text/javascript">
 
+
+
         var pageSize = 20;
         var pageIndex = 0;
         var loading = false;
@@ -192,22 +195,36 @@
         $.views.converters({
             cnDate: function (value) {
                 return (new Date(value)).toLocaleDateString();
-
-            }
-
-        })
-        $(document).ready(function () {
-            GetData();
-
-            $(window).scroll(function () {
-                if ($(window).scrollTop() ==
-                    $(document).height() - $(window).height()) {
-                    if (loading == false && completed == false) {
-                        GetData();
+            },
+            licenseType: function (value) {
+                var map = @(Html.EnumToHtmlString<Socona.ImVehicle.Core.Data.VehicleLicenseType>());
+                for (var i = 0; i < map.length; i++) {
+                    if (map[i].value == value) {
+                        return map[i].name;
                     }
                 }
-            });
-        });
+            },
+            genderType: function (value) {
+                var map = @(Html.EnumToHtmlString<Socona.ImVehicle.Core.Data.GenderType>());
+                for (var i = 0; i < map.length; i++) {
+                    if (map[i].value == value) {
+                        return map[i].name;
+                    }
+                }
+            }
+        })
+        $(document).ready(function () {
+                        GetData();
+
+            $(window).scroll(function () {
+                            if ($(window).scrollTop() ==
+                    $(document).height() - $(window).height()) {
+                                if (loading == false && completed == false) {
+                                    GetData();
+                                }
+                            }
+                        });
+                    });
 
         function GetData() {
             $.ajax({

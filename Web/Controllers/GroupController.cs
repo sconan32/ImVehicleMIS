@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
 using Socona.ImVehicle.Core.Specifications;
-using Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels;
 
-namespace Web.Controllers
+namespace Socona.ImVehicle.Web.Controllers
 {
     [Route("[controller]/[action]")]
     public class GroupController : Controller
@@ -32,18 +32,24 @@ namespace Web.Controllers
 
         }
         [Authorize(Roles = "TownManager,Admins")]
-        public async Task<IActionResult> LoadData(int? page = 0, int? pageSize = 20)
+        public async Task<IActionResult> LoadData(int? townId,int? page = 0, int? pageSize = 20)
         {
-            var specification = await Group4UserSpecification.CreateAsync(HttpContext.User, _userManager);
-            specification.Includes.Add(t => t.Drivers);
-            specification.Includes.Add(t => t.SecurityPersons);
-            specification.Includes.Add(t => t.Vehicles);
-            specification.Includes.Add(t => t.UserFiles);
-            specification.Includes.Add(t => t.Town);
+            ISpecification<GroupItem> canFetch = await Group4UserSpecification.CreateAsync(HttpContext.User, _userManager);
+
+            if (townId != null)
+            {
+                var inGroup = new GroupsInTownSpecification(townId.Value);
+                canFetch = canFetch.And(inGroup);
+            }
+            canFetch.Includes.Add(t => t.Drivers);
+            canFetch.Includes.Add(t => t.SecurityPersons);
+            canFetch.Includes.Add(t => t.Vehicles);
+            canFetch.Includes.Add(t => t.UserFiles);
+            canFetch.Includes.Add(t => t.Town);
 
             var startIdx = (page) * pageSize ?? 0;
             startIdx = Math.Max(0, startIdx);
-            var groups = await _groupService.ListRangeAsync(specification, startIdx, pageSize ?? 0);
+            var groups = await _groupService.ListRangeAsync(canFetch, startIdx, pageSize ?? 0);
             var list = groups.Select(t => new GroupListViewModel(t));
             return new JsonResult(list);
         }

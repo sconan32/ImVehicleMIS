@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
-using Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels;
 using Socona.ImVehicle.Core.Specifications;
-using Web.ViewModels.Specifications;
+using Socona.ImVehicle.Web.ViewModels.Specifications;
 
 namespace Web.Pages.Town
 {

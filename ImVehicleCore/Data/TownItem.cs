@@ -29,7 +29,9 @@ namespace Socona.ImVehicle.Core.Data
         public virtual List<VehicleUser> Users { get; set; }
 
         public virtual List<DriverItem> Drivers { get; set; }
-        
+
+        public virtual List<VehicleItem> Vehicles { get; set; }
+
         public int Code { get; set; }
 
 

@@ -6,8 +6,8 @@ using Socona.ImVehicle.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Web.ViewModels;
-using Web.ViewModels.Specifications;
+using Socona.ImVehicle.Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels.Specifications;
 
 namespace Web.Pages.Group
 {

@@ -10,7 +10,7 @@ using Socona.ImVehicle.Core.Data;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels;
 using Socona.ImVehicle.Core.Interfaces;
 
 namespace Web.Pages.Group

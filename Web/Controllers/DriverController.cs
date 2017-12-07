@@ -8,7 +8,7 @@ using Socona.ImVehicle.Core.Specifications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels;
 
 namespace Web.Controllers
 {
@@ -52,16 +52,23 @@ namespace Web.Controllers
         }
 
         [Authorize(Roles = "TownManager,Admins")]
-        public async Task<IActionResult> LoadData(int? page = 0, int? pageSize = 20)
+        public async Task<IActionResult> LoadData(int? townId, int? page = 0, int? pageSize = 20)
         {
-            var specification = await Driver4UserSpecification.CreateAsync(HttpContext.User, _userManager);
-            specification.Includes.Add(t => t.Vehicles);
-            specification.Includes.Add(t => t.Town);
-            specification.Includes.Add(t => t.Group);
+            ISpecification<DriverItem> canFetch = await Driver4UserSpecification.CreateAsync(HttpContext.User, _userManager);
+           
+
+            if(townId!=null)
+            {
+                var inGroup = new DriverInTownSpecification(townId.Value);
+                canFetch = canFetch.And(inGroup);
+            }
+            canFetch.Includes.Add(t => t.Vehicles);
+            canFetch.Includes.Add(t => t.Town);
+            canFetch.Includes.Add(t => t.Group);
 
             var startIdx = (page) * pageSize ?? 0;
             startIdx = Math.Max(0, startIdx);
-            var groups = await _driverPepository.ListRangeAsync(specification, startIdx, pageSize ?? 0);
+            var groups = await _driverPepository.ListRangeAsync(canFetch, startIdx, pageSize ?? 0);
             var list = groups.Select(t => new DriverListViewModel(t));
             return new JsonResult(list);
         }

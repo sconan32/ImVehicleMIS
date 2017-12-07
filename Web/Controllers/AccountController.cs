@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 
-namespace ImVehicleMIS.Controllers
+namespace Socona.ImVehicle.Web.Controllers
 {
     [Route("[controller]/[action]")]
     public class AccountController : Controller

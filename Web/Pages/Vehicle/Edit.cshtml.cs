@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels;
 using System.IO;
 using Socona.ImVehicle.Core.Interfaces;
 

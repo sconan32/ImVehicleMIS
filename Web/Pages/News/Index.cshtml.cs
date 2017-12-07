@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Authorization;
-using Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels;
 
 namespace Web.Pages.News
 {

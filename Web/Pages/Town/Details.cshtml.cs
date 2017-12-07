@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
 using System.ComponentModel.DataAnnotations;
-using Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.Towns

@@ -6,7 +6,7 @@ using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels;
 
 namespace Web.Pages.News
 {

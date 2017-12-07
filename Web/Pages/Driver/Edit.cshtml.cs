@@ -10,7 +10,7 @@ using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Authorization;
 using Socona.ImVehicle.Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels;
 using System.IO;
 using Socona.ImVehicle.Core.Extensions;
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels;
 
 namespace Web.Pages.Driver
 {

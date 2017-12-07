@@ -23,5 +23,10 @@ namespace Socona.ImVehicle.Core.Specifications
         {
             IncludeStrings.Add(includeString);
         }
+
+        public ISpecification<T> And(ISpecification<T> specification)
+        {
+            return new AndSpecification<T>(this, specification);
+        }
     }
 }

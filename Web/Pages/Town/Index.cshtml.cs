@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
 using System.ComponentModel.DataAnnotations;
-using Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels;
 
 namespace Web.Pages.Towns
 {
@@ -26,7 +26,7 @@ namespace Web.Pages.Towns
         public List<TownItemListViewModel> TownList { get; set; }
 
 
-       
+
         public async Task OnGetAsync()
         {
             var towns = await _townRepository.GetAvailableTownsEagerAsync(HttpContext.User);
@@ -37,10 +37,11 @@ namespace Web.Pages.Towns
               Id = t.Id,
               Code = t.Code,
               Name = t.Name,
-              GroupCount = t.Groups.Count,
-              DriverCount = t.Drivers.Count,
+              GroupCount = t.Groups?.Count ?? 0,
+              DriverCount = t.Drivers?.Count ?? 0,
+              VehicleCount = t.Vehicles?.Count ?? 0,
               IsValid = t.IsValid(),
-               StatusText = t.IsValid() ? "正常" : "预警",
+              StatusText = t.IsValid() ? "正常" : "预警",
           }).ToList();
         }
     }

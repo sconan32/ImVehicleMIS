@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImVehicleCore.Tools
+namespace Socona.ImVehicle.Web.Tools
 {
     public class PaginatedList<T> : List<T>
     {

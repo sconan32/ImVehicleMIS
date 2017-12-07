@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Web.ViewModels
+namespace Socona.ImVehicle.Web.ViewModels
 {
     public class GroupEditViewModel
     {

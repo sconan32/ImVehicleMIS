@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Socona.ImVehicle.Core.Data;
 
-namespace Web.ViewModels
+namespace Socona.ImVehicle.Web.ViewModels
 {
     public class DriverListViewModel
     {
@@ -26,7 +26,8 @@ namespace Web.ViewModels
                 Tel = t.Tel;
                 IsValid = t.IsValid();
                 TownName = t.Town?.Name;
-                GroupName = t.Group?.Name;            
+                GroupName = t.Group?.Name;
+                FirstLicenseIssueDate = t.FirstLicenseIssueDate;
             }
         }
 

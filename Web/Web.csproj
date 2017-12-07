@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>aspnet-ImVehicleMIS-4448F31F-8840-4453-A56D-6B6379BAEF8C</UserSecretsId>
+    <RootNamespace>Socona.ImVehicle.Web</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Properties\PublishProfiles\FolderProfile.pubxml" />

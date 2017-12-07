@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Web.ViewModels
+namespace Socona.ImVehicle.Web.ViewModels
 {
     public class UserFileListViewModel
     {

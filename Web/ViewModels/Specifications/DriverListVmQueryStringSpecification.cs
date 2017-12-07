@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Socona.ImVehicle.Core.Specifications;
 
-namespace Web.ViewModels.Specifications
+namespace Socona.ImVehicle.Web.ViewModels.Specifications
 {
     public class DriverListVmQueryStringSpecification : QueryStringSpecification<DriverListViewModel>
     {

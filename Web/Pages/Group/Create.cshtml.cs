@@ -12,7 +12,7 @@ using System.IO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Socona.ImVehicle.Core.Interfaces;
-using Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels;
 using Socona.ImVehicle.Core.Extensions;
 
 namespace Web.Pages.Group

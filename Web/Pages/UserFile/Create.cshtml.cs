@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Socona.ImVehicle.Core.Data;
-using Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 

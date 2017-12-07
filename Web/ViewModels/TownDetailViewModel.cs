@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Socona.ImVehicle.Core.Data;
 
-namespace Web.ViewModels
+namespace Socona.ImVehicle.Web.ViewModels
 {
     public class TownDetailViewModel
     {
@@ -20,15 +20,15 @@ namespace Web.ViewModels
             Id = town.Id;
             Name = town.Name;
             GroupCount = town.Groups.Count;
-            Groups = town.Groups.Select(t => new GroupListViewModel(t)).ToList();
-            Drivers = town.Drivers.Select(t => new DriverListViewModel(t)).ToList();
-            Vehicles = town.Groups.SelectMany(g => g.Vehicles).Select(t => new VehicleListViewModel(t)).ToList();
+            Groups = new List<GroupListViewModel>();//town.Groups.Select(t => new GroupListViewModel(t)).ToList();
+            Drivers = new List<DriverListViewModel>(); //town.Drivers.Select(t => new DriverListViewModel(t)).ToList();
+            Vehicles = new List<VehicleListViewModel>(); //town.Groups.SelectMany(g => g.Vehicles).Select(t => new VehicleListViewModel(t)).ToList();
 
-            DriverCount = Drivers.Count;
-            VehicleCount = Vehicles.Count;
-            InvalidGroupCount = Groups.Count(t => !t.IsValid);
-            InvalidDriverCount = Drivers.Count(t => !t.IsValid);
-            InvalidVehicleCount = Vehicles.Count(t => !t.IsValid);
+            DriverCount = town.Drivers.Count;
+            VehicleCount = town.Vehicles.Count;
+            InvalidGroupCount = town.Groups.Count(t => !t.IsValid());
+            InvalidDriverCount = town.Drivers.Count(t => !t.IsValid());
+            InvalidVehicleCount = town.Vehicles.Count(t => !t.IsValid());
             IsValid = (InvalidGroupCount <= 0) && (InvalidDriverCount <= 0) && (InvalidVehicleCount <= 0);
         }
         public long Id { get; set; }
