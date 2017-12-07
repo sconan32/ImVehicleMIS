@@ -22,8 +22,8 @@
         <p>
             @if (await Model.CanEdit())
             {
-                <a class="btn btn-new-item" asp-page="./Edit" asp-route-id="@Model.VehicleItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 编辑车辆</a>
-           
+                <a class="btn btn-edit-item" asp-page="./Edit" asp-route-id="@Model.VehicleItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 编辑车辆</a>
+                <a class="btn btn-del-item" asp-page="./Delete" asp-route-id="@Model.VehicleItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">  <i class="fa fa-trash-o" aria-hidden="true"></i> 删除车辆</a>
             }
   
         </p>

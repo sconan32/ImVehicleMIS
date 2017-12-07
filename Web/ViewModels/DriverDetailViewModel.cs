@@ -57,6 +57,11 @@ namespace Socona.ImVehicle.Web.ViewModels
         [DataType(DataType.Date)]
         [Display(Name = "首次申领驾驶证于")]
         public DateTime? FirstLicenseIssueDate { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "驾驶证有效期")]
+        public DateTime? LicenseExpiredDate { get { return LicenseIssue?.AddYears(ValidYears??0); } }
+
         [Display(Name = "资质证书编号")]
         public string WarrantyCode { get; set; }
 
@@ -76,6 +81,7 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "职务")]
         public string Title { get; set; }
 
+        public bool IsValid { get; set; }
 
         public List<VehicleListViewModel> Vehicles { get; set; }
     }

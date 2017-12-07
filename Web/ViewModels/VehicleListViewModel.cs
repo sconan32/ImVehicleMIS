@@ -12,7 +12,7 @@ namespace Socona.ImVehicle.Web.ViewModels
 
         public VehicleListViewModel(VehicleItem t = null)
         {
-            var nowDate = DateTime.Now.Date;
+          
             if (t != null)
             {
                 Id = t.Id;
@@ -27,6 +27,7 @@ namespace Socona.ImVehicle.Web.ViewModels
                 TownName = t.Town?.Name;
                 GroupName = t.Group?.Name;
                 Type = t.Type;
+                Usage = t.Usage;
                 IsValid = t.IsValid();
                     
             }

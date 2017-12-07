@@ -142,12 +142,8 @@ p {
         -webkit-box-shadow: none;
         box-shadow: none;
     }
-    input[type='checkbox'], input[type='radio'] {
-        width:24px;
-        height:24px;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-    }
+
+
 
 iframe {
     border: none;
@@ -778,7 +774,7 @@ iframe {
 
 .btn-item-detail {
     display: inline-block;
-    padding: 0px 8px;
+    padding: 0px 4px;
     background: transparent;
     border: 1px solid #2761d8;
     line-height: 20px;
@@ -835,8 +831,7 @@ iframe {
     padding: 4px 24px;
     background: transparent;
     border: 1px solid #2ecc71;
-    line-height: 24px;
-    border-radius: 5px;
+    border-radius: 18px;
     color: #2ecc71;
     font-size: 16px;
     text-transform: uppercase;
@@ -885,13 +880,12 @@ iframe {
 
 .btn-edit-item {
     display: inline-block;
-    padding: 0px 8px;
+    padding: 4px 24px;
     background: transparent;
-    border: 1px solid #4cbb87;
-    line-height: 20px;
-    border-radius: 5px;
-    color: #4cbb87;
-    font-size: 14px;
+    border: 1px solid #1167d4;
+    border-radius: 18px;
+    color: #1167d4;
+    font-size: 16px;
     text-transform: uppercase;
     font-family: "Roboto", sans-serif;
     font-weight: normal;
@@ -904,15 +898,13 @@ iframe {
     z-index: 2;
 }
 
-    .btn-edit-item i {
-        padding-left: 0px;
-    }
+
 
     .btn-edit-item:before {
         content: "";
         position: absolute;
         z-index: -1;
-        background: #4cbb87;
+        background: #1167d4;
         height: 280px;
         width: 330px;
         border-radius: 50%;
@@ -929,7 +921,7 @@ iframe {
 
     .btn-edit-item:hover, .btn-edit-item:focus {
         color: #fff;
-        border: 1px solid #2ecc71;
+        border: 1px solid #1167d4;
     }
 
         .btn-edit-item:hover:before, .btn-edit-item:focus:before {
@@ -940,13 +932,12 @@ iframe {
 
 .btn-del-item {
     display: inline-block;
-    padding: 0px 8px;
+    padding: 4px 24px;
     background: transparent;
-    border: 1px solid #f37944;
-    line-height: 20px;
-    border-radius: 5px;
-    color: #f37944;
-    font-size: 14px;
+    border: 1px solid #bd081c;
+    border-radius: 18px;
+    color: #bd081c;
+    font-size: 16px;
     text-transform: uppercase;
     font-family: "Roboto", sans-serif;
     font-weight: normal;
@@ -959,15 +950,13 @@ iframe {
     z-index: 2;
 }
 
-    .btn-del-item i {
-        padding-left: 20px;
-    }
+
 
     .btn-del-item:before {
         content: "";
         position: absolute;
         z-index: -1;
-        background: #f37944;
+        background: #bd081c;
         height: 280px;
         width: 330px;
         border-radius: 50%;
@@ -984,12 +973,95 @@ iframe {
 
     .btn-del-item:hover, .btn-del-item:focus {
         color: #fff;
-        border: 1px solid #2ecc71;
+        border: 1px solid #bd081c;
     }
 
         .btn-del-item:hover:before, .btn-del-item:focus:before {
             bottom: -50px;
         }
+
+
+.btn-nav-back {
+    display: inline-block;
+    padding: 4px 24px;
+    background: transparent;
+    border: 1px solid #777;
+    border-radius: 18px;
+    color: #777;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    -webkit-transition: all 300ms linear 0s;
+    -o-transition: all 300ms linear 0s;
+    transition: all 300ms linear 0s;
+    z-index: 2;
+}
+
+
+
+    .btn-nav-back:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        background: #777;
+        height: 280px;
+        width: 330px;
+        border-radius: 50%;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+        bottom: 100%;
+        -webkit-transition: all .7s;
+        -o-transition: all .7s;
+        transition: all .7s;
+        z-index: -1;
+    }
+
+    .btn-nav-back:hover, .btn-nav-back:focus {
+        color: #fff;
+        border: 1px solid #777;
+    }
+
+        .btn-nav-back:hover:before, .btn-nav-back:focus:before {
+            bottom: -50px;
+        }
+
+
+.btn-view-item {
+    padding: 0px 8px;
+    font-size: 14px;
+    color: #1da1f2;
+    border: 1px solid #1da1f2;
+    height: 24px;
+    border-radius: 12px;
+    display: inline-block;
+    text-align: center;
+    line-height: 24px;
+    background: #fff;
+    position: relative;
+    -webkit-transition: all 300ms linear 0s;
+    -o-transition: all 300ms linear 0s;
+    transition: all 300ms linear 0s;
+}
+
+    .btn-view-item:hover, .btn-view-item:focus {
+        background: #1da1f2;
+        color: #fff;
+    }
+
+/*.about_widget ul li:nth-child(2):hover a {
+    background: #1da1f2;
+}
+
+.about_widget ul li:nth-child(3):hover a {
+    background: #0077B5;
+}*/
+
 
 .btn-nav-btn {
     visibility: inherit;
@@ -1456,7 +1528,7 @@ iframe {
 ============================================================================================ */
 .main_feature_area {
     overflow: hidden;
-    padding:50px 0px;
+    padding: 50px 0px;
     background: #fbfbfb;
     display: flex;
     padding-bottom: 80px;
@@ -1472,6 +1544,7 @@ iframe {
     margin-left: 5px;
     margin-right: 10px;
 }
+
 .main_feature_area a > i {
     margin-left: 0px;
     margin-right: 5px;
@@ -4163,7 +4236,6 @@ iframe {
 }
 
 .banner_area .pull-left h3 {
-   
     padding-left: 10px;
     margin-top: 12px;
     font-size: 24px;
@@ -4171,17 +4243,18 @@ iframe {
     font-weight: bold;
     color: #2761d8;
 }
+
     .banner_area .pull-left h3 i {
-
-        margin-right:20px;
-    }
-    @media (max-width: 480px) {
-        .banner_area .pull-left h3 {
-            font-size: 38px;
-        }
+        margin-right: 20px;
     }
 
-    .banner_area .pull-right {
+@media (max-width: 480px) {
+    .banner_area .pull-left h3 {
+        font-size: 38px;
+    }
+}
+
+.banner_area .pull-right {
     margin-top: 12px;
 }
 
@@ -5043,11 +5116,10 @@ iframe {
 /*---------------------------------------------------- */
 
 /*# sourceMappingURL=style.css.map */
-dl.dl-horizontal dd{
-    line-height:32px;
-
+dl.dl-horizontal dd {
+    line-height: 32px;
 }
+
 dl.dl-horizontal dt {
     line-height: 32px;
-  
 }

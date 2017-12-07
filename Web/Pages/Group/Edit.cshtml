@@ -2,7 +2,7 @@
 @model Web.Pages.Group.EditModel
 
 @{
-    ViewData["Title"] = "编辑安全单位 "+ Model.GroupItem.Name;
+    ViewData["Title"] = "编辑安全单位 " + Model.GroupItem.Name;
 }
 
 <section class="banner_area">
@@ -55,7 +55,7 @@
 
                                 </div>
                             }
-                            
+
 
                             <div class="form-group">
 
@@ -154,3 +154,11 @@
         </div>
     </div>
 </section>
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/js/tinymce/tinymce.min.js"></script>
+    <script>tinymce.init({ selector: 'textarea', language: 'zh_CN' });</script>
+
+}

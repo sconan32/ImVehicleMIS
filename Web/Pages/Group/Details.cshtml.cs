@@ -61,6 +61,8 @@ namespace Web.Pages.Group
                 ChiefName = group.ChiefName,
                 ChiefTel = group.ChiefTel,
                 Type = group.Type,
+                Introduction = group.Comment,
+
                 PhotoMain = group.PhotoMain != null ? Convert.ToBase64String(group.PhotoMain) : "",
                 PhotoWarranty = group.PhotoWarranty != null ? Convert.ToBase64String(group.PhotoWarranty) : "",
                 PhotoSecurity = group.PhotoSecurity != null ? Convert.ToBase64String(group.PhotoSecurity) : "",

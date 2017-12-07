@@ -7,12 +7,12 @@
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3>确认删除如下驾驶员吗？</h3>
+            <h3><i class="fa fa-question-circle-o"></i>删除驾驶员 @Model.DriverItem.Name</h3>
         </div>
         <div class="pull-right">
             <a asp-page="/Index">主页</a>&gt;
             <a asp-page="/Driver/Index">驾驶员</a>&gt;
-            <a asp-page="/Driver/Delete" asp-route-id="@Model.DriverItem.Id">删除驾驶员 @Model.DriverItem.Name</a>
+            <a asp-page="/Driver/Delete" asp-route-id="@Model.DriverItem.Id">删除确认</a>
         </div>
     </div>
 </section>
@@ -28,14 +28,14 @@
                 <form method="post" >
                     <input type="hidden" asp-for="DriverItem.Id" />
                     <input type="hidden" asp-for="ReturnUrl" />
-                    <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i>确 认 删 除</button>
+                    <button class="btn btn-del-item" type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i>确 认 删 除</button>
 
                 </form>
 
             </div>
             <div class="btn-group">
 
-                <a class="btn btn-default"  href="@Model.ReturnUrl"><i class="fa fa-reply" aria-hidden="true"></i>放 弃</a>
+                <a class="btn btn-nav-back"  href="@Model.ReturnUrl"><i class="fa fa-reply" aria-hidden="true"></i>放 弃</a>
             </div>
 
         </div>
@@ -44,7 +44,7 @@
             <div class="col-sm-10">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">【删除】驾驶员  @Model.DriverItem.Name</h3>
+                        <h3 class="panel-title"><i class="fa fa-trash-o"></i>将要删除如下驾驶员，该操作不可恢复</h3>
                     </div>
                     <div class="panel-body" style="padding-right:60px;">
 

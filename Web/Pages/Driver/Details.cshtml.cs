@@ -43,11 +43,15 @@ namespace Web.Pages.Driver
             }
 
             var driver = await _context.Drivers
-                .Include(t=>t.Vehicles)
-                .Include(t=>t.Town)
-                .Include(t=>t.Group)
+                .Include(t => t.Vehicles).ThenInclude(v => v.Town)
+                .Include(t => t.Vehicles).ThenInclude(v => v.Group)
+                .Include(t => t.Town)
+                .Include(t => t.Group)
                 .SingleOrDefaultAsync(m => m.Id == id);
-
+            if (driver == null)
+            {
+                return NotFound();
+            }
             DriverItem = new DriverDetailViewModel()
             {
                 Id = driver.Id,
@@ -57,9 +61,10 @@ namespace Web.Pages.Driver
                 LicenseIssue = driver.LicenseIssueDate,
 
                 IdCardNumber = driver.IdCardNumber,
-                License = driver.IdCardNumber,
+                License = driver.LicenseNumber,
                 LicenseType = driver.LicenseType,
                 ValidYears = driver.LicenseValidYears,
+
                 LivingAddress = driver.LivingAddress,
                 Tel = driver.Tel,
                 Title = driver.Title,
@@ -67,30 +72,21 @@ namespace Web.Pages.Driver
 
                 TownName = driver.Town?.Name,
                 GroupName = driver.Group?.Name,
+                IsValid = driver.IsValid(),
 
                 PhotoDriverLicenseBase64 = driver.PhotoDriverLicense != null ? Convert.ToBase64String(driver.PhotoDriverLicense) : "",
                 PhotoIdCard1Base64 = driver.PhotoIdCard1 != null ? Convert.ToBase64String(driver.PhotoIdCard1) : "",
                 PhotoIdCard2Base64 = driver.PhotoIdCard2 != null ? Convert.ToBase64String(driver.PhotoIdCard2) : "",
                 PhotoWarrantyBase64 = driver.PhotoWarranty != null ? Convert.ToBase64String(driver.PhotoWarranty) : "",
 
-                Vehicles = driver.Vehicles.Select(t => new VehicleListViewModel() {
 
-                    Id = t.Id,
-                    Name = t.Name,
-                    Brand = t.Brand,
-                    Color = t.Color,
-                    License = t.LicenceNumber,
-                    LastRegisterDate = t.LastRegisterDate,
-                    Type = t.Type,
 
-                }).ToList(),
-                
+
+                Vehicles = driver.Vehicles.Select(t => new VehicleListViewModel(t)).ToList(),
+                VehiclesRegistered = driver.Vehicles.Count,
             };
 
-            if (DriverItem == null)
-            {
-                return NotFound();
-            }
+
             return Page();
         }
     }

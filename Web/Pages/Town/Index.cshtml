@@ -39,7 +39,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.TownList[0].DriverCount)
                     </th>
-                    <th width="110"></th>
+                    <th width="115"></th>
                 </tr>
             </thead>
             <tbody>
@@ -71,7 +71,7 @@
 
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                                <a class="btn btn-view-item btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                                
                             </div>
                         </td>

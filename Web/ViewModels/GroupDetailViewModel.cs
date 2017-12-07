@@ -47,8 +47,9 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "安全员数目")]
         public int SecuremanCount { get; set; }
 
+        [Display(Name = "公司介绍")]
+        public string Introduction { get; set; }
 
-      
         [Display(Name = "预警车辆数")]
         public int VehicleInvalidCount { get; set; }
 

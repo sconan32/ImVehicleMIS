@@ -129,7 +129,7 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Groups[0].DriverCount)
                                 </th>
-                                <th width="110"></th>
+                                <th width="115"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -170,10 +170,10 @@
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a class="btn btn-primary btn-sm" asp-page="../Group/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                                            <a class="btn btn-view-item btn-sm" asp-page="../Group/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                                             @if (await Model.CanEdit())
                                             {
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button type="button" class="btn btn-view-item  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <span class="caret"></span>
                                                     <span class="sr-only">向下弹出</span>
                                                 </button>
@@ -287,10 +287,10 @@
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a class="btn btn-primary btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                                            <a class="btn btn-view-item btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                                             @if (await Model.CanEdit())
                                             {
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <span class="caret"></span>
                                                     <span class="sr-only">向下弹出</span>
                                                 </button>
@@ -400,10 +400,10 @@
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a class="btn btn-primary btn-sm" asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                                            <a class="btn btn-view-item btn-sm" asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                                             @if (await Model.CanEdit())
                                             {
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <span class="caret"></span>
                                                     <span class="sr-only">向下弹出</span>
                                                 </button>
@@ -458,7 +458,7 @@
             {{:vehiclesRegistered}}
         </td>
         <td>
-            {{:firstLicenseIssueDate}}
+            {{cnDate:firstLicenseIssueDate}}
         </td>
         <td>
             {{:idCardNumber}}
@@ -468,10 +468,10 @@
         </td>
         <td>
             <div class="btn-group">
-                <a class="btn btn-primary btn-sm" href="/Driver/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                <a class="btn btn-view-item btn-sm" href="/Driver/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                 @if (await Model.CanEdit())
                 {
-                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="caret"></span>
                         <span class="sr-only">向下弹出</span>
                     </button>
@@ -509,10 +509,10 @@
         <td> {{:driverCount}}    </td>
         <td>
             <div class="btn-group">
-                <a class="btn btn-primary btn-sm" href="/Group/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                <a class="btn btn-view-item btn-sm" href="/Group/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                 @if (await Model.CanEdit())
                 {
-                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="caret"></span>
                         <span class="sr-only">向下弹出</span>
                     </button>
@@ -573,10 +573,10 @@
         </td>
         <td>
             <div class="btn-group">
-                <a class="btn btn-primary btn-sm" href="/Vehicle/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                <a class="btn btn-view-item btn-sm" href="/Vehicle/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                 @if (await Model.CanEdit())
             {
-                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="caret"></span>
                         <span class="sr-only">向下弹出</span>
                     </button>
@@ -611,6 +611,8 @@
 
         $.views.converters({
             cnDate: function (value) {
+                if (value == null)
+                    return "";
                 return (new Date(value)).toLocaleDateString();
             },
             licenseType: function (value) {

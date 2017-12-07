@@ -8,20 +8,18 @@
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3><i class="fa fa-trash-o" aria-hidden="true"></i>删除确认</h3>
+            <h3><i class="fa fa-trash-o" aria-hidden="true"></i>删除车辆 @Model.VehicleItem.LicenceNumber</h3>
         </div>
         <div class="pull-right">
             <a asp-page="/Index">主页</a>&gt;
             <a asp-page="/Vehicle/Index">车辆</a>&gt;
-            <a asp-page="/Vehicle/Delete" asp-route-id="@Model.VehicleItem.Id">删除车辆 @Model.VehicleItem.LicenceNumber</a>
+            <a asp-page="/Vehicle/Delete" asp-route-id="@Model.VehicleItem.Id">删除确认</a>
         </div>
     </div>
 </section>
 <section class="main_feature_area">
     <div class="container">
-        <div class="row">
-            <h3>是否确认删除如下车辆</h3>
-        </div>
+        
         <div class="row">
             <div class="btn-toolbar">
 
@@ -29,14 +27,14 @@
 
                     <form method="post">
                         <input type="hidden" asp-for="VehicleItem.Id" />
-                        <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i> 确 认 删 除</button>
+                        <button class="btn btn-del-item" type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i> 确 认 删 除</button>
                         <input type="hidden" asp-for="ReturnUrl" />
                     </form>
 
                 </div>
                 <div class="btn-group">
 
-                    <a class="btn btn-default" href="@Model.ReturnUrl"><i class="fa fa-reply" aria-hidden="true"></i> 放 弃</a>
+                    <a class="btn btn-nav-back" href="@Model.ReturnUrl"><i class="fa fa-reply" aria-hidden="true"></i> 放 弃</a>
                 </div>
 
             </div>

@@ -11,9 +11,10 @@
             <div class="header_c_text">
                 <h5>当前用户</h5>
                 <h4><a asp-page="/Account/Manage/Index" title="Manage"> @( UserManager.GetUserName(User))</a></h4>
+               
             </div>
-            <div class="header_c_text">
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">注销</button>
+            <div class="header_c_text">               
+               <button type="submit" class="btn ">注销</button>
             </div>
         </form>
     </div>
@@ -23,10 +24,7 @@ else
 
     <div class="pull-right">
 
-        <div class="header_c_text">
 
-            <h4><a asp-page="/Account/Register">注册</a></h4>
-        </div>
         <div class="header_c_text">
             <a asp-page="/Account/Login">登录</a>
         </div>

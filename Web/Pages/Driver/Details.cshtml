@@ -1,13 +1,13 @@
 ﻿@page
 @model Web.Pages.Driver.DetailsModel
 @{
-    ViewData["Title"] = "驾驶员 列表";
+    ViewData["Title"] = "【驾驶员】" + Model.DriverItem.Name;
 }
 
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3>@Html.DisplayFor(model => model.DriverItem.Name) </h3>
+            <h3> <i class="fa fa-id-card-o" aria-hidden="true"></i>【驾驶员】@Html.DisplayFor(model => model.DriverItem.Name) </h3>
         </div>
         <div class="pull-right">
             <a asp-page="/Index">主页</a>
@@ -22,57 +22,86 @@
         <p>
             @if (await Model.CanEdit())
             {
-                <a class="btn btn-new-item" asp-page="./Edit" asp-route-id="@Model.DriverItem.Id">  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 编辑驾驶员</a>
-                <a class="btn btn-new-item" asp-page="../Vehicle/Create"><i class="fa fa-plus" aria-hidden="true"></i> 新增车辆</a>
-            }
-            <a class="btn btn-default" href="@ViewBag.ReturnUrl"><span class="glyphicon glyphicon-level-up"></span> 返 回 </a>
+                <a class="btn btn-edit-item" asp-page="./Edit" asp-route-id="@Model.DriverItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 编辑驾驶员
+                </a>
+                <a class="btn btn-new-item" asp-page="../Vehicle/Create" asp-route-driverId="@Model.DriverItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
+                    <i class="fa fa-plus" aria-hidden="true"></i> 新增车辆
+                </a>
+                <a class="btn btn-del-item" asp-page="./Delete" asp-route-id="@Model.DriverItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
+                    <i class="fa fa-trash-o"></i> 删除驾驶员
+                </a>
+             }
         </p>
         <hr />
-        <h4>基本信息</h4>
+        <br />
+        <h4><i class="fa fa-info-circle" aria-hidden="true"></i>基本信息</h4>
         <br />
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>
-
+                        状态
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.DriverItem.Name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.DriverItem.Gender)
+                        @Html.DisplayNameFor(model => model.DriverItem.Tel)
                     </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DriverItem.License)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DriverItem.LicenseExpiredDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DriverItem.VehiclesRegistered)
+                    </th>
+
                     <th>
                         @Html.DisplayNameFor(model => model.DriverItem.IdCardNumber)
                     </th>
+
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>
-                        总数
+                        @(Model.DriverItem.IsValid ? "正常" : "预警")
                     </td>
                     <td>
                         @Html.DisplayFor(model => model.DriverItem.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(model => model.DriverItem.Gender)
+                        @Html.DisplayFor(model => model.DriverItem.Tel)
+                    </td>
+                    <td>
+                        <span class="label label-warning">@Html.DisplayFor(model => model.DriverItem.LicenseType)</span>
+                        @Html.DisplayFor(model => model.DriverItem.License)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.DriverItem.LicenseExpiredDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.DriverItem.VehiclesRegistered)
                     </td>
                     <td>
                         @Html.DisplayFor(model => model.DriverItem.IdCardNumber)
                     </td>
-                </tr>            
-               
+                </tr>
+
             </tbody>
         </table>
+        <br />
         <hr />
 
         <br />
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-truck" aria-hidden="true"></i><b>车辆列表</b></a></li>
-            <li role="presentation" ><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><b>详细信息</b></a></li>           
-            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><b>图片附件</b></a></li>
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list" aria-hidden="true"></i><b>详细信息</b></a></li>
+            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><i class="fa fa-photo" aria-hidden="true"></i><b>图片附件</b></a></li>
 
         </ul>
         <div style="border-bottom:1px solid #ddd;border-left:1px solid #ddd;border-right:1px solid #ddd;padding:20px;">
@@ -80,7 +109,7 @@
             <!-- Tab panes -->
             <div class="tab-content">
 
-              
+
 
                 <div role="tabpanel" class="tab-pane  active" id="home">
 
@@ -90,18 +119,11 @@
                     <table class="table  table-hover">
                         <thead>
                             <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].TownName)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].GroupName)
-                                </th>
+
                                 <th>
                                     @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].License)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].Type)
-                                </th>
+
                                 <th>
                                     @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].Usage)
                                 </th>
@@ -109,41 +131,39 @@
                                     @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].Brand)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].Name)
+                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].Type)
                                 </th>
+
                                 <th>
                                     @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].Color)
                                 </th>
 
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].LastRegisterDate)
+                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].YearlyAuditDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].InsuranceExpiredDate)
                                 </th>
 
-                              
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].TownName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].GroupName)
+                                </th>
 
-
-
-
-
-                                <th></th>
+                                <th width="115"></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model.DriverItem.Vehicles)
                             {
                                 <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.TownName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.GroupName)
-                                    </td>
+
                                     <td>
                                         @Html.DisplayFor(modelItem => item.License)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Type)
-                                    </td>
+
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Usage)
                                     </td>
@@ -151,7 +171,7 @@
                                         @Html.DisplayFor(modelItem => item.Brand)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Name)
+                                        @Html.DisplayFor(modelItem => item.Type)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Color)
@@ -159,19 +179,27 @@
 
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.LastRegisterDate)
+                                        @Html.DisplayFor(modelItem => item.YearlyAuditDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.InsuranceExpiredDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TownName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.GroupName)
                                     </td>
 
-                                   
 
-                                  
+
 
                                     <td>
                                         <div class="btn-group">
-                                            <a class="btn btn-primary btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                                            <a class="btn btn-view-item btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                                             @if (await Model.CanEdit())
                                             {
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <span class="caret"></span>
                                                     <span class="sr-only">向下弹出</span>
                                                 </button>
@@ -195,7 +223,7 @@
 
                 <div role="tabpanel" class="tab-pane" id="profile">
                     <br />
-                    <h4>详细信息</h4>
+                    <h4><i class="fa fa-list" aria-hidden="true"></i>详细信息</h4>
 
                     <hr />
                     <dl class="dl-horizontal">
@@ -213,6 +241,12 @@
                         </dd>
                         <dt>
                             @Html.DisplayNameFor(model => model.DriverItem.TownName)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.DriverItem.TownName)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DriverItem.GroupName)
                         </dt>
                         <dd>
                             @Html.DisplayFor(model => model.DriverItem.GroupName)
@@ -278,14 +312,14 @@
                         <dd>
                             @Html.DisplayFor(model => model.DriverItem.Title)
                         </dd>
-                       
+
                         <dt>
                             @Html.DisplayNameFor(model => model.DriverItem.WarrantyCode)
                         </dt>
                         <dd>
                             @Html.DisplayFor(model => model.DriverItem.WarrantyCode)
                         </dd>
-                       
+
                     </dl>
 
                 </div>

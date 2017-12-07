@@ -2,13 +2,13 @@
 @model Web.Pages.Group.DetailsModel
 
 @{
-    ViewData["Title"] = Model.GroupItem.Name + "详细信息";
+    ViewData["Title"] = "【安全单位】" + Model.GroupItem.Name;
 }
 
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3><i class="fa fa-flag-checkered" aria-hidden="true"></i>@Model.GroupItem.Name</h3>
+            <h3><i class="fa fa-flag-checkered" aria-hidden="true"></i>【安全单位】 @Model.GroupItem.Name</h3>
         </div>
         <div class="pull-right">
             <a asp-page="/Index">主页</a>
@@ -22,8 +22,8 @@
         <p>
             @if (await Model.CanEdit())
             {
-                <a class="btn btn-new-item" asp-page="Edit" asp-route-id="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
-                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>编辑单位
+                <a class="btn btn-edit-item" asp-page="Edit" asp-route-id="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>编辑单位
                 </a>
                 <a class="btn btn-new-item" asp-page="../Vehicle/Create" asp-route-groupId="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
                     <i class="fa fa-plus" aria-hidden="true"></i> 新增车辆
@@ -37,11 +37,15 @@
                 <a class="btn btn-new-item" asp-page="../UserFile/Create" asp-route-groupId="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
                     <i class="fa fa-plus" aria-hidden="true"></i> 新增用户文件
                 </a>
+                <a class="btn btn-del-item" asp-page="Delete" asp-route-id="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i> 删除单位
+                </a>
             }
 
         </p>
         <hr />
-        <h4>基本信息</h4>
+        <br />
+        <h4><i class="fa fa-info-circle" aria-hidden="true"></i>基本信息</h4>
         <br />
         <table class="table table-bordered">
             <thead>
@@ -162,7 +166,7 @@
 
 
 
-                                    <th width="110"></th>
+                                    <th width="115"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -207,10 +211,10 @@
 
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-primary btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                                                <a class="btn btn-view-item btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                                                 @if (await Model.CanEdit())
                                                 {
-                                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <span class="caret"></span>
                                                         <span class="sr-only">向下弹出</span>
                                                     </button>
@@ -271,7 +275,7 @@
                                     <th>
                                         @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].Tel)
                                     </th>
-                                    <th width="110"></th>
+                                    <th width="115"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -310,10 +314,10 @@
                                         </td>
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-primary btn-sm" asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                                                <a class="btn btn-view-item btn-sm" asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                                                 @if (await Model.CanEdit())
                                                 {
-                                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <span class="caret"></span>
                                                         <span class="sr-only">向下弹出</span>
                                                     </button>
@@ -415,7 +419,7 @@
                                         @Html.DisplayNameFor(model => model.GroupItem.UserFiles[0].SizeString)
                                     </th>
 
-                                    <th width="110"></th>
+                                    <th width="115"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -438,10 +442,10 @@
 
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-primary btn-sm" asp-page="../UserFile/Download" asp-route-id="@item.Id"><i class="fa fa-download" aria-hidden="true"></i> 下 载</a>
+                                                <a class="btn btn-view-item btn-sm" asp-page="../UserFile/Download" asp-route-id="@item.Id"><i class="fa fa-download" aria-hidden="true"></i> 下 载</a>
                                                 @if (await Model.CanEdit())
                                                 {
-                                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <span class="caret"></span>
                                                         <span class="sr-only">向下弹出</span>
                                                     </button>
@@ -464,6 +468,7 @@
                         <h4><i class="fa fa-list" aria-hidden="true"></i>详细信息</h4>
 
                         <hr />
+
                         <dl class="dl-horizontal">
                             <dt>
                                 @Html.DisplayNameFor(model => model.GroupItem.Id)
@@ -511,6 +516,17 @@
                             </dd>
 
                         </dl>
+                        <br />
+                        <hr />
+                        <br />
+                        <h4>
+                            <i class="fa fa-cloud" aria-hidden="true"></i>
+                            单位介绍
+                        </h4>
+                        <br />
+                        <div style="padding:30px;">
+                            @Html.Raw(Model.GroupItem.Introduction);
+                        </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="messages">
 
