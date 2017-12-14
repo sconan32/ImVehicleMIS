@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Socona.ImVehicle.Core.Interfaces;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Socona.ImVehicle.Core.Interfaces;
 
 namespace Socona.ImVehicle.Core.Extensions
 {

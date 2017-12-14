@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RootNamespace>Socona.ImVehicle.Infrastructure</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ImVehicleCore\Core.csproj" />
+    <ProjectReference Include="..\SearchParser\SearchParser.csproj" />
+  </ItemGroup>
+
+</Project>

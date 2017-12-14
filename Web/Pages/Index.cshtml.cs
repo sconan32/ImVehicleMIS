@@ -37,6 +37,10 @@ namespace ImVehicleMIS.Pages
                     {
                         return RedirectToPage("/Town/Details",new { @id=user.TownId});
                     }
+                    if (await _userManager.IsInRoleAsync(user, "GroupManager"))
+                    {
+                        return RedirectToPage("/Group/Details", new { @id = user.GroupId });
+                    }
                     else
                     {
                         return RedirectToPage("/Town/Index");

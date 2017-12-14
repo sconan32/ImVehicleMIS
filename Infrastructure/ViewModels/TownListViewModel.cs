@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Socona.ImVehicle.Web.ViewModels
 {
-    public class TownItemListViewModel
+    public class TownListViewModel
     {
         public long Id { get; set; }
         [Display(Name = "编号")]

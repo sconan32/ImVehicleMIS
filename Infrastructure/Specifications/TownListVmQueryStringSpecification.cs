@@ -7,7 +7,7 @@ using Socona.ImVehicle.Core.Specifications;
 
 namespace Socona.ImVehicle.Web.ViewModels.Specifications
 {
-    public class TownListVmQueryStringSpecification : QueryStringSpecification<TownItemListViewModel>
+    public class TownListVmQueryStringSpecification : QueryStringSpecification<TownListViewModel>
     {
         public TownListVmQueryStringSpecification(string queryString) : base(queryString) { }
 

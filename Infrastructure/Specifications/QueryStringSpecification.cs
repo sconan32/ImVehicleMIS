@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Socona.ImVehicle.Core.Specifications
 {
-    public  class QueryStringSpecification<T> : BaseSpecification<T>
+    public class QueryStringSpecification<T> : BaseSpecification<T>
     {
 
         public QueryStringSpecification(string queryString)
@@ -61,7 +61,7 @@ namespace Socona.ImVehicle.Core.Specifications
                             expressions.Add(Expression.NotEqual(property, Expression.Convert(Expression.Constant(value), type)));
                             break;
                         case ">":
-                            expressions.Add(Expression.GreaterThan(property, Expression.Convert(Expression.Constant(value),type)));
+                            expressions.Add(Expression.GreaterThan(property, Expression.Convert(Expression.Constant(value), type)));
                             break;
                         case "<":
                             expressions.Add(Expression.LessThan(property, Expression.Convert(Expression.Constant(value), type)));
@@ -97,14 +97,10 @@ namespace Socona.ImVehicle.Core.Specifications
                             case '*':
                                 retExp = Expression.And(retExp, expressions[i + 1]);
                                 break;
-                            case '-':
-                                retExp = Expression.And(retExp, Expression.Not(expressions[i + 1]));
-                                break;
                         }
                     }
                     var lambda = Expression.Lambda<Func<T, bool>>(retExp, argParam);
                     return lambda;
-
                 }
 
             }
@@ -113,7 +109,7 @@ namespace Socona.ImVehicle.Core.Specifications
         }
 
 
-             protected virtual Dictionary<string, Tuple<string, Type>> GetNamePropertyMap()
+        protected virtual Dictionary<string, Tuple<string, Type>> GetNamePropertyMap()
         {
             Dictionary<string, Tuple<string, Type>> dictionary = new Dictionary<string, Tuple<string, Type>>();
 
@@ -133,34 +129,33 @@ namespace Socona.ImVehicle.Core.Specifications
                 }
             }
 
-
             return dictionary;
         }
 
 
         private object ConvertStringToType(string value, Type type)
         {
-            if(type == typeof(DateTime?))
+            if (type == typeof(DateTime?))
             {
                 try
                 {
-                   return new DateTime?(Convert.ToDateTime(value));
+                    return new DateTime?(Convert.ToDateTime(value));
                 }
-                catch(FormatException ex)
+                catch (FormatException ex)
                 {
                     return null;
                 }
             }
-             if(type.IsEnum)
+            if (type.IsEnum)
             {
-                foreach(var enumv in type.GetEnumValues())
+                foreach (var enumv in type.GetEnumValues())
                 {
                     var evalues = (Enum)enumv;
                     var attr = type.GetMember(evalues.ToString()).First().GetCustomAttributes(typeof(DisplayAttribute), false);
                     if (attr.Any())
                     {
                         var disAttr = (DisplayAttribute)attr.First();
-                        if(disAttr.Name==value || evalues.ToString()==value)
+                        if (disAttr.Name == value || evalues.ToString() == value)
                         {
                             return evalues;
                         }

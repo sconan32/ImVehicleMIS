@@ -16,6 +16,7 @@ namespace Socona.ImVehicle.Core.Data
             var adminRole = new VehicleRole() { Name = "Admins", Visible = false };
             var globalRole = new VehicleRole() { Name = "GlobalVisitor", Visible = true, LocalName = "全局用户", };
             var townRole = new VehicleRole() { Name = "TownManager", Visible = true, LocalName = "街道管理员", };
+            var groupRole = new VehicleRole() { Name = "GroupManager", Visible = true, LocalName = "安全组管理员", };
             // Add the Description as an argument:
             if (!await roleManager.RoleExistsAsync("Admins"))
             { await roleManager.CreateAsync(adminRole); }
@@ -27,7 +28,10 @@ namespace Socona.ImVehicle.Core.Data
             {
                 await roleManager.CreateAsync(townRole);
             }
-
+            if (!await roleManager.RoleExistsAsync("GroupManager"))
+            {
+                await roleManager.CreateAsync(groupRole);
+            }
 
 
 
@@ -60,7 +64,7 @@ namespace Socona.ImVehicle.Core.Data
             {
                 zsz = new VehicleUser() { UserName = "zsz", Email = "zsz@zsz.com", TownId = 1 };
                 await userManager.CreateAsync(zsz, "ZSZ@zsz1");
-                
+
             }
             if (!await userManager.IsInRoleAsync(zsz, "TownManager"))
             { await userManager.AddToRoleAsync(zsz, "TownManager"); }
@@ -70,10 +74,22 @@ namespace Socona.ImVehicle.Core.Data
             {
                 dlw = new VehicleUser() { UserName = "dlw", Email = "dlw@dlw.com", TownId = 12 };
                 await userManager.CreateAsync(dlw, "DLW@dlw1");
-               
+
             }
             if (!await userManager.IsInRoleAsync(dlw, "TownManager"))
             { await userManager.AddToRoleAsync(dlw, "TownManager"); }
+
+            var shentong = await userManager.FindByNameAsync("shentong");
+            if (shentong == null)
+            {
+                shentong = new VehicleUser() { UserName = "shentong", Email = "shentong@shentong.com", TownId = 12, GroupId = 1 };
+                await userManager.CreateAsync(shentong, "Shen@tong1");
+                if (!await userManager.IsInRoleAsync(shentong, "GroupManager"))
+                {
+                    await userManager.AddToRoleAsync(shentong, "GroupManager");
+                }
+            }
+
 
         }
     }

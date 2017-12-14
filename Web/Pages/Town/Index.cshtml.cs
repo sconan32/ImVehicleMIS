@@ -9,30 +9,40 @@ using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using Socona.ImVehicle.Web.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using Socona.ImVehicle.Core.Specifications;
 
 namespace Web.Pages.Towns
 {
     public class IndexModel : PageModel
     {
-        private readonly ITownService _townRepository;
+        private readonly ITownRepository _townRepository;
 
-        IGroupRepository _groupService;
-        public IndexModel(ITownService townRepository, IGroupRepository groupService)
+        private readonly IGroupRepository _groupService;
+
+        private readonly UserManager<VehicleUser> _userManager;
+        public IndexModel(ITownRepository townRepository, IGroupRepository groupService, UserManager<VehicleUser> userManager)
         {
             _townRepository = townRepository;
             _groupService = groupService;
+            _userManager = userManager;
         }
 
-        public List<TownItemListViewModel> TownList { get; set; }
+        public List<TownListViewModel> TownList { get; set; }
 
 
 
         public async Task OnGetAsync()
         {
-            var towns = await _townRepository.GetAvailableTownsEagerAsync(HttpContext.User);
 
+            var specification = await Town4UserSpecification.CreateAsync(HttpContext.User, _userManager);
+            specification.Includes.Add(t => t.Drivers);
+            specification.Includes.Add(t => t.Vehicles);
+            specification.Includes.Add(t => t.Groups);
+
+            var towns = await _townRepository.ListAsync(specification);
             TownList = towns.OrderBy(t => t.Code).Select(t =>
-          new TownItemListViewModel()
+          new TownListViewModel()
           {
               Id = t.Id,
               Code = t.Code,

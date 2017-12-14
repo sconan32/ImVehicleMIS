@@ -23,8 +23,28 @@ namespace Socona.ImVehicle.Core.Specifications
         private async static Task<Expression<Func<DriverItem, bool>>> BuildCriteriaAsync(ClaimsPrincipal user, UserManager<VehicleUser> userManager)
         {
             var vUser = await userManager.GetUserAsync(user);
+            var isAdmins = await userManager.IsInRoleAsync(vUser, "Admins");
+            if (isAdmins)
+            {
+                return t => true;
+            }
+            var isGlobalVisitor = await userManager.IsInRoleAsync(vUser, "GlobalVisitor");
+            if (isGlobalVisitor)
+            {
+                return t => true;
+            }
             var isTownManager = await userManager.IsInRoleAsync(vUser, "TownManager");
-            return t => vUser != null && (!isTownManager || vUser.TownId == t.TownId);
+            if (isTownManager)
+            {
+                return t => vUser != null && vUser.TownId == t.TownId;
+            }
+
+            var isGroupManager = await userManager.IsInRoleAsync(vUser, "GroupManager");
+            if (isGroupManager)
+            {
+                return t => vUser != null && vUser.GroupId == t.GroupId;
+            }
+            return t => false;
         }
 
 

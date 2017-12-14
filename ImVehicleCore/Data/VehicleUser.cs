@@ -27,5 +27,15 @@ namespace Socona.ImVehicle.Core.Data
 
         [ForeignKey("TownId")]
         public virtual TownItem Town { get; set; }
+
+        [ForeignKey("GroupId")]
+        public virtual GroupItem Group { get; set; }
+
+        public long? GroupId { get; set; }
+
+        [ForeignKey("DistrictId")]
+        public virtual DistrictItem District {get;set;}
+
+        public long? DistrictId { get; set; }
     }
 }

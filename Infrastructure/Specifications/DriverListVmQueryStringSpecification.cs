@@ -10,9 +10,5 @@ namespace Socona.ImVehicle.Web.ViewModels.Specifications
     {
         public DriverListVmQueryStringSpecification(string queryString) : base(queryString) { }
 
-
-
-
-
     }
 }

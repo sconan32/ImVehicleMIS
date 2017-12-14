@@ -13,6 +13,7 @@ using Socona.ImVehicle.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Socona.ImVehicle.Web.ViewModels.Specifications;
 using Socona.ImVehicle.Core.Specifications;
+using Socona.ImVehicle.Infrastructure.Specifications;
 
 namespace Web.Pages.Group
 {
@@ -58,13 +59,13 @@ namespace Web.Pages.Group
             specification.Includes.Add(t => t.UserFiles);
             specification.Includes.Add(t => t.Town);
 
-            var startIdx = (page) ;
+            var startIdx = (page);
             startIdx = Math.Max(0, startIdx);
             var groups = new List<GroupItem>(); //await _groupService.ListRangeAsync(specification, startIdx, pageSize );
             Groups = groups.Select(t => new GroupListViewModel(t)).ToList();
         }
 
 
-        
+
     }
 }

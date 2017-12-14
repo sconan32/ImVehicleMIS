@@ -8,6 +8,7 @@ using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
 using Socona.ImVehicle.Core.Specifications;
 using Socona.ImVehicle.Web.ViewModels;
+using Socona.ImVehicle.Infrastructure.Specifications;
 
 namespace Socona.ImVehicle.Web.Controllers
 {

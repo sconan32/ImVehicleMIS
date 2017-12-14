@@ -16,7 +16,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Socona.ImVehicle.Core.Services;
-
+using Socona.ImVehicle.Infrastructure.Services;
+using Socona.ImVehicle.Infrastructure.Interfaces;
 
 namespace ImVehicleMIS
 {
@@ -69,7 +70,7 @@ namespace ImVehicleMIS
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
 
-
+            services.AddScoped<ISearchService, SearchService>();
 
             services.AddScoped<ITownRepository, TownRepository>();
             services.AddScoped<ITownService, TownService>();
