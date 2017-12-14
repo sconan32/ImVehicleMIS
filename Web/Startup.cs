@@ -35,10 +35,10 @@ namespace ImVehicleMIS
         {
 
 
-           // services.AddDbContext<VehicleDbContext>(options =>
+            // services.AddDbContext<VehicleDbContext>(options =>
             //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-           // services.AddDbContext<VehicleDbContext>(options =>
-          //  options.UseSqlServer(Configuration.GetConnectionString("ReleaseConnection")));
+            // services.AddDbContext<VehicleDbContext>(options =>
+            //  options.UseSqlServer(Configuration.GetConnectionString("ReleaseConnection")));
             services.AddDbContext<VehicleDbContext>(options =>
              options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
 
@@ -65,11 +65,12 @@ namespace ImVehicleMIS
                 options.AddPolicy("RequireTownManagerRole", policy => policy.RequireRole("TownManager"));
                 options.AddPolicy("RequireAdminsRole", policy => policy.RequireRole("Admins"));
                 options.AddPolicy("RequireGlobalVisitorRole", policy => policy.RequireRole("GlobalVisitor"));
+                options.AddPolicy("RequireGroupManagerRole", policy => policy.RequireRole("GroupManager"));
             });
 
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
-
+            services.AddScoped<IUserFileService, UserFileService>();
             services.AddScoped<ISearchService, SearchService>();
 
             services.AddScoped<ITownRepository, TownRepository>();
@@ -83,7 +84,7 @@ namespace ImVehicleMIS
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
             // Add default bootstrap-styled pager implementation
-        
+
 
         }
 

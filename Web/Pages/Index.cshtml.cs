@@ -43,7 +43,7 @@ namespace ImVehicleMIS.Pages
                     }
                     else
                     {
-                        return RedirectToPage("/Town/Index");
+                        return RedirectToPage("/District/Details", new { @id = 1 });
                     }
                 }
             }

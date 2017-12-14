@@ -393,6 +393,7 @@ iframe {
     text-transform: uppercase;
     font-weight: normal;
     line-height: 67px;
+  
 }
 
 @media (max-width: 991px) {
@@ -1548,6 +1549,9 @@ iframe {
 .main_feature_area a > i {
     margin-left: 0px;
     margin-right: 5px;
+}
+.main_feature_area h4{
+    font-weight:bold
 }
 
 
@@ -4242,6 +4246,9 @@ iframe {
     font-family: "Roboto", sans-serif;
     font-weight: bold;
     color: #2761d8;
+   
+
+  
 }
 
     .banner_area .pull-left h3 i {

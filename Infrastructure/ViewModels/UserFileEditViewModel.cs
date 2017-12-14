@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Socona.ImVehicle.Core.Data;
 
 namespace Socona.ImVehicle.Web.ViewModels
 {
@@ -34,5 +35,12 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "文件")]
         public IFormFile UploadFile { get; set; }
 
+        [Display(Name = "街道")]
+        public long? TownId { get; set; }
+
+        [Display(Name = "可见性")]
+        public VisibilityType Visibility { get; set; }
+
+      
     }
 }

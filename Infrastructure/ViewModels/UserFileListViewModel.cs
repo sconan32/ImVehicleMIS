@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Socona.ImVehicle.Core.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,21 @@ namespace Socona.ImVehicle.Web.ViewModels
 {
     public class UserFileListViewModel
     {
+       
+
+        public UserFileListViewModel(UserFileItem t)
+        {
+            Id = t.Id;
+            FileName = t.FileName;
+            ServerPath = t.ServerPath;
+            
+            Name = t.Name;
+            Size = t.Size;
+            UploadDate = t.CreationDate;
+            DownloadCount = t.DownloadCount;
+            Visibility = t.Visibility;
+        }
+
         public long Id { get; set; }
 
         [Display(Name = "名称")]
@@ -53,5 +69,7 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "具体大小")]
         public long Size { get; set; }
 
+        [Display(Name = "来源")]
+        public VisibilityType Visibility { get; set; }
     }
 }

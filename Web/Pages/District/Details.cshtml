@@ -1,0 +1,195 @@
+﻿@page
+@model Web.Pages.District.DetailsModel
+
+@{
+    ViewData["Title"] = Model.DistrictItem.Name;
+}
+
+<section class="banner_area">
+    <div class="container">
+        <div class="pull-left">
+            <h3> <i class="fa fa-map-o" aria-hidden="true"></i> @Html.DisplayFor(model => model.DistrictItem.Name) </h3>
+        </div>
+        <div class="pull-right">
+            <a asp-page="/Index">主页</a>
+            &gt; <a asp-page="/District/Index">甘井子区</a>
+        </div>
+    </div>
+</section>
+<section class="main_feature_area">
+    <div class="container">
+
+        <p>
+            <a class="btn btn-new-item" asp-page="../UserFile/Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
+                <i class="fa fa-plus" aria-hidden="true"></i> 上传全局文件
+            </a>
+        </p>
+        <hr />
+
+        <br />
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+                    <i class="fa fa-map-o" aria-hidden="true"></i>
+                    <b>街道列表</b>
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
+                    <i class="fa fa-file-archive-o" aria-hidden="true"></i>
+                    <b>全局文件列表</b>
+                </a>
+            </li>
+        </ul>
+        <div style="border-bottom:1px solid #ddd;border-left:1px solid #ddd;border-right:1px solid #ddd;padding:20px;">
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+
+
+                <div role="tabpanel" class="tab-pane  active" id="home">
+
+                    <br />
+                    <h4><i class="fa fa-map-o" aria-hidden="true"></i>街道列表</h4>
+                    <hr />
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Towns[0].Code)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Towns[0].Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Towns[0].StatusText)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Towns[0].GroupCount)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Towns[0].VehicleCount)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Towns[0].DriverCount)
+                                </th>
+                                <th width="115"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Towns)
+            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Code)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                        @if (!item.IsValid)
+                                        {
+                                            <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StatusText)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.GroupCount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.VehicleCount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DriverCount)
+                                    </td>
+
+                                    <td>
+                                        <div class="btn-group">
+                                            <a class="btn btn-view-item btn-sm" asp-page="../Town/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="profile">
+                    <br />
+                    <h4><i class="fa fa-file-archive-o" aria-hidden="true"></i>全局文件列表</h4>
+
+                    <hr />
+                    <table class="table">
+                        <thead>
+                            <tr>
+
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserFiles[0].Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserFiles[0].FileName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserFiles[0].UploadDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserFiles[0].SizeString)
+                                </th>
+
+                                <th width="115"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.UserFiles)
+            {
+                                <tr>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FileName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UploadDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SizeString)
+                                    </td>
+
+                                    <td>
+                                        <div class="btn-group">
+                                            <a class="btn btn-view-item btn-sm" asp-page="../UserFile/Download" asp-route-id="@item.Id"><i class="fa fa-download" aria-hidden="true"></i> 下 载</a>
+
+                                            <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="caret"></span>
+                                                <span class="sr-only">向下弹出</span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="danger" asp-page="../UserFile/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+
+                                            </ul>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

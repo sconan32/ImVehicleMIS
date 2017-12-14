@@ -9,6 +9,7 @@ using Socona.ImVehicle.Core.Data;
 using System.ComponentModel.DataAnnotations;
 using Socona.ImVehicle.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Socona.ImVehicle.Infrastructure.Interfaces;
 
 namespace Web.Pages.Group
 {
@@ -16,14 +17,19 @@ namespace Web.Pages.Group
     {
         private readonly VehicleDbContext _context;
         private readonly IAuthorizationService _authorizationService;
-        public DetailsModel(VehicleDbContext context, IAuthorizationService authorizationService)
+        private readonly IUserFileService _userFileService;
+        public DetailsModel(VehicleDbContext context, IAuthorizationService authorizationService,
+            IUserFileService userFileService)
         {
             _context = context;
             _authorizationService = authorizationService;
+            _userFileService = userFileService;
         }
 
         public GroupDetailViewModel GroupItem { get; set; }
 
+
+        public List<UserFileListViewModel> GlobalFiles { get; set; }
         public async Task<bool> CanEdit()
         {
             var tm = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireTownManagerRole");
@@ -40,7 +46,7 @@ namespace Web.Pages.Group
                 return NotFound();
             }
             var group = await _context.Groups.Where(m => m.Id == id)
-                .Include(t=>t.Town)
+                .Include(t => t.Town)
                 .Include(t => t.Vehicles)
                 .Include(t => t.Drivers).ThenInclude(d => d.Vehicles)
                 .Include(t => t.UserFiles)
@@ -66,7 +72,7 @@ namespace Web.Pages.Group
                 PhotoMain = group.PhotoMain != null ? Convert.ToBase64String(group.PhotoMain) : "",
                 PhotoWarranty = group.PhotoWarranty != null ? Convert.ToBase64String(group.PhotoWarranty) : "",
                 PhotoSecurity = group.PhotoSecurity != null ? Convert.ToBase64String(group.PhotoSecurity) : "",
-                
+
                 TownName = group.Town.Name,
                 VehicleCount = group.Vehicles.Count,
 
@@ -79,17 +85,7 @@ namespace Web.Pages.Group
 
                 Vehicles = group.Vehicles.Select(t => new VehicleListViewModel(t)).ToList(),
                 Drivers = group.Drivers.Select(t => new DriverListViewModel(t)).ToList(),
-                UserFiles = group.UserFiles.Select(t => new UserFileListViewModel()
-                {
-                    Id = t.Id,
-                    FileName = t.FileName,
-                    ServerPath = t.ServerPath,
-                    GroupName = group.Name,
-                    Name = t.Name,
-                    Size = t.Size,
-                    UploadDate=t.CreationDate,
-
-                }).ToList(),
+                UserFiles = group.UserFiles.Select(t => new UserFileListViewModel(t)).ToList(),
 
                 Securemans = group.SecurityPersons.Select(t => new SecureManListViewModel()
                 {
@@ -105,9 +101,11 @@ namespace Web.Pages.Group
                     Title = t.Title,
                 }).ToList(),
             };
-         
-      
-            
+            var gf = (await _userFileService.GetGlobalUserFilesAsync()).Select(t => new UserFileListViewModel(t)).ToList();
+            var tf = (await _userFileService.GetUserFilesForTownAsync(group.TownId.Value)).Select(t => new UserFileListViewModel(t)).ToList();
+            GlobalFiles = gf.Union(tf).ToList();
+
+
 
             return Page();
         }

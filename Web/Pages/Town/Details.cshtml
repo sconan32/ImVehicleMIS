@@ -28,6 +28,9 @@
                 <a class="btn btn-new-item" asp-page="../Group/Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-plus" aria-hidden="true"></i> 新增安全单位</a>
                 <a class="btn btn-new-item" asp-page="../Vehicle/Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-plus" aria-hidden="true"></i> 新增车辆</a>
                 <a class="btn btn-new-item" asp-page="../Driver/Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-plus" aria-hidden="true"></i> 新增驾驶员</a>
+                <a class="btn btn-new-item" asp-page="../UserFile/Create" asp-route-townId="@Model.TownItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
+                    <i class="fa fa-plus" aria-hidden="true"></i> 上传文件
+                </a>
             }
 
         </p>
@@ -91,7 +94,7 @@
             <li role="presentation" class="active"><a href="#groups" aria-controls="groups" role="tab" data-toggle="tab"><i class="fa fa-flag-checkered" aria-hidden="true"></i><b>安全单位列表</b></a></li>
             <li role="presentation"><a href="#vehicles" aria-controls="vehicles" role="tab" data-toggle="tab"><i class="fa fa-truck" aria-hidden="true"></i><b>车辆列表</b></a></li>
             <li role="presentation"><a href="#drivers" aria-controls="drivers" role="tab" data-toggle="tab"><i class="fa fa-id-card-o" aria-hidden="true"></i><b>驾驶员列表</b></a></li>
-
+            <li role="presentation"><a href="#userfile" aria-controls="userfile" role="tab" data-toggle="tab"><i class="fa fa-file-archive-o" aria-hidden="true"></i><b>用户文件</b></a></li>
         </ul>
         <div style="border-bottom:1px solid #ddd;border-left:1px solid #ddd;border-right:1px solid #ddd;padding:20px;">
 
@@ -119,7 +122,7 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Groups[0].ChiefName)
                                 </th>
-                              
+
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Groups[0].License)
                                 </th>
@@ -158,7 +161,7 @@
                                         @Html.DisplayFor(modelItem => item.ChiefName)
                                         <span style="color:gray"> (@Html.DisplayFor(modelItem => item.ChiefTel))</span>
                                     </td>
-                                  
+
                                     <td>
                                         @Html.DisplayFor(modelItem => item.License)
                                     </td>
@@ -213,7 +216,7 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].License)
                                 </th>
-                              
+
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].Usage)
                                 </th>
@@ -226,7 +229,7 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].Color)
                                 </th>
-                           
+
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].YearlyAuditDate)
                                 </th>
@@ -269,7 +272,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Type)
                                     </td>
-                                   
+
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Color)
                                     </td>
@@ -332,8 +335,8 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].Gender)
                                 </th>
-                                
-                               
+
+
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].License)
                                 </th>
@@ -363,61 +366,61 @@
                         <tbody>
                             @foreach (var item in Model.TownItem.Drivers)
                             {
-                                <tr @((!item.IsValid) ? "class=text-danger" : "class=")>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Name)
-                                        @if (!item.IsValid)
+                            <tr @((!item.IsValid) ? "class=text-danger" : "class=")>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                    @if (!item.IsValid)
                                         {
-                                            <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+                                        <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
                                         }
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Gender)
-                                    </td>
-                                   
-                                  
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.LicenseType)  @Html.DisplayFor(modelItem => item.License)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.LicenseExpiredDate)
-                                    </td>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Gender)
+                                </td>
 
 
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.VehiclesRegistered)
-                                    </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LicenseType)  @Html.DisplayFor(modelItem => item.License)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LicenseExpiredDate)
+                                </td>
 
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.FirstLicenseIssueDate)
-                                    </td>
 
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IdCardNumber)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Tel)
-                                    </td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a class="btn btn-view-item btn-sm" asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
-                                            @if (await Model.CanEdit())
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VehiclesRegistered)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FirstLicenseIssueDate)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdCardNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Tel)
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a class="btn btn-view-item btn-sm" asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                                        @if (await Model.CanEdit())
                                             {
-                                                <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="caret"></span>
-                                                    <span class="sr-only">向下弹出</span>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
-                                                    <li role="separator" class="divider"></li>
-                                                    <li><a asp-page="../Driver/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+HttpContext.Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                                                    <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+                                            <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="caret"></span>
+                                                <span class="sr-only">向下弹出</span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
+                                                <li role="separator" class="divider"></li>
+                                                <li><a asp-page="../Driver/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+HttpContext.Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
+                                                <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
 
-                                                </ul>
+                                            </ul>
                                             }
-                                        </div>
-                                    </td>
-                                </tr>
+                                    </div>
+                                </td>
+                            </tr>
                             }
                             <tr id="Driver-loading-mark" hidden>
                                 <td colspan="8" align="center">
@@ -428,6 +431,134 @@
                         </tbody>
                     </table>
                 </div>
+                <div role="tabpanel" class="tab-pane" id="userfile">
+                    <br />
+                    <h4><i class="fa fa-file-archive-o" aria-hidden="true"></i>上级文件</h4>
+
+                    <hr />
+                    <table class="table">
+                        <thead>
+                            <tr>
+
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.GlobalFiles[0].Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.GlobalFiles[0].FileName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.GlobalFiles[0].UploadDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.GlobalFiles[0].SizeString)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.GlobalFiles[0].Visibility)
+                                </th>
+                                <th width="115"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.GlobalFiles)
+            {
+                                <tr>
+
+                                    <td>
+                                         @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FileName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UploadDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SizeString)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Visibility)
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a class="btn btn-view-item btn-sm" asp-page="../UserFile/Download" asp-route-id="@item.Id"><i class="fa fa-download" aria-hidden="true"></i> 下 载</a>
+
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <br />
+                    <br />
+                    <h4><i class="fa fa-file-archive-o" aria-hidden="true"></i>用户文件</h4>
+
+                    <hr />
+                    <table class="table">
+                        <thead>
+                            <tr>
+
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserFiles[0].Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserFiles[0].FileName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserFiles[0].UploadDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserFiles[0].SizeString)
+                                </th>
+
+                                <th width="115"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.UserFiles)
+            {
+                                <tr>
+
+                                    <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FileName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UploadDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SizeString)
+                                    </td>
+
+                                    <td>
+                                        <div class="btn-group">
+                                            <a class="btn btn-view-item btn-sm" asp-page="../UserFile/Download" asp-route-id="@item.Id"><i class="fa fa-download" aria-hidden="true"></i> 下 载</a>
+                                            @if (await Model.CanEdit())
+                                            {
+                                                <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                    <span class="sr-only">向下弹出</span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="danger" asp-page="../UserFile/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+
+                                                </ul>
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+                </div>
+
             </div>
         </div>
     </div>
@@ -435,12 +566,12 @@
 
 
 <script id="DriverRowTmpl" type="text/x-jsrender">
-    <tr {{if !isValid}} class="text-danger"{{/if}}>
+    <tr {{if !isValid}} class="text-danger" {{/if}}>
 
         <td>
             {{:name}}
             {{if !isValid}}
-            <i class="fa fa-exclamation-circle text-danger" aria-hidden="true" ></i>
+            <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
             {{/if}}
         </td>
         <td>
@@ -490,12 +621,12 @@
 </script>
 
 <script id="GroupRowTmpl" type="text/x-jsrender">
-    <tr {{if !isValid}} class="text-danger"{{/if}}>
+    <tr {{if !isValid}} class="text-danger" {{/if}}>
         <td> {{:code}}          </td>
         <td>
             {{:name}}
             {{if !isValid}}
-            <i class="fa fa-exclamation-circle text-danger" aria-hidden="true" ></i>
+            <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
             {{/if}}
         </td>
         <td> {{:type}}       </td>
@@ -531,7 +662,7 @@
 </script>
 
 <script id="VehicleRowTmpl" type="text/x-jsrender">
-    <tr {{if !isValid}} class="text-danger"{{/if}}>
+    <tr {{if !isValid}} class="text-danger" {{/if}}>
 
         <td>
             {{:license}}
@@ -567,7 +698,7 @@
             {{:driverName}}
             <span style="color:gray">{{:driverTel}}</span>
         </td>
-     
+
         <td>
             {{:groupName}}
         </td>

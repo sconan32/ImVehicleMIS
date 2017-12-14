@@ -1,0 +1,79 @@
+﻿@page
+@model Web.Pages.District.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>DistrictItem</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DistrictItem.Address" class="control-label"></label>
+                <input asp-for="DistrictItem.Address" class="form-control" />
+                <span asp-validation-for="DistrictItem.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DistrictItem.DivisionType" class="control-label"></label>
+                <select asp-for="DistrictItem.DivisionType" class="form-control"></select>
+                <span asp-validation-for="DistrictItem.DivisionType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DistrictItem.VersionNumber" class="control-label"></label>
+                <input asp-for="DistrictItem.VersionNumber" class="form-control" />
+                <span asp-validation-for="DistrictItem.VersionNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DistrictItem.Metadata" class="control-label"></label>
+                <input asp-for="DistrictItem.Metadata" class="form-control" />
+                <span asp-validation-for="DistrictItem.Metadata" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DistrictItem.Name" class="control-label"></label>
+                <input asp-for="DistrictItem.Name" class="form-control" />
+                <span asp-validation-for="DistrictItem.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DistrictItem.CreationDate" class="control-label"></label>
+                <input asp-for="DistrictItem.CreationDate" class="form-control" />
+                <span asp-validation-for="DistrictItem.CreationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DistrictItem.ModificationDate" class="control-label"></label>
+                <input asp-for="DistrictItem.ModificationDate" class="form-control" />
+                <span asp-validation-for="DistrictItem.ModificationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DistrictItem.CreateBy" class="control-label"></label>
+                <input asp-for="DistrictItem.CreateBy" class="form-control" />
+                <span asp-validation-for="DistrictItem.CreateBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DistrictItem.ModifyBy" class="control-label"></label>
+                <input asp-for="DistrictItem.ModifyBy" class="form-control" />
+                <span asp-validation-for="DistrictItem.ModifyBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DistrictItem.Status" class="control-label"></label>
+                <select asp-for="DistrictItem.Status" class="form-control"></select>
+                <span asp-validation-for="DistrictItem.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

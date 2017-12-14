@@ -1,0 +1,82 @@
+﻿@page
+@model Web.Pages.District.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DistrictItem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DistrictItem.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DistrictItem.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DistrictItem.DivisionType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DistrictItem.DivisionType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DistrictItem.VersionNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DistrictItem.VersionNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DistrictItem.Metadata)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DistrictItem.Metadata)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DistrictItem.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DistrictItem.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DistrictItem.CreationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DistrictItem.CreationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DistrictItem.ModificationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DistrictItem.ModificationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DistrictItem.CreateBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DistrictItem.CreateBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DistrictItem.ModifyBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DistrictItem.ModifyBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DistrictItem.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DistrictItem.Status)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="DistrictItem.Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

@@ -69,6 +69,7 @@ namespace Socona.ImVehicle.Core.Data
                     .ThenInclude(d => d.Town)
                  .Include(t => t.Drivers)
                     .ThenInclude(d => d.Group)
+                .Include(t => t.Vehicles)
                 .FirstOrDefaultAsync(t => t.Id == id);
         }
     }

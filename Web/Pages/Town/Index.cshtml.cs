@@ -11,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using Socona.ImVehicle.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Socona.ImVehicle.Core.Specifications;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Pages.Towns
 {
@@ -21,16 +22,25 @@ namespace Web.Pages.Towns
         private readonly IGroupRepository _groupService;
 
         private readonly UserManager<VehicleUser> _userManager;
-        public IndexModel(ITownRepository townRepository, IGroupRepository groupService, UserManager<VehicleUser> userManager)
+        private readonly IAuthorizationService _authorizationService;
+
+        public IndexModel(ITownRepository townRepository, IGroupRepository groupService, UserManager<VehicleUser> userManager,
+            IAuthorizationService authorizationService)
         {
             _townRepository = townRepository;
             _groupService = groupService;
             _userManager = userManager;
+            _authorizationService=authorizationService;
         }
 
         public List<TownListViewModel> TownList { get; set; }
 
-
+        public async Task<bool> CanEdit()
+        {
+            var gv = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireGlobalVisitorRole");
+            var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
+            return (await gv).Succeeded || (await admin).Succeeded;
+        }
 
         public async Task OnGetAsync()
         {

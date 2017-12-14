@@ -10,30 +10,36 @@ using Socona.ImVehicle.Core.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using Socona.ImVehicle.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Socona.ImVehicle.Infrastructure.Interfaces;
 
 namespace Web.Pages.Towns
 {
     public class DetailsModel : PageModel
     {
-
+        private readonly IUserFileService _userFileService;
         private readonly ITownRepository _townRepository;
         private readonly IAuthorizationService _authorizationService;
 
         IGroupRepository _groupService;
-        public DetailsModel(ITownRepository townRepository, IGroupRepository groupService,IAuthorizationService authorizationService)
+        public DetailsModel(ITownRepository townRepository, IGroupRepository groupService,
+            IAuthorizationService authorizationService, IUserFileService userFileService)
         {
             _townRepository = townRepository;
             _groupService = groupService;
             _authorizationService = authorizationService;
+            _userFileService = userFileService;
         }
 
         public TownDetailViewModel TownItem { get; set; }
 
+        public List<UserFileListViewModel> GlobalFiles { get; set; }
+
+        public List<UserFileListViewModel> UserFiles { get; set; }
 
         public async Task<bool> CanEdit()
         {
-            var tm=  _authorizationService.AuthorizeAsync(HttpContext.User, "RequireTownManagerRole");
-            var admin=  _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
+            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireTownManagerRole");
+            var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
             return (await tm).Succeeded || (await admin).Succeeded;
         }
 
@@ -45,12 +51,14 @@ namespace Web.Pages.Towns
                 return NotFound();
             }
             var town = await _townRepository.GetByIdEagerAsync(id.Value);
-            TownItem = new TownDetailViewModel(town);
-           
-            if (TownItem == null)
+            if (town == null)
             {
                 return NotFound();
             }
+            TownItem = new TownDetailViewModel(town);
+            GlobalFiles = (await _userFileService.GetGlobalUserFilesAsync()).Select(t => new UserFileListViewModel(t)).ToList();
+            UserFiles=(await _userFileService.GetUserFilesForTownAsync(id.Value)).Select(t => new UserFileListViewModel(t)).ToList();
+
             return Page();
         }
     }

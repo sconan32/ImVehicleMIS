@@ -24,18 +24,31 @@ namespace Web.Pages.UserFile
             
         }
 
-        public IActionResult OnGet(long? groupId, string returnUrl)
+        public IActionResult OnGet(long? townId,long? groupId, string returnUrl)
         {
 
             UserFile = new UserFileEditViewModel();
-            UserFile.GroupId = groupId;
+           if(townId!=null)
+            {
+                UserFile.TownId = townId;
+                UserFile.Visibility = VisibilityType.CurrentTown;
+            }
+           else if(groupId!=null)
+            {
+                UserFile.GroupId = groupId;
+                UserFile.Visibility = VisibilityType.CurrentGroup;
+            }
+            else
+            {
+                UserFile.Visibility = VisibilityType.Global;
+            }
             ReturnUrl = returnUrl;
 
             return Page();
 
         }
 
-        [BindProperty]
+        [BindProperty(SupportsGet =true)]
         public UserFileEditViewModel UserFile { get; set; }
         [BindProperty]
         public string ReturnUrl { get; set; }
@@ -58,7 +71,9 @@ namespace Web.Pages.UserFile
                 fileToWrite.Close();
                 var ufile = new UserFileItem()
                 {
+                    TownId = UserFile.TownId,
                     GroupId = UserFile.GroupId,
+                    Visibility = UserFile.Visibility,
                     FileName = Path.GetFileName(UserFile.UploadFile?.FileName),
                     ContentType = UserFile.UploadFile?.ContentType,
                     ServerPath = serverFileName,

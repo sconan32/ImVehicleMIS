@@ -30,7 +30,7 @@ namespace Socona.ImVehicle.Core.Data
         [ForeignKey("GroupId")]
         public virtual GroupItem Group { get; set; }
 
-        public long? TownId;
+        public long? TownId { get; set; }
 
         [ForeignKey("TownId")]
         public virtual TownItem Town { get; set; }
