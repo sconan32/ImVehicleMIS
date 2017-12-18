@@ -29,7 +29,7 @@ namespace Socona.ImVehicle.Web.ViewModels
                 Type = t.Type;
                 Usage = t.Usage;
                 IsValid = t.IsValid();
-                    
+                DumpDate = t.DumpDate;
             }
         }
         public long Id { get; set; }
@@ -67,6 +67,11 @@ namespace Socona.ImVehicle.Web.ViewModels
         public DateTime? YearlyAuditDate { get; set; }
         public bool IsAuditValid { get; set; }
 
+        [DataType(DataType.Date)]
+        [Display(Name = "报废日期")]
+        public DateTime? DumpDate { get; set; }
+
+        public bool IsDumpDateValid { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "强制保险日期")]

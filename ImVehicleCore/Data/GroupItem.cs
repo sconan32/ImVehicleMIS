@@ -77,6 +77,6 @@ namespace Socona.ImVehicle.Core.Data
 
             return true;
         }
-
+        public virtual  List<VehicleUser> Users { get; set; }
     }
 }

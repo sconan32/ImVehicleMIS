@@ -93,7 +93,7 @@ namespace Socona.ImVehicle.Core.Data
         public bool IsValid()
         {
             var nowDate = DateTime.Now.Date;
-            if (InsuranceExpiredDate?.AddYears(1) >= nowDate && YearlyAuditDate?.AddYears(1) >= nowDate &&  DumpDate >= nowDate)
+            if (YearlyAuditDate?.AddYears(1) >= nowDate && DumpDate >= nowDate)
             {
                 return true;
             }

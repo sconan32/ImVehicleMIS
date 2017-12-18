@@ -19,7 +19,7 @@ namespace Socona.ImVehicle.Core.Data
         public AdminDivisionType DivisionType { get; set; }
         public virtual List<TownItem> Towns { get; set; }
 
-
+        public virtual List<VehicleUser> Users { get; set; }
 
     }
 

@@ -66,6 +66,8 @@ namespace ImVehicleMIS
                 options.AddPolicy("RequireAdminsRole", policy => policy.RequireRole("Admins"));
                 options.AddPolicy("RequireGlobalVisitorRole", policy => policy.RequireRole("GlobalVisitor"));
                 options.AddPolicy("RequireGroupManagerRole", policy => policy.RequireRole("GroupManager"));
+               
+
             });
 
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));

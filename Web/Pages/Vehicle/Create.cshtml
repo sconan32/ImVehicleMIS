@@ -97,30 +97,8 @@
                                     <span asp-validation-for="VehicleItem.Type" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label asp-for="VehicleItem.Brand" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.Brand" class="form-control" asp-items="ViewBag.GroupList" />
-                                    <span asp-validation-for="VehicleItem.Brand" class="text-danger"></span>
-                                </div>
-                                <label asp-for="VehicleItem.Name" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.Name" class="form-control" asp-items="ViewBag.GroupList" />
-                                    <span asp-validation-for="VehicleItem.Name" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="VehicleItem.Color" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.Color" class="form-control" asp-items="ViewBag.GroupList" />
-                                    <span asp-validation-for="VehicleItem.Color" class="text-danger"></span>
-                                </div>
-                                <label asp-for="VehicleItem.Comment" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.Comment" class="form-control" asp-items="ViewBag.GroupList" />
-                                    <span asp-validation-for="VehicleItem.Comment" class="text-danger"></span>
-                                </div>
-                            </div>
+                       
+                            
                             <div class="form-group">
                                 <label asp-for="VehicleItem.RealOwner" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
@@ -134,42 +112,18 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label asp-for="VehicleItem.ProductionDate" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.ProductionDate" class="form-control" asp-items="ViewBag.GroupList" />
-                                    <span asp-validation-for="VehicleItem.ProductionDate" class="text-danger"></span>
-                                </div>
-                                <label asp-for="VehicleItem.DumpDate" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.DumpDate" class="form-control" asp-items="ViewBag.GroupList" />
-                                    <span asp-validation-for="VehicleItem.DumpDate" class="text-danger"></span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
                                 <label asp-for="VehicleItem.YearlyAuditDate" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.YearlyAuditDate" class="form-control" asp-items="ViewBag.GroupList" />
+                                    <input asp-for="VehicleItem.YearlyAuditDate" class="form-control"  />
                                     <span asp-validation-for="VehicleItem.YearlyAuditDate" class="text-danger"></span>
                                 </div>
-                                <label asp-for="VehicleItem.InsuranceExpiredDate" class="col-sm-2 control-label"></label>
+                            
+                                <label asp-for="VehicleItem.DumpDate" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.InsuranceExpiredDate" class="form-control" asp-items="ViewBag.GroupList" />
-                                    <span asp-validation-for="VehicleItem.InsuranceExpiredDate" class="text-danger"></span>
+                                    <input asp-for="VehicleItem.DumpDate" class="form-control" />
+                                    <span asp-validation-for="VehicleItem.DumpDate" class="text-danger"></span>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="VehicleItem.RegisterDate" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.RegisterDate" class="form-control" asp-items="ViewBag.GroupList" />
-                                    <span asp-validation-for="VehicleItem.RegisterDate" class="text-danger"></span>
-                                </div>
-                                <label asp-for="VehicleItem.VehicleStatus" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-4">
-                                    <input asp-for="VehicleItem.VehicleStatus" class="form-control" asp-items="ViewBag.GroupList" />
-                                    <span asp-validation-for="VehicleItem.VehicleStatus" class="text-danger"></span>
-                                </div>
-                            </div>
+                            </div>                      
 
                             <div class="form-group">
                                 <label asp-for="VehicleItem.PhotoLicense" class="col-sm-2 control-label"></label>
@@ -193,26 +147,22 @@
                                     <span asp-validation-for="VehicleItem.PhotoRear" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label asp-for="VehicleItem.PhotoAudit" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-                                    <input asp-for="VehicleItem.PhotoAudit" class="form-control" />
-                                    <span asp-validation-for="VehicleItem.PhotoAudit" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="VehicleItem.PhotoInsuarance" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-                                    <input asp-for="VehicleItem.PhotoInsuarance" class="form-control" />
-                                    <span asp-validation-for="VehicleItem.PhotoInsuarance" class="text-danger"></span>
-                                </div>
-                            </div>
+                           
+                        
 
                             <div class="form-group">
                                 <label asp-for="VehicleItem.PhotoGps" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
                                     <input asp-for="VehicleItem.PhotoGps" class="form-control" />
                                     <span asp-validation-for="VehicleItem.PhotoGps" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label asp-for="VehicleItem.Comment" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="VehicleItem.Comment" class="form-control" />
+                                    <span asp-validation-for="VehicleItem.Comment" class="text-danger"></span>
                                 </div>
                             </div>
                         </form>

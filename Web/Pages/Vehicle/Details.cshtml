@@ -39,9 +39,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.VehicleItem.License)
                     </th>                   
-                    <th>
-                        @Html.DisplayNameFor(model => model.VehicleItem.Brand)
-                    </th>
+                 
                     <th>
                         @Html.DisplayNameFor(model => model.VehicleItem.TownName)
                     </th>
@@ -50,10 +48,7 @@
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.VehicleItem.YearlyAuditDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.VehicleItem.InsuranceExpiredDate)
-                    </th>
+                    </th>                 
                     <th>
                         @Html.DisplayNameFor(model => model.VehicleItem.DumpDate)
                     </th>
@@ -70,13 +65,7 @@
                     <td>
                         @Html.DisplayFor(model => model.VehicleItem.License)
                     </td>
-                    <td>
-                        @Html.DisplayFor(model => model.VehicleItem.Brand) 
-                        @if (Model.VehicleItem.Name != null)
-                        {
-                            <span> - @Html.DisplayFor(model => model.VehicleItem.Name) </span>
-                        }
-                    </td>
+                   
                     <td>
                         @Html.DisplayFor(model => model.VehicleItem.TownName)
                     </td>
@@ -90,13 +79,7 @@
                             <i class="fa fa-exclamation-circle text-danger"> </i>
                         }
                     </td>
-                    <td>
-                        @Html.DisplayFor(model => model.VehicleItem.InsuranceExpiredDate)
-                        @if (!Model.VehicleItem.IsInsuranceValid)
-                        {
-                            <i class="fa fa-exclamation-circle text-danger"> </i>
-                        }
-                    </td>
+                   
                     <td>
                         @Html.DisplayFor(model => model.VehicleItem.DumpDate)
                         @if (!Model.VehicleItem.IsDumpValid)
@@ -122,7 +105,7 @@
         <ul class="nav nav-tabs" role="tablist">
 
             <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><b><i class="fa fa-list" aria-hidden="true"></i>详细信息</b></a></li>
-            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><b><i class="fa fa-picture-o" aria-hidden="true"></i>图片附件</b></a></li>
+            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><b><i class="fa fa-picture-o" aria-hidden="true"></i>资质证书</b></a></li>
 
         </ul>
         <div style="border-bottom:1px solid #ddd;border-left:1px solid #ddd;border-right:1px solid #ddd;padding:20px;">
@@ -153,24 +136,8 @@
                         <dd>
                             @Html.DisplayFor(model => model.VehicleItem.License)
                         </dd>
-                        <dt>
-                            @Html.DisplayNameFor(model => model.VehicleItem.Brand)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.VehicleItem.Brand)
-                        </dd>
-                        <dt>
-                            @Html.DisplayNameFor(model => model.VehicleItem.Color)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.VehicleItem.Color)
-                        </dd>
-                        <dt>
-                            @Html.DisplayNameFor(model => model.VehicleItem.Name)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.VehicleItem.Name)
-                        </dd>
+                       
+                   
                         <dt>
                             @Html.DisplayNameFor(model => model.VehicleItem.Usage)
                         </dt>
@@ -183,13 +150,7 @@
                         <dd>
                             @Html.DisplayFor(model => model.VehicleItem.Type)
                         </dd>
-                       
-                        <dt>
-                            @Html.DisplayNameFor(model => model.VehicleItem.VehicleStatus)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.VehicleItem.VehicleStatus)
-                        </dd>
+                      
                         <dt>
                             @Html.DisplayNameFor(model => model.VehicleItem.RealOwner)
                         </dt>
@@ -202,12 +163,7 @@
                         <dd>
                             @Html.DisplayFor(model => model.VehicleItem.Agent)
                         </dd>
-                        <dt>
-                            @Html.DisplayNameFor(model => model.VehicleItem.ProductionDate)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.VehicleItem.ProductionDate)
-                        </dd>
+                     
                         <dt>
                             @Html.DisplayNameFor(model => model.VehicleItem.DumpDate)
                         </dt>
@@ -220,18 +176,8 @@
                         <dd>
                             @Html.DisplayFor(model => model.VehicleItem.YearlyAuditDate)
                         </dd>
-                        <dt>
-                            @Html.DisplayNameFor(model => model.VehicleItem.InsuranceExpiredDate)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.VehicleItem.InsuranceExpiredDate)
-                        </dd>
-                        <dt>
-                            @Html.DisplayNameFor(model => model.VehicleItem.RegisterDate)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.VehicleItem.RegisterDate)
-                        </dd>
+                       
+                   
                         <dt>
                             @Html.DisplayNameFor(model => model.VehicleItem.DriverName)
                         </dt>
@@ -256,7 +202,7 @@
                 </div>
                 <div role="tabpanel" class="tab-pane" id="messages">
                     <br />
-                    <h4><i class="fa fa-picture-o" aria-hidden="true"></i> 图片附件</h4>
+                    <h4><i class="fa fa-picture-o" aria-hidden="true"></i> 资质证书</h4>
 
                     <hr />
                     <div class="panel panel-default">
@@ -277,19 +223,7 @@
                         <div class="panel-body">
                             <img src="data:image;base64,@Model.VehicleItem.PhotoRearBase64" />
                         </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.PhotoAuditBase64)</div>
-                        <div class="panel-body">
-                            <img src="data:image;base64,@Model.VehicleItem.PhotoAuditBase64" />
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.PhotoInsuaranceBase64)</div>
-                        <div class="panel-body">
-                            <img src="data:image;base64,@Model.VehicleItem.PhotoInsuaranceBase64" />
-                        </div>
-                    </div>
+                    </div>                  
                     <div class="panel panel-default">
                         <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.PhotoGpsBase64)</div>
                         <div class="panel-body">
