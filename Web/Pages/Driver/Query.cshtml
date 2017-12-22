@@ -29,13 +29,13 @@
                         @Html.DisplayNameFor(model => model.Drivers[0].Name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Drivers[0].Gender)
+                        @Html.DisplayNameFor(model => model.Drivers[0].IdCardNumber)
                     </th>
                    
                    
 
                     <th>
-                        @Html.DisplayNameFor(model => model.Drivers[0].License)
+                        @Html.DisplayNameFor(model => model.Drivers[0].LicenseType)
                     </th>
 
 
@@ -69,11 +69,11 @@
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Gender)
+                            @Html.DisplayFor(modelItem => item.IdCardNumber)
                         </td>
                       
                         <td>
-                            <b>@Html.DisplayFor(modelItem => item.LicenseType)</b>&nbsp;  @Html.DisplayFor(modelItem => item.License)
+                            <b>@Html.DisplayFor(modelItem => item.LicenseType)</b>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.LicenseExpiredDate)

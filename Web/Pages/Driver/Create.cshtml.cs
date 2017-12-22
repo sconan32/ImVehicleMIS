@@ -29,7 +29,7 @@ namespace Web.Pages.Driver
             _townService = townService;
             _userManager = userManager;
             _groupService = groupService;
-            DriverItem = new DriverEditViewModel();
+
         }
 
         [BindProperty]
@@ -38,7 +38,7 @@ namespace Web.Pages.Driver
         [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnGetAsync(long? groupId, string returnUrl)
         {
-
+            DriverItem = new DriverEditViewModel();
             ReturnUrl = returnUrl;
 
             var townlist = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User));
@@ -125,7 +125,7 @@ namespace Web.Pages.Driver
                 Tel = DriverItem.Tel,
                 Title = DriverItem.Title,
                 WarrantyCode = DriverItem.WarrantyCode,
-
+                ResidentType = DriverItem.ResidentType,
                 TownId = townId,
                 GroupId = DriverItem.GroupId,
 

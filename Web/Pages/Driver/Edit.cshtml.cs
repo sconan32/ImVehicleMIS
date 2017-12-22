@@ -64,32 +64,8 @@ namespace Web.Pages.Driver
                 ViewData["GroupList"] = new SelectList(groups, "Id", "Name");
             }
 
-            DriverItem = new DriverEditViewModel()
-            {
-                Id = driver.Id,
-                Name = driver.Name,
-                Gender = driver.Gender,
-                FirstLicenseIssueDate = driver.FirstLicenseIssueDate,
-                LicenseIssue = driver.LicenseIssueDate,
+            DriverItem = new DriverEditViewModel(driver);
 
-                IdCardNumber = driver.IdCardNumber,
-                License = driver.LicenseNumber,
-                LicenseType = driver.LicenseType,
-                ValidYears = driver.LicenseValidYears,
-                LivingAddress = driver.LivingAddress,
-                Tel = driver.Tel,
-                Title = driver.Title,
-                WarrantyCode = driver.WarrantyCode,
-
-                TownId = driver.TownId,
-                GroupId = driver.GroupId,
-
-                PhotoDriverLicenseBase64 = driver.PhotoDriverLicense != null ? Convert.ToBase64String(driver.PhotoDriverLicense) : "",
-                PhotoIdCard1Base64 = driver.PhotoIdCard1 != null ? Convert.ToBase64String(driver.PhotoIdCard1) : "",
-                PhotoIdCard2Base64 = driver.PhotoIdCard2 != null ? Convert.ToBase64String(driver.PhotoIdCard2) : "",
-                PhotoWarrantyBase64 = driver.PhotoWarranty != null ? Convert.ToBase64String(driver.PhotoWarranty) : "",
-
-            };
             return Page();
         }
 
@@ -121,6 +97,7 @@ namespace Web.Pages.Driver
             MemoryStream photoIdCard1 = null;
             MemoryStream photoIdCard2 = null;
             MemoryStream photoLicense = null;
+            MemoryStream photoAvatar = null;
 
             var acceptableExt = new[] { ".png", ".bmp", ".jpg", ".jpeg", ".tif", };
 
@@ -145,6 +122,11 @@ namespace Web.Pages.Driver
                 photoLicense = new MemoryStream();
                 await DriverItem.PhotoDriverLicense.CopyToAsync(photoLicense);
             }
+            if (acceptableExt.Contains(Path.GetExtension(DriverItem.PhotoAvatar?.FileName)?.ToLower()))
+            {
+                photoAvatar = new MemoryStream();
+                await DriverItem.PhotoDriverLicense.CopyToAsync(photoAvatar);
+            }
 
 
             var townId = await _userManager.IsInRoleAsync(user, "TownManager") ? user.TownId : DriverItem.TownId;
@@ -168,6 +150,7 @@ namespace Web.Pages.Driver
             driver.Tel = DriverItem.Tel;
             driver.Title = DriverItem.Title;
             driver.WarrantyCode = DriverItem.WarrantyCode;
+            driver.ResidentType = DriverItem.ResidentType;
 
             driver.TownId = townId;
             driver.GroupId = DriverItem.GroupId;
@@ -187,6 +170,10 @@ namespace Web.Pages.Driver
             if (photoWarranty != null)
             {
                 driver.PhotoWarranty = photoWarranty.ToArray();
+            }
+            if(photoAvatar!=null)
+            {
+                driver.PhotoAvatar = photoAvatar.ToArray();
             }
             driver.ModifyBy = user.Id;
             driver.ModificationDate = DateTime.Now;

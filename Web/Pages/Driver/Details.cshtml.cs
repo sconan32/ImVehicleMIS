@@ -69,6 +69,7 @@ namespace Web.Pages.Driver
                 Tel = driver.Tel,
                 Title = driver.Title,
                 WarrantyCode = driver.WarrantyCode,
+                ResidentType=driver.ResidentType,
 
                 TownName = driver.Town?.Name,
                 GroupName = driver.Group?.Name,

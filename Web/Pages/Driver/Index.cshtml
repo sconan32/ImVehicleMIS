@@ -33,13 +33,13 @@
                         @Html.DisplayNameFor(model => model.Drivers[0].Name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Drivers[0].Gender)
+                        @Html.DisplayNameFor(model => model.Drivers[0].IdCardNumber)
                     </th>
 
 
 
                     <th>
-                        @Html.DisplayNameFor(model => model.Drivers[0].License)
+                        @Html.DisplayNameFor(model => model.Drivers[0].LicenseType)
                     </th>
 
 
@@ -71,17 +71,17 @@
 
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
-                           @if (!item.IsValid)
-                           {
+                            @if (!item.IsValid)
+                            {
                                 <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
-                           }
+                            }
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Gender)
+                            @Html.DisplayFor(modelItem => item.IdCardNumber)
                         </td>
 
                         <td>
-                            <b>@Html.DisplayFor(modelItem => item.LicenseType)</b>&nbsp;  @Html.DisplayFor(modelItem => item.License)
+                            <span class="label label-warning"><b>@Html.DisplayFor(modelItem => item.LicenseType)</b></span>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.LicenseExpiredDate)
@@ -137,16 +137,16 @@
             {{:name}}
         </td>
         <td>
-            {{genderType:gender}}
+            {{:idCardNumber}}
         </td>
 
         <td>
-            <span class="label label-warning"><b>{{licenseType:licenseType}}</b></span>&nbsp; {{:license}}
+            <span class="label label-warning"><b>{{licenseType:licenseType}}</b></span>
         </td>
         <td>
             {{cnDate:licenseExpiredDate}}
         </td>
-       
+
         <td>
             {{:vehiclesRegistered}}
         </td>
