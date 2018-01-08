@@ -65,7 +65,7 @@
             <div class="col-md-7 col-sm-12 col-xs-12">
                 <div class="row feature_row" >
                     <br />
-                    <h4 style="color:#2761d8;border-bottom: 2px dotted #2761d8;padding-bottom:8px"><i class="fa fa-newspaper-o"></i> 新闻 · 通知</h4>
+                    <h4 style="color:#2761d8;border-bottom: 2px dotted #2761d8;padding-bottom:8px"><i class="fa fa-newspaper-o"></i> 通知 · 通告</h4>
                    <br />
 
 
@@ -92,18 +92,50 @@
             </div>
         </div>
         <div class="row">
-            <ul>
-                <li class="pull-left" style="margin-left:20px;"><a href="http://www.mps.gov.cn/" target="_blank">中华人民共和国公安部 <i class="fa fa-external-link"></i></a></li>
-                <li class="pull-left" style="margin-left:20px;"><a href="http://www.lnga.gov.cn/" target="_blank">辽宁省公安厅 <i class="fa fa-external-link"></i></a></li>
-                <li class="pull-left" style="margin-left:20px;"><a href="http://www.ga.dl.gov.cn/default.asp" target="_blank">大连市公安局 <i class="fa fa-external-link"></i></a></li>
 
-                <li class="pull-left" style="margin-left:20px;"><a href="http://www.dl.gov.cn/" target="_blank">大连市政府门户网站 <i class="fa fa-external-link"></i></a></liclass="pull-left">
-                <li class="pull-left" style="margin-left:20px;"><a href="http://www.dlgjz.gov.cn/" target="_blank">大连 · 甘井子 <i class="fa fa-external-link"></i></a></li>
+            <div class="col-md-7 col-sm-12 col-xs-12">
+                <div class="row feature_row">
+                    <br />
+                    <h4 style="color:#2761d8;border-bottom: 2px dotted #2761d8;padding-bottom:8px"><i class="fa fa-newspaper-o"></i> 新闻 · 通知</h4>
+                    <br />
 
-            </ul>
-        </div>
 
+                    @if (Model.NewsList != null && Model.NewsList.Any())
+            {
+                        @foreach (var item in Model.NewsList)
+                {
+                            <article class=" row" style="line-height:36px; margin:0px 20px; ">
+                                <section class="col-xs-9" style="border-bottom:1px solid #eee"><a class="esh-orders-link" asp-page="/News/Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
+                                <section class="col-xs-3" style="border-bottom:1px solid #eee"> @Html.DisplayFor(modelItem => item.Date)</section>
+                            </article>
+                        }
+                    }
+                </div>
+                <br />
+                <div class="row feature_row">
+                    <br />
+                    <h4 style="color:#2761d8;border-bottom: 2px dotted #2761d8;padding-bottom:8px"><i class="fa fa-newspaper-o"></i> 快速链接</h4>
+                    <br />
+
+
+
+                </div>
+            </div>
+            </div>
+
+    <div class="row">
+        <ul>
+            <li class="pull-left" style="margin-left:20px;"><a href="http://www.mps.gov.cn/" target="_blank">中华人民共和国公安部 <i class="fa fa-external-link"></i></a></li>
+            <li class="pull-left" style="margin-left:20px;"><a href="http://www.lnga.gov.cn/" target="_blank">辽宁省公安厅 <i class="fa fa-external-link"></i></a></li>
+            <li class="pull-left" style="margin-left:20px;"><a href="http://www.ga.dl.gov.cn/default.asp" target="_blank">大连市公安局 <i class="fa fa-external-link"></i></a></li>
+
+            <li class="pull-left" style="margin-left:20px;"><a href="http://www.dl.gov.cn/" target="_blank">大连市政府门户网站 <i class="fa fa-external-link"></i></a></liclass="pull-left">
+            <li class="pull-left" style="margin-left:20px;"><a href="http://www.dlgjz.gov.cn/" target="_blank">大连 · 甘井子 <i class="fa fa-external-link"></i></a></li>
+
+        </ul>
     </div>
+
+</div>
 </section>
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")

@@ -6,7 +6,7 @@
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3>驾驶员 查找结果</h3>
+            <h3>查找驾驶员</h3>
         </div>
         <div class="pull-right">
             <a asp-page="/Index">主页</a>&gt;
@@ -15,12 +15,82 @@
     </div>
 </section>
 <section class="main_feature_area">
-    <div class="container">
-
-        <p>
-          <h4>驾驶员 查找结果  条件:@ViewBag.QueryString</h4>
-        </p>
+    <div class="container">       
+             <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        驾驶员 查找条件:@ViewBag.QueryString
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="iptFilterName" class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="iptFilterName" placeholder="姓名">
+                            </div>
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">身份证号</label>
+                            <div class="col-sm-4">
+                                <input type="password" class="form-control" id="iptFilterIdCard" placeholder="身份证号">
+                            </div>
+                        </div>
+                      
+                        <div class="form-group">
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">电话</label>
+                            <div class="col-sm-4">
+                                <input type="password" class="form-control" id="iptFilterIdCard" placeholder="身份证号">
+                            </div>
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">状态</label>
+                            <div class="col-sm-4">
+                                <input type="password" class="form-control" id="iptFilterIdCard" placeholder="身份证号">
+                            </div>
+                        </div>
+                       
+                        <div class="form-group">
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">街道</label>
+                            <div class="col-sm-10">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-info active">
+                                        <input type="checkbox" autocomplete="off" checked> Checkbox 1 (pre-checked)
+                                    </label>
+                                    <label class="btn btn-info">
+                                        <input type="checkbox" autocomplete="off"> Checkbox 2
+                                    </label>
+                                    <label class="btn btn-info">
+                                        <input type="checkbox" autocomplete="off"> Checkbox 3
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">安全单位</label>
+                            <div class="col-sm-10">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary active">
+                                        <input type="checkbox" autocomplete="off" checked> Checkbox 1 (pre-checked)
+                                    </label>
+                                    <label class="btn btn-primary">
+                                        <input type="checkbox" autocomplete="off"> Checkbox 2
+                                    </label>
+                                    <label class="btn btn-primary">
+                                        <input type="checkbox" autocomplete="off"> Checkbox 3
+                                    </label>
+                                </div>
+                            </div>
+                            
+                        </div>
+                       
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <br />
         <hr />
+
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -93,10 +163,10 @@
                         </td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                                <a class="btn btn-view-item btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                                 @if (await Model.CanEdit())
                                 {
-                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button type="button" class="btn btn-view-item btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="caret"></span>
                                         <span class="sr-only">向下弹出</span>
                                     </button>

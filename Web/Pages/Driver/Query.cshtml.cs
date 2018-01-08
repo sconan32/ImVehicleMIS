@@ -19,15 +19,21 @@ namespace Web.Pages.Driver
         private readonly VehicleDbContext _dbContext;
         private readonly IAuthorizationService _authorizationService;
         private readonly ITownService _townService;
-        public QueryModel(VehicleDbContext dbContext, IAuthorizationService authorizationService,ITownService townService)
+        private readonly IGroupService _groupService;
+
+        public QueryModel(VehicleDbContext dbContext, IAuthorizationService authorizationService,ITownService townService,IGroupService groupService)
         {
             _dbContext = dbContext;
             _authorizationService = authorizationService;
             _townService = townService;
+            _groupService = groupService;
         }
 
         public List<DriverListViewModel> Drivers { get; set; }
 
+        public List<TownItem> Towns { get; set; }
+
+        public List<GroupItem> Groups { get; set; }
 
         public async Task<bool> CanEdit()
         {
@@ -36,10 +42,40 @@ namespace Web.Pages.Driver
             return (await tm).Succeeded || (await admin).Succeeded;
         }
 
+        public async Task OnPostAsync(string queryString)
+        {
+            ViewData["QueryString"] = queryString;
+            var townidlist = await _townService.GetAvailableTownIdsAsync(HttpContext.User);
+            var items = await _dbContext.Drivers.Where(t => townidlist.Contains(t.TownId ?? -1))
+                .Include(t => t.Vehicles)
+                .Include(t => t.Town)
+                .Include(t => t.Group)
+                .ToListAsync();
+            Drivers = items.Select(t => new DriverListViewModel()
+            {
+                Id = t.Id,
+                Name = t.Name,
+                IdCardNumber = t.IdCardNumber,
+                License = t.LicenseNumber,
+                LicenseType = t.LicenseType,
+                LicenseIssueDate = t.LicenseIssueDate,
+                LicenseValidYears = t.LicenseValidYears,
+                FirstLicenseIssueDate = t.FirstLicenseIssueDate,
+                Gender = t.Gender,
+                VehiclesRegistered = t.Vehicles.Count,
+                Tel = t.Tel,
+                Title = t.Title,
+                TownName = t.Town?.Name,
+                GroupName = t.Group?.Name,
+            }).Where(new DriverListVmQueryStringSpecification(queryString).Criteria.Compile()).ToList();
+        }
+
         public async Task OnGetAsync(string queryString)
         {
             ViewData["QueryString"] = queryString;
             var townidlist = await _townService.GetAvailableTownIdsAsync(HttpContext.User);
+            Towns = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User)) ;
+            Groups = (await _groupService.ListAwailableGroupEagerAsync(HttpContext.User));
             var items = await _dbContext.Drivers.Where(t=>townidlist.Contains(t.TownId??-1))
                 .Include(t => t.Vehicles)
                 .Include(t => t.Town)
