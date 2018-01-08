@@ -64,6 +64,8 @@ namespace Socona.ImVehicle.Core.Data
         [Display(Name = "职务")]
         public string Title { get; set; }
 
+        [Display(Name = "户口类型")]
+        public ResidentTypeEnum ResidentType { get; set; }
         public bool IsValid()
         {
             var nowDate = DateTime.Now.Date;
@@ -103,5 +105,13 @@ namespace Socona.ImVehicle.Core.Data
         Male = 1,
         [Display(Name = "女")]
         Female = 2,
+    }
+
+    public enum ResidentTypeEnum
+    {
+        [Display(Name = "本地")]
+        Local =1,
+        [Display(Name = "异地")]
+        NonLocal =2,
     }
 }

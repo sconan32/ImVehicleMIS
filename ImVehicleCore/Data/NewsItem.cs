@@ -25,6 +25,8 @@ namespace Socona.ImVehicle.Core.Data
         [Display(Name = "来源")]
         public string Source { get; set; }
 
+        [Display(Name = "类型")]
+        public NewsAreaType Area { get; set; }
 
         [Display(Name = "失效日期")]
         [DataType(DataType.Date)]
@@ -32,6 +34,19 @@ namespace Socona.ImVehicle.Core.Data
 
         [Display(Name = "顺序")]
         public int Order { get; set; }
+
+    }
+
+    public enum NewsAreaType
+    {
+        [Display(Name = "通知·通报")]
+        Notification =1,
+        [Display(Name = "法律·法规")]
+        LawAndRule =2,
+        [Display(Name = "交通安全常识")]
+        SecurityKnowledge =3,
+        [Display(Name = "事故案例")]
+        AccidentCase =4
 
     }
 }

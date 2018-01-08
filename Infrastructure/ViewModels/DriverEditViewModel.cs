@@ -11,6 +11,37 @@ namespace Socona.ImVehicle.Web.ViewModels
     public class DriverEditViewModel
     {
 
+        public DriverEditViewModel() { }
+
+        public DriverEditViewModel(DriverItem driver )
+        {
+
+            Id = driver.Id;
+            Name = driver.Name;
+            Gender = driver.Gender;
+            FirstLicenseIssueDate = driver.FirstLicenseIssueDate;
+            LicenseIssue = driver.LicenseIssueDate;
+            ResidentType = driver.ResidentType;
+
+
+            IdCardNumber = driver.IdCardNumber;
+            License = driver.LicenseNumber;
+            LicenseType = driver.LicenseType;
+            ValidYears = driver.LicenseValidYears;
+            LivingAddress = driver.LivingAddress;
+            Tel = driver.Tel;
+            Title = driver.Title;
+            WarrantyCode = driver.WarrantyCode;
+
+            TownId = driver.TownId;
+            GroupId = driver.GroupId;
+
+            PhotoDriverLicenseBase64 = driver.PhotoDriverLicense != null ? Convert.ToBase64String(driver.PhotoDriverLicense) : "";
+            PhotoIdCard1Base64 = driver.PhotoIdCard1 != null ? Convert.ToBase64String(driver.PhotoIdCard1) : "";
+            PhotoIdCard2Base64 = driver.PhotoIdCard2 != null ? Convert.ToBase64String(driver.PhotoIdCard2) : "";
+            PhotoWarrantyBase64 = driver.PhotoWarranty != null ? Convert.ToBase64String(driver.PhotoWarranty) : "";
+
+        }
         public long Id { get; set; }
 
 
@@ -82,6 +113,8 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "职务")]
         public string Title { get; set; }
 
+        [Display(Name = "户口属地")]
+        public ResidentTypeEnum ResidentType { get; set; }
 
     }
 }

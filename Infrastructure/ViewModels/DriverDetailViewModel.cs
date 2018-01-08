@@ -84,5 +84,9 @@ namespace Socona.ImVehicle.Web.ViewModels
         public bool IsValid { get; set; }
 
         public List<VehicleListViewModel> Vehicles { get; set; }
+
+
+        [Display(Name = "户口属地")]
+        public ResidentTypeEnum ResidentType { get; set; }
     }
 }

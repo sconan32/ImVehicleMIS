@@ -50,7 +50,7 @@
                         @Html.DisplayNameFor(model => model.DriverItem.Tel)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.DriverItem.License)
+                        @Html.DisplayNameFor(model => model.DriverItem.LicenseType)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.DriverItem.LicenseExpiredDate)
@@ -78,7 +78,7 @@
                     </td>
                     <td>
                         <span class="label label-warning">@Html.DisplayFor(model => model.DriverItem.LicenseType)</span>
-                        @Html.DisplayFor(model => model.DriverItem.License)
+            
                     </td>
                     <td>
                         @Html.DisplayFor(model => model.DriverItem.LicenseExpiredDate)
@@ -99,8 +99,8 @@
         <br />
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-truck" aria-hidden="true"></i><b>车辆列表</b></a></li>
-            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list" aria-hidden="true"></i><b>详细信息</b></a></li>
+            <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list" aria-hidden="true"></i><b>详细信息</b></a></li>
+            <li role="presentation" ><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-truck" aria-hidden="true"></i><b>车辆列表</b></a></li>           
             <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><i class="fa fa-photo" aria-hidden="true"></i><b>图片附件</b></a></li>
 
         </ul>
@@ -111,7 +111,7 @@
 
 
 
-                <div role="tabpanel" class="tab-pane  active" id="home">
+                <div role="tabpanel" class="tab-pane" id="home">
 
                     <br />
                     <h4><i class="fa fa-truck" aria-hidden="true"></i>车辆信息列表</h4>
@@ -221,7 +221,7 @@
 
                 </div>
 
-                <div role="tabpanel" class="tab-pane" id="profile">
+                <div role="tabpanel" class="tab-pane  active" id="profile">
                     <br />
                     <h4><i class="fa fa-list" aria-hidden="true"></i>详细信息</h4>
 
@@ -251,12 +251,7 @@
                         <dd>
                             @Html.DisplayFor(model => model.DriverItem.GroupName)
                         </dd>
-                        <dt>
-                            @Html.DisplayNameFor(model => model.DriverItem.Gender)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.DriverItem.Gender)
-                        </dd>
+                       
                         <dt>
                             @Html.DisplayNameFor(model => model.DriverItem.Tel)
                         </dt>
@@ -264,10 +259,10 @@
                             @Html.DisplayFor(model => model.DriverItem.Tel)
                         </dd>
                         <dt>
-                            @Html.DisplayNameFor(model => model.DriverItem.LivingAddress)
+                            @Html.DisplayNameFor(model => model.DriverItem.ResidentType)
                         </dt>
                         <dd>
-                            @Html.DisplayFor(model => model.DriverItem.LivingAddress)
+                            @Html.DisplayFor(model => model.DriverItem.ResidentType)
                         </dd>
                         <dt>
                             @Html.DisplayNameFor(model => model.DriverItem.IdCardNumber)
