@@ -2,20 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Authorization;
-using Socona.ImVehicle.Web.ViewModels;
-using Microsoft.AspNetCore.Identity;
-using Socona.ImVehicle.Web.ViewModels.Specifications;
-using Socona.ImVehicle.Core.Specifications;
 using Socona.ImVehicle.Infrastructure.Specifications;
+using Socona.ImVehicle.Web.ViewModels;
 
-namespace Web.Pages.Group
+namespace Socona.ImVehicle.Web.Pages.Group
 {
     public class IndexModel : PageModel
     {

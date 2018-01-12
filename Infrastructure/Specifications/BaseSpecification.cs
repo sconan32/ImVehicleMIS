@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace Socona.ImVehicle.Core.Specifications
 {
-    public abstract class BaseSpecification<T> : ISpecification<T>
+    public  class Specification<T> : ISpecification<T>
     {
-        public BaseSpecification(Expression<Func<T, bool>> criteria = null)
+        public Specification(Expression<Func<T, bool>> criteria = null)
         {
             Criteria = criteria;
         }

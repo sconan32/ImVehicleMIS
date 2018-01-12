@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
-using Microsoft.AspNetCore.Authorization;
 using Socona.ImVehicle.Core.Interfaces;
 using Socona.ImVehicle.Web.ViewModels;
 
-namespace Web.Pages.Vehicle
+namespace Socona.ImVehicle.Web.Pages.Vehicle
 {
     public class DetailsModel : PageModel
     {

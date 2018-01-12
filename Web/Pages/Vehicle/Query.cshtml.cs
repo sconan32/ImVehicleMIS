@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
-using System.ComponentModel.DataAnnotations;
 using Socona.ImVehicle.Web.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Socona.ImVehicle.Web.ViewModels.Specifications;
 
-namespace Web.Pages.Vehicle
+namespace Socona.ImVehicle.Web.Pages.Vehicle
 {
     public class QueryModel : PageModel
     {

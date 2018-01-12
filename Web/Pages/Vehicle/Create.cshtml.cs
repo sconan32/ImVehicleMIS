@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Socona.ImVehicle.Core.Data;
-using Socona.ImVehicle.Web.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Socona.ImVehicle.Core.Interfaces;
-using Microsoft.AspNetCore.Identity;
-using System.IO;
+using Socona.ImVehicle.Web.ViewModels;
 
-namespace Web.Pages.Vehicle
+namespace Socona.ImVehicle.Web.Pages.Vehicle
 {
     public class CreateModel : PageModel
     {

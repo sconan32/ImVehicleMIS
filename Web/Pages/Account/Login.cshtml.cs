@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
 
-namespace ImVehicleMIS.Pages.Account
+namespace Socona.ImVehicle.Web.Pages.Account
 {
     public class LoginModel : PageModel
     {

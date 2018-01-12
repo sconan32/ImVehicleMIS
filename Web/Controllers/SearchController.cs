@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Socona.ImVehicle.Core.Data;
 
-namespace Web.Controllers
+namespace Socona.ImVehicle.Web.Controllers
 {
     [Route("[controller]/[action]")]
     public class SearchController : Controller

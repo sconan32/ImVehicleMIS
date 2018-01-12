@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Socona.ImVehicle.Core.Specifications
 {
-    public class QueryStringSpecification<T> : BaseSpecification<T>
+    public class QueryStringSpecification<T> : Specification<T>
     {
 
         public QueryStringSpecification(string queryString)
@@ -19,6 +19,10 @@ namespace Socona.ImVehicle.Core.Specifications
 
         protected virtual Expression<Func<T, bool>> BuildCriteria(string queryString)
         {
+            if(string.IsNullOrWhiteSpace(queryString))
+            {
+                return t => true;
+            }
             List<Expression> expressions = new List<Expression>();
             ParameterExpression argParam = Expression.Parameter(typeof(T), "t");
             var properties = GetNamePropertyMap();
@@ -43,6 +47,10 @@ namespace Socona.ImVehicle.Core.Specifications
                     }
                     Expression property = Expression.Property(argParam, propertyInfo.Item1);
                     innerLength += exprSplit[0].Length;
+                    if (string.IsNullOrWhiteSpace(exprSplit[1]))
+                    {
+                        continue;
+                    }
                     var valueIdx = expr.IndexOf(exprSplit[1]);
                     string op = expr.Substring(innerLength, valueIdx - innerLength);
                     var type = propertyInfo.Item2;

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Socona.ImVehicle.Core.Specifications
 {
-   public class Town4UserSpecification : BaseSpecification<TownItem>
+   public class Town4UserSpecification : Specification<TownItem>
     {
         private Town4UserSpecification(Expression<Func<TownItem, bool>> expression) : base(expression)
         {

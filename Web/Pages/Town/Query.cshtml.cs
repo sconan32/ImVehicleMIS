@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Socona.ImVehicle.Core.Data;
-using Socona.ImVehicle.Core.Interfaces;
-using Socona.ImVehicle.Web.ViewModels;
-using Socona.ImVehicle.Core.Specifications;
-using Socona.ImVehicle.Web.ViewModels.Specifications;
-using Socona.ImVehicle.Infrastructure.Interfaces;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Socona.ImVehicle.Core.Interfaces;
+using Socona.ImVehicle.Infrastructure.Interfaces;
+using Socona.ImVehicle.Web.ViewModels;
+using Socona.ImVehicle.Web.ViewModels.Specifications;
 
-namespace Web.Pages.Town
+namespace Socona.ImVehicle.Web.Pages.Town
 {
     public class QueryModel : PageModel
     {
