@@ -1,6 +1,6 @@
 ﻿@page
 @model Web.Pages.Driver.QueryModel
-
+@addTagHelper "*,Socona.ImVehicle.Web.TagHelpers"
 @{
     ViewData["Title"] = "驾驶员 查找结果";
 }
@@ -42,7 +42,7 @@
                         <div class="form-group">
                             <label for="iptFilterIdCard" class="col-sm-2 control-label">电话</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="iptFilterIdCard" placeholder="电话" asp-for="FilterModel.Tel">
+                                <input type="text" class="form-control" id="iptTel" placeholder="电话" asp-for="FilterModel.Tel">
                             </div>
                             <label for="iptFilterIdCard" class="col-sm-2 control-label">状态</label>
 
@@ -66,7 +66,7 @@
                         <div class="form-group">
                             <label for="iptFilterIdCard" class="col-sm-2 control-label">街道</label>
                             <div class="col-sm-4">
-                                <select id="town_select" asp-for="FilterModel.TownId" class="form-control" asp-items="ViewBag.TownList">
+                                <select id="town_select" asp-for="FilterModel.TownId" class"form-control" asp-items="ViewBag.TownList">
                                     <option>请选择街道 </option>
                                 </select>
                             </div>

@@ -35,11 +35,18 @@
                     <i class="fa fa-plus" aria-hidden="true"></i> 新增安全员
                 </a>
                 <a class="btn btn-new-item" asp-page="../UserFile/Create" asp-route-groupId="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
-                    <i class="fa fa-plus" aria-hidden="true"></i> 上传文件
+                    <i class="fa fa-plus" aria-hidden="true"></i> 下发文件
                 </a>
                 <a class="btn btn-del-item" asp-page="Delete" asp-route-id="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
                     <i class="fa fa-trash-o" aria-hidden="true"></i> 删除单位
                 </a>
+            }
+            @if (await Model.CanUpload())
+            {
+                <a class="btn btn-new-item" asp-page="../UserFile/Create" asp-route-groupId="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
+                    <i class="fa fa-plus" aria-hidden="true"></i> 上传文件
+                </a>
+
             }
 
         </p>
@@ -98,7 +105,7 @@
                     <td>
                         @Html.DisplayFor(model => model.GroupItem.ChiefName) <span style="color:gray">( @Html.DisplayFor(model => model.GroupItem.ChiefTel) )</span>
                     </td>
-                  
+
                 </tr>
 
             </tbody>
@@ -159,7 +166,7 @@
 
                                     <th>
                                         @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].TownName)
-                                    </th>                                
+                                    </th>
 
 
 
@@ -211,7 +218,7 @@
                                             @Html.DisplayFor(modelItem => item.TownName)
 
                                         </td>
-                                     
+
                                         <td>
                                             <div class="btn-group">
                                                 <a class="btn btn-view-item btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
@@ -366,7 +373,7 @@
                             </thead>
                             <tbody>
                                 @foreach (var item in Model.GroupItem.Securemans)
-            {
+                                {
                                     <tr>
 
                                         <td>
@@ -429,7 +436,7 @@
                             </thead>
                             <tbody>
                                 @foreach (var item in Model.GlobalFiles)
-            {
+                                {
                                     <tr>
 
                                         <td>
@@ -485,7 +492,7 @@
                             </thead>
                             <tbody>
                                 @foreach (var item in Model.GroupItem.UserFiles)
-            {
+                                {
                                     <tr>
 
                                         <td>

@@ -34,9 +34,9 @@ namespace Socona.ImVehicle.Web.Pages.Town
 
         public async Task<bool> CanEdit()
         {
-            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireTownManagerRole");
-            var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
-            return (await tm).Succeeded || (await admin).Succeeded;
+            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, "CanEdit");
+
+            return (await tm).Succeeded;
         }
 
 

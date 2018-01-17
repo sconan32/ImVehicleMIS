@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
 using Socona.ImVehicle.Core.Services;
+using Socona.ImVehicle.Infrastructure.Authorization;
 using Socona.ImVehicle.Infrastructure.Interfaces;
 using Socona.ImVehicle.Infrastructure.Services;
 
@@ -58,9 +60,15 @@ namespace Socona.ImVehicle.Web
                 options.AddPolicy("RequireAdminsRole", policy => policy.RequireRole("Admins"));
                 options.AddPolicy("RequireGlobalVisitorRole", policy => policy.RequireRole("GlobalVisitor"));
                 options.AddPolicy("RequireGroupManagerRole", policy => policy.RequireRole("GroupManager"));
-               
-
+                options.AddPolicy("CanRead", policy => policy.Requirements.Add(VehicleOperations.Read));
+                options.AddPolicy("CanEdit", policy => policy.Requirements.Add(VehicleOperations.Update));
+                options.AddPolicy("CanCreate", policy => policy.Requirements.Add(VehicleOperations.Create));
+                options.AddPolicy("CanDelete", policy => policy.Requirements.Add(VehicleOperations.Delete));
+                options.AddPolicy("CanUploadUserFile", policy => policy.Requirements.Add(VehicleOperations.UploadUserFile));
             });
+
+            services.AddScoped<IAuthorizationHandler,
+                      EntityAuthorizationHandler>();
 
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));

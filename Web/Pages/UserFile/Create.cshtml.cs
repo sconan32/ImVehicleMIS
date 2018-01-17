@@ -20,7 +20,7 @@ namespace Socona.ImVehicle.Web.Pages.UserFile
             _hostingEnvironment = hostingEnvironment;
             
         }
-
+    
         public IActionResult OnGet(long? townId,long? groupId, string returnUrl)
         {
 

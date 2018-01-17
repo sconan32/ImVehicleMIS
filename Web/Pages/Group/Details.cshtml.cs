@@ -31,11 +31,16 @@ namespace Socona.ImVehicle.Web.Pages.Group
         public List<UserFileListViewModel> GlobalFiles { get; set; }
         public async Task<bool> CanEdit()
         {
-            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireTownManagerRole");
-            var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
-            return (await tm).Succeeded || (await admin).Succeeded;
+            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, GroupItem.OriginalModel, "CanEdit");
+            return (await tm).Succeeded;
         }
+        public async Task<bool> CanUpload()
+        {
+            var can = _authorizationService.AuthorizeAsync(HttpContext.User, GroupItem.OriginalModel, "CanUploadUserFile");
+            var gm = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireGroupManagerRole");
 
+            return (await gm).Succeeded && (await can).Succeeded;
+        }
 
 
         public async Task<IActionResult> OnGetAsync(long? id)
@@ -56,55 +61,10 @@ namespace Socona.ImVehicle.Web.Pages.Group
             {
                 return NotFound();
             }
-            GroupItem = new GroupDetailViewModel()
-            {
-                Id = group.Id,
-                Name = group.Name,
-                Address = group.Address,
-                RegisterAddress = group.RegisterAddress,
-                License = group.License,
-                ChiefName = group.ChiefName,
-                ChiefTel = group.ChiefTel,
-                Type = group.Type,
-                Introduction = group.Comment,
-
-                PhotoMain = group.PhotoMain != null ? Convert.ToBase64String(group.PhotoMain) : "",
-                PhotoWarranty = group.PhotoWarranty != null ? Convert.ToBase64String(group.PhotoWarranty) : "",
-                PhotoSecurity = group.PhotoSecurity != null ? Convert.ToBase64String(group.PhotoSecurity) : "",
-
-                TownName = group.Town.Name,
-                VehicleCount = group.Vehicles.Count,
-
-                DriverCount = group.Drivers.Count,
-                SecuremanCount = group.Drivers.Count,
-                DriverInvalidCount = group.Drivers.Count(d => !d.IsValid()),
-                VehicleInvalidCount = group.Vehicles.Count(v => !v.IsValid()),
-                IsValid = group.IsValid(),
-
-
-                Vehicles = group.Vehicles.Select(t => new VehicleListViewModel(t)).ToList(),
-                Drivers = group.Drivers.Select(t => new DriverListViewModel(t)).ToList(),
-                UserFiles = group.UserFiles.Select(t => new UserFileListViewModel(t)).ToList(),
-
-                Securemans = group.SecurityPersons.Select(t => new SecureManListViewModel()
-                {
-                    Id = t.Id,
-                    Name = t.Name,
-                    Address = t.Address,
-                    RegisterAddress = t.RegisterAddress,
-                    Company = t.Company,
-                    GroupName = t.Group?.Name,
-                    TownName = t.Town?.Name,
-                    IdCardNum = t.IdCardNum,
-                    Tel = t.Tel,
-                    Title = t.Title,
-                }).ToList(),
-            };
+            GroupItem = new GroupDetailViewModel(group);
             var gf = (await _userFileService.GetGlobalUserFilesAsync()).Select(t => new UserFileListViewModel(t)).ToList();
             var tf = (await _userFileService.GetUserFilesForTownAsync(group.TownId.Value)).Select(t => new UserFileListViewModel(t)).ToList();
             GlobalFiles = gf.Union(tf).ToList();
-
-
 
             return Page();
         }

@@ -3,12 +3,61 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Socona.ImVehicle.Core.Data;
 
 namespace Socona.ImVehicle.Web.ViewModels
 {
     public class GroupDetailViewModel
     {
+        public GroupDetailViewModel(GroupItem group=null)
+        {
+            OriginalModel = group;
+            if (group!=null)
+            {
 
+                Id = group.Id;
+                Name = group.Name;
+                Address = group.Address;
+                RegisterAddress = group.RegisterAddress;
+                License = group.License;
+                ChiefName = group.ChiefName;
+                ChiefTel = group.ChiefTel;
+                Type = group.Type;
+                Introduction = group.Comment;
+
+                PhotoMain = group.PhotoMain != null ? Convert.ToBase64String(group.PhotoMain) : "";
+                PhotoWarranty = group.PhotoWarranty != null ? Convert.ToBase64String(group.PhotoWarranty) : "";
+                PhotoSecurity = group.PhotoSecurity != null ? Convert.ToBase64String(group.PhotoSecurity) : "";
+
+                TownName = group.Town.Name;
+                VehicleCount = group.Vehicles.Count;
+
+                DriverCount = group.Drivers.Count;
+                SecuremanCount = group.Drivers.Count;
+                DriverInvalidCount = group.Drivers.Count(d => !d.IsValid());
+                VehicleInvalidCount = group.Vehicles.Count(v => !v.IsValid());
+                IsValid = group.IsValid();
+
+
+                Vehicles = group.Vehicles.Select(t => new VehicleListViewModel(t)).ToList();
+                Drivers = group.Drivers.Select(t => new DriverListViewModel(t)).ToList();
+                UserFiles = group.UserFiles.Select(t => new UserFileListViewModel(t)).ToList();
+
+                Securemans = group.SecurityPersons.Select(t => new SecureManListViewModel()
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    Address = t.Address,
+                    RegisterAddress = t.RegisterAddress,
+                    Company = t.Company,
+                    GroupName = t.Group?.Name,
+                    TownName = t.Town?.Name,
+                    IdCardNum = t.IdCardNum,
+                    Tel = t.Tel,
+                    Title = t.Title,
+                }).ToList();
+            }
+        }
         public long Id { get; set; }
         [Display(Name = "名称")]
         public string Name { get; set; }
@@ -68,5 +117,7 @@ namespace Socona.ImVehicle.Web.ViewModels
 
 
         public bool IsValid { get; set; }
+
+        public GroupItem OriginalModel { get; set; }
     }
 }
