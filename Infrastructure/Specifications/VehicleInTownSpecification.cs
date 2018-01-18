@@ -6,7 +6,7 @@ using System.Text;
 namespace Socona.ImVehicle.Core.Specifications
 {
 
-    public class VehicleInTownSpecification : BaseSpecification<VehicleItem>
+    public class VehicleInTownSpecification : Specification<VehicleItem>
     {
         public VehicleInTownSpecification(long townId) : base(o => o.TownId == townId)
         {

@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Socona.ImVehicle.Core.Data;
 
-namespace ImVehicleMIS.Pages.Account
+namespace Socona.ImVehicle.Web.Pages.Account
 {
     public class ExternalLoginModel : PageModel
     {

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Socona.ImVehicle.Infrastructure.Specifications
 {
-    public class Group4UserSpecification : BaseSpecification<GroupItem>
+    public class Group4UserSpecification : Specification<GroupItem>
     {
         public Group4UserSpecification(Expression<Func<GroupItem, bool>> criteria = null) : base(criteria)
         {

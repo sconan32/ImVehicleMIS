@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Socona.ImVehicle.Core.Specifications
 {
-    public class Driver4UserSpecification : BaseSpecification<DriverItem>
+    public class Driver4UserSpecification : Specification<DriverItem>
     {
         private Driver4UserSpecification(Expression<Func<DriverItem, bool>> expression) : base(expression)
         {

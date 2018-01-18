@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Socona.ImVehicle.Core.Specifications
 {
-    public class DriverInGroupSpecification : BaseSpecification<DriverItem>
+    public class DriverInGroupSpecification : Specification<DriverItem>
     {
         public DriverInGroupSpecification(int groupId) : base(t => t.GroupId == groupId) { }
     }

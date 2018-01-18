@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Web.ViewModels;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
 
-namespace Web.Pages.UserFile
+namespace Socona.ImVehicle.Web.Pages.UserFile
 {
     public class CreateModel : PageModel
     {
@@ -23,7 +20,7 @@ namespace Web.Pages.UserFile
             _hostingEnvironment = hostingEnvironment;
             
         }
-
+    
         public IActionResult OnGet(long? townId,long? groupId, string returnUrl)
         {
 

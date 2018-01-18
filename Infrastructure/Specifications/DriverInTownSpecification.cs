@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Socona.ImVehicle.Core.Specifications
 {
-    public class DriverInTownSpecification : BaseSpecification<DriverItem>
+    public class DriverInTownSpecification : Specification<DriverItem>
     {
         public DriverInTownSpecification(long townId) : base(o => o.TownId == townId)
         {

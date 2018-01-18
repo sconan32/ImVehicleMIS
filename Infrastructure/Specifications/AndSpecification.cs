@@ -8,7 +8,7 @@ using System.Text;
 namespace Socona.ImVehicle.Core.Specifications
 {
 
-    public class AndSpecification<T> : BaseSpecification<T>
+    public class AndSpecification<T> : Specification<T>
     {
         private readonly ISpecification<T> _left;
         private readonly ISpecification<T> _right;

@@ -6,7 +6,7 @@ using Socona.ImVehicle.Core.Data;
 
 namespace Socona.ImVehicle.Core.Specifications
 {
-  public  class TownWithUserSpecification:BaseSpecification<TownItem>
+  public  class TownWithUserSpecification:Specification<TownItem>
     {
         public TownWithUserSpecification(string userName) : base(o=>o.Users.Any(t=>t.UserName==userName))
         { }

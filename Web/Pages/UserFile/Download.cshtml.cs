@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Socona.ImVehicle.Core.Data;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
 
-namespace Web.Pages.UserFile
+namespace Socona.ImVehicle.Web.Pages.UserFile
 {
     public class DownloadModel : PageModel
     {

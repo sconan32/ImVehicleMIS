@@ -11,14 +11,15 @@ using Microsoft.Extensions.Logging;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
 
-namespace ImVehicleMIS.Pages.Account
+namespace Socona.ImVehicle.Web.Pages.Account
 {
     public class LoginModel : PageModel
     {
         private readonly SignInManager<VehicleUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly UserManager<VehicleUser> _userManager;
-        public LoginModel(SignInManager<VehicleUser> signInManager,UserManager<VehicleUser> userManager, IAsyncRepository<NewsItem> newsRepository, ILogger<LoginModel> logger)
+        INewsService _newsRepisitory;
+        public LoginModel(SignInManager<VehicleUser> signInManager, UserManager<VehicleUser> userManager, INewsService newsRepository, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -39,13 +40,24 @@ namespace ImVehicleMIS.Pages.Account
 
             [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
             public DateTime Date { get; set; }
+
+            public NewsListView(NewsItem news = null)
+            {
+                Id = news.Id;
+                Name = news.Title;
+                Date = news.PublishDate;
+
+            }
         }
 
 
         public string ReturnUrl { get; set; }
 
-        IAsyncRepository<NewsItem> _newsRepisitory;
+
         public List<NewsListView> NewsList { get; set; } = new List<NewsListView>();
+        public List<NewsListView> LawList { get; set; } = new List<NewsListView>();
+        public List<NewsListView> CaseList { get; set; } = new List<NewsListView>();
+
 
         [TempData]
         public string ErrorMessage { get; set; }
@@ -53,7 +65,7 @@ namespace ImVehicleMIS.Pages.Account
         public class InputModel
         {
             [Required]
-           
+
             public string UserName { get; set; }
 
             [Required]
@@ -79,16 +91,11 @@ namespace ImVehicleMIS.Pages.Account
             ReturnUrl = returnUrl;
 
 
-             var news = await _newsRepisitory.ListRangeAsync(0, 10);
+            var news = await _newsRepisitory.LoadLoginNews();
 
-            NewsList = news
-                .Select(o => new NewsListView()
-                {
-                    Id = o.Id,
-                    Name = o.Title,
-                    Date = o.PublishDate
-
-                }).ToList();
+            NewsList = news.Select(o => new NewsListView(o)).ToList();
+            LawList = (await _newsRepisitory.LoadLoginLaws()).Select(t => new NewsListView(t)).ToList();
+            CaseList = (await _newsRepisitory.LoadLoginCases()).Select(t => new NewsListView(t)).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -103,7 +110,7 @@ namespace ImVehicleMIS.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                   
+
                     return LocalRedirect(Url.GetLocalUrl(returnUrl));
                 }
                 if (result.RequiresTwoFactor)

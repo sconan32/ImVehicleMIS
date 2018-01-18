@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
-using System.ComponentModel.DataAnnotations;
-using Socona.ImVehicle.Web.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Socona.ImVehicle.Infrastructure.Interfaces;
+using Socona.ImVehicle.Web.ViewModels;
 
-namespace Web.Pages.Towns
+namespace Socona.ImVehicle.Web.Pages.Town
 {
     public class DetailsModel : PageModel
     {
@@ -38,9 +34,9 @@ namespace Web.Pages.Towns
 
         public async Task<bool> CanEdit()
         {
-            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireTownManagerRole");
-            var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
-            return (await tm).Succeeded || (await admin).Succeeded;
+            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, "CanEdit");
+
+            return (await tm).Succeeded;
         }
 
 

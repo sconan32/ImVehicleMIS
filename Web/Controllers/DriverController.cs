@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Socona.ImVehicle.Core.Data;
-using Socona.ImVehicle.Core.Interfaces;
-using Socona.ImVehicle.Core.Specifications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Core.Interfaces;
+using Socona.ImVehicle.Core.Specifications;
 using Socona.ImVehicle.Web.ViewModels;
 
-namespace Web.Controllers
+namespace Socona.ImVehicle.Web.Controllers
 {
     [Route("[controller]/[action]")]
     public class DriverController : Controller

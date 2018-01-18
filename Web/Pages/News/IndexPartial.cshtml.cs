@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Socona.ImVehicle.Web.ViewModels;
 
-namespace Web.Pages.News
+namespace Socona.ImVehicle.Web.Pages.News
 {
     public class IndexPartialModel : PageModel
     {

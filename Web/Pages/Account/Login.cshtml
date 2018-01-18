@@ -1,5 +1,6 @@
 @page
-@model LoginModel
+@using Socona.ImVehicle.Web.Pages.Account
+@model Socona.ImVehicle.Web.Pages.Account.LoginModel
 
 @{
     ViewData["Title"] = "用户登录";
@@ -13,66 +14,66 @@
         <div class="row">
             <div class="col-md-5 col-sm-12 col-xs-12 pull-right">
 
-              
-                    <div class="feature_slider_inner" style="padding-top:50px;">
-                        <div class="item">
-                            <div class="feature_s_item">
+
+                <div class="feature_slider_inner" style="padding-top:50px;">
+                    <div class="item">
+                        <div class="feature_s_item">
+                            <br />
+                            <h4>用户登录</h4>
+                            <section>
+                                <form class="form-horizontal" method="post">
+                                    <hr />
+                                    <div class="form-group ">
+                                        <label class="col-sm-3 control-label">用户名</label>
+                                        <div class="col-sm-9">
+                                            <input asp-for="Input.UserName" class="form-control" />
+                                            <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group " style="margin-top:20px;">
+                                        <label class="col-sm-3 control-label">密码</label>
+                                        <div class="col-sm-9">
+                                            <input asp-for="Input.Password" class="form-control" />
+                                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group " style="margin-top:20px;">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input asp-for="Input.RememberMe" />
+                                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-top:20px;">
+                                        <button type="submit" class="form-control submit_blue"> 登录 </button>
+                                    </div>
+                                    <div class="form-group" style="margin-top:20px;">
+                                        <p>
+
+                                        </p>
+
+                                    </div>
+
+                                </form>
                                 <br />
-                                <h4>用户登录</h4>
-                                <section>
-                                    <form class="form-horizontal" method="post">
-                                        <hr />
-                                        <div class="form-group ">
-                                            <label class="col-sm-3 control-label">用户名</label>
-                                            <div class="col-sm-9">
-                                                <input asp-for="Input.UserName" class="form-control" />
-                                                <span asp-validation-for="Input.UserName" class="text-danger"></span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group " style="margin-top:20px;">
-                                            <label class="col-sm-3 control-label">密码</label>
-                                            <div class="col-sm-9">
-                                                <input asp-for="Input.Password" class="form-control" />
-                                                <span asp-validation-for="Input.Password" class="text-danger"></span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group " style="margin-top:20px;">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input asp-for="Input.RememberMe" />
-                                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" style="margin-top:20px;">
-                                            <button type="submit" class="form-control submit_blue"> 登录 </button>
-                                        </div>
-                                        <div class="form-group" style="margin-top:20px;">
-                                            <p>
-                                              
-                                            </p>
+                            </section>
+                        </div>
 
-                                        </div>
-
-                                    </form>
-                                    <br/>
-                                </section>
-                            </div>
-                     
                     </div>
                 </div>
             </div>
             <div class="col-md-7 col-sm-12 col-xs-12">
-                <div class="row feature_row" >
+                <div class="row feature_row">
                     <br />
-                    <h4 style="color:#2761d8;border-bottom: 2px dotted #2761d8;padding-bottom:8px"><i class="fa fa-newspaper-o"></i> 新闻 · 通知</h4>
-                   <br />
+                    <h4 style="color:#2761d8;border-bottom: 2px dotted #2761d8;padding-bottom:8px"><i class="fa fa-newspaper-o"></i> 通知 · 通告</h4>
+                    <br />
 
 
                     @if (Model.NewsList != null && Model.NewsList.Any())
-            {
+                    {
                         @foreach (var item in Model.NewsList)
-                {
+                        {
                             <article class=" row" style="line-height:36px; margin:0px 20px; ">
                                 <section class="col-xs-9" style="border-bottom:1px solid #eee"><a class="esh-orders-link" asp-page="/News/Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
                                 <section class="col-xs-3" style="border-bottom:1px solid #eee"> @Html.DisplayFor(modelItem => item.Date)</section>
@@ -80,16 +81,62 @@
                         }
                     }
                 </div>
-                <br/>
+
+
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="row feature_row">
                     <br />
-                    <h4 style="color:#2761d8;border-bottom: 2px dotted #2761d8;padding-bottom:8px"><i class="fa fa-newspaper-o"></i> 快速链接</h4>
+                    <h4 style="color:#2761d8;border-bottom: 2px dotted #2761d8;padding-bottom:8px"><i class="fa fa-newspaper-o"></i> 法规 · 文件</h4>
                     <br />
-                    
 
-                  
+
+                    @if (Model.NewsList != null && Model.LawList.Any())
+                    {
+                        @foreach (var item in Model.LawList)
+                        {
+                            <article class=" row" style="line-height:36px; margin:0px 20px; ">
+                                <section class="col-xs-9" style="border-bottom:1px solid #eee"><a class="esh-orders-link" asp-page="/News/Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
+                                <section class="col-xs-3" style="border-bottom:1px solid #eee"> @Html.DisplayFor(modelItem => item.Date)</section>
+                            </article>
+                        }
+                    }
                 </div>
+                <br />
+
             </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="row feature_row">
+                    <br />
+                    <h4 style="color:#2761d8;border-bottom: 2px dotted #2761d8;padding-bottom:8px"><i class="fa fa-newspaper-o"></i> 安全 · 案例</h4>
+                    <br />
+
+
+                    @if (Model.NewsList != null && Model.CaseList.Any())
+                    {
+                        @foreach (var item in Model.CaseList)
+                        {
+                            <article class=" row" style="line-height:36px; margin:0px 20px; ">
+                                <section class="col-xs-9" style="border-bottom:1px solid #eee"><a class="esh-orders-link" asp-page="/News/Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
+                                <section class="col-xs-3" style="border-bottom:1px solid #eee"> @Html.DisplayFor(modelItem => item.Date)</section>
+                            </article>
+                        }
+                    }
+                </div>
+                <br />
+
+            </div>
+        </div>
+        <div class="row feature_row">
+            <br />
+            <h4 style="color:#2761d8;border-bottom: 2px dotted #2761d8;padding-bottom:8px"><i class="fa fa-newspaper-o"></i> 快速链接</h4>
+            <br />
+
+
+
         </div>
         <div class="row">
             <ul>

@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Socona.ImVehicle.Core.Data;
-using Socona.ImVehicle.Core.Interfaces;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using static ImVehicleMIS.Pages.Account.LoginModel;
+using Socona.ImVehicle.Core.Data;
 
-namespace ImVehicleMIS.Pages
+namespace Socona.ImVehicle.Web.Pages
 {
     public class IndexModel : PageModel
     {

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Socona.ImVehicle.Core.Specifications
 {
-    public class Vehicle4UserSpecification : BaseSpecification<VehicleItem>
+    public class Vehicle4UserSpecification : Specification<VehicleItem>
     {
         private Vehicle4UserSpecification(Expression<Func<VehicleItem, bool>> expression) : base(expression)
         {

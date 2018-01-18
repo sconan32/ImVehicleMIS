@@ -1,50 +1,115 @@
 ﻿@page
 @model Web.Pages.Driver.QueryModel
+@addTagHelper "*,Socona.ImVehicle.Web.TagHelpers"
 @{
     ViewData["Title"] = "驾驶员 查找结果";
 }
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3>驾驶员 查找结果</h3>
+            <h3>查找驾驶员</h3>
         </div>
         <div class="pull-right">
             <a asp-page="/Index">主页</a>&gt;
-            <a asp-page="/Driver/Index">驾驶员</a>
+            <a asp-page="/Driver/Index">查找驾驶员</a>
         </div>
     </div>
 </section>
 <section class="main_feature_area">
     <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        驾驶员 查找条件:@ViewBag.QueryString
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <form class="form-horizontal col-sm-10" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="iptFilterName" class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="iptFilterName" placeholder="姓名" asp-for="FilterModel.Name">
+                            </div>
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">身份证号</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="iptFilterIdCard" placeholder="身份证号" asp-for="FilterModel.IdCard">
+                            </div>
+                        </div>
 
-        <p>
-          <h4>驾驶员 查找结果  条件:@ViewBag.QueryString</h4>
-        </p>
+                        <div class="form-group">
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">电话</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="iptTel" placeholder="电话" asp-for="FilterModel.Tel">
+                            </div>
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">状态</label>
+
+                            <div class="col-sm-4">
+                                <div class="btn-group" data-toggle="buttons">
+
+                                    <label class="btn btn-primary ">
+                                        <email></email>
+                                        <enum-radio-button asp-for="FilterModel.Status" value="ModelStatus.All"/>
+                                    </label>
+                                    <label class="btn btn-primary">
+                                        <enum-radio-button asp-for="FilterModel.Status" value="ModelStatus.Normal"/>
+                                    </label>
+                                    <label class="btn btn-primary">
+                                        <enum-radio-button asp-for="FilterModel.Status" value="ModelStatus.Warning"/>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">街道</label>
+                            <div class="col-sm-4">
+                                <select id="town_select" asp-for="FilterModel.TownId" class"form-control" asp-items="ViewBag.TownList">
+                                    <option>请选择街道 </option>
+                                </select>
+                            </div>
+
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">安全组</label>
+                            <div class="col-sm-4">
+                                <select id="group_select" asp-for="FilterModel.GroupId" class="form-control" asp-items="ViewBag.GroupList">
+                                    <option>请选择安全组 </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <button class="btn btn-edit-item" type="submit"><i class="fa fa-search"></i> 搜 索</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <br />
         <hr />
+
         <table class="table table-hover">
             <thead>
                 <tr>
-                   
+
                     <th>
                         @Html.DisplayNameFor(model => model.Drivers[0].Name)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Drivers[0].IdCardNumber)
                     </th>
-                   
-                   
-
                     <th>
                         @Html.DisplayNameFor(model => model.Drivers[0].LicenseType)
                     </th>
-
-
-
-
                     <th>
                         @Html.DisplayNameFor(model => model.Drivers[0].LicenseExpiredDate)
                     </th>
-                  
+
                     <th>
                         @Html.DisplayNameFor(model => model.Drivers[0].VehiclesRegistered)
                     </th>
@@ -57,28 +122,28 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Drivers[0].Tel)
                     </th>
-                    <th></th>
+                    <th>
+
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.Drivers)
                 {
                     <tr>
-                      
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.IdCardNumber)
                         </td>
-                      
                         <td>
                             <b>@Html.DisplayFor(modelItem => item.LicenseType)</b>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.LicenseExpiredDate)
                         </td>
-                       
+
                         <td>
                             @Html.DisplayFor(modelItem => item.VehiclesRegistered)
                         </td>
@@ -93,10 +158,10 @@
                         </td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                                <a class="btn btn-view-item btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                                 @if (await Model.CanEdit())
                                 {
-                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button type="button" class="btn btn-view-item btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="caret"></span>
                                         <span class="sr-only">向下弹出</span>
                                     </button>
@@ -116,3 +181,32 @@
         </table>
     </div>
 </section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            //Dropdownlist Selectedchange event
+
+            $("#town_select").change(function () {
+                $("#group_select").empty();
+                $.ajax({
+                    type: "GET",
+                    url: "/Group/GetDropDownList?townId=" + $('#town_select').val(),
+                    success: function (states) {
+                        $("#group_select").append('<option value="' + "-1" + '">' + "请选择安全组" + '</option>');
+                        debugger;
+                        $.each(states, function (i, state) {
+                            $("#group_select").append('<option value="' + state.value + '">' + state.text + '</option>');
+                            // here we are adding option for States
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve states.' + ex);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+
+}

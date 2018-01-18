@@ -7,7 +7,7 @@ using Socona.ImVehicle.Core.Data;
 namespace Socona.ImVehicle.Core.Specifications
 {
 
-    public class GroupsInTownSpecification : BaseSpecification<GroupItem>
+    public class GroupsInTownSpecification : Specification<GroupItem>
     {
         public GroupsInTownSpecification(long townId) : base(o => o.TownId == townId)
         {

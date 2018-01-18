@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Socona.ImVehicle.Core.Data;
 
-namespace ImVehicleMIS.Pages.Account.Manage
+namespace Socona.ImVehicle.Web.Pages.Account.Manage
 {
     public class ExternalLoginsModel : PageModel
     {

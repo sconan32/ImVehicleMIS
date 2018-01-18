@@ -1,25 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
-using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Socona.ImVehicle.Core.Services;
-using Socona.ImVehicle.Infrastructure.Services;
+using Socona.ImVehicle.Infrastructure.Authorization;
 using Socona.ImVehicle.Infrastructure.Interfaces;
+using Socona.ImVehicle.Infrastructure.Services;
 
-namespace ImVehicleMIS
+namespace Socona.ImVehicle.Web
 {
     public class Startup
     {
@@ -66,9 +60,15 @@ namespace ImVehicleMIS
                 options.AddPolicy("RequireAdminsRole", policy => policy.RequireRole("Admins"));
                 options.AddPolicy("RequireGlobalVisitorRole", policy => policy.RequireRole("GlobalVisitor"));
                 options.AddPolicy("RequireGroupManagerRole", policy => policy.RequireRole("GroupManager"));
-               
-
+                options.AddPolicy("CanRead", policy => policy.Requirements.Add(VehicleOperations.Read));
+                options.AddPolicy("CanEdit", policy => policy.Requirements.Add(VehicleOperations.Update));
+                options.AddPolicy("CanCreate", policy => policy.Requirements.Add(VehicleOperations.Create));
+                options.AddPolicy("CanDelete", policy => policy.Requirements.Add(VehicleOperations.Delete));
+                options.AddPolicy("CanUploadUserFile", policy => policy.Requirements.Add(VehicleOperations.UploadUserFile));
             });
+
+            services.AddScoped<IAuthorizationHandler,
+                      EntityAuthorizationHandler>();
 
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));

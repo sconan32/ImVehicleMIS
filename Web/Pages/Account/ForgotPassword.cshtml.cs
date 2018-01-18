@@ -7,7 +7,7 @@ using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Extensions;
 using Socona.ImVehicle.Core.Interfaces;
 
-namespace ImVehicleMIS.Pages.Account
+namespace Socona.ImVehicle.Web.Pages.Account
 {
     public class ForgotPasswordModel : PageModel
     {

@@ -1,18 +1,14 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-
 using Socona.ImVehicle.Core.Data;
-using Socona.ImVehicle.Core.Interfaces;
 using Socona.ImVehicle.Core.Extensions;
+using Socona.ImVehicle.Core.Interfaces;
 
-namespace ImVehicleMIS.Pages.Account
+namespace Socona.ImVehicle.Web.Pages.Account
 {
     public class RegisterModel : PageModel
     {

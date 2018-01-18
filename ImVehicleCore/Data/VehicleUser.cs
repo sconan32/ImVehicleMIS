@@ -35,37 +35,102 @@ namespace Socona.ImVehicle.Core.Data
         public long? GroupId { get; set; }
 
         [ForeignKey("DistrictId")]
-        public virtual DistrictItem District {get;set;}
+        public virtual DistrictItem District { get; set; }
 
         public long? DistrictId { get; set; }
 
 
-        public async Task<bool> CanViewAsync(TownItem town,UserManager<VehicleUser> userManager)
+        public async Task<bool> CanDoAsync(string operation, BaseEntity entity, UserManager<VehicleUser> userManager)
         {
-            return await CanView<TownItem>(town,userManager, t => true, t => true, t => t.Id == TownId, t => false);
-        }
-        public async Task<bool> CanViewAsync(GroupItem group, UserManager<VehicleUser> userManager)
-        {
-            return await CanView<GroupItem>(group, userManager, t => true, t => true, t => t.TownId==TownId, t => t.Id==GroupId);
+            if (entity is TownItem)
+            {
+                return await CanDoAsync(operation, entity as TownItem, userManager);
+            }
+            else if (entity is GroupItem)
+            {
+                return await CanDoAsync(operation, entity as GroupItem, userManager);
+            }
+            else if (entity is DriverItem)
+            {
+                return await CanDoAsync(operation, entity as DriverItem, userManager);
+            }
+            else if (entity is VehicleItem)
+            {
+                return await CanDoAsync(operation, entity as VehicleItem, userManager);
+            }
+            return false;
         }
 
-        public async Task<bool> CanViewAsync(DriverItem driver,UserManager<VehicleUser> userManager)
+        public async Task<bool> CanDoAsync(string operation, TownItem town, UserManager<VehicleUser> userManager)
         {
-            return await CanView<DriverItem>(driver, userManager, t => true, t => true, t => t.TownId == TownId, t => t.GroupId == GroupId);
-        }
-        public async Task<bool> CanViewAsync(VehicleItem vehicle, UserManager<VehicleUser> userManager)
-        {
-            return await CanView<VehicleItem>(vehicle, userManager, t => true, t => true, t => t.TownId == TownId, t => t.GroupId == GroupId);
-        }
-        private async Task< bool> CanView<T>(T item, UserManager<VehicleUser> userManager,
-            Func<T,bool> adminAction,
-             Func<T,bool> globalVisitorAction,
-             Func<T,bool> townManagerAction,
-             Func<T,bool> groupManagerAction     )
-        {
-            if(await userManager.IsInRoleAsync(this, "Admins"))
+            if (operation == Constants.ReadOperationName)
             {
-                return adminAction.Invoke(item) ;
+                return await CanDo(town, userManager, t => true, t => true, t => t.Id == TownId, t => false);
+
+            }
+            else if (operation == Constants.CreateOperationName || operation == Constants.UpdateOperationName || operation == Constants.DeleteOperationName)
+            {
+                return await CanDo(town, userManager, t => true, t => false, t => t.Id == TownId, t => false);
+            }
+            return false;
+
+        }
+        public async Task<bool> CanDoAsync(string operation, GroupItem group, UserManager<VehicleUser> userManager)
+        {
+            if (operation == Constants.ReadOperationName)
+            {
+                return await CanDo(group, userManager, t => true, t => true, t => t.TownId == TownId, t => t.Id == GroupId);
+
+            }
+            else if (operation == Constants.CreateOperationName || operation == Constants.UpdateOperationName || operation == Constants.DeleteOperationName)
+            {
+                return await CanDo(group, userManager, t => true, t => false, t => t.Id == TownId, t => false);
+            }
+            else if (operation == Constants.UploadUserFileOperationName)
+            {
+                return await CanDo(group, userManager, t => true, t => false, t => t.Id == TownId, t => t.Id == GroupId);
+            }
+            return false;
+
+        }
+
+        public async Task<bool> CanDoAsync(string operation, DriverItem driver, UserManager<VehicleUser> userManager)
+        {
+            if (operation == Constants.ReadOperationName)
+            {
+                return await CanDo(driver, userManager, t => true, t => true, t => t.TownId == TownId, t => t.GroupId == GroupId);
+
+            }
+            else if (operation == Constants.CreateOperationName || operation == Constants.UpdateOperationName || operation == Constants.DeleteOperationName)
+            {
+                return await CanDo(driver, userManager, t => true, t => false, t => t.Id == TownId, t => false);
+            }
+            return false;
+        }
+        public async Task<bool> CanDoAsync(string operation, VehicleItem vehicle, UserManager<VehicleUser> userManager)
+        {
+            if (operation == Constants.ReadOperationName)
+            {
+                return await CanDo(vehicle, userManager, t => true, t => true, t => t.TownId == TownId, t => t.GroupId == GroupId);
+
+            }
+            else if (operation == Constants.CreateOperationName || operation == Constants.UpdateOperationName || operation == Constants.DeleteOperationName)
+            {
+                return await CanDo(vehicle, userManager, t => true, t => false, t => t.Id == TownId, t => false);
+            }
+            return false;
+        }
+
+
+        private async Task<bool> CanDo<T>(T item, UserManager<VehicleUser> userManager,
+            Func<T, bool> adminAction,
+             Func<T, bool> globalVisitorAction,
+             Func<T, bool> townManagerAction,
+             Func<T, bool> groupManagerAction)
+        {
+            if (await userManager.IsInRoleAsync(this, "Admins"))
+            {
+                return adminAction.Invoke(item);
             }
             if (await userManager.IsInRoleAsync(this, "GlobalVisitor"))
             {
@@ -81,5 +146,7 @@ namespace Socona.ImVehicle.Core.Data
             }
             return false;
         }
+
+
     }
 }
