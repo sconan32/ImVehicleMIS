@@ -33,6 +33,7 @@ namespace Socona.ImVehicle.Core.Data
 
         public virtual List<DriverItem> Drivers { get; set; }
 
+  
         public virtual List<UserFileItem> UserFiles { get; set; }
 
         public long? TownId { get; set; }
@@ -42,8 +43,7 @@ namespace Socona.ImVehicle.Core.Data
 
       
 
-        [Display(Name = "安全资质照片")]
-        public byte[] PhotoSecurity { get; set; }
+    
         [Display(Name = "文件附件")]
         public string AttachmentFilePath { get; set; }
         [Display(Name = "职务")]
@@ -55,12 +55,44 @@ namespace Socona.ImVehicle.Core.Data
         [Display(Name = "介绍")]
         public string Comment { get; set; }
 
+        [Display(Name = "监理民警")]
+        public string Policeman { get; set; }
+        [Display(Name = "监理中队")]
+        public string PoliceOffice { get; set; }
+
 
         [Display(Name = "企业照片")]
         public byte[] PhotoMain { get; set; }
 
         [Display(Name = "资质照片")]
         public byte[] PhotoWarranty { get; set; }
+
+        [Display(Name = "安全资质照片")]
+        public byte[] PhotoSecurity { get; set; }
+
+        public byte[] PhotoOther1 { get; set; }
+
+        public byte[] PhotoOther2 { get; set; }
+
+        public byte[] PhotoOther3 { get; set; }
+
+        public long? ApplicationFileId { get; set; }
+        [ForeignKey("ApplicationFileId")]
+        public virtual UserFileItem ApplicationFile { get; set; }
+
+
+        public long? RuleFileId { get; set; }
+        [ForeignKey("RuleFileId")]
+        public virtual UserFileItem RuleFile { get; set; }
+
+
+        public long? DriverGuranteeFileId { get; set; }
+        [ForeignKey("DriverGuranteeFileId")]
+        public virtual UserFileItem DriverGuranteeFile { get; set; }
+
+        public long? GroupGuranteeFileId { get; set; }
+        [ForeignKey("GroupGuranteeFileId")]
+        public virtual UserFileItem GroupGuranteeFile { get; set; }
 
         public bool IsValid()
         {

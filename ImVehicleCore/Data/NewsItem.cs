@@ -26,7 +26,7 @@ namespace Socona.ImVehicle.Core.Data
         public string Source { get; set; }
 
         [Display(Name = "类型")]
-        public NewsAreaType Area { get; set; }
+        public NewsAreaType? Area { get; set; }
 
         [Display(Name = "失效日期")]
         [DataType(DataType.Date)]

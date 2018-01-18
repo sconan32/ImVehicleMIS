@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Socona.ImVehicle.Core.Migrations
 {
-    public partial class revised0007 : Migration
+    public partial class Revision2002 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,6 +59,7 @@ namespace Socona.ImVehicle.Core.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Area = table.Column<int>(nullable: true),
                     Content = table.Column<string>(nullable: false),
                     CreateBy = table.Column<string>(nullable: true),
                     CreationDate = table.Column<DateTime>(nullable: true),
@@ -79,6 +80,32 @@ namespace Socona.ImVehicle.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Newses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Operations",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CreateBy = table.Column<string>(nullable: true),
+                    CreationDate = table.Column<DateTime>(nullable: true),
+                    Event = table.Column<int>(nullable: false),
+                    IpAddr = table.Column<string>(nullable: true),
+                    Metadata = table.Column<string>(nullable: true),
+                    ModificationDate = table.Column<DateTime>(nullable: true),
+                    ModifyBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    NewData = table.Column<string>(nullable: true),
+                    OldData = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    Summary = table.Column<string>(nullable: true),
+                    Url = table.Column<string>(nullable: true),
+                    VersionNumber = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Operations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -132,43 +159,64 @@ namespace Socona.ImVehicle.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Groups",
+                name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Address = table.Column<string>(nullable: true),
-                    AttachmentFilePath = table.Column<string>(nullable: true),
-                    ChiefName = table.Column<string>(nullable: true),
-                    ChiefTel = table.Column<string>(nullable: true),
-                    ChiefTitle = table.Column<string>(nullable: true),
-                    Code = table.Column<string>(nullable: true),
-                    Comment = table.Column<string>(nullable: true),
-                    CreateBy = table.Column<string>(nullable: true),
-                    CreationDate = table.Column<DateTime>(nullable: true),
-                    License = table.Column<string>(nullable: true),
-                    Metadata = table.Column<string>(nullable: true),
-                    ModificationDate = table.Column<DateTime>(nullable: true),
-                    ModifyBy = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    PhotoMain = table.Column<byte[]>(nullable: true),
-                    PhotoSecurity = table.Column<byte[]>(nullable: true),
-                    PhotoWarranty = table.Column<byte[]>(nullable: true),
-                    RegisterAddress = table.Column<string>(nullable: true),
-                    Status = table.Column<int>(nullable: false),
-                    TownId = table.Column<long>(nullable: true),
-                    Type = table.Column<string>(nullable: true),
-                    VersionNumber = table.Column<int>(nullable: false)
+                    UserId = table.Column<string>(nullable: false),
+                    RoleId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Groups", x => x.Id);
+                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_Groups_Towns_TownId",
-                        column: x => x.TownId,
-                        principalTable: "Towns",
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
+                    ProviderDisplayName = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
                 });
 
             migrationBuilder.CreateTable(
@@ -209,13 +257,109 @@ namespace Socona.ImVehicle.Core.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Groups_GroupId",
-                        column: x => x.GroupId,
-                        principalTable: "Groups",
+                        name: "FK_AspNetUsers_Towns_TownId",
+                        column: x => x.TownId,
+                        principalTable: "Towns",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Vehicles",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Agent = table.Column<string>(maxLength: 128, nullable: true),
+                    Brand = table.Column<string>(nullable: true),
+                    Color = table.Column<string>(nullable: true),
+                    Comment = table.Column<string>(nullable: true),
+                    CreateBy = table.Column<string>(nullable: true),
+                    CreationDate = table.Column<DateTime>(nullable: true),
+                    DriverId = table.Column<long>(nullable: true),
+                    DriverName = table.Column<string>(nullable: true),
+                    DriverTel = table.Column<string>(nullable: true),
+                    DumpDate = table.Column<DateTime>(nullable: true),
+                    FirstRegisterDate = table.Column<DateTime>(nullable: true),
+                    GpsEnabled = table.Column<bool>(nullable: true),
+                    GroupId = table.Column<long>(nullable: true),
+                    InsuranceExpiredDate = table.Column<DateTime>(nullable: true),
+                    LastRegisterDate = table.Column<DateTime>(nullable: true),
+                    LicenceNumber = table.Column<string>(nullable: true),
+                    Metadata = table.Column<string>(nullable: true),
+                    ModificationDate = table.Column<DateTime>(nullable: true),
+                    ModifyBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    PhotoAudit = table.Column<byte[]>(nullable: true),
+                    PhotoFront = table.Column<byte[]>(nullable: true),
+                    PhotoGps = table.Column<byte[]>(nullable: true),
+                    PhotoInsuarance = table.Column<byte[]>(nullable: true),
+                    PhotoLicense = table.Column<byte[]>(nullable: true),
+                    PhotoRear = table.Column<byte[]>(nullable: true),
+                    ProductionDate = table.Column<DateTime>(nullable: true),
+                    RealOwner = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    TownId = table.Column<long>(nullable: true),
+                    Type = table.Column<int>(nullable: false),
+                    Usage = table.Column<int>(nullable: false),
+                    VehicleStatus = table.Column<string>(nullable: true),
+                    VersionNumber = table.Column<int>(nullable: false),
+                    YearlyAuditDate = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vehicles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Towns_TownId",
+                        name: "FK_Vehicles_Towns_TownId",
+                        column: x => x.TownId,
+                        principalTable: "Towns",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Groups",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Address = table.Column<string>(nullable: true),
+                    ApplicationFileId = table.Column<long>(nullable: true),
+                    AttachmentFilePath = table.Column<string>(nullable: true),
+                    ChiefName = table.Column<string>(nullable: true),
+                    ChiefTel = table.Column<string>(nullable: true),
+                    ChiefTitle = table.Column<string>(nullable: true),
+                    Code = table.Column<string>(nullable: true),
+                    Comment = table.Column<string>(nullable: true),
+                    CreateBy = table.Column<string>(nullable: true),
+                    CreationDate = table.Column<DateTime>(nullable: true),
+                    DriverGuranteeFileId = table.Column<long>(nullable: true),
+                    GroupGuranteeFileId = table.Column<long>(nullable: true),
+                    License = table.Column<string>(nullable: true),
+                    Metadata = table.Column<string>(nullable: true),
+                    ModificationDate = table.Column<DateTime>(nullable: true),
+                    ModifyBy = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    PhotoMain = table.Column<byte[]>(nullable: true),
+                    PhotoOther1 = table.Column<byte[]>(nullable: true),
+                    PhotoOther2 = table.Column<byte[]>(nullable: true),
+                    PhotoOther3 = table.Column<byte[]>(nullable: true),
+                    PhotoSecurity = table.Column<byte[]>(nullable: true),
+                    PhotoWarranty = table.Column<byte[]>(nullable: true),
+                    PoliceOffice = table.Column<string>(nullable: true),
+                    Policeman = table.Column<string>(nullable: true),
+                    RegisterAddress = table.Column<string>(nullable: true),
+                    RuleFileId = table.Column<long>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    TownId = table.Column<long>(nullable: true),
+                    Type = table.Column<string>(nullable: true),
+                    VersionNumber = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Groups", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Groups_Towns_TownId",
                         column: x => x.TownId,
                         principalTable: "Towns",
                         principalColumn: "Id",
@@ -249,6 +393,7 @@ namespace Socona.ImVehicle.Core.Migrations
                     PhotoIdCard1 = table.Column<byte[]>(nullable: true),
                     PhotoIdCard2 = table.Column<byte[]>(nullable: true),
                     PhotoWarranty = table.Column<byte[]>(nullable: true),
+                    ResidentType = table.Column<int>(nullable: true),
                     Status = table.Column<int>(nullable: false),
                     Tel = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
@@ -355,156 +500,6 @@ namespace Socona.ImVehicle.Core.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "AspNetUserClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserLogins",
-                columns: table => new
-                {
-                    LoginProvider = table.Column<string>(nullable: false),
-                    ProviderKey = table.Column<string>(nullable: false),
-                    ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserRoles",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserTokens",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
-                    Value = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Vehicles",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Agent = table.Column<string>(maxLength: 128, nullable: true),
-                    Brand = table.Column<string>(nullable: true),
-                    Color = table.Column<string>(nullable: true),
-                    Comment = table.Column<string>(nullable: true),
-                    CreateBy = table.Column<string>(nullable: true),
-                    CreationDate = table.Column<DateTime>(nullable: true),
-                    DriverId = table.Column<long>(nullable: true),
-                    DriverName = table.Column<string>(nullable: true),
-                    DriverTel = table.Column<string>(nullable: true),
-                    DumpDate = table.Column<DateTime>(nullable: true),
-                    FirstRegisterDate = table.Column<DateTime>(nullable: true),
-                    GpsEnabled = table.Column<bool>(nullable: true),
-                    GroupId = table.Column<long>(nullable: true),
-                    InsuranceExpiredDate = table.Column<DateTime>(nullable: true),
-                    LastRegisterDate = table.Column<DateTime>(nullable: true),
-                    LicenceNumber = table.Column<string>(nullable: true),
-                    Metadata = table.Column<string>(nullable: true),
-                    ModificationDate = table.Column<DateTime>(nullable: true),
-                    ModifyBy = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    PhotoAudit = table.Column<byte[]>(nullable: true),
-                    PhotoFront = table.Column<byte[]>(nullable: true),
-                    PhotoGps = table.Column<byte[]>(nullable: true),
-                    PhotoInsuarance = table.Column<byte[]>(nullable: true),
-                    PhotoLicense = table.Column<byte[]>(nullable: true),
-                    PhotoRear = table.Column<byte[]>(nullable: true),
-                    ProductionDate = table.Column<DateTime>(nullable: true),
-                    RealOwner = table.Column<string>(nullable: true),
-                    Status = table.Column<int>(nullable: false),
-                    TownId = table.Column<long>(nullable: true),
-                    Type = table.Column<int>(nullable: false),
-                    Usage = table.Column<int>(nullable: false),
-                    VehicleStatus = table.Column<string>(nullable: true),
-                    VersionNumber = table.Column<int>(nullable: false),
-                    YearlyAuditDate = table.Column<DateTime>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Vehicles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Vehicles_Drivers_DriverId",
-                        column: x => x.DriverId,
-                        principalTable: "Drivers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Vehicles_Groups_GroupId",
-                        column: x => x.GroupId,
-                        principalTable: "Groups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Vehicles_Towns_TownId",
-                        column: x => x.TownId,
-                        principalTable: "Towns",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -583,6 +578,26 @@ namespace Socona.ImVehicle.Core.Migrations
                 column: "TownId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Groups_ApplicationFileId",
+                table: "Groups",
+                column: "ApplicationFileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Groups_DriverGuranteeFileId",
+                table: "Groups",
+                column: "DriverGuranteeFileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Groups_GroupGuranteeFileId",
+                table: "Groups",
+                column: "GroupGuranteeFileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Groups_RuleFileId",
+                table: "Groups",
+                column: "RuleFileId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Groups_TownId",
                 table: "Groups",
                 column: "TownId");
@@ -616,10 +631,106 @@ namespace Socona.ImVehicle.Core.Migrations
                 name: "IX_Vehicles_TownId",
                 table: "Vehicles",
                 column: "TownId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                table: "AspNetUserRoles",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                table: "AspNetUserClaims",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                table: "AspNetUserLogins",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                table: "AspNetUserTokens",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUsers_Groups_GroupId",
+                table: "AspNetUsers",
+                column: "GroupId",
+                principalTable: "Groups",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Vehicles_Groups_GroupId",
+                table: "Vehicles",
+                column: "GroupId",
+                principalTable: "Groups",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Vehicles_Drivers_DriverId",
+                table: "Vehicles",
+                column: "DriverId",
+                principalTable: "Drivers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Groups_Files_ApplicationFileId",
+                table: "Groups",
+                column: "ApplicationFileId",
+                principalTable: "Files",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Groups_Files_DriverGuranteeFileId",
+                table: "Groups",
+                column: "DriverGuranteeFileId",
+                principalTable: "Files",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Groups_Files_GroupGuranteeFileId",
+                table: "Groups",
+                column: "GroupGuranteeFileId",
+                principalTable: "Files",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Groups_Files_RuleFileId",
+                table: "Groups",
+                column: "RuleFileId",
+                principalTable: "Files",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Towns_Districts_DirstrictId",
+                table: "Towns");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Files_Groups_GroupId",
+                table: "Files");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -636,10 +747,10 @@ namespace Socona.ImVehicle.Core.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Files");
+                name: "Newses");
 
             migrationBuilder.DropTable(
-                name: "Newses");
+                name: "Operations");
 
             migrationBuilder.DropTable(
                 name: "SecurityPersons");
@@ -657,13 +768,16 @@ namespace Socona.ImVehicle.Core.Migrations
                 name: "Drivers");
 
             migrationBuilder.DropTable(
+                name: "Districts");
+
+            migrationBuilder.DropTable(
                 name: "Groups");
 
             migrationBuilder.DropTable(
-                name: "Towns");
+                name: "Files");
 
             migrationBuilder.DropTable(
-                name: "Districts");
+                name: "Towns");
         }
     }
 }

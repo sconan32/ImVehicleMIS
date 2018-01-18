@@ -11,8 +11,8 @@ using System;
 namespace Socona.ImVehicle.Core.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    [Migration("20171214073740_revised0007")]
-    partial class revised0007
+    [Migration("20180118042044_Revision2002")]
+    partial class Revision2002
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -181,6 +181,8 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<byte[]>("PhotoWarranty");
 
+                    b.Property<int?>("ResidentType");
+
                     b.Property<int>("Status");
 
                     b.Property<string>("Tel");
@@ -209,6 +211,8 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<string>("Address");
 
+                    b.Property<long?>("ApplicationFileId");
+
                     b.Property<string>("AttachmentFilePath");
 
                     b.Property<string>("ChiefName");
@@ -225,6 +229,10 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<DateTime?>("CreationDate");
 
+                    b.Property<long?>("DriverGuranteeFileId");
+
+                    b.Property<long?>("GroupGuranteeFileId");
+
                     b.Property<string>("License");
 
                     b.Property<string>("Metadata");
@@ -237,11 +245,23 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<byte[]>("PhotoMain");
 
+                    b.Property<byte[]>("PhotoOther1");
+
+                    b.Property<byte[]>("PhotoOther2");
+
+                    b.Property<byte[]>("PhotoOther3");
+
                     b.Property<byte[]>("PhotoSecurity");
 
                     b.Property<byte[]>("PhotoWarranty");
 
+                    b.Property<string>("PoliceOffice");
+
+                    b.Property<string>("Policeman");
+
                     b.Property<string>("RegisterAddress");
+
+                    b.Property<long?>("RuleFileId");
 
                     b.Property<int>("Status");
 
@@ -253,6 +273,14 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationFileId");
+
+                    b.HasIndex("DriverGuranteeFileId");
+
+                    b.HasIndex("GroupGuranteeFileId");
+
+                    b.HasIndex("RuleFileId");
+
                     b.HasIndex("TownId");
 
                     b.ToTable("Groups");
@@ -262,6 +290,8 @@ namespace Socona.ImVehicle.Core.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("Area");
 
                     b.Property<string>("Content")
                         .IsRequired();
@@ -519,6 +549,44 @@ namespace Socona.ImVehicle.Core.Migrations
                     b.ToTable("Vehicles");
                 });
 
+            modelBuilder.Entity("Socona.ImVehicle.Core.Data.VehicleOperation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CreateBy");
+
+                    b.Property<DateTime?>("CreationDate");
+
+                    b.Property<int>("Event");
+
+                    b.Property<string>("IpAddr");
+
+                    b.Property<string>("Metadata");
+
+                    b.Property<DateTime?>("ModificationDate");
+
+                    b.Property<string>("ModifyBy");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("NewData");
+
+                    b.Property<string>("OldData");
+
+                    b.Property<int>("Status");
+
+                    b.Property<string>("Summary");
+
+                    b.Property<string>("Url");
+
+                    b.Property<int>("VersionNumber");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Operations");
+                });
+
             modelBuilder.Entity("Socona.ImVehicle.Core.Data.VehicleRole", b =>
                 {
                     b.Property<string>("Id")
@@ -680,6 +748,22 @@ namespace Socona.ImVehicle.Core.Migrations
 
             modelBuilder.Entity("Socona.ImVehicle.Core.Data.GroupItem", b =>
                 {
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "ApplicationFile")
+                        .WithMany()
+                        .HasForeignKey("ApplicationFileId");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "DriverGuranteeFile")
+                        .WithMany()
+                        .HasForeignKey("DriverGuranteeFileId");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "GroupGuranteeFile")
+                        .WithMany()
+                        .HasForeignKey("GroupGuranteeFileId");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "RuleFile")
+                        .WithMany()
+                        .HasForeignKey("RuleFileId");
+
                     b.HasOne("Socona.ImVehicle.Core.Data.TownItem", "Town")
                         .WithMany("Groups")
                         .HasForeignKey("TownId");
@@ -740,11 +824,11 @@ namespace Socona.ImVehicle.Core.Migrations
             modelBuilder.Entity("Socona.ImVehicle.Core.Data.VehicleUser", b =>
                 {
                     b.HasOne("Socona.ImVehicle.Core.Data.DistrictItem", "District")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("DistrictId");
 
                     b.HasOne("Socona.ImVehicle.Core.Data.GroupItem", "Group")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("GroupId");
 
                     b.HasOne("Socona.ImVehicle.Core.Data.TownItem", "Town")

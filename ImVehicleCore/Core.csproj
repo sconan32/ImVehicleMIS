@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20171214073740_revised0007.cs" />
+    <Compile Remove="Migrations\20171219091135_revised0009.cs" />
+    <Compile Remove="Migrations\20180118040253_EXTRAPIC0003.cs" />
+    <Compile Remove="Migrations\20180118040619_Revision2001.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="appsettings.Development.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

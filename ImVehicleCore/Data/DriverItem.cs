@@ -65,7 +65,7 @@ namespace Socona.ImVehicle.Core.Data
         public string Title { get; set; }
 
         [Display(Name = "户口类型")]
-        public ResidentTypeEnum ResidentType { get; set; }
+        public ResidentTypeEnum? ResidentType { get; set; }
         public bool IsValid()
         {
             var nowDate = DateTime.Now.Date;

@@ -111,10 +111,11 @@
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-truck" aria-hidden="true"></i><b>车辆列表</b></a></li>
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list" aria-hidden="true"></i><b>详细信息</b></a></li>
+                <li role="presentation" ><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-truck" aria-hidden="true"></i><b>车辆列表</b></a></li>
                 <li role="presentation"><a href="#driver" aria-controls="driver" role="tab" data-toggle="tab"><i class="fa fa-id-card-o" aria-hidden="true"></i><b>驾驶员列表</b></a></li>
                 <li role="presentation"><a href="#secureman" aria-controls="secureman" role="tab" data-toggle="tab"><i class="fa fa-address-book-o" aria-hidden="true"></i><b>安全员列表</b></a></li>
-                <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list" aria-hidden="true"></i><b>详细信息</b></a></li>
+
                 <li role="presentation"><a href="#userfile" aria-controls="userfile" role="tab" data-toggle="tab"><i class="fa fa-file-archive-o" aria-hidden="true"></i><b>用户文件</b></a></li>
                 <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><i class="fa fa-picture-o" aria-hidden="true"></i><b>图片附件</b></a></li>
 
@@ -525,6 +526,14 @@
 
                     </div>
                     <div role="tabpanel" class="tab-pane " id="home">
+                        <h4>
+                            <i class="fa fa-cloud" aria-hidden="true"></i>
+                            单位介绍
+                        </h4>
+                        <br />
+                        <div style="padding:30px;">
+                            @Html.Raw(Model.GroupItem.Introduction);
+                        </div>
                         <br />
                         <h4><i class="fa fa-list" aria-hidden="true"></i>详细信息</h4>
 
@@ -580,19 +589,13 @@
                         <br />
                         <hr />
                         <br />
-                        <h4>
-                            <i class="fa fa-cloud" aria-hidden="true"></i>
-                            单位介绍
-                        </h4>
-                        <br />
-                        <div style="padding:30px;">
-                            @Html.Raw(Model.GroupItem.Introduction);
-                        </div>
+
+
                     </div>
                     <div role="tabpanel" class="tab-pane" id="messages">
 
                         <br />
-                        <h4><i class="fa fa-picture-o" aria-hidden="true"></i>图片附件</h4>
+                        <h4><i class="fa fa-picture-o" aria-hidden="true"></i>证照附件</h4>
 
                         <hr />
 

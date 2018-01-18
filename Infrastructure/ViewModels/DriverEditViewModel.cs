@@ -74,12 +74,12 @@ namespace Socona.ImVehicle.Web.ViewModels
         public int VehiclesRegistered { get; set; }
 
 
-        [Display(Name = "身份证国徽面照片")]
+        [Display(Name = "附加照片1")]
         public IFormFile PhotoIdCard1 { get; set; }
 
         public string PhotoIdCard1Base64 { get; set; }
 
-        [Display(Name = "身份证照片面照片")]
+        [Display(Name = "附加照片2")]
         public IFormFile PhotoIdCard2 { get; set; }
 
 
@@ -95,7 +95,7 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "资质证书编号")]
         public string WarrantyCode { get; set; }
 
-        [Display(Name = "资质证书照片")]
+        [Display(Name = "附加照片3")]
         public IFormFile PhotoWarranty { get; set; }
 
         public string PhotoWarrantyBase64 { get; set; }
@@ -114,7 +114,7 @@ namespace Socona.ImVehicle.Web.ViewModels
         public string Title { get; set; }
 
         [Display(Name = "户口属地")]
-        public ResidentTypeEnum ResidentType { get; set; }
+        public ResidentTypeEnum? ResidentType { get; set; }
 
     }
 }

@@ -69,14 +69,14 @@ namespace Socona.ImVehicle.Core.Data
         [Display(Name = "车背面照片")]
         public byte[] PhotoRear { get; set; }
 
-        [Display(Name = "行驶证照片")]
+        [Display(Name = "附加照片3")]
         public byte[] PhotoLicense { get; set; }
 
-        [Display(Name = "年检照片")]
+        [Display(Name = "附加照片2")]
         public byte[] PhotoAudit { get; set; }
 
 
-        [Display(Name = "强制保险照片")]
+        [Display(Name = "附加照片1")]
         public byte[] PhotoInsuarance { get; set; }
 
 

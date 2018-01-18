@@ -89,7 +89,7 @@ namespace Socona.ImVehicle.Core.Data
                     await userManager.AddToRoleAsync(shentong, "GroupManager");
                 }
             }
-
+           
 
         }
     }

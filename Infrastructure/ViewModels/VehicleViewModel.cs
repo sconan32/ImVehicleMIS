@@ -92,26 +92,26 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "车背面照片")]
         public string PhotoRearBase64 { get; set; }
 
-        [Display(Name = "年检照片")]
+        [Display(Name = "附加照片3")]
         public IFormFile PhotoAudit { get; set; }
 
-        [Display(Name = "年检照片")]
+        [Display(Name = "附加照片3")]
         public string PhotoAuditBase64 { get; set; }
 
-        [Display(Name = "强制保险照片")]
+        [Display(Name = "附加照片1")]
         public IFormFile PhotoInsuarance { get; set; }
 
         
-        [Display(Name = "强制保险照片")]
+        [Display(Name = "附加照片1")]
         public string PhotoInsuaranceBase64 { get; set; }
 
         [Display(Name = "挂靠单位")]
 
         public string Agent { get; set; }
-        [Display(Name = "行驶证照片")]
+        [Display(Name = "附加照片2")]
 
         public IFormFile PhotoLicense { get; set; }
-        [Display(Name = "行驶证照片")]
+        [Display(Name = "附加照片2")]
         public string PhotoLicenseBase64 { get; set; }
         [Display(Name = "GPS照片")]
         public IFormFile PhotoGps { get; set; }
