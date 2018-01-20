@@ -1,0 +1,399 @@
+/**********************************************
+** Book Flight
+**********************************************
+*** 在设计之初为了偷懒把变量都设为public,这是不好的风格
+*** 时间有限，没有进行太多的错误处理
+*** 没有设计UI，仅支持修改源代码进行测试
+*** 一些函数的参数传递方式可能有待商榷
+*** 个人原因，使用了C风格的字符串
+*** 为了方便印刷，当时没有分文件
+**********************************************/
+
+
+
+#include <iostream>
+using namespace std;
+
+//前向声明
+class Passenger;
+class Flight;
+int PrintPassenger(const Passenger* pas);
+int PrintFlightAndPass(const Flight * list);
+
+
+template <typename Type>
+class LinkedList
+{
+public:
+	LinkedList()
+	{
+		this->head=NULL;
+	}
+	~LinkedList()
+	{
+		while(this->head !=NULL)
+		{
+			SNode<Type> *node=this->head->next;
+			delete this->head;
+			this->head =node;
+		}
+	}
+
+public:
+	template <typename Type>
+	inline bool Add(Type *pdata)
+	{
+
+		
+		if(this->FindNode<Type>(pdata->name)!=NULL)
+			return false;
+		SNode<Type> *node=new SNode<Type>(pdata);
+		if(head==NULL)
+		{
+			head=node;
+			return true;
+		}
+		SNode<Type> *node2=this->head;
+		if(*(node->pdata)<*(node2->pdata))
+		{
+			node->next = node2;
+			head=node;
+			return true;
+		}
+		while(node2->next!=NULL&&*(node->pdata)>*(node2->next->pdata))
+		{
+			node2=node2->next;
+		}
+		if(node2->next==NULL)
+		{
+			node2->next=node;
+		}
+		else
+		{
+			node->next=node2->next;
+			node2->next=node;
+		}
+		return true;
+
+
+
+
+		/************************************************/
+		/*****************填写此处缺少的代码**************/
+		/************************************************/
+		/***功能：按字母升序向链表中添加数据***************/
+	}
+public:
+	template<typename Type>
+	inline Type* FindNode(const char *name)
+	{
+		SNode<Type> *tnode=this->head;
+		while(tnode!=NULL && !tnode->pdata->HasName(name))
+		{
+			tnode=tnode->next;
+		}
+		if(tnode!=NULL)
+		{
+			return tnode->pdata;
+		}
+		return NULL;
+	}
+
+
+	template <typename Type>
+	inline bool Delete(const char * name)
+	{
+	
+
+		if(this->head==NULL)
+		{
+			return false;
+		}
+		SNode<Type>*tempnode=this->head;
+		SNode<Type>*deletenode=NULL;
+		if(tempnode->pdata->HasName(name)!=0)
+		{
+			deletenode=tempnode;
+			head=tempnode->next;
+			delete deletenode;
+			return true;
+		}
+		while(!tempnode->next->pdata->HasName(name)&&tempnode->next!=NULL)
+		{
+			tempnode=tempnode->next;
+		}
+		if(tempnode->next!=NULL)
+		{
+			deletenode=tempnode->next;
+			delete deletenode;
+			return true;
+		}
+		return false;
+	
+		/************************************************/
+		/*****************填写此处缺少的代码**************/
+		/************************************************/
+		/***功能：删除节点中char* 数据值为name的节点*******/
+	}
+	inline void  PrintAllNodes()
+	{
+		SNode<Type> *tnode=this->head;
+		while(tnode != NULL)
+		{
+			cout<<tnode->pdata->name<<"\t";
+			tnode=tnode->next;
+		}
+		cout<<endl;
+	}
+	template <typename Type>
+	inline void ForEach(int (*operate)(const Type *args)) const
+	{
+		SNode<Type> *tnode=this->head;
+		while(tnode != NULL)
+		{
+			(*operate)(tnode->pdata);
+			tnode=tnode->next;
+
+		}
+	}
+
+private:
+	template <typename Type>
+	class SNode
+	{
+	public:
+		Type *pdata;
+		SNode *next;
+		SNode()
+		{
+			pdata=NULL;
+			next=NULL;
+		}
+		SNode(Type * pdata)
+		{
+			this->pdata=pdata;
+			this->next=NULL;
+		}
+		~SNode()
+		{
+			if(this->pdata!=NULL)
+			{
+				delete pdata;
+				pdata=NULL;
+			}
+		}
+	};
+	SNode<Type>	*head;
+	//int		count;
+
+
+};
+class Passenger
+{
+public:
+	char		name[40];
+	Passenger(){this->name[0]=0;}
+	Passenger(char * name)
+	{
+		if(strlen(name)<40)
+			strcpy(this->name,name);
+	}
+	inline bool operator==(const Passenger& operhand) const
+	{
+		if(!strcmp(this->name,operhand.name))
+			return true;
+		return false;
+	}
+	inline bool operator<(const Passenger& operhand)const
+	{
+		if(strcmp(this->name,operhand.name)<0)
+			return true;
+		return false;
+
+		/************************************************/
+		/*****************填写此处缺少的代码**************/
+		/************************************************/
+		/***功能：按名称name升序比较两个乘客大小***********/
+	}
+	inline bool operator>(const Passenger& operhand)const
+	{
+		return !((*this)<operhand);
+		/************************************************/
+		/*****************填写此处缺少的代码**************/
+		/************************************************/
+		/***功能：按名称name升序比较两个乘客大小***********/
+	}
+	inline bool HasName(const char* name)
+	{
+		if(!strcmp(name,this->name))
+			return true;
+		return false;
+	}
+};
+class Flight
+{
+private:
+
+	LinkedList<Passenger>	*plist;
+
+public:
+	char					name[40];
+	int						reversed;
+	int						capacity;
+	Flight()
+	{
+		this->name[0]=0;
+		capacity=10;
+		reversed=0;
+		plist=new LinkedList<Passenger>();
+	}
+	Flight(char *name)
+	{
+		strcpy_s(this->name,40,name);
+		capacity=10;
+		reversed=0;
+		plist=new LinkedList<Passenger>();
+	}
+	Flight(char *name,int capacity)
+	{
+		strcpy_s(this->name,40,name);
+		this->capacity=capacity;
+		reversed=0;
+		plist=new LinkedList<Passenger>();
+	}
+	~Flight()
+	{
+		if(plist!=NULL)
+		{
+		delete plist;
+		plist=NULL;
+		}
+		
+		/************************************************/
+		/*****************填写此处缺少的代码**************/
+		/************************************************/
+		/***功能：析构Flight对象**************************/
+	}
+	inline bool operator==(const Flight &operhand)const 
+	{
+		if(this->name==operhand.name &&
+			this->capacity==operhand.capacity)
+			return true;
+		return false;
+	}
+	inline bool operator<(const Flight& operhand)const
+	{
+		if(strcmp(this->name,operhand.name )<0)
+			return true;
+		return false;
+	}
+	inline bool operator>(const Flight& operhand)const
+	{
+		return !((*this)<operhand);
+	}
+	inline bool HasName(const char* name) const
+	{
+		if(!strcmp(name,this->name))
+			return true;
+		return false;
+	}
+	inline bool AddPassenger(Passenger* ppass)
+	{
+		if(reversed<capacity)
+			if(plist->Add<Passenger>(ppass))
+			{
+				reversed++;
+				return true;
+			}
+			return false;
+	}
+	inline bool DelPassengerByName(const char * name)
+	{
+		if(plist->Delete<Passenger>(name))
+		{
+		reversed--;
+		return true;
+		}
+		return false;
+
+	}
+
+		/************************************************/
+		/*****************填写此处缺少的代码**************/
+		/************************************************/
+		/***功能：删掉对应航班中名为name的乘客*************/
+		
+	
+
+	inline int GetFreeTicketCount() const
+	{
+		return capacity-reversed;
+	}
+	inline void PrintAllPassengers() const
+	{
+		plist->ForEach<Passenger>(PrintPassenger);
+		cout<<endl;
+	}
+
+};
+
+int PrintPassenger(const Passenger* pas)
+{
+	cout<<pas->name<<"\t";
+	return 0;
+}
+
+int PrintFlightAndPass(const Flight * list)
+{
+	const Flight * t=list;
+
+	cout<<t->name<<" ("<<t->reversed<<" Reversed "<<
+		t->GetFreeTicketCount()<<" Free)"<<endl;
+	cout<<"\t";
+	t->PrintAllPassengers ();
+	return 0;
+}
+int main(int argc,char **argv)
+{
+	LinkedList<Flight> flist; 
+	flist.Add(new Flight("CA1033"));
+	flist.Add(new Flight("CU3254"));
+	flist.Add(new Flight("AA3333",3));
+
+	flist.FindNode<Flight>("CA1033")->AddPassenger(new Passenger("Zhao"));
+	flist.FindNode<Flight>("CA1033")->AddPassenger(new Passenger("Qian"));
+	flist.FindNode<Flight>("CA1033")->AddPassenger(new Passenger("Sun"));
+	flist.FindNode<Flight>("CA1033")->AddPassenger(new Passenger("Li"));
+
+	flist.FindNode<Flight>("AA3333")->AddPassenger(new Passenger("Zhou"));
+	flist.FindNode<Flight>("AA3333")->AddPassenger(new Passenger("Wu"));
+	flist.FindNode<Flight>("AA3333")->AddPassenger(new Passenger("Zheng"));
+	flist.FindNode<Flight>("AA3333")->AddPassenger(new Passenger("Wang"));
+
+	flist.FindNode<Flight>("CU3254")->AddPassenger(new Passenger("Li"));
+	//技巧：有时候使用函数指针可以实现方便的遍历集合
+	cout<<"--START--"<<endl;
+	flist.ForEach<Flight> (PrintFlightAndPass);
+	cout<<"--END--"<<endl;
+	flist.FindNode<Flight>("CA1033")->DelPassengerByName("Li");
+	flist.Delete<Flight>("AA3333");
+	cout<<"--START--"<<endl;
+	flist.ForEach<Flight> (PrintFlightAndPass);
+	cout<<"--START--"<<endl;
+	return 0;
+}
+
+/*****************************
+* WISDOM Lab 
+* CIPPUS
+*****************************/
+
+
+
+
+
+
+
+
+
+

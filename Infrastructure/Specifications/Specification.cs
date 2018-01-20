@@ -24,6 +24,9 @@ namespace Socona.ImVehicle.Core.Specifications
             IncludeStrings.Add(includeString);
         }
 
+        public Expression<Func<T, object>> SortExpression { get;  set; }
+        
+
         public ISpecification<T> And(ISpecification<T> specification)
         {
             return new AndSpecification<T>(this, specification);

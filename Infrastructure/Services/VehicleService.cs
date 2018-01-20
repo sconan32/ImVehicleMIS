@@ -57,5 +57,10 @@ namespace Socona.ImVehicle.Core.Services
         {
             return await _vehicleRespository.ListRangeAsync(specification, start, count);
         }
+
+        public async Task<List<VehicleItem>> ListAsync(ISpecification<VehicleItem> specification)
+        {
+            return await _vehicleRespository.ListAsync(specification);
+        }
     }
 }

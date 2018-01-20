@@ -13,5 +13,7 @@ namespace Socona.ImVehicle.Core.Interfaces
         Task DeleteVihecleAsync(int basketId);
 
         Task<List<VehicleItem>> ListRangeAsync(ISpecification<VehicleItem> specification, int start, int count);
+
+        Task<List<VehicleItem>> ListAsync(ISpecification<VehicleItem> specification);
     }
 }

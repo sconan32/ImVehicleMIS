@@ -11,5 +11,9 @@ namespace Socona.ImVehicle.Core.Interfaces
         List<string> IncludeStrings { get; }
 
         ISpecification<T> And(ISpecification<T> specification);
+
+        Expression<Func<T, object>> SortExpression { get;  }
+
+
     }
 }

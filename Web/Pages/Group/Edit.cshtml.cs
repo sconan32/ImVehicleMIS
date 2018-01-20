@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -21,18 +23,22 @@ namespace Socona.ImVehicle.Web.Pages.Group
         private readonly IAuthorizationService _authorizationService;
         private readonly UserManager<VehicleUser> _userManager;
         private readonly ITownService _townService;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public EditModel(VehicleDbContext context, IAuthorizationService authorizationService, UserManager<VehicleUser> userManager, ITownService townService)
+        public EditModel(VehicleDbContext context, IAuthorizationService authorizationService,
+            UserManager<VehicleUser> userManager, ITownService townService,
+            IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _authorizationService = authorizationService;
             _userManager = userManager;
             _townService = townService;
+            _hostingEnvironment = hostingEnvironment;
         }
         [BindProperty]
         public string ReturnUrl { get; set; }
         [BindProperty]
-        public GroupEditViewModel GroupItem { get; set; }
+        public GroupViewModel GroupItem { get; set; }
 
         [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnGetAsync(long? id, string returnUrl)
@@ -44,35 +50,23 @@ namespace Socona.ImVehicle.Web.Pages.Group
 
             ReturnUrl = returnUrl;
             var group = await _context.Groups.SingleOrDefaultAsync(m => m.Id == id);
-
-
             if (group == null)
             {
                 return NotFound();
             }
+            var canEdit = _authorizationService.AuthorizeAsync(HttpContext.User, group, "CanEdit");
+            if (!(await canEdit).Succeeded)
+            {
+                return Unauthorized();
+            }
+
+
             TownList = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User))
            .Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name, })
            .ToList();
 
-            GroupItem = new GroupEditViewModel()
-            {
-                Id = group.Id,
-                Name = group.Name,
-                Address = group.Address,
-                ChiefName = group.ChiefName,
-                ChiefTel = group.ChiefTel,
-                ChiefTitle = group.ChiefTitle,
-                Code = group.Code,
-                Comment = group.Comment,
-                License = group.License,
+            GroupItem = new GroupViewModel(group);
 
-                RegisterAddress = group.RegisterAddress,
-                TownId = group.TownId ?? 0,
-                Type = group.Type,
-                PhotoMainBase64 = group.PhotoMain != null ? Convert.ToBase64String(group.PhotoMain) : "",
-                PhotoSecurityBase64 = group.PhotoSecurity != null ? Convert.ToBase64String(group.PhotoSecurity) : "",
-                PhotoWarrantyBase64 = group.PhotoWarranty != null ? Convert.ToBase64String(group.PhotoWarranty) : "",
-            };
             return Page();
         }
 
@@ -92,63 +86,41 @@ namespace Socona.ImVehicle.Web.Pages.Group
             {
                 return Page();
             }
-            var user = await _userManager.GetUserAsync(HttpContext.User);
 
 
-            MemoryStream warPhotoS = null;
-            MemoryStream secPhotoS = null;
-
-
-            MemoryStream mainPhotoS = null;
-
-            var acceptableExt = new[] { ".png", ".bmp", ".jpg", ".jpeg", ".tif", };
-            if (acceptableExt.Contains(Path.GetExtension(GroupItem.PhotoMain?.FileName)?.ToLower()))
-            {
-
-                mainPhotoS = new MemoryStream();
-                await GroupItem.PhotoMain.CopyToAsync(mainPhotoS);
-            }
-
-            if (acceptableExt.Contains(Path.GetExtension(GroupItem.PhotoSecurity?.FileName)?.ToLower()))
-            {
-                secPhotoS = new MemoryStream();
-                await GroupItem.PhotoSecurity.CopyToAsync(secPhotoS);
-            }
-            if (acceptableExt.Contains(Path.GetExtension(GroupItem.PhotoWarranty?.FileName)?.ToLower()))
-            {
-                warPhotoS = new MemoryStream();
-                await GroupItem.PhotoWarranty.CopyToAsync(warPhotoS);
-            }
-
-
-
-            var townId = await _userManager.IsInRoleAsync(user, "TownManager") ? user.TownId : GroupItem.TownId;
             var group = _context.Groups.FirstOrDefault(t => t.Id == GroupItem.Id);
             if (group == null)
             {
                 return NotFound();
             }
 
+            await GroupItem.FillGroupItem(group);
 
-
-            group.Name = GroupItem.Name;
-            group.Address = GroupItem.Address;
-            group.RegisterAddress = GroupItem.RegisterAddress;
-            group.License = GroupItem.License;
-            group.ChiefName = GroupItem.ChiefName;
-            group.ChiefTel = GroupItem.ChiefTel;
-            group.Type = GroupItem.Type;
-            group.TownId = townId;
-            group.PhotoMain = mainPhotoS?.ToArray() ?? group.PhotoMain;
-            group.PhotoWarranty = warPhotoS?.ToArray() ?? group.PhotoWarranty;
-            group.PhotoSecurity = secPhotoS?.ToArray() ?? group.PhotoSecurity;
-            group.Code = GroupItem.Code;
-            group.ChiefTitle = GroupItem.ChiefTitle;
-            group.Comment = GroupItem.Comment;
+            var canEdit = _authorizationService.AuthorizeAsync(HttpContext.User, group, "CanEdit");
+            if (!(await canEdit).Succeeded)
+            {
+                return Unauthorized();
+            }
+            if(GroupItem.ApplicationFile!=null)
+            {
+                group.ApplicationFileId = await SaveUserFile(GroupItem.ApplicationFileId, GroupItem.ApplicationFile, nameof(GroupItem.ApplicationFile));
+            }
+            if (GroupItem.GroupGuranteeFile != null)
+            {
+                group.GroupGuranteeFileId = await SaveUserFile(GroupItem.GroupGuranteeFileId, GroupItem.GroupGuranteeFile, nameof(GroupItem.GroupGuranteeFile));
+            }
+            if (GroupItem.DriverGuranteeFile != null)
+            {
+                group.DriverGuranteeFileId = await SaveUserFile(GroupItem.DriverGuranteeFileId, GroupItem.DriverGuranteeFile, nameof(GroupItem.DriverGuranteeFile));
+            }
+            if (GroupItem.RuleFile != null)
+            {
+                group.RuleFileId = await SaveUserFile(GroupItem.RuleFileId, GroupItem.RuleFile, nameof(GroupItem.RuleFile));
+            }
 
 
             group.ModificationDate = DateTime.Now;
-            group.ModifyBy = user.Id;
+            group.ModifyBy = (await _userManager.GetUserAsync(HttpContext.User)).Id;
             group.Status = StatusType.OK;
             group.VersionNumber += 1;
 
@@ -162,7 +134,7 @@ namespace Socona.ImVehicle.Web.Pages.Group
             {
                 if (!GroupItemExists(GroupItem.Id))
                 {
-                    return NotFound();
+                    return this.NotFound();
                 }
                 else
                 {
@@ -176,6 +148,53 @@ namespace Socona.ImVehicle.Web.Pages.Group
         private bool GroupItemExists(long id)
         {
             return _context.Groups.Any(e => e.Id == id);
+        }
+
+        private async Task<long> SaveUserFile(long? fileId, IFormFile formFile, string name)
+        {
+
+            UserFileItem userFile = null;
+            if (fileId != null)
+            {
+                userFile = _context.Files.FirstOrDefault(f => f.Id == fileId);
+                string spath = Path.Combine(_hostingEnvironment.WebRootPath, "upload", userFile.ServerPath);
+                System.IO.File.Move(spath, spath + ".deleted");
+            }
+            if (userFile == null)
+            {
+                userFile = new UserFileItem();
+            }
+            string serverFileName = Guid.NewGuid().ToString() + ".ufile";
+            string serverPath = Path.Combine(_hostingEnvironment.WebRootPath, "upload", serverFileName);
+
+            FileStream fileToWrite = new FileStream(serverPath, FileMode.Create, FileAccess.Write);
+            await formFile.CopyToAsync(fileToWrite);
+            fileToWrite.Close();
+
+            userFile.TownId = GroupItem.TownId;
+            userFile.GroupId = GroupItem.Id;
+
+            userFile.Visibility = VisibilityType.CurrentGroup;
+            userFile.FileName = Path.GetFileName(formFile?.FileName);
+            userFile.ContentType = formFile?.ContentType;
+            userFile.ServerPath = serverFileName;
+            userFile.ClientPath = formFile?.FileName;
+            userFile.Size = formFile?.Length ?? 0;
+            userFile.Name = name;
+            userFile.Type = Path.GetExtension(formFile?.FileName);
+
+
+            if (fileId != null)
+            {
+                _context.Attach(userFile).State = EntityState.Modified;
+
+            }
+            else
+            {
+                _context.Add(userFile);
+            }
+            await _context.SaveChangesAsync();
+            return userFile.Id;
         }
     }
 }

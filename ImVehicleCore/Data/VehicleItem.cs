@@ -69,14 +69,13 @@ namespace Socona.ImVehicle.Core.Data
         [Display(Name = "车背面照片")]
         public byte[] PhotoRear { get; set; }
 
-        [Display(Name = "附加照片3")]
+  
         public byte[] PhotoLicense { get; set; }
 
-        [Display(Name = "附加照片2")]
         public byte[] PhotoAudit { get; set; }
 
 
-        [Display(Name = "附加照片1")]
+       
         public byte[] PhotoInsuarance { get; set; }
 
 
@@ -100,6 +99,15 @@ namespace Socona.ImVehicle.Core.Data
 
             return false;
         }
+        [Display(Name = "附加照片1")]
+        public byte[] ExtraPhoto1 { get; set; }
+
+        [Display(Name = "附加照片2")]
+        public byte[] ExtraPhoto2 { get; set; }
+
+        [Display(Name = "附加照片3")]
+        public byte[] ExtraPhoto3 { get; set; }
+
     }
 
     public enum UsageType

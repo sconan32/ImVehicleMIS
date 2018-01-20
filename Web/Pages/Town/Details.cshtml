@@ -1,7 +1,7 @@
 ﻿@page
 @model Socona.ImVehicle.Web.Pages.Town.DetailsModel
 @using Microsoft.AspNetCore.Authorization
-@using Socona.ImVehicle.Core.Extensions
+@using Socona.ImVehicle.Infrastructure.Extensions
 @inject IAuthorizationService AuthorizationService
 @{
     ViewData["Title"] = Html.DisplayFor(model => model.TownItem.Name);
@@ -103,7 +103,17 @@
 
                 <div role="tabpanel" class="tab-pane fade in active" id="groups">
                     <br />
-                    <h4><i class="fa fa-flag-checkered" aria-hidden="true"></i>安全单位列表</h4>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h4><i class="fa fa-flag-checkered" aria-hidden="true"></i>安全单位列表</h4>
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-edit-item" href="/Group/ExportExcel?townId=@Model.TownItem.Id">
+                                <i class="fa fa-file-excel-o" aria-hidden="true"></i> 导出电子表格
+                            </a>
+                        </div>
+                    </div>
+
 
                     <hr />
                     <table id="Group-table" class="table table-hover">
@@ -206,7 +216,17 @@
                 <div role="tabpanel" class="tab-pane fade" id="vehicles">
 
                     <br />
-                    <h4><i class="fa fa-truck" aria-hidden="true"></i>车辆信息列表</h4>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h4><i class="fa fa-truck" aria-hidden="true"></i>车辆信息列表</h4>
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-edit-item" href="/Vehicle/ExportExcel?townId=@Model.TownItem.Id">
+                                <i class="fa fa-file-excel-o" aria-hidden="true"></i> 导出电子表格
+                            </a>
+                        </div>
+                    </div>
+
                     <hr />
                     <table id="Vehicle-table" class="table  table-hover">
                         <thead>
@@ -322,8 +342,17 @@
                 </div>
                 <div role="tabpanel" class="tab-pane fades" id="drivers">
                     <br />
-                    <h4><i class="fa fa-id-card-o" aria-hidden="true"></i>驾驶员列表</h4>
 
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h4><i class="fa fa-id-card-o" aria-hidden="true"></i>驾驶员列表</h4>
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-edit-item" href="/Driver/ExportExcel?townId=@Model.TownItem.Id">
+                                <i class="fa fa-file-excel-o" aria-hidden="true"></i> 导出电子表格
+                            </a>
+                        </div>
+                    </div>
                     <hr />
 
                     <table id="Driver-table" class="table  table-hover">
@@ -335,15 +364,9 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].Gender)
                                 </th>
-
-
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].License)
                                 </th>
-
-
-
-
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].LicenseExpiredDate)
                                 </th>
@@ -366,61 +389,61 @@
                         <tbody>
                             @foreach (var item in Model.TownItem.Drivers)
                             {
-                            <tr @((!item.IsValid) ? "class=text-danger" : "class=")>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                    @if (!item.IsValid)
+                                <tr @((!item.IsValid) ? "class=text-danger" : "class=")>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                        @if (!item.IsValid)
                                         {
-                                        <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+                                            <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
                                         }
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Gender)
-                                </td>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Gender)
+                                    </td>
 
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.LicenseType)  @Html.DisplayFor(modelItem => item.License)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.LicenseExpiredDate)
-                                </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LicenseType)  @Html.DisplayFor(modelItem => item.License)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LicenseExpiredDate)
+                                    </td>
 
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.VehiclesRegistered)
-                                </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.VehiclesRegistered)
+                                    </td>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FirstLicenseIssueDate)
-                                </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FirstLicenseIssueDate)
+                                    </td>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.IdCardNumber)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Tel)
-                                </td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a class="btn btn-view-item btn-sm" asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
-                                        @if (await Model.CanEdit())
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdCardNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Tel)
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a class="btn btn-view-item btn-sm" asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                                            @if (await Model.CanEdit())
                                             {
-                                            <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="caret"></span>
-                                                <span class="sr-only">向下弹出</span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
-                                                <li role="separator" class="divider"></li>
-                                                <li><a asp-page="../Driver/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+HttpContext.Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                                                <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+                                                <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                    <span class="sr-only">向下弹出</span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a asp-page="../Driver/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a asp-page="../Driver/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+HttpContext.Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
+                                                    <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
 
-                                            </ul>
+                                                </ul>
                                             }
-                                    </div>
-                                </td>
-                            </tr>
+                                        </div>
+                                    </td>
+                                </tr>
                             }
                             <tr id="Driver-loading-mark" hidden>
                                 <td colspan="8" align="center">
@@ -439,8 +462,6 @@
                     <table class="table">
                         <thead>
                             <tr>
-
-
                                 <th>
                                     @Html.DisplayNameFor(model => model.GlobalFiles[0].Name)
                                 </th>
@@ -461,11 +482,11 @@
                         </thead>
                         <tbody>
                             @foreach (var item in Model.GlobalFiles)
-            {
+                            {
                                 <tr>
 
                                     <td>
-                                         @Html.DisplayFor(modelItem => item.Name)
+                                        @Html.DisplayFor(modelItem => item.Name)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.FileName)
@@ -482,9 +503,7 @@
                                     <td>
                                         <div class="btn-group">
                                             <a class="btn btn-view-item btn-sm" asp-page="../UserFile/Download" asp-route-id="@item.Id"><i class="fa fa-download" aria-hidden="true"></i> 下 载</a>
-
-
-
+                                            
                                         </div>
                                     </td>
                                 </tr>
@@ -519,11 +538,11 @@
                         </thead>
                         <tbody>
                             @foreach (var item in Model.UserFiles)
-            {
+                            {
                                 <tr>
 
                                     <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
+                                        @Html.DisplayFor(modelItem => item.Name)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.FileName)
@@ -706,7 +725,7 @@
             <div class="btn-group">
                 <a class="btn btn-view-item btn-sm" href="/Vehicle/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                 @if (await Model.CanEdit())
-            {
+                {
                     <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="caret"></span>
                         <span class="sr-only">向下弹出</span>

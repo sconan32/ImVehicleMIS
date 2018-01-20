@@ -1,23 +1,37 @@
 ﻿@page
 @model ErrorModel
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = "错误";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<section class="banner_area">
+    <div class="container">
+        <div class="pull-left">
+            <h3> <i class="fa fa-exclamation-circle"></i> 错误:</h3>
+        </div>
+        <div class="pull-right">
+            <a asp-page="/">主页</a>&gt;
+            <a asp-page="/Error">错误</a>
+            
+        </div>
+    </div>
+</section>
+<section class="main_feature_area">
+  
+    <h2 class="text-danger">处理请求时出现问题</h2>
 
-@if (Model.ShowRequestId)
-{
+    @if (Model.ShowRequestId)
+    {
+        <p>
+            <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        </p>
+    }
+
+    <h3>其它信息</h3>
     <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
     </p>
-}
-
-<h3>Development Mode</h3>
-<p>
-    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
-</p>
-<p>
-    <strong>Development environment should not be enabled in deployed applications</strong>, as it can result in sensitive information from exceptions being displayed to end users. For local debugging, development environment can be enabled by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>, and restarting the application.
-</p>
+    <p>
+        <strong>Development environment should not be enabled in deployed applications</strong>, as it can result in sensitive information from exceptions being displayed to end users. For local debugging, development environment can be enabled by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>, and restarting the application.
+    </p>
+</section>

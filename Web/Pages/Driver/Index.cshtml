@@ -1,6 +1,6 @@
 ﻿@page
 @model Web.Pages.Driver.IndexModel
-@using Socona.ImVehicle.Core.Extensions
+@using Socona.ImVehicle.Infrastructure.Extensions
 @{
     ViewData["Title"] = "驾驶员 列表";
 }
@@ -20,9 +20,13 @@
 
         <p>
             @if (await Model.CanEdit())
-            {
-                <a class="btn btn-new-item" asp-page="Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <i class="fa fa-plus" aria-hidden="true"></i> 新建驾驶员</a>
-            }
+    {
+        <a class="btn btn-new-item" asp-page="Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <i class="fa fa-plus" aria-hidden="true"></i> 新建驾驶员</a>
+        <a class="btn btn-edit-item" asp-page="Query" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <i class="fa fa-search" aria-hidden="true"></i> 查找驾驶员</a>
+        <a class="btn btn-edit-item" href="/Driver/ExportExcel">
+            <i class="fa fa-file-excel-o" aria-hidden="true"></i> 导出电子表格
+        </a>
+}
         </p>
         <hr />
         <table id="driver-table" class="table table-hover">

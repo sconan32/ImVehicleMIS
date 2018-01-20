@@ -66,16 +66,17 @@ namespace Socona.ImVehicle.Core.Data
 
         [Display(Name = "户口类型")]
         public ResidentTypeEnum? ResidentType { get; set; }
+
+        public byte[] ExtraPhoto1 { get; set; }
+
+        public byte[] ExtraPhoto2 { get; set; }
+
+        public byte[] ExtraPhoto3 { get; set; }
+
         public bool IsValid()
         {
             var nowDate = DateTime.Now.Date;
-
-            if (LicenseIssueDate?.AddYears(LicenseValidYears ?? 0) <= nowDate)
-            {
-                return false;
-            }
-
-            return true;
+            return (LicenseIssueDate > nowDate);          
         }
     }
     public enum VehicleLicenseType

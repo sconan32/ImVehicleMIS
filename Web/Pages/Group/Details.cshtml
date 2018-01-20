@@ -119,7 +119,7 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list" aria-hidden="true"></i><b>详细信息</b></a></li>
-                <li role="presentation" ><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-truck" aria-hidden="true"></i><b>车辆列表</b></a></li>
+                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-truck" aria-hidden="true"></i><b>车辆列表</b></a></li>
                 <li role="presentation"><a href="#driver" aria-controls="driver" role="tab" data-toggle="tab"><i class="fa fa-id-card-o" aria-hidden="true"></i><b>驾驶员列表</b></a></li>
                 <li role="presentation"><a href="#secureman" aria-controls="secureman" role="tab" data-toggle="tab"><i class="fa fa-address-book-o" aria-hidden="true"></i><b>安全员列表</b></a></li>
 
@@ -133,7 +133,17 @@
 
                     <div role="tabpanel" class="tab-pane active" id="profile">
                         <br />
-                        <h4><i class="fa fa-truck" aria-hidden="true"></i>车辆信息列表</h4>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h4><i class="fa fa-truck" aria-hidden="true"></i>车辆信息列表</h4>
+                            </div>
+                            <div class="col-md-2">
+                                <a class="btn btn-edit-item" href="/Vehicle/ExportExcel?groupId=@Model.GroupItem.Id">
+                                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> 导出电子表格
+                                </a>
+                            </div>
+                        </div>
+                        
                         <hr />
                         <table id="list-table" class="table table-hover">
                             <thead>
@@ -178,69 +188,69 @@
                             </thead>
                             <tbody>
                                 @foreach (var item in Model.GroupItem.Vehicles)
-                                {
-                                    <tr>
+            {
+                    <tr>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.License)
-                                            @if (!item.IsValid)
-                                            {
-                                                <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
-                                            }
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Usage)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Brand)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Type)
-                                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.License)
+                            @if (!item.IsValid)
+        {
+                    <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Usage)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Brand)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Color)
-                                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Color)
+                        </td>
 
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.YearlyAuditDate)
-                                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.YearlyAuditDate)
+                        </td>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.InsuranceExpiredDate)
-                                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InsuranceExpiredDate)
+                        </td>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.DriverName)
-                                            <span style="color:gray">@Html.DisplayFor(modelItem => item.DriverTel)</span>
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TownName)
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DriverName)
+                            <span style="color:gray">@Html.DisplayFor(modelItem => item.DriverTel)</span>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TownName)
 
-                                        </td>
+                        </td>
 
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-view-item btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
-                                                @if (await Model.CanEdit())
-                                                {
-                                                    <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="caret"></span>
-                                                        <span class="sr-only">向下弹出</span>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
-                                                        <li role="separator" class="divider"></li>
-                                                        <li><a asp-page="../Vehicle/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                                                        <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-view-item btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                                @if (await Model.CanEdit())
+            {
+                    <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">向下弹出</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a asp-page="../Vehicle/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
+                        <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
 
-                                                    </ul>
-                                                }
-                                            </div>
-                                        </td>
-                                    </tr>
-                                }
+                    </ul>
+}
+                            </div>
+                        </td>
+                    </tr>
+}
                             </tbody>
                         </table>
 
@@ -248,10 +258,20 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="driver">
                         <br />
-                        <h4><i class="fa fa-id-card-o" aria-hidden="true"></i>驾驶员列表</h4>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h4><i class="fa fa-id-card-o" aria-hidden="true"></i>驾驶员列表</h4>
+                            </div>
+                            <div class="col-md-2">
+                                <a class="btn btn-edit-item" href="/Driver/ExportExcel?groupId=@Model.GroupItem.Id">
+                                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> 导出电子表格
+                                </a>
+                            </div>
+                        </div>
+                        
 
                         <hr />
-
+                        
                         <table class="table  table-hover">
                             <thead>
                                 <tr>

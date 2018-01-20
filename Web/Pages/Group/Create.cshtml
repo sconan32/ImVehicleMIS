@@ -44,19 +44,19 @@
 
                             <input type="hidden" asp-for="ReturnUrl" />
                             @if (await Model.IsAdmin())
-                            {
-                                <div class="form-group">
+    {
+                        <div class="form-group">
 
-                                    <label asp-for="GroupItem.TownId" class="col-sm-2 control-label"></label>
-                                    <div class="col-sm-4">
-                                        <select asp-for="GroupItem.TownId" class="form-control" asp-items="@ViewBag.TownList">
-                                            <option>请选择街道 </option>
-                                        </select>
-                                        <span asp-validation-for="GroupItem.TownId" class="text-danger"></span>
-                                    </div>
+                            <label asp-for="GroupItem.TownId" class="col-sm-2 control-label"></label>
+                            <div class="col-sm-4">
+                                <select asp-for="GroupItem.TownId" class="form-control" asp-items="@ViewBag.TownList">
+                                    <option>请选择街道 </option>
+                                </select>
+                                <span asp-validation-for="GroupItem.TownId" class="text-danger"></span>
+                            </div>
 
-                                </div>
-                            }
+                        </div>
+}
                             <div class="form-group">
 
                                 <label asp-for="GroupItem.Name" class="col-sm-2 control-label"></label>
@@ -114,29 +114,83 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label asp-for="GroupItem.PoliceOffice" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <input asp-for="GroupItem.PoliceOffice" class="form-control" />
+                                    <span asp-validation-for="GroupItem.PoliceOffice" class="text-danger"></span>
+                                </div>
+
+                                <label asp-for="GroupItem.Policeman" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <input asp-for="GroupItem.Policeman" class="form-control" />
+                                    <span asp-validation-for="GroupItem.Policeman" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="GroupItem.ApplicationFile" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="GroupItem.ApplicationFile" class="form-control" />
+                                    <span asp-validation-for="GroupItem.ApplicationFile" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="GroupItem.RuleFile" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="GroupItem.RuleFile" class="form-control" />
+                                    <span asp-validation-for="GroupItem.RuleFile" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="GroupItem.DriverGuranteeFile" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="GroupItem.DriverGuranteeFile" class="form-control" />
+                                    <span asp-validation-for="GroupItem.DriverGuranteeFile" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="GroupItem.GroupGuranteeFile" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="GroupItem.GroupGuranteeFile" class="form-control" />
+                                    <span asp-validation-for="GroupItem.GroupGuranteeFile" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
                                 <label asp-for="GroupItem.PhotoMain" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
                                     <input asp-for="GroupItem.PhotoMain" class="form-control" />
                                     <span asp-validation-for="GroupItem.PhotoMain" class="text-danger"></span>
                                 </div>
                             </div>
+                                                  
+
+
 
                             <div class="form-group">
-                                <label asp-for="GroupItem.PhotoSecurity" class="col-sm-2 control-label"></label>
+                                <label asp-for="GroupItem.ExtraPhoto1" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
-                                    <input asp-for="GroupItem.PhotoSecurity" class="form-control" />
-                                    <span asp-validation-for="GroupItem.PhotoSecurity" class="text-danger"></span>
+                                    <input asp-for="GroupItem.ExtraPhoto1" rows="8" class="form-control"/>
+                                    <span asp-validation-for="GroupItem.ExtraPhoto1" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label asp-for="GroupItem.PhotoWarranty" class="col-sm-2 control-label"></label>
+                                <label asp-for="GroupItem.ExtraPhoto2" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
-                                    <input asp-for="GroupItem.PhotoWarranty" class="form-control" />
-                                    <span asp-validation-for="GroupItem.PhotoWarranty" class="text-danger"></span>
+                                    <input asp-for="GroupItem.ExtraPhoto2" rows="8" class="form-control"/>
+                                    <span asp-validation-for="GroupItem.ExtraPhoto2" class="text-danger"></span>
                                 </div>
                             </div>
-
-
+                            <div class="form-group">
+                                <label asp-for="GroupItem.ExtraPhoto3" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="GroupItem.ExtraPhoto3" rows="8" class="form-control"/>
+                                    <span asp-validation-for="GroupItem.ExtraPhoto3" class="text-danger"></span>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label asp-for="GroupItem.Comment" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
@@ -144,8 +198,6 @@
                                     <span asp-validation-for="GroupItem.Comment" class="text-danger"></span>
                                 </div>
                             </div>
-
-
                         </form>
                     </div>
                 </div>

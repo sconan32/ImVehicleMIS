@@ -2,16 +2,16 @@
 @model Web.Pages.Group.IndexModel
 
 @{
-    ViewData["Title"] = "全部安全单位 列表";
+    ViewData["Title"] = "全部安全组 列表";
 }
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3><i class="fa fa-flag-checkered" aria-hidden="true"></i>全部安全单位 列表</h3>
+            <h3><i class="fa fa-flag-checkered" aria-hidden="true"></i>全部安全组 列表</h3>
         </div>
         <div class="pull-right">
             <a asp-page="/">主页</a>&gt;
-            <a asp-page="/Town">安全单位</a>
+            <a asp-page="/Town">安全组</a>
         </div>
     </div>
 </section>
@@ -20,12 +20,16 @@
 
         <p>
             @if (await Model.CanEdit())
-            {
+    {
 
-                <a class="btn btn-new-item" asp-page="Create" asp-route-returnUrl="@Request.Path">
-                    <i class="fa fa-plus" aria-hidden="true"></i> 创建新安全单位
-                </a>
-            }
+        <a class="btn btn-new-item" asp-page="Create" asp-route-returnUrl="@Request.Path">
+            <i class="fa fa-plus" aria-hidden="true"></i> 创建新安全组
+        </a>
+        <a class="btn btn-edit-item" asp-page="Query" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <i class="fa fa-search" aria-hidden="true"></i> 查找安全组</a>
+        <a class="btn btn-edit-item" href="/Group/ExportExcel">
+            <i class="fa fa-file-excel-o" aria-hidden="true"></i> 导出电子表格
+        </a>
+}
         </p>
         <hr />
 

@@ -68,5 +68,11 @@ namespace Socona.ImVehicle.Core.Services
             }
             return new List<GroupItem>();
         }
+        public async Task<List<GroupItem>> ListAsync(ISpecification<GroupItem> canFetch)
+        {
+
+            return await _groupService.ListAsync(canFetch) ;
+        }
+
     }
 }

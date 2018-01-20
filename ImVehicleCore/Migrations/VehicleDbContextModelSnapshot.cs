@@ -144,6 +144,12 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<DateTime?>("CreationDate");
 
+                    b.Property<byte[]>("ExtraPhoto1");
+
+                    b.Property<byte[]>("ExtraPhoto2");
+
+                    b.Property<byte[]>("ExtraPhoto3");
+
                     b.Property<DateTime?>("FirstLicenseIssueDate");
 
                     b.Property<int>("Gender");
@@ -230,6 +236,12 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<long?>("DriverGuranteeFileId");
 
+                    b.Property<byte[]>("ExtraPhoto1");
+
+                    b.Property<byte[]>("ExtraPhoto2");
+
+                    b.Property<byte[]>("ExtraPhoto3");
+
                     b.Property<long?>("GroupGuranteeFileId");
 
                     b.Property<string>("License");
@@ -243,12 +255,6 @@ namespace Socona.ImVehicle.Core.Migrations
                     b.Property<string>("Name");
 
                     b.Property<byte[]>("PhotoMain");
-
-                    b.Property<byte[]>("PhotoOther1");
-
-                    b.Property<byte[]>("PhotoOther2");
-
-                    b.Property<byte[]>("PhotoOther3");
 
                     b.Property<byte[]>("PhotoSecurity");
 
@@ -486,6 +492,12 @@ namespace Socona.ImVehicle.Core.Migrations
                     b.Property<string>("DriverTel");
 
                     b.Property<DateTime?>("DumpDate");
+
+                    b.Property<byte[]>("ExtraPhoto1");
+
+                    b.Property<byte[]>("ExtraPhoto2");
+
+                    b.Property<byte[]>("ExtraPhoto3");
 
                     b.Property<DateTime?>("FirstRegisterDate");
 

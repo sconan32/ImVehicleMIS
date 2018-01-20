@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Socona.ImVehicle.Core.Migrations
 {
-    public partial class Revision2002 : Migration
+    public partial class revision2002 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -280,6 +280,9 @@ namespace Socona.ImVehicle.Core.Migrations
                     DriverName = table.Column<string>(nullable: true),
                     DriverTel = table.Column<string>(nullable: true),
                     DumpDate = table.Column<DateTime>(nullable: true),
+                    ExtraPhoto1 = table.Column<byte[]>(nullable: true),
+                    ExtraPhoto2 = table.Column<byte[]>(nullable: true),
+                    ExtraPhoto3 = table.Column<byte[]>(nullable: true),
                     FirstRegisterDate = table.Column<DateTime>(nullable: true),
                     GpsEnabled = table.Column<bool>(nullable: true),
                     GroupId = table.Column<long>(nullable: true),
@@ -334,6 +337,9 @@ namespace Socona.ImVehicle.Core.Migrations
                     CreateBy = table.Column<string>(nullable: true),
                     CreationDate = table.Column<DateTime>(nullable: true),
                     DriverGuranteeFileId = table.Column<long>(nullable: true),
+                    ExtraPhoto1 = table.Column<byte[]>(nullable: true),
+                    ExtraPhoto2 = table.Column<byte[]>(nullable: true),
+                    ExtraPhoto3 = table.Column<byte[]>(nullable: true),
                     GroupGuranteeFileId = table.Column<long>(nullable: true),
                     License = table.Column<string>(nullable: true),
                     Metadata = table.Column<string>(nullable: true),
@@ -341,9 +347,6 @@ namespace Socona.ImVehicle.Core.Migrations
                     ModifyBy = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     PhotoMain = table.Column<byte[]>(nullable: true),
-                    PhotoOther1 = table.Column<byte[]>(nullable: true),
-                    PhotoOther2 = table.Column<byte[]>(nullable: true),
-                    PhotoOther3 = table.Column<byte[]>(nullable: true),
                     PhotoSecurity = table.Column<byte[]>(nullable: true),
                     PhotoWarranty = table.Column<byte[]>(nullable: true),
                     PoliceOffice = table.Column<string>(nullable: true),
@@ -375,6 +378,9 @@ namespace Socona.ImVehicle.Core.Migrations
                     ContactAddress = table.Column<string>(nullable: true),
                     CreateBy = table.Column<string>(nullable: true),
                     CreationDate = table.Column<DateTime>(nullable: true),
+                    ExtraPhoto1 = table.Column<byte[]>(nullable: true),
+                    ExtraPhoto2 = table.Column<byte[]>(nullable: true),
+                    ExtraPhoto3 = table.Column<byte[]>(nullable: true),
                     FirstLicenseIssueDate = table.Column<DateTime>(nullable: true),
                     Gender = table.Column<int>(nullable: false),
                     GroupId = table.Column<long>(nullable: true),

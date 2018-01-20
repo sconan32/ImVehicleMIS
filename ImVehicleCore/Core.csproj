@@ -10,6 +10,8 @@
     <Compile Remove="Migrations\20171219091135_revised0009.cs" />
     <Compile Remove="Migrations\20180118040253_EXTRAPIC0003.cs" />
     <Compile Remove="Migrations\20180118040619_Revision2001.cs" />
+    <Compile Remove="Migrations\20180118042044_Revision2002.cs" />
+    <Compile Remove="Migrations\20180119160553_rivision2002.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -99,7 +99,7 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
                 }
             }
 
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "用户数据已经更新";
             return RedirectToPage();
         }
         public async Task<IActionResult> OnPostSendVerificationEmailAsync()
@@ -119,7 +119,7 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
             var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
             await _emailSender.SendEmailConfirmationAsync(user.Email, callbackUrl);
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = "验证邮件已发，请去邮箱验证";
             return RedirectToPage();
         }
     }

@@ -70,26 +70,30 @@ namespace Socona.ImVehicle.Core.Data
         [Display(Name = "安全资质照片")]
         public byte[] PhotoSecurity { get; set; }
 
-        public byte[] PhotoOther1 { get; set; }
+        public byte[] ExtraPhoto1 { get; set; }
 
-        public byte[] PhotoOther2 { get; set; }
+        public byte[] ExtraPhoto2 { get; set; }
 
-        public byte[] PhotoOther3 { get; set; }
+        public byte[] ExtraPhoto3 { get; set; }
 
+        [Display(Name = "资质审核文件")]
         public long? ApplicationFileId { get; set; }
         [ForeignKey("ApplicationFileId")]
         public virtual UserFileItem ApplicationFile { get; set; }
 
-
+        [Display(Name = "规章制度")]
         public long? RuleFileId { get; set; }
         [ForeignKey("RuleFileId")]
         public virtual UserFileItem RuleFile { get; set; }
 
 
+        [Display(Name = "驾驶员保证书")]
         public long? DriverGuranteeFileId { get; set; }
         [ForeignKey("DriverGuranteeFileId")]
         public virtual UserFileItem DriverGuranteeFile { get; set; }
 
+
+        [Display(Name = "企业保证书")]
         public long? GroupGuranteeFileId { get; set; }
         [ForeignKey("GroupGuranteeFileId")]
         public virtual UserFileItem GroupGuranteeFile { get; set; }

@@ -63,9 +63,15 @@ namespace Socona.ImVehicle.Core.Data
                     (current, include) => current.Include(include));
 
             // return the result of the query using the specification's criteria expression
-            return secondaryResult
-                            .Where(spec.Criteria)
-                            .AsEnumerable();
+            var query = secondaryResult
+                            .Where(spec.Criteria);
+
+            if (spec.SortExpression != null)
+            {
+                query = query.OrderBy(spec.SortExpression);
+            }
+        
+            return query.AsEnumerable();
         }
         public async Task<List<T>> ListAsync(ISpecification<T> spec)
         {
@@ -80,9 +86,16 @@ namespace Socona.ImVehicle.Core.Data
                     (current, include) => current.Include(include));
 
             // return the result of the query using the specification's criteria expression
-            return await secondaryResult
-                            .Where(spec.Criteria)
-                            .ToListAsync();
+            var query = secondaryResult
+                             .Where(spec.Criteria);
+
+            if (spec.SortExpression != null)
+            {
+                query = query.OrderBy(spec.SortExpression);
+            }
+
+          
+            return await query.ToListAsync();
         }
 
 
@@ -138,9 +151,16 @@ namespace Socona.ImVehicle.Core.Data
                     (current, include) => current.Include(include));
 
             // return the result of the query using the specification's criteria expression
-            return secondaryResult
-                            .Where(spec.Criteria).Skip(start).Take(count)
-                            .AsEnumerable();
+            var query = secondaryResult
+                            .Where(spec.Criteria);
+            
+            if (spec.SortExpression != null)
+            {
+                query = query.OrderBy(spec.SortExpression);
+            }
+
+            query = query.Skip(start).Take(count);
+            return query.AsEnumerable();
 
         }
 
@@ -157,7 +177,14 @@ namespace Socona.ImVehicle.Core.Data
 
             // return the result of the query using the specification's criteria expression
             var query = secondaryResult
-                            .Where(spec.Criteria).Skip(start).Take(count);
+                            .Where(spec.Criteria);
+            
+            if (spec.SortExpression != null)
+            {
+                query = query.OrderBy(spec.SortExpression);
+            }
+
+            query = query.Skip(start).Take(count);
             return await query.ToListAsync();
         }
 

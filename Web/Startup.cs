@@ -87,6 +87,7 @@ namespace Socona.ImVehicle.Web
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
             // Add default bootstrap-styled pager implementation
 
+            
 
         }
 
@@ -101,6 +102,7 @@ namespace Socona.ImVehicle.Web
             }
             else
             {
+               
                 app.UseExceptionHandler("/Error");
                 app.UseForwardedHeaders(new ForwardedHeadersOptions
                 {
@@ -109,6 +111,7 @@ namespace Socona.ImVehicle.Web
             }
 
             app.UseStaticFiles();
+           
 
 
 

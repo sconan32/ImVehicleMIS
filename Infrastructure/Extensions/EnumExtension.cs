@@ -9,7 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Socona.ImVehicle.Core.Extensions
+namespace Socona.ImVehicle.Infrastructure.Extensions
 {
     public static class EnumExtension
     {
