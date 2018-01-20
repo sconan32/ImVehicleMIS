@@ -34,7 +34,7 @@ namespace Socona.ImVehicle.Web.Pages.Town
 
         public async Task<bool> CanEdit()
         {
-            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, "CanEdit");
+            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, TownItem.OriginalModel ,"CanEdit");
 
             return (await tm).Succeeded;
         }

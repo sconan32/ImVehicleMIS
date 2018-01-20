@@ -40,38 +40,8 @@ namespace Socona.ImVehicle.Web.Pages.Vehicle
             {
                 return NotFound();
             }
-            VehicleItem = new VehicleViewModel()
-            {
-                Id = vehicle.Id,
-                Brand = vehicle.Brand,
-                Color = vehicle.Color,
-                Comment = vehicle.Comment,
-                DriverId = vehicle.DriverId,
-                GroupId = vehicle.GroupId,
-                InsuranceExpiredDate = vehicle.InsuranceExpiredDate,
-                DumpDate = vehicle.DumpDate,
-                LastRegisterDate = vehicle.LastRegisterDate,
-                RegisterDate = vehicle.LastRegisterDate,
-                License = vehicle.LicenceNumber,
-                Name = vehicle.Name,
-                ProductionDate = vehicle.ProductionDate,
-                RealOwner = vehicle.RealOwner,
-                Type = vehicle.Type,
-                Usage = vehicle.Usage,
-                VehicleStatus = vehicle.VehicleStatus,
-                YearlyAuditDate = vehicle.YearlyAuditDate,
-                TownId = vehicle.TownId,
-                Agent = vehicle.Agent,
-                GpsEnabled = vehicle.GpsEnabled ?? false,
-
-
-                PhotoAuditBase64 = vehicle.PhotoAudit != null ? Convert.ToBase64String(vehicle.PhotoAudit) : "",
-                PhotoFrontBase64 = vehicle.PhotoFront != null ? Convert.ToBase64String(vehicle.PhotoFront) : "",
-                PhotoRearBase64 = vehicle.PhotoRear != null ? Convert.ToBase64String(vehicle.PhotoRear) : "",
-                PhotoInsuaranceBase64 = vehicle.PhotoInsuarance != null ? Convert.ToBase64String(vehicle.PhotoInsuarance) : "",
-                PhotoGpsBase64 = vehicle.PhotoGps != null ? Convert.ToBase64String(vehicle.PhotoGps) : "",
-                PhotoLicenseBase64 = vehicle.PhotoGps != null ? Convert.ToBase64String(vehicle.PhotoLicense) : "",
-            };
+            VehicleItem = new VehicleViewModel(vehicle);
+           
             var townlist = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User));
             ViewData["TownList"] = new SelectList(townlist, "Id", "Name");
             if (townlist.Any())
@@ -115,96 +85,16 @@ namespace Socona.ImVehicle.Web.Pages.Vehicle
 
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            MemoryStream spFront = null;
-            MemoryStream spRear = null;
-            MemoryStream spAudit = null;
-            MemoryStream spInsuarance = null;
-            MemoryStream spGps = null;
-            MemoryStream spLicense = null;
-            var acceptableExt = new[] { ".png", ".bmp", ".jpg", ".jpeg", ".tif", };
 
-            if (acceptableExt.Contains(Path.GetExtension(VehicleItem.PhotoRear?.FileName)?.ToLower()))
-            {
-                spRear = new MemoryStream();
-                await VehicleItem.PhotoRear.CopyToAsync(spRear);
-            }
-            if (acceptableExt.Contains(Path.GetExtension(VehicleItem.PhotoFront?.FileName)?.ToLower()))
-            {
-                spFront = new MemoryStream();
-                await VehicleItem.PhotoFront.CopyToAsync(spFront);
-            }
-
-            if (acceptableExt.Contains(Path.GetExtension(VehicleItem.PhotoAudit?.FileName)?.ToLower()))
-            {
-                spAudit = new MemoryStream();
-                await VehicleItem.PhotoAudit.CopyToAsync(spAudit);
-            }
-            if (acceptableExt.Contains(Path.GetExtension(VehicleItem.PhotoInsuarance?.FileName)?.ToLower()))
-            {
-                spInsuarance = new MemoryStream();
-                await VehicleItem.PhotoInsuarance.CopyToAsync(spInsuarance);
-            }
-            if (acceptableExt.Contains(Path.GetExtension(VehicleItem.PhotoGps?.FileName)?.ToLower()))
-            {
-                spGps = new MemoryStream();
-                await VehicleItem.PhotoGps.CopyToAsync(spGps);
-            }
-            if (acceptableExt.Contains(Path.GetExtension(VehicleItem.PhotoLicense?.FileName)?.ToLower()))
-            {
-                spLicense = new MemoryStream();
-                await VehicleItem.PhotoLicense.CopyToAsync(spLicense);
-            }
 
             var vehicle = _context.Vehicles.FirstOrDefault(v => v.Id == VehicleItem.Id);
             if (vehicle == null)
             {
                 return NotFound();
             }
-
+            await VehicleItem.FillVehicleItem(vehicle);
            
-            vehicle.Name = VehicleItem.Name;
-            vehicle.Brand = VehicleItem.Brand;
-            vehicle.Color = VehicleItem.Color;
-            vehicle.Comment = VehicleItem.Comment;
-            vehicle.InsuranceExpiredDate = VehicleItem.InsuranceExpiredDate;
-            vehicle.LicenceNumber = VehicleItem.License;
-            vehicle.DumpDate = VehicleItem.DumpDate;
-            vehicle.ProductionDate = VehicleItem.ProductionDate;
-            vehicle.RealOwner = VehicleItem.RealOwner;
-            vehicle.LastRegisterDate = VehicleItem.RegisterDate;
-            vehicle.Type = VehicleItem.Type;
-            vehicle.Usage = VehicleItem.Usage;
-            vehicle.YearlyAuditDate = VehicleItem.YearlyAuditDate;
-            vehicle.VehicleStatus = VehicleItem.VehicleStatus;
-            vehicle.GroupId = VehicleItem.GroupId;
-            vehicle.TownId = VehicleItem.TownId;
-            vehicle.DriverId = VehicleItem.DriverId;
-            vehicle.GpsEnabled = VehicleItem.GpsEnabled;
-            vehicle.Agent = VehicleItem.Agent;
-            if (spFront != null)
-            {
-                vehicle.PhotoFront = spFront.ToArray();
-            }
-            if (spRear != null)
-            {
-                vehicle.PhotoRear = spRear.ToArray();
-            }
-            if (spAudit != null)
-            {
-                vehicle.PhotoAudit = spAudit.ToArray();
-            }
-            if (spInsuarance != null)
-            {
-                vehicle.PhotoInsuarance = spInsuarance.ToArray();
-            }
-            if (spGps != null)
-            {
-                vehicle.PhotoGps = spGps.ToArray();
-            }
-            if (spLicense != null)
-            {
-                vehicle.PhotoLicense = spLicense.ToArray();
-            }
+            
             vehicle.ModifyBy  = user.Id;
             vehicle.ModificationDate  = DateTime.Now;
             vehicle.Status = StatusType.OK;

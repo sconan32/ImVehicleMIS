@@ -25,10 +25,20 @@ namespace Socona.ImVehicle.Web.Pages.Group
             _userFileService = userFileService;
         }
 
-        public GroupDetailViewModel GroupItem { get; set; }
+        public GroupViewModel GroupItem { get; set; }
 
 
         public List<UserFileListViewModel> GlobalFiles { get; set; }
+
+
+        public List<VehicleListViewModel> Vehicles { get; set; }
+
+        public List<DriverListViewModel> Drivers { get; set; }
+
+
+        public List<UserFileListViewModel> UserFiles { get; set; }
+
+        public List<SecureManListViewModel> Securemans { get; set; }
         public async Task<bool> CanEdit()
         {
             var tm = _authorizationService.AuthorizeAsync(HttpContext.User, GroupItem.OriginalModel, "CanEdit");
@@ -61,7 +71,27 @@ namespace Socona.ImVehicle.Web.Pages.Group
             {
                 return NotFound();
             }
-            GroupItem = new GroupDetailViewModel(group);
+            GroupItem = new GroupViewModel(group);
+
+
+
+            Vehicles = group.Vehicles.Select(t => new VehicleListViewModel(t)).ToList();
+            Drivers = group.Drivers.Select(t => new DriverListViewModel(t)).ToList();
+            UserFiles = group.UserFiles.Select(t => new UserFileListViewModel(t)).ToList();
+
+            Securemans = group.SecurityPersons.Select(t => new SecureManListViewModel()
+            {
+                Id = t.Id,
+                Name = t.Name,
+                Address = t.Address,
+                RegisterAddress = t.RegisterAddress,
+                Company = t.Company,
+                GroupName = t.Group?.Name,
+                TownName = t.Town?.Name,
+                IdCardNum = t.IdCardNum,
+                Tel = t.Tel,
+                Title = t.Title,
+            }).ToList();
             var gf = (await _userFileService.GetGlobalUserFilesAsync()).Select(t => new UserFileListViewModel(t)).ToList();
             var tf = (await _userFileService.GetUserFilesForTownAsync(group.TownId.Value)).Select(t => new UserFileListViewModel(t)).ToList();
             GlobalFiles = gf.Union(tf).ToList();

@@ -16,7 +16,7 @@ namespace Socona.ImVehicle.Web.ViewModels
             {
                 return;
             }
-
+            OriginalModel = town;
             Id = town.Id;
             Name = town.Name;
             GroupCount = town.Groups.Count;
@@ -31,6 +31,8 @@ namespace Socona.ImVehicle.Web.ViewModels
             InvalidVehicleCount = town.Vehicles.Count(t => !t.IsValid());
             IsValid = (InvalidGroupCount <= 0) && (InvalidDriverCount <= 0) && (InvalidVehicleCount <= 0);
         }
+
+        public TownItem OriginalModel { get; set; }
         public long Id { get; set; }
 
         [Display(Name = "名称")]

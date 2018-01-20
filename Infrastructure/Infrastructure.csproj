@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NPOI.Core.FluentExcel" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ImVehicleCore\Core.csproj" />
     <ProjectReference Include="..\SearchParser\SearchParser.csproj" />
   </ItemGroup>

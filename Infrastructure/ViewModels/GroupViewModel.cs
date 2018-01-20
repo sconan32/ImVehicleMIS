@@ -12,9 +12,12 @@ namespace Socona.ImVehicle.Web.ViewModels
 {
     public class GroupViewModel
     {
-        public GroupViewModel()        {        }
+        public GroupViewModel() { }
         public GroupViewModel(GroupItem group)
         {
+
+            OriginalModel = group;
+
             Id = group.Id;
             Code = group.Code;
             Name = group.Name;
@@ -26,6 +29,7 @@ namespace Socona.ImVehicle.Web.ViewModels
             ChiefTel = group.ChiefTel;
             TownId = group.TownId;
             TownName = group.Town?.Name;
+            Type = group.Type;
             Comment = group.Comment;
             Policeman = group.Policeman;
             PoliceOffice = group.PoliceOffice;
@@ -33,7 +37,7 @@ namespace Socona.ImVehicle.Web.ViewModels
             RuleFileId = group.RuleFileId;
             DriverGuranteeFileId = group.DriverGuranteeFileId;
             GroupGuranteeFileId = group.GroupGuranteeFileId;
-            
+
 
 
             PhotoMainBase64 = group.PhotoMain.ToBase64String();
@@ -42,9 +46,17 @@ namespace Socona.ImVehicle.Web.ViewModels
             ExtraPhoto1Base64 = group.ExtraPhoto1.ToBase64String();
             ExtraPhoto2Base64 = group.ExtraPhoto2.ToBase64String();
             ExtraPhoto3Base64 = group.ExtraPhoto3.ToBase64String();
+
+            VehicleCount = group.Vehicles?.Count ?? 0;
+            DriverCount = group.Drivers?.Count ?? 0;
+            SecuremanCount = group.Drivers?.Count ?? 0;
+            DriverInvalidCount = group.Drivers?.Count(d => !d.IsValid()) ?? 0;
+            VehicleInvalidCount = group.Vehicles?.Count(v => !v.IsValid()) ?? 0;
+            IsValid = group.IsValid();
         }
 
-      
+        public GroupItem OriginalModel { get; set; }
+
         public long Id { get; set; }
 
 
@@ -104,12 +116,27 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "企业介绍")]
         public string Comment { get; set; }
 
+        public bool IsValid { get; set; }
 
 
         [Display(Name = "监理民警")]
         public string Policeman { get; set; }
         [Display(Name = "监理中队")]
         public string PoliceOffice { get; set; }
+
+
+        [Display(Name = "安全员数目")]
+        public int SecuremanCount { get; set; }
+
+
+        [Display(Name = "预警车辆数")]
+        public int VehicleInvalidCount { get; set; }
+
+        [Display(Name = "预警司机数")]
+        public int DriverInvalidCount { get; set; }
+
+
+
         public long? ApplicationFileId { get; set; }
 
         [Display(Name = "资质审核文件")]
@@ -167,7 +194,7 @@ namespace Socona.ImVehicle.Web.ViewModels
             group.ChiefTel = this.ChiefTel;
             group.ChiefTitle = this.ChiefTitle;
             group.Type = this.Type;
-            group.TownId = this.TownId;        
+            group.TownId = this.TownId;
             group.Comment = this.Comment;
             group.Policeman = this.Policeman;
             group.PoliceOffice = this.PoliceOffice;
@@ -176,11 +203,11 @@ namespace Socona.ImVehicle.Web.ViewModels
             {
                 group.PhotoMain = await PhotoMain.GetPictureByteArray();
             }
-            if(PhotoSecurity!=null)
+            if (PhotoSecurity != null)
             {
                 group.PhotoSecurity = await PhotoSecurity.GetPictureByteArray();
             }
-            if(PhotoWarranty!=null)
+            if (PhotoWarranty != null)
             {
                 group.PhotoWarranty = await PhotoWarranty.GetPictureByteArray();
             }

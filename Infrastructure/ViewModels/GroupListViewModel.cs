@@ -32,6 +32,9 @@ namespace Socona.ImVehicle.Web.ViewModels
             InvalidDriverCount = t.Drivers.Count(d => !d.IsValid());
             IsValid = t.IsValid();
             TownName = t.Town?.Name;
+
+            PoliceOffice = t.PoliceOffice;
+            Policeman = t.Policeman;
         }
         public long Id { get; set; }
 
@@ -71,6 +74,12 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "纳税人识别号")]
         public string License { get; set; }
 
+
+        [Display(Name = "监理中队")]
+        public string PoliceOffice { get; set; }
+
+        [Display(Name = "监理民警")]
+        public string Policeman { get; set; }
 
         public bool IsValid { get; set; }
 

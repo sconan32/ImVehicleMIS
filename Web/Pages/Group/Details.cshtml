@@ -2,17 +2,17 @@
 @model Web.Pages.Group.DetailsModel
 
 @{
-    ViewData["Title"] = "【安全单位】" + Model.GroupItem.Name;
+    ViewData["Title"] = "安全组 - " + Model.GroupItem.Name;
 }
 
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3><i class="fa fa-flag-checkered" aria-hidden="true"></i>【安全单位】 @Model.GroupItem.Name</h3>
+            <h3><i class="fa fa-flag-checkered" aria-hidden="true"></i>安全组 - @Model.GroupItem.Name</h3>
         </div>
         <div class="pull-right">
             <a asp-page="/Index">主页</a>
-            &gt; <a asp-page="/Group/Index">安全单位</a>
+            &gt; <a asp-page="/Group/Index">安全组</a>
             &gt; <a asp-page="/Group/Details" asp-route-id="@Model.GroupItem.Id">@Html.DisplayFor(model => model.GroupItem.Name) </a>
         </div>
     </div>
@@ -23,7 +23,7 @@
             @if (await Model.CanEdit())
             {
                 <a class="btn btn-edit-item" asp-page="Edit" asp-route-id="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>编辑单位
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>编辑本单位
                 </a>
                 <a class="btn btn-new-item" asp-page="../Vehicle/Create" asp-route-groupId="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
                     <i class="fa fa-plus" aria-hidden="true"></i> 新增车辆
@@ -38,7 +38,7 @@
                     <i class="fa fa-plus" aria-hidden="true"></i> 下发文件
                 </a>
                 <a class="btn btn-del-item" asp-page="Delete" asp-route-id="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
-                    <i class="fa fa-trash-o" aria-hidden="true"></i> 删除单位
+                    <i class="fa fa-trash-o" aria-hidden="true"></i> 删除本单位
                 </a>
             }
             @if (await Model.CanUpload())
@@ -57,6 +57,12 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>
+                        监理中队
+                    </th>
+                    <th>
+                        监理民警
+                    </th>
                     <th>
                         单位状态
                     </th>
@@ -79,6 +85,12 @@
             </thead>
             <tbody>
                 <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.GroupItem.PoliceOffice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.GroupItem.Policeman)
+                    </td>
                     <td>
                         @(Model.GroupItem.IsValid ? "正常" : "预警")
                     </td>
@@ -124,14 +136,14 @@
                 <li role="presentation"><a href="#secureman" aria-controls="secureman" role="tab" data-toggle="tab"><i class="fa fa-address-book-o" aria-hidden="true"></i><b>安全员列表</b></a></li>
 
                 <li role="presentation"><a href="#userfile" aria-controls="userfile" role="tab" data-toggle="tab"><i class="fa fa-file-archive-o" aria-hidden="true"></i><b>用户文件</b></a></li>
-                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><i class="fa fa-picture-o" aria-hidden="true"></i><b>图片附件</b></a></li>
+                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><i class="fa fa-picture-o" aria-hidden="true"></i><b>证照附件</b></a></li>
 
             </ul>
             <div style="border-bottom:1px solid #ddd;border-left:1px solid #ddd;border-right:1px solid #ddd;padding:20px;">
                 <!-- Tab panes -->
                 <div class="tab-content">
 
-                    <div role="tabpanel" class="tab-pane active" id="profile">
+                    <div role="tabpanel" class="tab-pane" id="profile">
                         <br />
                         <div class="row">
                             <div class="col-md-9">
@@ -143,40 +155,40 @@
                                 </a>
                             </div>
                         </div>
-                        
+
                         <hr />
                         <table id="list-table" class="table table-hover">
                             <thead>
                                 <tr>
 
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].License)
+                                        @Html.DisplayNameFor(model => model.Vehicles[0].License)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].Usage)
-                                    </th>
-
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].Brand)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].Type)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].Color)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].YearlyAuditDate)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].InsuranceExpiredDate)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].DriverName)
+                                        @Html.DisplayNameFor(model => model.Vehicles[0].Usage)
                                     </th>
 
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Vehicles[0].TownName)
+                                        @Html.DisplayNameFor(model => model.Vehicles[0].Brand)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Vehicles[0].Type)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Vehicles[0].Color)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Vehicles[0].YearlyAuditDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Vehicles[0].InsuranceExpiredDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Vehicles[0].DriverName)
+                                    </th>
+
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Vehicles[0].TownName)
                                     </th>
 
 
@@ -187,70 +199,70 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.GroupItem.Vehicles)
-            {
-                    <tr>
+                                @foreach (var item in Model.Vehicles)
+                                {
+                                    <tr>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.License)
-                            @if (!item.IsValid)
-        {
-                    <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
-}
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Usage)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Brand)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Type)
-                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.License)
+                                            @if (!item.IsValid)
+                                            {
+                                                <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Usage)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Brand)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Type)
+                                        </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Color)
-                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Color)
+                                        </td>
 
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.YearlyAuditDate)
-                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.YearlyAuditDate)
+                                        </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.InsuranceExpiredDate)
-                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.InsuranceExpiredDate)
+                                        </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DriverName)
-                            <span style="color:gray">@Html.DisplayFor(modelItem => item.DriverTel)</span>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TownName)
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DriverName)
+                                            <span style="color:gray">@Html.DisplayFor(modelItem => item.DriverTel)</span>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TownName)
 
-                        </td>
+                                        </td>
 
-                        <td>
-                            <div class="btn-group">
-                                <a class="btn btn-view-item btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
-                                @if (await Model.CanEdit())
-            {
-                    <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span>
-                        <span class="sr-only">向下弹出</span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a asp-page="../Vehicle/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                        <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a class="btn btn-view-item btn-sm" asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                                                @if (await Model.CanEdit())
+                                                {
+                                                    <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="caret"></span>
+                                                        <span class="sr-only">向下弹出</span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a asp-page="../Vehicle/Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
+                                                        <li role="separator" class="divider"></li>
+                                                        <li><a asp-page="../Vehicle/Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
+                                                        <li><a class="danger" asp-page="../Vehicle/Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
 
-                    </ul>
-}
-                            </div>
-                        </td>
-                    </tr>
-}
+                                                    </ul>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
 
@@ -268,49 +280,49 @@
                                 </a>
                             </div>
                         </div>
-                        
+
 
                         <hr />
-                        
+
                         <table class="table  table-hover">
                             <thead>
                                 <tr>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].Name)
+                                        @Html.DisplayNameFor(model => model.Drivers[0].Name)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].Gender)
+                                        @Html.DisplayNameFor(model => model.Drivers[0].Gender)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].IdCardNumber)
+                                        @Html.DisplayNameFor(model => model.Drivers[0].IdCardNumber)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].LicenseType)
-                                    </th>
-
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].License)
-                                    </th>
-
-
-
-
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].LicenseExpiredDate)
+                                        @Html.DisplayNameFor(model => model.Drivers[0].LicenseType)
                                     </th>
 
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].VehiclesRegistered)
+                                        @Html.DisplayNameFor(model => model.Drivers[0].License)
+                                    </th>
+
+
+
+
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Drivers[0].LicenseExpiredDate)
                                     </th>
 
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Drivers[0].Tel)
+                                        @Html.DisplayNameFor(model => model.Drivers[0].VehiclesRegistered)
+                                    </th>
+
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Drivers[0].Tel)
                                     </th>
                                     <th width="115"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.GroupItem.Drivers)
+                                @foreach (var item in Model.Drivers)
                                 {
                                     <tr>
                                         <td>
@@ -377,23 +389,23 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Securemans[0].Name)
+                                        @Html.DisplayNameFor(model => model.Securemans[0].Name)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Securemans[0].Tel)
+                                        @Html.DisplayNameFor(model => model.Securemans[0].Tel)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Securemans[0].Company)
+                                        @Html.DisplayNameFor(model => model.Securemans[0].Company)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.Securemans[0].Title)
+                                        @Html.DisplayNameFor(model => model.Securemans[0].Title)
                                     </th>
 
                                     <th width="110"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.GroupItem.Securemans)
+                                @foreach (var item in Model.Securemans)
                                 {
                                     <tr>
 
@@ -496,23 +508,23 @@
 
 
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.UserFiles[0].Name)
+                                        @Html.DisplayNameFor(model => model.UserFiles[0].Name)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.UserFiles[0].FileName)
+                                        @Html.DisplayNameFor(model => model.UserFiles[0].FileName)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.UserFiles[0].UploadDate)
+                                        @Html.DisplayNameFor(model => model.UserFiles[0].UploadDate)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupItem.UserFiles[0].SizeString)
+                                        @Html.DisplayNameFor(model => model.UserFiles[0].SizeString)
                                     </th>
 
                                     <th width="115"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.GroupItem.UserFiles)
+                                @foreach (var item in Model.UserFiles)
                                 {
                                     <tr>
 
@@ -552,15 +564,26 @@
 
 
                     </div>
-                    <div role="tabpanel" class="tab-pane " id="home">
-                        <h4>
-                            <i class="fa fa-cloud" aria-hidden="true"></i>
-                            单位介绍
-                        </h4>
+                    <div role="tabpanel" class="tab-pane  active" id="home">
                         <br />
-                        <div style="padding:30px;">
-                            @Html.Raw(Model.GroupItem.Introduction);
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img width="250" src="data:image;base64,@Model.GroupItem.PhotoMainBase64" />
+                            </div>
+                            <div class="col-md-9">
+                                <h4>
+                                    <i class="fa fa-cloud" aria-hidden="true"></i>
+                                    单位介绍
+                                </h4>
+
+                                <div style="padding:30px;">
+                                    @Html.Raw(Model.GroupItem.Comment);
+                                </div>
+                            </div>
+
                         </div>
+
+
                         <br />
                         <h4><i class="fa fa-list" aria-hidden="true"></i>详细信息</h4>
 
@@ -629,19 +652,25 @@
                         <div class="panel panel-default">
                             <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.GroupItem.PhotoMain)</div>
                             <div class="panel-body">
-                                <img src="data:image;base64,@Model.GroupItem.PhotoMain" />
+                                <img src="data:image;base64,@Model.GroupItem.PhotoMainBase64" />
                             </div>
                         </div>
                         <div class="panel panel-default">
-                            <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.GroupItem.PhotoWarranty)</div>
+                            <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.GroupItem.ExtraPhoto1)</div>
                             <div class="panel-body">
-                                <img src="data:image;base64,@Model.GroupItem.PhotoWarranty" />
+                                <img src="data:image;base64,@Model.GroupItem.ExtraPhoto1Base64" />
                             </div>
                         </div>
                         <div class="panel panel-default">
-                            <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.GroupItem.PhotoSecurity)</div>
+                            <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.GroupItem.ExtraPhoto2)</div>
                             <div class="panel-body">
-                                <img src="data:image;base64,@Model.GroupItem.PhotoSecurity" />
+                                <img src="data:image;base64,@Model.GroupItem.ExtraPhoto2Base64" />
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.GroupItem.ExtraPhoto3)</div>
+                            <div class="panel-body">
+                                <img src="data:image;base64,@Model.GroupItem.ExtraPhoto3Base64" />
                             </div>
                         </div>
                     </div>

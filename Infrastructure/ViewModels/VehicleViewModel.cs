@@ -5,11 +5,58 @@ using System.Linq;
 using System.Threading.Tasks;
 using Socona.ImVehicle.Core.Data;
 using Microsoft.AspNetCore.Http;
+using Socona.ImVehicle.Infrastructure.Extensions;
 
 namespace Socona.ImVehicle.Web.ViewModels
 {
     public class VehicleViewModel
     {
+
+        public VehicleViewModel() { }
+
+        public VehicleViewModel(VehicleItem vehicle)
+        {
+
+            OriginalModel = vehicle;
+
+
+            Id = vehicle.Id;
+            Brand = vehicle.Brand;
+            Color = vehicle.Color;
+            Comment = vehicle.Comment;
+            DriverId = vehicle.DriverId;
+            GroupId = vehicle.GroupId;
+            InsuranceExpiredDate = vehicle.InsuranceExpiredDate;
+            LastRegisterDate = vehicle.LastRegisterDate;
+            RegisterDate = vehicle.LastRegisterDate;
+            License = vehicle.LicenceNumber;
+            Name = vehicle.Name;
+            ProductionDate = vehicle.ProductionDate;
+            RealOwner = vehicle.RealOwner;
+            Type = vehicle.Type;
+            Usage = vehicle.Usage;
+            VehicleStatus = vehicle.VehicleStatus;
+            YearlyAuditDate = vehicle.YearlyAuditDate;
+            Agent = vehicle.Agent;
+            DumpDate = vehicle.DumpDate;
+            GroupName = vehicle.Group?.Name;
+            TownName = vehicle.Town?.Name;
+            DriverName = vehicle.Driver?.Name;
+            DriverTel = vehicle.Driver?.Tel;
+
+            PhotoLicenseBase64 = vehicle.PhotoLicense.ToBase64String();
+            PhotoGpsBase64 = vehicle.PhotoGps.ToBase64String();
+            PhotoAuditBase64 = vehicle.PhotoAudit.ToBase64String();
+            PhotoFrontBase64 = vehicle.PhotoFront.ToBase64String();
+            PhotoRearBase64 = vehicle.PhotoRear.ToBase64String();
+            PhotoInsuaranceBase64 = vehicle.PhotoInsuarance.ToBase64String();
+            ExtraPhoto1Base64 = vehicle.ExtraPhoto1.ToBase64String();
+            ExtraPhoto2Base64 = vehicle.ExtraPhoto1.ToBase64String();
+            ExtraPhoto3Base64 = vehicle.ExtraPhoto1.ToBase64String();
+        }
+
+        public VehicleItem OriginalModel { get; set; }
+
         public long Id { get; set; }
 
         [Required]
@@ -79,7 +126,7 @@ namespace Socona.ImVehicle.Web.ViewModels
 
         public long? DriverId { get; set; }
 
-      
+
         [Display(Name = "车正面照片")]
         public IFormFile PhotoFront { get; set; }
 
@@ -101,7 +148,7 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "附加照片1")]
         public IFormFile PhotoInsuarance { get; set; }
 
-        
+
         [Display(Name = "附加照片1")]
         public string PhotoInsuaranceBase64 { get; set; }
 
@@ -123,5 +170,79 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "已装GPS")]
         public bool GpsEnabled { get; set; }
         public bool IsValid { get; set; }
+
+
+        [Display(Name = "附加照片1")]
+        public IFormFile ExtraPhoto1 { get; set; }
+        public string ExtraPhoto1Base64 { get; private set; }
+
+        [Display(Name = "附加照片2")]
+        public IFormFile ExtraPhoto2 { get; set; }
+        public string ExtraPhoto2Base64 { get; private set; }
+
+        [Display(Name = "附加照片3")]
+        public IFormFile ExtraPhoto3 { get; set; }
+        public string ExtraPhoto3Base64 { get; private set; }
+
+
+        public async Task FillVehicleItem(VehicleItem vehicle)
+        {
+            vehicle.Name = this.Name;
+            vehicle.Brand = this.Brand;
+            vehicle.Color = this.Color;
+            vehicle.Comment = this.Comment;
+            vehicle.InsuranceExpiredDate = this.InsuranceExpiredDate;
+            vehicle.LicenceNumber = this.License;
+            vehicle.DumpDate = this.DumpDate;
+            vehicle.ProductionDate = this.ProductionDate;
+            vehicle.RealOwner = this.RealOwner;
+            vehicle.LastRegisterDate = this.RegisterDate;
+            vehicle.Type = this.Type;
+            vehicle.Usage = this.Usage;
+            vehicle.YearlyAuditDate = this.YearlyAuditDate;
+            vehicle.VehicleStatus = this.VehicleStatus;
+            vehicle.GroupId = this.GroupId;
+            vehicle.TownId = this.TownId;
+            vehicle.DriverId = this.DriverId;
+            vehicle.GpsEnabled = this.GpsEnabled;
+            vehicle.Agent = this.Agent;
+            if (PhotoFront != null)
+            {
+                vehicle.PhotoFront = await this.PhotoFront.GetPictureByteArray();
+            }
+            if (PhotoRear != null)
+            {
+                vehicle.PhotoRear = await PhotoRear.GetPictureByteArray();
+            }
+            if (PhotoAudit != null)
+            {
+                vehicle.PhotoAudit = await PhotoAudit.GetPictureByteArray();
+            }
+            if (PhotoInsuarance != null)
+            {
+                vehicle.PhotoInsuarance = await PhotoInsuarance.GetPictureByteArray();
+            }
+            if (PhotoGps != null)
+            {
+                vehicle.PhotoGps = await PhotoGps.GetPictureByteArray();
+            }
+            if (PhotoLicense != null)
+            {
+                vehicle.PhotoLicense = await PhotoLicense.GetPictureByteArray();
+
+            }
+            if (ExtraPhoto1 != null)
+            {
+                vehicle.ExtraPhoto1 = await ExtraPhoto1.GetPictureByteArray();
+            }
+            if (ExtraPhoto2 != null)
+            {
+                vehicle.ExtraPhoto2 = await ExtraPhoto2.GetPictureByteArray();
+            }
+            if (ExtraPhoto3 != null)
+            {
+                vehicle.ExtraPhoto3 = await ExtraPhoto3.GetPictureByteArray();
+            }
+        }
     }
 }
