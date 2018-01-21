@@ -89,7 +89,7 @@ namespace Socona.ImVehicle.Web.Pages.UserFile
 
                 return Redirect(Url.GetLocalUrl(ReturnUrl));
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return NotFound();
             }

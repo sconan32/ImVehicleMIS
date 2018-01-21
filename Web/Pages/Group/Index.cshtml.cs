@@ -45,7 +45,7 @@ namespace Socona.ImVehicle.Web.Pages.Group
         public async Task OnGetAsync()
         {
             var page = 0;
-            var pageSize = 20;
+           // var pageSize = 20;
 
             var specification = await Group4UserSpecification.CreateAsync(HttpContext.User, _userManager);
             specification.Includes.Add(t => t.Drivers);

@@ -1,19 +1,18 @@
-﻿using Socona.ImVehicle.Core.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Socona.ImVehicle.Core.Interfaces;
+using Socona.ImVehicle.Core.Specifications;
 
-namespace Socona.ImVehicle.Core.Specifications
+namespace Socona.ImVehicle.Infrastructure.Specifications
 {
-
-    public class AndSpecification<T> : Specification<T>
+    public class OrSpecification<T> : Specification<T>
     {
         private readonly ISpecification<T> _left;
         private readonly ISpecification<T> _right;
 
-        public AndSpecification(ISpecification<T> left, ISpecification<T> right)
+        public OrSpecification(ISpecification<T> left, ISpecification<T> right)
         {
             _right = right;
             _left = left;
@@ -65,7 +64,6 @@ namespace Socona.ImVehicle.Core.Specifications
             {
                 PostProcess = items => right.PostProcess(items);
             }
-
             Criteria = ToExpression();
         }
 
@@ -101,7 +99,7 @@ namespace Socona.ImVehicle.Core.Specifications
             var right = rightVisitor.Visit(rightExpression.Body);
 
             return Expression.Lambda<Func<T, bool>>(
-                Expression.AndAlso(left, right), parameter);
+                Expression.OrElse(left, right), parameter);
 
         }
         private class ReplaceExpressionVisitor
@@ -126,3 +124,4 @@ namespace Socona.ImVehicle.Core.Specifications
     }
 
 }
+

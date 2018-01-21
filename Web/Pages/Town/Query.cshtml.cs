@@ -33,8 +33,8 @@ namespace Socona.ImVehicle.Web.Pages.Town
 
             ViewData["QueryString"] = queryString;
             var towns = await _townRepository.GetAvailableTownsEagerAsync(HttpContext.User);
-            Expression expression;
-            string url;
+            //Expression expression;
+            //string url;
            // _searchService.BuildSearchExpression(":镇:"+queryString, out url, out expression);
             
             TownList = towns.OrderBy(t => t.Code).Select(t =>

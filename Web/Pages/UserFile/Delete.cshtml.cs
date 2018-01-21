@@ -56,7 +56,7 @@ namespace Socona.ImVehicle.Web.Pages.UserFile
                 {
                     System.IO.File.Delete(UserFile.ServerPath);
                 }
-                catch(Exception ex)
+                catch(Exception )
                 {
 
                 }

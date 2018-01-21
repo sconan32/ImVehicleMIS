@@ -5,12 +5,12 @@ using System.Text;
 
 namespace Socona.ImVehicle.Infrastructure.Tools
 {
-    [Flags]
+  
     public enum   ModelStatus
     {
 
         [Display(Name = "全部")]
-        All = Ok | Warning,
+        All = 0x0,
 
 
         [Display(Name="正常")]

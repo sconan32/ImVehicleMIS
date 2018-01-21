@@ -79,6 +79,8 @@ namespace Socona.ImVehicle.Web
             services.AddScoped<ITownService, TownService>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IGroupService, GroupService>();
+
+            services.AddScoped<IDriverRepository, DriverRepository>();
             services.AddScoped<INewsService, NewsService>();
             services.AddScoped<IVehicleService, VehicleService>();
             // Register no-op EmailSender used by account confirmation and password reset during development
@@ -87,7 +89,7 @@ namespace Socona.ImVehicle.Web
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
             // Add default bootstrap-styled pager implementation
 
-            
+
 
         }
 
@@ -102,7 +104,7 @@ namespace Socona.ImVehicle.Web
             }
             else
             {
-               
+
                 app.UseExceptionHandler("/Error");
                 app.UseForwardedHeaders(new ForwardedHeadersOptions
                 {
@@ -111,7 +113,7 @@ namespace Socona.ImVehicle.Web
             }
 
             app.UseStaticFiles();
-           
+
 
 
 

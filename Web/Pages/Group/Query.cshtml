@@ -2,27 +2,94 @@
 @model Web.Pages.Group.QueryModel
 
 @{
-    ViewData["Title"] = "安全单位 查找结果";
+    ViewData["Title"] = "查找安全组";
 }
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3>安全单位 查找结果</h3>
+            <h3>查找安全组</h3>
         </div>
         <div class="pull-right">
             <a asp-page="/">主页</a>&gt;
-            <a asp-page="/Town">安全单位</a>
+            <a asp-page="/Group">安全组</a>
+            <a asp-page="/Group/Query">查找安全组</a>
         </div>
     </div>
 </section>
 <section class="main_feature_area">
     <div class="container">
 
-        <p>
-           <h4>查找结果：  条件：@ViewBag.QueryString</h4>
-        </p>
-        <hr />
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        安全组 查找条件:@ViewBag.QueryString
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <form class="form-horizontal col-sm-10" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="iptFilterName" class="col-sm-2 control-label">名称</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="iptFilterName" placeholder="名称" asp-for="FilterModel.Name">
+                            </div>
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">类型</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="iptFilterIdCard" placeholder="类型" asp-for="FilterModel.Type">
+                            </div>
+                        </div>
 
+                        <div class="form-group">
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">负责人</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="iptFilterIdCard" placeholder="负责人" asp-for="FilterModel.ChiefName">
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">监理中队</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="iptFilterIdCard" placeholder="监理中队" asp-for="FilterModel.PoliceOffice">
+                            </div>
+
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">监理民警</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="iptFilterIdCard" placeholder="监理民警" asp-for="FilterModel.Policeman">
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">状态</label>
+                            <div class="col-sm-4">
+                                <select asp-for="FilterModel.Status" class="form-control" asp-items="@Html.GetEnumSelectList<Socona.ImVehicle.Infrastructure.Tools.ModelStatus>()"></select>
+                            </div>
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">街道</label>
+                            <div class="col-sm-4">
+                                <select id="town_select" asp-for="FilterModel.TownId" class="form-control" asp-items="ViewBag.TownList">
+                                    <option>请选择街道 </option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <button class="btn btn-edit-item" type="submit"><i class="fa fa-search"></i> 查 找</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <h4>共找到 @Model.Groups?.Count 条记录</h4>
+        <hr />
+     
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -60,55 +127,55 @@
             <tbody>
                 @foreach (var item in Model.Groups)
             {
-                    <tr>
+                <tr>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Code)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TownName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TownName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
 
-                        <td>
-                            <b>@Html.DisplayFor(modelItem => item.ChiefTitle)</b> @Html.DisplayFor(modelItem => item.ChiefName)
-                            <span style="color:gray"> (@Html.DisplayFor(modelItem => item.ChiefTel))</span>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Address)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.License)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.VehicleCount)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DriverCount)
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
-                                @if (await Model.CanEdit())
-                                {
-                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="caret"></span>
-                                        <span class="sr-only">向下弹出</span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a asp-page="./Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                                        <li><a asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+                    <td>
+                        <b>@Html.DisplayFor(modelItem => item.ChiefTitle)</b> @Html.DisplayFor(modelItem => item.ChiefName)
+                        <span style="color:gray"> (@Html.DisplayFor(modelItem => item.ChiefTel))</span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.License)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VehicleCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DriverCount)
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                            @if (await Model.CanEdit())
+                        {
+                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">向下弹出</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a asp-page="./Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
+                                <li><a asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
 
-                                    </ul>
-                                }
-                            </div>
-                        </td>
-                    </tr>
-                }
+                            </ul>
+                    }
+                        </div>
+                    </td>
+                </tr>
+        }
             </tbody>
         </table>
     </div>

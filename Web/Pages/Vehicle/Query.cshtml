@@ -12,16 +12,88 @@
         <div class="pull-right">
             <a asp-page="/Index">主页</a>&gt;
             <a asp-page="/Vehicle/Index">车辆</a>
+            <a asp-page="/Vehicle/Query">搜索车辆</a>
         </div>
     </div>
 </section>
 <section class="main_feature_area">
     <div class="container">
 
-        <p>
-            <h4><i class="fa fa-search"></i>车辆查找结果  条件：@ViewBag.QueryString</h4>
-        </p>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        车辆 查找条件:@ViewBag.QueryString
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <form class="form-horizontal col-sm-10" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="iptFilterName" class="col-sm-2 control-label">车牌号</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="iptFilterName" placeholder="车牌号" asp-for="FilterModel.LicenseNumber">
+                            </div>
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">驾驶员</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="iptFilterIdCard" placeholder="驾驶员" asp-for="FilterModel.DriverName">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">营运方式</label>
+                            <div class="col-sm-4">
+                                <select asp-for="FilterModel.Usage" class="form-control" asp-items="@Html.GetEnumSelectList<Socona.ImVehicle.Core.Data.UsageType>()">
+                                    <option>请选择营运方式 </option>
+                                </select>
+                            </div>
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">车辆类型</label>
+                            <div class="col-sm-4">
+                                <select asp-for="FilterModel.Type" class="form-control" asp-items="@Html.GetEnumSelectList<Socona.ImVehicle.Core.Data.VehicleType>()">
+                                    <option>请选择车辆类型 </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                          
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">状态</label>
+                            <div class="col-sm-4">
+                                <select asp-for="FilterModel.Status" class="form-control" asp-items="@Html.GetEnumSelectList<Socona.ImVehicle.Infrastructure.Tools.ModelStatus>()"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">街道</label>
+                            <div class="col-sm-4">
+                                <select id="town_select" asp-for="FilterModel.TownId" class="form-control" asp-items="ViewBag.TownList">
+                                    <option>请选择街道 </option>
+                                </select>
+                            </div>
+
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">安全组</label>
+                            <div class="col-sm-4">
+                                <select id="group_select" asp-for="FilterModel.GroupId" class="form-control" asp-items="ViewBag.GroupList">
+                                    <option>请选择安全组 </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <button class="btn btn-edit-item" type="submit"><i class="fa fa-search"></i> 查 找</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <h4>共找到 @Model.Vehicles?.Count 条记录</h4>
         <hr />
+
 
         <table class="table table-hover">
             <thead>
@@ -65,67 +137,67 @@
             </thead>
             <tbody>
                 @foreach (var item in Model.Vehicles)
-                {
-                    <tr>
+            {
+                <tr>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.License)
-                            @if (!item.IsValid)
-                            {
-                                <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
-                            }
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Usage)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Type)
-                        </td>
-
-
-
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.YearlyAuditDate)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DumpDate)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DriverName)
-                            <span style="color:gray">@Html.DisplayFor(modelItem => item.DriverTel)</span>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TownName)
-
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.GroupName)
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <a class="btn btn-view-item btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
-                                @if (await Model.CanEdit())
-                                {
-                                    <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="caret"></span>
-                                        <span class="sr-only">向下弹出</span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a asp-page="./Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                                        <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
-
-                                    </ul>
-                                }
-                            </div>
-                        </td>
-                    </tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.License)
+                        @if (!item.IsValid)
+                    {
+                        <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
                 }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Usage)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+
+
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.YearlyAuditDate)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DumpDate)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DriverName)
+                        <span style="color:gray">@Html.DisplayFor(modelItem => item.DriverTel)</span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TownName)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GroupName)
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-view-item btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                            @if (await Model.CanEdit())
+                        {
+                            <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">向下弹出</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a asp-page="./Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
+                                <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+
+                            </ul>
+                    }
+                        </div>
+                    </td>
+                </tr>
+        }
             </tbody>
         </table>
     </div>

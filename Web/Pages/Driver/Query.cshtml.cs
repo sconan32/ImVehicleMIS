@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
 using Socona.ImVehicle.Core.Specifications;
+using Socona.ImVehicle.Infrastructure.Interfaces;
 using Socona.ImVehicle.Infrastructure.Tools;
 using Socona.ImVehicle.Web.ViewModels;
 using Socona.ImVehicle.Web.ViewModels.Specifications;
@@ -26,11 +27,12 @@ namespace Socona.ImVehicle.Web.Pages.Driver
         private readonly ITownService _townService;
         private readonly IGroupService _groupService;
         private readonly UserManager<VehicleUser> _userManager;
+        private readonly IDriverRepository _driverRepository;
 
-        public QueryModel(VehicleDbContext dbContext, IAuthorizationService authorizationService, ITownService townService,
+        public QueryModel(IDriverRepository driverRepository, IAuthorizationService authorizationService, ITownService townService,
             IGroupService groupService, UserManager<VehicleUser> userManager)
         {
-            _dbContext = dbContext;
+            _driverRepository = driverRepository;
             _authorizationService = authorizationService;
             _townService = townService;
             _groupService = groupService;
@@ -61,33 +63,15 @@ namespace Socona.ImVehicle.Web.Pages.Driver
             ViewData["TownList"] = new SelectList(Towns, "Id", "Name");
             ViewData["GroupList"] = new SelectList(Groups, "Id", "Name");
 
-            Specification<DriverItem> canFetch = await Driver4UserSpecification.CreateAsync(HttpContext.User, _userManager);
-            var filter = new Specification<DriverItem>(FilterModel.ToExpression());
-            canFetch = new AndSpecification<DriverItem>(canFetch, filter);
+            ISpecification<DriverItem> canFetch = await Driver4UserSpecification.CreateAsync(HttpContext.User, _userManager);
+            canFetch = canFetch.And(FilterModel.ToExpression());
+            canFetch.Includes.Add(t => t.Vehicles);
+            canFetch.Includes.Add(t => t.Town);
+            canFetch.Includes.Add(t => t.Group);
+            canFetch = canFetch.OrderBy(t => t.IsValid());
 
-            var items = await _dbContext.Drivers.Where(canFetch.Criteria)
-                .Include(t => t.Vehicles)
-                .Include(t => t.Town)
-                .Include(t => t.Group)
-                .OrderBy(t=>t.LicenseIssueDate)
-                .ToListAsync();
-            Drivers = items.Select(t => new DriverListViewModel()
-            {
-                Id = t.Id,
-                Name = t.Name,
-                IdCardNumber = t.IdCardNumber,
-                License = t.LicenseNumber,
-                LicenseType = t.LicenseType,
-                LicenseIssueDate = t.LicenseIssueDate,
-                LicenseValidYears = t.LicenseValidYears,
-                FirstLicenseIssueDate = t.FirstLicenseIssueDate,
-                Gender = t.Gender,
-                VehiclesRegistered = t.Vehicles.Count,
-                Tel = t.Tel,
-                Title = t.Title,
-                TownName = t.Town?.Name,
-                GroupName = t.Group?.Name,
-            }).ToList();
+            var items = await _dbContext.Drivers.Where(canFetch.Criteria).ToListAsync();
+            Drivers = items.Select(t => new DriverListViewModel(t)).ToList();
         }
 
         public async Task OnGetAsync(string queryString)
@@ -106,23 +90,7 @@ namespace Socona.ImVehicle.Web.Pages.Driver
                 .Include(t => t.Town)
                 .Include(t => t.Group)
                 .ToListAsync();
-            Drivers = items.Select(t => new DriverListViewModel()
-            {
-                Id = t.Id,
-                Name = t.Name,
-                IdCardNumber = t.IdCardNumber,
-                License = t.LicenseNumber,
-                LicenseType = t.LicenseType,
-                LicenseIssueDate = t.LicenseIssueDate,
-                LicenseValidYears = t.LicenseValidYears,
-                FirstLicenseIssueDate = t.FirstLicenseIssueDate,
-                Gender = t.Gender,
-                VehiclesRegistered = t.Vehicles.Count,
-                Tel = t.Tel,
-                Title = t.Title,
-                TownName = t.Town?.Name,
-                GroupName = t.Group?.Name,
-            }).Where(new DriverListVmQueryStringSpecification(queryString).Criteria.Compile()).ToList();
+            Drivers = items.Select(t => new DriverListViewModel(t)).Where(new DriverListVmQueryStringSpecification(queryString).Criteria.Compile()).ToList();
         }
 
 
@@ -169,7 +137,7 @@ namespace Socona.ImVehicle.Web.Pages.Driver
             }
             if (Status!=null)
             {
-                MethodInfo isValid = typeof(string).GetMethod("IsValid");
+                MethodInfo isValid = typeof(DriverItem).GetMethod("IsValid");
                 if (Status == ModelStatus.Ok)
 
                 { exprs.Add(Expression.Call(argParam, isValid)); }

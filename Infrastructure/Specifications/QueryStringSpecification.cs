@@ -149,7 +149,7 @@ namespace Socona.ImVehicle.Core.Specifications
                 {
                     return new DateTime?(Convert.ToDateTime(value));
                 }
-                catch (FormatException ex)
+                catch (FormatException )
                 {
                     return null;
                 }

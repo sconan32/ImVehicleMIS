@@ -11,8 +11,8 @@ namespace Socona.ImVehicle.Infrastructure.Services
     {
 
 
-        private IAsyncRepository<DriverItem> _driverRepository;
-        private UserManager<VehicleUser> _userManager;
+        //private IAsyncRepository<DriverItem> _driverRepository;
+       // private UserManager<VehicleUser> _userManager;
 
 
 

@@ -38,7 +38,7 @@ namespace Socona.ImVehicle.Web.Pages.UserFile
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             }

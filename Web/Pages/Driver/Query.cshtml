@@ -7,11 +7,11 @@
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3>查找驾驶员</h3>
+            <h3><i class="fa fa-search"></i> 查找驾驶员</h3>
         </div>
         <div class="pull-right">
             <a asp-page="/Index">主页</a>&gt;
-            <a asp-page="/Driver/Index">查找驾驶员</a>
+            <a asp-page="/Driver/Query">查找驾驶员</a>
         </div>
     </div>
 </section>
@@ -44,29 +44,16 @@
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" id="iptTel" placeholder="电话" asp-for="FilterModel.Tel">
                             </div>
-                            <label for="iptFilterIdCard" class="col-sm-2 control-label">状态</label>
-
-                            <div class="col-sm-4">
-                                <div class="btn-group" data-toggle="buttons">
-
-                                    <label class="btn btn-primary ">
-                                        <email></email>
-                                        <enum-radio-button asp-for="FilterModel.Status" value="ModelStatus.All"/>
-                                    </label>
-                                    <label class="btn btn-primary">
-                                        <enum-radio-button asp-for="FilterModel.Status" value="ModelStatus.Normal"/>
-                                    </label>
-                                    <label class="btn btn-primary">
-                                        <enum-radio-button asp-for="FilterModel.Status" value="ModelStatus.Warning"/>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">状态</label>                           
+                                <div class="col-sm-4">
+                                    <select asp-for="FilterModel.Status" class="form-control" asp-items="@Html.GetEnumSelectList<Socona.ImVehicle.Infrastructure.Tools.ModelStatus>()"></select>
+                                </div>                          
+                            </div>                       
 
                         <div class="form-group">
                             <label for="iptFilterIdCard" class="col-sm-2 control-label">街道</label>
                             <div class="col-sm-4">
-                                <select id="town_select" asp-for="FilterModel.TownId" class"form-control" asp-items="ViewBag.TownList">
+                                <select id="town_select" asp-for="FilterModel.TownId" class="form-control" asp-items="ViewBag.TownList">
                                     <option>请选择街道 </option>
                                 </select>
                             </div>
@@ -81,7 +68,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-4">
-                                <button class="btn btn-edit-item" type="submit"><i class="fa fa-search"></i> 搜 索</button>
+                                <button class="btn btn-edit-item" type="submit"><i class="fa fa-search"></i> 查 找</button>
                             </div>
                         </div>
                     </form>
@@ -91,6 +78,7 @@
         </div>
 
         <br />
+        <h4>共找到 @Model.Drivers?.Count 条记录</h4>
         <hr />
 
         <table class="table table-hover">
@@ -133,7 +121,12 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
+                             @if (!item.IsValid)
+                            {
+                                <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+                            }
                         </td>
+                       
                         <td>
                             @Html.DisplayFor(modelItem => item.IdCardNumber)
                         </td>
