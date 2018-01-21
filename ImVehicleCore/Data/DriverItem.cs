@@ -76,6 +76,10 @@ namespace Socona.ImVehicle.Core.Data
         public bool IsValid()
         {
             var nowDate = DateTime.Now.Date;
+            if(LicenseIssueDate==null)
+            {
+                return false;
+            }
             return (LicenseIssueDate > nowDate);          
         }
     }

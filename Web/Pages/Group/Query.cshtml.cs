@@ -58,7 +58,7 @@ namespace Socona.ImVehicle.Web.Pages.Group
             return (await admin).Succeeded;
         }
 
-        public async Task OnPostAsync(string queryString)
+        public async Task<IActionResult> OnPostAsync(string queryString)
         {
             ViewData["QueryString"] = queryString;
 
@@ -71,10 +71,17 @@ namespace Socona.ImVehicle.Web.Pages.Group
             canFetch.Includes.Add(t => t.Drivers);
             canFetch.Includes.Add(t => t.Town);
             canFetch.Includes.Add(t => t.Vehicles);
-            canFetch = canFetch.OrderBy(t => t.IsValid());
+            var items = (await _groupRepository.ListAsync(canFetch)).OrderBy(t => t.IsValid());
 
-            var items = await _groupRepository.ListAsync(canFetch);
+            if (FilterModel.ExportExcel == true)
+            {
+                var sigStr = $"::{HttpContext.User.Identity.Name}::socona.imvehicle.group.export?search::{DateTime.Now.ToString("yyyyMMdd.HHmmss")}";
+                var stream = ExcelHelper.ExportGroups(items.ToList(), sigStr);
+                return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"exported{DateTime.Now.ToString("yyyyMMdd.HHmmss")}.xlsx");
+            }
+          
             Groups = items.Select(t => new GroupListViewModel(t)).ToList();
+            return Page();
         }
 
         [Authorize(Roles = "TownManager,Admins")]
@@ -122,7 +129,7 @@ namespace Socona.ImVehicle.Web.Pages.Group
 
             public long? TownId { get; set; }
 
-
+            public bool? ExportExcel { get; set; }
 
 
             public Expression<Func<GroupItem, bool>> ToExpression()

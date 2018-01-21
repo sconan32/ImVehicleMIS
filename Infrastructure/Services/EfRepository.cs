@@ -63,10 +63,16 @@ namespace Socona.ImVehicle.Core.Data
                     (current, include) => current.Include(include));
 
             // return the result of the query using the specification's criteria expression
-            var filtered = secondaryResult.Where(spec.Criteria);
-            var sorted = spec.Sort(filtered);
-            var postProcessed = spec.PostProcess(sorted);
-            return postProcessed.AsEnumerable();
+            var query = secondaryResult.Where(spec.Criteria);
+            if (spec.Sort != null)
+            {
+                query = spec.Sort(query);
+            }
+            if (spec.PostProcess != null)
+            {
+                query = spec.PostProcess(query);
+            }     
+            return query.AsEnumerable();
 
 
         }
@@ -83,10 +89,16 @@ namespace Socona.ImVehicle.Core.Data
                     (current, include) => current.Include(include));
 
             // return the result of the query using the specification's criteria expression
-            var filtered = secondaryResult.Where(spec.Criteria);
-            var sorted = spec.Sort(filtered);
-            var postProcessed = spec.PostProcess(sorted);
-            return await postProcessed.ToListAsync();
+            var query = secondaryResult.Where(spec.Criteria);
+            if (spec.Sort != null)
+            {
+                query = spec.Sort(query);
+            }
+            if (spec.PostProcess != null)
+            {
+                query = spec.PostProcess(query);
+            }
+            return await query.ToListAsync();
         }
 
 
@@ -166,7 +178,7 @@ namespace Socona.ImVehicle.Core.Data
             var query = secondaryResult
                             .Where(spec.Criteria);
 
-          
+
 
             query = query.Skip(start).Take(count);
             return await query.ToListAsync();

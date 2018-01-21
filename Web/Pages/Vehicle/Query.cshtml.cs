@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
+using Socona.ImVehicle.Core.Services;
 using Socona.ImVehicle.Core.Specifications;
 using Socona.ImVehicle.Infrastructure.Tools;
 using Socona.ImVehicle.Web.ViewModels;
@@ -21,15 +22,15 @@ namespace Socona.ImVehicle.Web.Pages.Vehicle
 {
     public class QueryModel : PageModel
     {
-        private readonly VehicleDbContext _dbContext;
+        private readonly IVehicleService _vehicleService;
         private readonly IAuthorizationService _authorizationService;
         private readonly ITownService _townService;
         private readonly IGroupService _groupService;
         private readonly UserManager<VehicleUser> _userManager;
-        public QueryModel(VehicleDbContext dbContext, IAuthorizationService authorizationService,
+        public QueryModel(IVehicleService vehicleService, IAuthorizationService authorizationService,
             ITownService townService, IGroupService groupService, UserManager<VehicleUser> userManager)
         {
-            _dbContext = dbContext;
+            _vehicleService = vehicleService;
             _authorizationService = authorizationService;
             _townService = townService;
             _groupService = groupService;
@@ -51,7 +52,7 @@ namespace Socona.ImVehicle.Web.Pages.Vehicle
             var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
             return (await tm).Succeeded || (await admin).Succeeded;
         }
-        public async Task OnPostAsync(string queryString)
+        public async Task<IActionResult> OnPostAsync(string queryString)
         {
             ViewData["QueryString"] = queryString;
 
@@ -61,24 +62,36 @@ namespace Socona.ImVehicle.Web.Pages.Vehicle
             ViewData["GroupList"] = new SelectList(Groups, "Id", "Name");
 
             ISpecification<VehicleItem> canFetch = await Vehicle4UserSpecification.CreateAsync(HttpContext.User, _userManager);
-
             canFetch = canFetch.And(FilterModel.ToExpression());
             canFetch.Includes.Add(t => t.Driver);
             canFetch.Includes.Add(t => t.Town);
             canFetch.Includes.Add(t => t.Group);
             canFetch.OrderBy(t => t.IsValid());
 
-            var items = await _dbContext.Vehicles.Where(canFetch.Criteria).ToListAsync();
+            var items = await _vehicleService.ListAsync(canFetch);
+            if(FilterModel.ExportExcel==true)
+            {
+                var sigStr = $"::{HttpContext.User.Identity.Name}::socona.imvehicle.vehicle.export?search::{DateTime.Now.ToString("yyyyMMdd.HHmmss")}";
+                var stream =ExcelHelper.ExportVehicles(items,sigStr);
+                return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"exported{DateTime.Now.ToString("yyyyMMdd.HHmmss")}.xlsx");
+            }
+
+
             Vehicles = items.Select(t => new VehicleListViewModel(t)).ToList();
+
+            return Page();
         }
         public async Task OnGetAsync(string queryString)
         {
             ViewData["QueryString"] = queryString;
-            var townIdList = await _townService.GetAvailableTownIdsAsync(HttpContext.User);
-            var items = await _dbContext.Vehicles.Where(t => townIdList.Contains(t.TownId ?? -1))
-                 .Include(t => t.Group).ThenInclude(g => g.Town)
-                 .Include(t => t.Driver)
-                 .ToListAsync();
+            ISpecification<VehicleItem> canFetch = await Vehicle4UserSpecification.CreateAsync(HttpContext.User, _userManager);
+            canFetch.Includes.Add(t => t.Driver);
+            canFetch.Includes.Add(t => t.Town);
+            canFetch.Includes.Add(t => t.Group);
+            canFetch.OrderBy(t => t.IsValid());
+
+            var items = await _vehicleService.ListAsync(canFetch);
+
             Towns = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User));
             Groups = (await _groupService.ListAwailableGroupEagerAsync(HttpContext.User));
             ViewData["TownList"] = new SelectList(Towns, "Id", "Name");
@@ -101,6 +114,8 @@ namespace Socona.ImVehicle.Web.Pages.Vehicle
             public long? TownId { get; set; }
 
             public long? GroupId { get; set; }
+
+            public bool? ExportExcel { get; set; }
 
             public Expression<Func<VehicleItem, bool>> ToExpression()
             {

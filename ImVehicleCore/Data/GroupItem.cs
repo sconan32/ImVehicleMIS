@@ -100,17 +100,21 @@ namespace Socona.ImVehicle.Core.Data
 
         public bool IsValid()
         {
-            var nowDate = DateTime.Now.Date;
 
-            if (Vehicles?.Count(v => !v.IsValid()) > 0)
+            if (Vehicles != null)
             {
-                return false;
+                if (Vehicles.Count(v => !v.IsValid()) > 0)
+                {
+                    return false;
+                }
             }
-            if (Drivers?.Count(d => !d.IsValid()) > 0)
+            if (Drivers != null)
             {
-                return false;
+                if (Drivers.Count(d => !d.IsValid()) > 0)
+                {
+                    return false;
+                }
             }
-
             return true;
         }
         public virtual  List<VehicleUser> Users { get; set; }

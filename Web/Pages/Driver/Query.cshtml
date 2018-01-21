@@ -27,7 +27,7 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body">
-                    <form class="form-horizontal col-sm-10" method="post" enctype="multipart/form-data">
+                    <form id="search-form" class="form-horizontal col-sm-10" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="iptFilterName" class="col-sm-2 control-label">姓名</label>
                             <div class="col-sm-4">
@@ -44,11 +44,11 @@
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" id="iptTel" placeholder="电话" asp-for="FilterModel.Tel">
                             </div>
-                            <label for="iptFilterIdCard" class="col-sm-2 control-label">状态</label>                           
-                                <div class="col-sm-4">
-                                    <select asp-for="FilterModel.Status" class="form-control" asp-items="@Html.GetEnumSelectList<Socona.ImVehicle.Infrastructure.Tools.ModelStatus>()"></select>
-                                </div>                          
-                            </div>                       
+                            <label for="iptFilterIdCard" class="col-sm-2 control-label">状态</label>
+                            <div class="col-sm-4">
+                                <select asp-for="FilterModel.Status" class="form-control" asp-items="@Html.GetEnumSelectList<Socona.ImVehicle.Infrastructure.Tools.ModelStatus>()"></select>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label for="iptFilterIdCard" class="col-sm-2 control-label">街道</label>
@@ -65,10 +65,10 @@
                                 </select>
                             </div>
                         </div>
-
+                        <input id="flag-export-excel" type="hidden" asp-for="FilterModel.ExportExcel" />
                         <div class="form-group">
                             <div class="col-sm-4">
-                                <button class="btn btn-edit-item" type="submit"><i class="fa fa-search"></i> 查 找</button>
+                                <button id="btn-search" class="btn btn-edit-item" type="button"><i class="fa fa-search"></i> 查 找</button>
                             </div>
                         </div>
                     </form>
@@ -78,7 +78,18 @@
         </div>
 
         <br />
-        <h4>共找到 @Model.Drivers?.Count 条记录</h4>
+        <div class="row">
+            <div class="col-md-9">
+
+
+                <h4>共找到 @Model.Drivers?.Count 条记录</h4>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-edit-item" id="btn-export-excel">
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> 导出电子表格
+                </button>
+            </div>
+        </div>
         <hr />
 
         <table class="table table-hover">
@@ -121,12 +132,12 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
-                             @if (!item.IsValid)
+                            @if (!item.IsValid)
                             {
                                 <i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
                             }
                         </td>
-                       
+
                         <td>
                             @Html.DisplayFor(modelItem => item.IdCardNumber)
                         </td>
@@ -175,7 +186,7 @@
     </div>
 </section>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
     <script>
         $(document).ready(function () {
             //Dropdownlist Selectedchange event
@@ -199,7 +210,16 @@
                 });
                 return false;
             });
+            $("#btn-search").click(function () {
+                $("#flag-export-excel").val(false);
+                $("#search-form").submit();
+            });
+            $("#btn-export-excel").click(function () {
+                $("#flag-export-excel").val(true);
+                $("#search-form").submit();
+            });
         });
-    </script>
 
+       
+    </script>
 }

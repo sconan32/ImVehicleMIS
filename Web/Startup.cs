@@ -77,12 +77,16 @@ namespace Socona.ImVehicle.Web
 
             services.AddScoped<ITownRepository, TownRepository>();
             services.AddScoped<ITownService, TownService>();
+
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IGroupService, GroupService>();
 
             services.AddScoped<IDriverRepository, DriverRepository>();
+
             services.AddScoped<INewsService, NewsService>();
+
             services.AddScoped<IVehicleService, VehicleService>();
+
             // Register no-op EmailSender used by account confirmation and password reset during development
             // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
             services.AddSingleton<IEmailSender, EmailSender>();

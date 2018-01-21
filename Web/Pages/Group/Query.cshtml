@@ -7,7 +7,7 @@
 <section class="banner_area">
     <div class="container">
         <div class="pull-left">
-            <h3>查找安全组</h3>
+            <h3><i class="fa fa-search"></i>查找安全组</h3>
         </div>
         <div class="pull-right">
             <a asp-page="/">主页</a>&gt;
@@ -29,7 +29,7 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body">
-                    <form class="form-horizontal col-sm-10" method="post" enctype="multipart/form-data">
+                    <form id="search-form" class="form-horizontal col-sm-10" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="iptFilterName" class="col-sm-2 control-label">名称</label>
                             <div class="col-sm-4">
@@ -72,12 +72,12 @@
                                 </select>
                             </div>
                         </div>
-
+                        <input id="flag-export-excel" type="hidden" asp-for="FilterModel.ExportExcel" />
 
 
                         <div class="form-group">
                             <div class="col-sm-4">
-                                <button class="btn btn-edit-item" type="submit"><i class="fa fa-search"></i> 查 找</button>
+                                <button id="btn-search" class="btn btn-edit-item" type="button"><i class="fa fa-search"></i> 查 找</button>
                             </div>
                         </div>
                     </form>
@@ -87,9 +87,20 @@
         </div>
 
         <br />
-        <h4>共找到 @Model.Groups?.Count 条记录</h4>
+        <div class="row">
+            <div class="col-md-9">
+
+
+                <h4>共找到 @Model.Groups?.Count 条记录</h4>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-edit-item" id="btn-export-excel">
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> 导出电子表格
+                </button>
+            </div>
+        </div>
         <hr />
-     
+
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -98,9 +109,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Groups[0].Code)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Groups[0].TownName)
-                    </th>
+
                     <th>
                         @Html.DisplayNameFor(model => model.Groups[0].Name)
                     </th>
@@ -110,10 +119,10 @@
                     </th>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.Groups[0].Address)
+                        @Html.DisplayNameFor(model => model.Groups[0].PoliceOffice)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Groups[0].License)
+                        @Html.DisplayNameFor(model => model.Groups[0].Policeman)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Groups[0].VehicleCount)
@@ -121,7 +130,10 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Groups[0].DriverCount)
                     </th>
-                    <th width="110"></th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Groups[0].TownName)
+                    </th>
+                    <th width="115"></th>
                 </tr>
             </thead>
             <tbody>
@@ -132,9 +144,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Code)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TownName)
-                    </td>
+
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
@@ -144,10 +154,10 @@
                         <span style="color:gray"> (@Html.DisplayFor(modelItem => item.ChiefTel))</span>
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Address)
+                        @Html.DisplayFor(modelItem => item.PoliceOffice)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.License)
+                        @Html.DisplayFor(modelItem => item.Policeman)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.VehicleCount)
@@ -156,11 +166,14 @@
                         @Html.DisplayFor(modelItem => item.DriverCount)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.TownName)
+                    </td>
+                    <td>
                         <div class="btn-group">
-                            <a class="btn btn-primary btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
+                            <a class="btn btn-view-item btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                             @if (await Model.CanEdit())
                         {
-                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button type="button" class="btn btn-view-item btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="caret"></span>
                                 <span class="sr-only">向下弹出</span>
                             </button>
@@ -180,3 +193,17 @@
         </table>
     </div>
 </section>
+@section Scripts {
+
+    <script>
+        $("#btn-search").click(function () {
+            $("#flag-export-excel").val(false);
+            $("#search-form").submit();
+        });
+        $("#btn-export-excel").click(function () {
+            $("#flag-export-excel").val(true);
+            $("#search-form").submit();
+        });
+    </script>
+
+}

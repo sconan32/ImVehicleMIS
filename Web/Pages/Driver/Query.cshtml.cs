@@ -22,7 +22,7 @@ namespace Socona.ImVehicle.Web.Pages.Driver
 {
     public class QueryModel : PageModel
     {
-        private readonly VehicleDbContext _dbContext;
+  
         private readonly IAuthorizationService _authorizationService;
         private readonly ITownService _townService;
         private readonly IGroupService _groupService;
@@ -54,7 +54,7 @@ namespace Socona.ImVehicle.Web.Pages.Driver
         }
 
 
-        public async Task OnPostAsync(string queryString)
+        public async Task<IActionResult> OnPostAsync(string queryString)
         {
             ViewData["QueryString"] = queryString;
 
@@ -68,10 +68,19 @@ namespace Socona.ImVehicle.Web.Pages.Driver
             canFetch.Includes.Add(t => t.Vehicles);
             canFetch.Includes.Add(t => t.Town);
             canFetch.Includes.Add(t => t.Group);
-            canFetch = canFetch.OrderBy(t => t.IsValid());
+           
+            var items = (await _driverRepository.ListAsync(canFetch)).OrderBy(t=>t.IsValid());
 
-            var items = await _dbContext.Drivers.Where(canFetch.Criteria).ToListAsync();
+            if (FilterModel.ExportExcel == true)
+            {
+                var sigStr = $"::{HttpContext.User.Identity.Name}::socona.imvehicle.driver.export?search::{DateTime.Now.ToString("yyyyMMdd.HHmmss")}";
+                var stream = ExcelHelper.ExportDrivers(items.ToList(), sigStr);
+                return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"exported{DateTime.Now.ToString("yyyyMMdd.HHmmss")}.xlsx");
+            }
+
             Drivers = items.Select(t => new DriverListViewModel(t)).ToList();
+
+            return Page();
         }
 
         public async Task OnGetAsync(string queryString)
@@ -84,12 +93,14 @@ namespace Socona.ImVehicle.Web.Pages.Driver
             ViewData["TownList"] = new SelectList(Towns, "Id", "Name");
             ViewData["GroupList"] = new SelectList(Groups, "Id", "Name");
 
-            var townidlist = await _townService.GetAvailableTownIdsAsync(HttpContext.User);
-            var items = await _dbContext.Drivers.Where(t => townidlist.Contains(t.TownId ?? -1))
-                .Include(t => t.Vehicles)
-                .Include(t => t.Town)
-                .Include(t => t.Group)
-                .ToListAsync();
+            ISpecification<DriverItem> canFetch = await Driver4UserSpecification.CreateAsync(HttpContext.User, _userManager);
+           
+            canFetch.Includes.Add(t => t.Vehicles);
+            canFetch.Includes.Add(t => t.Town);
+            canFetch.Includes.Add(t => t.Group);
+
+
+            var items = (await _driverRepository.ListAsync(canFetch)).OrderBy(t => t.IsValid()); ;
             Drivers = items.Select(t => new DriverListViewModel(t)).Where(new DriverListVmQueryStringSpecification(queryString).Criteria.Compile()).ToList();
         }
 
@@ -111,6 +122,7 @@ namespace Socona.ImVehicle.Web.Pages.Driver
 
         public long? GroupId { get; set; }
 
+        public bool? ExportExcel { get; set; }
 
         public Expression<Func<DriverItem, bool>> ToExpression()
         {
