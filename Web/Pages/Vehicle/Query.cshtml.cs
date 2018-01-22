@@ -46,11 +46,17 @@ namespace Socona.ImVehicle.Web.Pages.Vehicle
         public List<TownItem> Towns { get; set; }
 
         public List<GroupItem> Groups { get; set; }
+        private bool? canEdit = null;
+      
         public async Task<bool> CanEdit()
         {
-            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireTownManagerRole");
-            var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
-            return (await tm).Succeeded || (await admin).Succeeded;
+            if (canEdit == null)
+            {
+                var tm = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireTownManagerRole");
+                var admin = _authorizationService.AuthorizeAsync(HttpContext.User, "RequireAdminsRole");
+                canEdit = (await tm).Succeeded || (await admin).Succeeded;
+            }
+            return canEdit ?? false;
         }
         public async Task<IActionResult> OnPostAsync(string queryString)
         {

@@ -25,7 +25,7 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
             _signInManager = signInManager;
             _emailSender = emailSender;
         }
-
+        [Display(Name = "用户名")]
         public string Username { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
@@ -40,10 +40,11 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
         {
             [Required]
             [EmailAddress]
+            [Display(Name = "邮件")]
             public string Email { get; set; }
 
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "电话")]
             public string PhoneNumber { get; set; }
         }
 

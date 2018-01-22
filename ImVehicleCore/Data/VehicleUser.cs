@@ -101,11 +101,11 @@ namespace Socona.ImVehicle.Core.Data
             }
             else if (operation == Constants.CreateOperationName || operation == Constants.UpdateOperationName || operation == Constants.DeleteOperationName)
             {
-                return await CanDo(group, userManager, t => true, t => false, t => t.Id == TownId, t => false);
+                return await CanDo(group, userManager, t => true, t => false, t => t.TownId == TownId, t => false);
             }
             else if (operation == Constants.UploadUserFileOperationName)
             {
-                return await CanDo(group, userManager, t => true, t => false, t => t.Id == TownId, t => t.Id == GroupId);
+                return await CanDo(group, userManager, t => true, t => false, t => false, t => t.Id == GroupId);
             }
             return false;
 

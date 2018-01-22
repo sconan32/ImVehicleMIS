@@ -55,7 +55,8 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
                 await AddUsers(tm, "街道管理员");
             }
             if (await _userManager.IsInRoleAsync(user, "GlobalVisitor") ||
-              await _userManager.IsInRoleAsync(user, "Admins"))
+              await _userManager.IsInRoleAsync(user, "Admins")||
+              await _userManager.IsInRoleAsync(user, "TownManager"))
             {
 
 

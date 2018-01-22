@@ -39,10 +39,15 @@ namespace Socona.ImVehicle.Web.Pages.Group
         public List<UserFileListViewModel> UserFiles { get; set; }
 
         public List<SecureManListViewModel> Securemans { get; set; }
+        private bool? canEdit = null;
         public async Task<bool> CanEdit()
         {
-            var tm = _authorizationService.AuthorizeAsync(HttpContext.User, GroupItem.OriginalModel, "CanEdit");
-            return (await tm).Succeeded;
+            if (canEdit == null)
+            {
+                var tm = _authorizationService.AuthorizeAsync(HttpContext.User, GroupItem.OriginalModel, "CanEdit");
+                canEdit = (await tm).Succeeded;
+            }
+            return canEdit ?? false;
         }
         public async Task<bool> CanUpload()
         {

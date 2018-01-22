@@ -14,5 +14,8 @@ namespace Socona.ImVehicle.Core.Interfaces
         Task<List<TownItem>> ListForUser(ClaimsPrincipal user, ISpecification<TownItem> specification);
 
         Task<TownItem> GetByIdAsync(long id);
+
+
+        Task<List<TownItem>> ListAsync(ISpecification<TownItem> specification);
     }
 }
