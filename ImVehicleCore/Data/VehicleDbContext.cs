@@ -33,6 +33,8 @@ namespace Socona.ImVehicle.Core.Data
         public DbSet<NewsItem> Newses { get; set; }
 
         public DbSet<VehicleOperation> Operations { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

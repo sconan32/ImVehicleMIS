@@ -17,5 +17,6 @@ namespace Socona.ImVehicle.Core.Interfaces
         Task<List<GroupItem>> ListRangeAsync(ISpecification<GroupItem> canFetch, int start, int count);
 
         Task<List<GroupItem>> ListAsync(ISpecification<GroupItem> canFetch);
+        Task<GroupItem> GetByIdAsync(long id);
     }
 }

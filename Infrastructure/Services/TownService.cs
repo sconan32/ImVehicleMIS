@@ -87,7 +87,10 @@ namespace Socona.ImVehicle.Core.Services
             return await _townRepository.ListAsync(canFetch);
 
         }
-
+        public async Task<TownItem> GetByIdAsync(long id)
+        {
+            return await  _townRepository.GetByIdAsync(id);
+        }
 
     }
 }

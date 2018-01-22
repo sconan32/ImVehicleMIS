@@ -47,7 +47,7 @@
                         <ul class="nav navbar-nav">
                             <li><a asp-page="/Index">主页</a></li>
                             <li><a asp-page="/Town/Index">街道</a></li>
-                            <li><a asp-page="/Group/Index">安全单位</a></li>
+                            <li><a asp-page="/Group/Index">安全组</a></li>
                             <li><a asp-page="/Vehicle/Index">车辆</a></li>
                             <li><a asp-page="/Driver/Index">驾驶员</a></li>
                             <li><a asp-page="/News/Index">新闻</a></li>
@@ -55,21 +55,7 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li >
-                                <div class="input-group" >
-                                    <div class="input-group-btn">
-                                        <button id="btnSearchPrefix" type="button" class="btn btn-default dropdown-toggle" data-search-prefix="单位：单位性质=" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="prefix-name">单位性质 </span> <span class="caret"></span></button>
-                                        <ul id="listSearchPrefix" class="dropdown-menu">
-                                            <li><a data-search-prefix="单位：单位性质=" href="#">单位性质 </a></li>
-                                            <li><a data-search-prefix="单位：名称=" href="#">单位名称 </a></li>
-                                            <li role="separator" class="divider"></li>
-                                            <li><a data-search-prefix="车辆：车牌号=" href="#">车牌号 </a></li>
-                                            <li><a data-search-prefix="车辆：类型=" href="#">车辆类型 </a></li>
-                                            <li><a data-search-prefix="车辆：预警状态=" href="#">车辆预警状态 </a></li>
-                                            <li role="separator" class="divider"></li>
-                                            <li><a  data-search-prefix="驾驶员：姓名=" href="#">驾驶员姓名 </a></li>
-                                            <li><a data-search-prefix="驾驶员：预警状态=" href="#">驾驶员预警状态 </a></li>
-                                        </ul>
-                                    </div>
+                                <div class="input-group" >                                   
                                     <input type="text" id="search_box" class="form-control" placeholder="过滤条件">
                                     <div class="input-group-btn">
                                         <button class="btn btn-default" type="button" id="submit_search"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -126,11 +112,11 @@
     <script>
         function query_search() {
 
-            var prefix = $("#btnSearchPrefix").data("searchPrefix");
+           
             var value = $('#search_box').val();
             $.ajax({
                 type: "GET",
-                url: "/Search/Index?queryString=" + encodeURIComponent(prefix + value),
+                url: "/Search/Index?queryString=" + encodeURIComponent( value),
                 success: function (states) {
                     // similar behavior as an HTTP redirect
                     window.location.href = states.requestUrl;

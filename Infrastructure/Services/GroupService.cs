@@ -74,5 +74,10 @@ namespace Socona.ImVehicle.Core.Services
             return await _groupService.ListAsync(canFetch) ;
         }
 
+        public async Task<GroupItem> GetByIdAsync(long id)
+        {
+            return await _groupService.GetByIdAsync(id);
+        }
+
     }
 }

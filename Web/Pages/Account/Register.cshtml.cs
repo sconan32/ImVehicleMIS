@@ -64,6 +64,9 @@ namespace Socona.ImVehicle.Web.Pages.Account
             public long? TownId { get; set; }
             [Display(Name = "安全组")]
             public long? GroupId { get; set; }
+
+            [Display(Name = "电话")]
+            public string PhoneNumber { get; set; }
         }
 
         public void OnGet(string returnUrl = null)

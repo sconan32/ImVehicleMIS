@@ -43,7 +43,8 @@ namespace Socona.ImVehicle.Core.Data
         OK =200,
         [Display(Name = "删除")]
         Deleted =404,
-
+        [Display(Name = "停用")]
+        Forbidden = 403,
         [Display(Name = "待审")]
         Authorizing=401,
         [Display(Name = "脏")]

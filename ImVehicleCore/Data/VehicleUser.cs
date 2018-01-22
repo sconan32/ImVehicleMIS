@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using System.Linq.Expressions;
+using System.ComponentModel.DataAnnotations;
 
 namespace Socona.ImVehicle.Core.Data
 {
@@ -34,10 +35,26 @@ namespace Socona.ImVehicle.Core.Data
 
         public long? GroupId { get; set; }
 
+        public string Type { get; set; }
+
         [ForeignKey("DistrictId")]
         public virtual DistrictItem District { get; set; }
 
         public long? DistrictId { get; set; }
+
+        [Display(Name = "创建日期")]
+        public DateTime? CreationDate { get; set; }
+        [Display(Name = "修改日期")]
+        public DateTime? ModificationDate { get; set; }
+
+        [Display(Name = "修改用户")]
+        public string CreateBy { get; set; }
+
+        [Display(Name = "修改用户")]
+        public string ModifyBy { get; set; }
+
+        [Display(Name = "状态码")]
+        public StatusType Status { get; set; }
 
 
         public async Task<bool> CanDoAsync(string operation, BaseEntity entity, UserManager<VehicleUser> userManager)
