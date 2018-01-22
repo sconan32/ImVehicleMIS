@@ -75,11 +75,18 @@ namespace Socona.ImVehicle.Web.ViewModels
 
 
         [Display(Name = "附加照片1")]
+        public IFormFile ExtraPhoto1 { get; set; }
+
+        public string ExtraPhoto1Base64 { get; set; }
+
         public IFormFile PhotoIdCard1 { get; set; }
 
         public string PhotoIdCard1Base64 { get; set; }
 
         [Display(Name = "附加照片2")]
+        public IFormFile ExtraPhoto2 { get; set; }
+
+        public string ExtraPhoto2Base64 { get; set; }
         public IFormFile PhotoIdCard2 { get; set; }
 
 
@@ -96,6 +103,9 @@ namespace Socona.ImVehicle.Web.ViewModels
         public string WarrantyCode { get; set; }
 
         [Display(Name = "附加照片3")]
+        public IFormFile ExtraPhoto3 { get; set; }
+
+        public string ExtraPhoto3Base64 { get; set; }
         public IFormFile PhotoWarranty { get; set; }
 
         public string PhotoWarrantyBase64 { get; set; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Socona.ImVehicle.Core.Data;
 
 namespace Socona.ImVehicle.Web.ViewModels
 {
@@ -20,5 +21,8 @@ namespace Socona.ImVehicle.Web.ViewModels
 
         [Display(Name = "顺序")]
         public int Order { get; set; }
+
+        [Display(Name = "板块")]
+        public NewsAreaType? Area { get; set; }
     }
 }

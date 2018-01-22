@@ -30,9 +30,12 @@
         <table class="table">
             <thead>
                 <tr>
-                   
+
                     <th>
                         @Html.DisplayNameFor(model => model.Newses[0].Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Newses[0].Area)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Newses[0].Date)
@@ -43,34 +46,37 @@
             <tbody>
                 @foreach (var item in Model.Newses)
                 {
-                    <tr>
-                        
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Date)
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <a class="btn btn-view-item btn-sm" asp-page="./Details" asp-route-id="@item.Id" ><i class="fa fa-search-plus" aria-hidden="true"></i>查 看 </a>
-                                @if (await Model.CanEdit())
-                                {
-                                    <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="caret"></span>
-                                        <span class="sr-only">向下弹出</span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a asp-page="./Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                                        <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+                <tr>
 
-                                    </ul>
-                                }
-                            </div>
-                        </td>
-                    </tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Area)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-view-item btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i>查 看 </a>
+                            @if (await Model.CanEdit())
+            {
+                <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">向下弹出</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a asp-page="./Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
+                    <li><a class="danger" asp-page="./Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+
+                </ul>
+}
+                        </div>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

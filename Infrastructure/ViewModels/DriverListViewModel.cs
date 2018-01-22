@@ -28,6 +28,7 @@ namespace Socona.ImVehicle.Web.ViewModels
                 TownName = t.Town?.Name;
                 GroupName = t.Group?.Name;
                 FirstLicenseIssueDate = t.FirstLicenseIssueDate;
+                ResidentType = t.ResidentType;
             }
         }
 
@@ -49,8 +50,8 @@ namespace Socona.ImVehicle.Web.ViewModels
         public VehicleLicenseType LicenseType { get; set; }
         [Display(Name = "性别")]
         public GenderType Gender { get; set; }
-
-
+        [Display(Name = "户口属地")]
+        public ResidentTypeEnum? ResidentType { get; set; }
 
         [Display(Name = "注册车辆数")]
         public int VehiclesRegistered { get; set; }
@@ -66,13 +67,13 @@ namespace Socona.ImVehicle.Web.ViewModels
         public DateTime? FirstLicenseIssueDate { get; set; }
 
         [DataType(DataType.Date)]
-        [Display(Name = "驾驶证签发日期")]
+        [Display(Name = "签发日期")]
         public DateTime? LicenseIssueDate { get; set; }
-        [Display(Name = "驾驶证有效年限")]
+        [Display(Name = "有效年限")]
         public int? LicenseValidYears { get; set; }
         [DataType(DataType.Date)]
-        [Display(Name = "驾驶证有效期至")]
-        public DateTime? LicenseExpiredDate { get { return LicenseIssueDate?.AddYears(LicenseValidYears ?? 0); } }
+        [Display(Name = "有效期至")]
+        public DateTime? LicenseExpiredDate { get { return LicenseIssueDate; } }
         [Display(Name = "街道")]
         public string TownName { get; set; }
 

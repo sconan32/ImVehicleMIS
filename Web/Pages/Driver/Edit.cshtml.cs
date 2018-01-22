@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
 using Socona.ImVehicle.Web.ViewModels;
+using Socona.ImVehicle.Infrastructure.Extensions;
 
 namespace Socona.ImVehicle.Web.Pages.Driver
 {
@@ -91,40 +92,7 @@ namespace Socona.ImVehicle.Web.Pages.Driver
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
 
-            MemoryStream photoWarranty = null;
-            MemoryStream photoIdCard1 = null;
-            MemoryStream photoIdCard2 = null;
-            MemoryStream photoLicense = null;
-            MemoryStream photoAvatar = null;
-
-            var acceptableExt = new[] { ".png", ".bmp", ".jpg", ".jpeg", ".tif", };
-
-            if (acceptableExt.Contains(Path.GetExtension(DriverItem.PhotoIdCard1?.FileName)?.ToLower()))
-            {
-                photoIdCard1 = new MemoryStream();
-                await DriverItem.PhotoIdCard1.CopyToAsync(photoIdCard1);
-            }
-            if (acceptableExt.Contains(Path.GetExtension(DriverItem.PhotoIdCard2?.FileName)?.ToLower()))
-            {
-                photoIdCard2 = new MemoryStream();
-                await DriverItem.PhotoIdCard2.CopyToAsync(photoIdCard2);
-            }
-
-            if (acceptableExt.Contains(Path.GetExtension(DriverItem.PhotoWarranty?.FileName)?.ToLower()))
-            {
-                photoWarranty = new MemoryStream();
-                await DriverItem.PhotoWarranty.CopyToAsync(photoWarranty);
-            }
-            if (acceptableExt.Contains(Path.GetExtension(DriverItem.PhotoDriverLicense?.FileName)?.ToLower()))
-            {
-                photoLicense = new MemoryStream();
-                await DriverItem.PhotoDriverLicense.CopyToAsync(photoLicense);
-            }
-            if (acceptableExt.Contains(Path.GetExtension(DriverItem.PhotoAvatar?.FileName)?.ToLower()))
-            {
-                photoAvatar = new MemoryStream();
-                await DriverItem.PhotoDriverLicense.CopyToAsync(photoAvatar);
-            }
+      
 
 
             var townId = await _userManager.IsInRoleAsync(user, "TownManager") ? user.TownId : DriverItem.TownId;
@@ -134,7 +102,7 @@ namespace Socona.ImVehicle.Web.Pages.Driver
             {
                 return NotFound();
             }
-
+           
             driver.Name = DriverItem.Name;
             driver.Gender = DriverItem.Gender;
             driver.FirstLicenseIssueDate = DriverItem.FirstLicenseIssueDate;
@@ -153,25 +121,37 @@ namespace Socona.ImVehicle.Web.Pages.Driver
             driver.TownId = townId;
             driver.GroupId = DriverItem.GroupId;
 
-            if (photoLicense != null)
+            if (DriverItem.PhotoDriverLicense != null)
             {
-                driver.PhotoDriverLicense = photoLicense.ToArray();
+                driver.PhotoDriverLicense = await DriverItem.PhotoDriverLicense.GetPictureByteArray();
             }
-            if (photoIdCard1 != null)
+            if (DriverItem.PhotoIdCard1 != null)
             {
-                driver.PhotoIdCard1 = photoIdCard1.ToArray();
+                driver.PhotoIdCard1 = await DriverItem.PhotoIdCard1.GetPictureByteArray();
             }
-            if (photoIdCard2 != null)
+            if (DriverItem.PhotoIdCard2 != null)
             {
-                driver.PhotoIdCard2 = photoIdCard2.ToArray();
+                driver.PhotoIdCard2 = await DriverItem.PhotoIdCard2.GetPictureByteArray();
             }
-            if (photoWarranty != null)
+            if (DriverItem.PhotoWarranty != null)
             {
-                driver.PhotoWarranty = photoWarranty.ToArray();
+                driver.PhotoWarranty = await DriverItem.PhotoWarranty.GetPictureByteArray();
             }
-            if(photoAvatar!=null)
+            if(DriverItem.PhotoAvatar!=null)
             {
-                driver.PhotoAvatar = photoAvatar.ToArray();
+                driver.PhotoAvatar =await  DriverItem.PhotoAvatar.GetPictureByteArray();
+            }
+            if (DriverItem.ExtraPhoto1 != null)
+            {
+                driver.ExtraPhoto1 = await DriverItem.ExtraPhoto1.GetPictureByteArray();
+            }
+            if (DriverItem.ExtraPhoto2 != null)
+            {
+                driver.ExtraPhoto2 = await DriverItem.ExtraPhoto2.GetPictureByteArray();
+            }
+            if (DriverItem.ExtraPhoto3 != null)
+            {
+                driver.ExtraPhoto3 = await DriverItem.ExtraPhoto3.GetPictureByteArray();
             }
             driver.ModifyBy = user.Id;
             driver.ModificationDate = DateTime.Now;

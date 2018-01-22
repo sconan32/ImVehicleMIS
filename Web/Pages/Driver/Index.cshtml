@@ -20,13 +20,13 @@
 
         <p>
             @if (await Model.CanEdit())
-    {
-        <a class="btn btn-new-item" asp-page="Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <i class="fa fa-plus" aria-hidden="true"></i> 新建驾驶员</a>
-        <a class="btn btn-edit-item" asp-page="Query" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <i class="fa fa-search" aria-hidden="true"></i> 查找驾驶员</a>
-        <a class="btn btn-edit-item" href="/Driver/ExportExcel">
-            <i class="fa fa-file-excel-o" aria-hidden="true"></i> 导出电子表格
-        </a>
-}
+            {
+                <a class="btn btn-new-item" asp-page="Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <i class="fa fa-plus" aria-hidden="true"></i> 新建驾驶员</a>
+                <a class="btn btn-edit-item" asp-page="Query" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path)"> <i class="fa fa-search" aria-hidden="true"></i> 查找驾驶员</a>
+                <a class="btn btn-edit-item" href="/Driver/ExportExcel">
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> 导出电子表格
+                </a>
+            }
         </p>
         <hr />
         <table id="driver-table" class="table table-hover">
@@ -40,7 +40,9 @@
                         @Html.DisplayNameFor(model => model.Drivers[0].IdCardNumber)
                     </th>
 
-
+                    <th>
+                        @Html.DisplayNameFor(model => model.Drivers[0].ResidentType)
+                    </th>
 
                     <th>
                         @Html.DisplayNameFor(model => model.Drivers[0].LicenseType)
@@ -53,7 +55,7 @@
                         @Html.DisplayNameFor(model => model.Drivers[0].LicenseExpiredDate)
                     </th>
 
-                    
+
                     <th>
                         @Html.DisplayNameFor(model => model.Drivers[0].VehiclesRegistered)
                     </th>
@@ -84,7 +86,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.IdCardNumber)
                         </td>
-
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ResidentType)
+                        </td>
                         <td>
                             <span class="label label-warning"><b>@Html.DisplayFor(modelItem => item.LicenseType)</b></span>
                         </td>
@@ -144,7 +148,9 @@
         <td>
             {{:idCardNumber}}
         </td>
-
+        <td>
+            {{residentType:residentType}}
+        </td>
         <td>
             <span class="label label-warning"><b>{{licenseType:licenseType}}</b></span>
         </td>
@@ -168,19 +174,19 @@
             <div class="btn-group">
                 <a class="btn btn-view-item btn-sm" href="/Driver/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                 @if (await Model.CanEdit())
-                {
-                    <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span>
-                        <span class="sr-only">向下弹出</span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="/Driver/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="/Driver/Edit?id={{:id}}&returnUrl=@Request.Path"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                        <li><a class="danger" href="/Driver/Delete?id={{:id}}&returnUrl=@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+            {
+                <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">向下弹出</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="/Driver/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/Driver/Edit?id={{:id}}&returnUrl=@Request.Path"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
+                    <li><a class="danger" href="/Driver/Delete?id={{:id}}&returnUrl=@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
 
-                    </ul>
-                }
+                </ul>
+        }
             </div>
         </td>
     </tr>
@@ -189,7 +195,7 @@
 
 @section Scripts {
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
 
 
@@ -214,6 +220,14 @@
             },
             genderType: function (value) {
                 var map = @(Html.EnumToHtmlString<Socona.ImVehicle.Core.Data.GenderType>());
+                for (var i = 0; i < map.length; i++) {
+                    if (map[i].value == value) {
+                        return map[i].name;
+                    }
+                }
+            },
+             residentType: function (value) {
+                var map = @(Html.EnumToHtmlString<Socona.ImVehicle.Core.Data.ResidentTypeEnum>());
                 for (var i = 0; i < map.length; i++) {
                     if (map[i].value == value) {
                         return map[i].name;
@@ -274,7 +288,7 @@
                 }
             });
         }
-    </script>
+</script>
 
 
 }

@@ -168,9 +168,7 @@
                                         @Html.DisplayNameFor(model => model.Vehicles[0].Usage)
                                     </th>
 
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Vehicles[0].Brand)
-                                    </th>
+
                                     <th>
                                         @Html.DisplayNameFor(model => model.Vehicles[0].Type)
                                     </th>
@@ -181,12 +179,12 @@
                                         @Html.DisplayNameFor(model => model.Vehicles[0].YearlyAuditDate)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Vehicles[0].InsuranceExpiredDate)
+                                        @Html.DisplayNameFor(model => model.Vehicles[0].DumpDate)
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.Vehicles[0].DriverName)
                                     </th>
-
+                                   
                                     <th>
                                         @Html.DisplayNameFor(model => model.Vehicles[0].TownName)
                                     </th>
@@ -213,9 +211,7 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Usage)
                                         </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Brand)
-                                        </td>
+                                       
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Type)
                                         </td>
@@ -230,7 +226,7 @@
                                         </td>
 
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.InsuranceExpiredDate)
+                                            @Html.DisplayFor(modelItem => item.DumpDate)
                                         </td>
 
                                         <td>
@@ -300,9 +296,7 @@
                                         @Html.DisplayNameFor(model => model.Drivers[0].LicenseType)
                                     </th>
 
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Drivers[0].License)
-                                    </th>
+                                 
 
 
 
@@ -341,9 +335,7 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.LicenseType)
                                         </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.License)
-                                        </td>
+                                       
                                         <td>
                                             @Html.DisplayFor(modelItem => item.LicenseExpiredDate)
                                         </td>
@@ -577,7 +569,7 @@
                                 </h4>
 
                                 <div style="padding:30px;">
-                                    @Html.Raw(Model.GroupItem.Comment);
+                                    @Html.Raw(Model.GroupItem.Comment)
                                 </div>
                             </div>
 
@@ -597,6 +589,18 @@
                                 @Html.DisplayFor(model => model.GroupItem.Id)
                             </dd>
                             <dt>
+                                @Html.DisplayNameFor(model => model.GroupItem.Name)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.GroupItem.Name)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.GroupItem.Type)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.GroupItem.Type)
+                            </dd>
+                            <dt>
                                 @Html.DisplayNameFor(model => model.GroupItem.Address)
                             </dt>
                             <dd>
@@ -609,10 +613,10 @@
                                 @Html.DisplayFor(model => model.GroupItem.RegisterAddress)
                             </dd>
                             <dt>
-                                @Html.DisplayNameFor(model => model.GroupItem.Type)
+                                @Html.DisplayNameFor(model => model.GroupItem.License)
                             </dt>
                             <dd>
-                                @Html.DisplayFor(model => model.GroupItem.Type)
+                                @Html.DisplayFor(model => model.GroupItem.License)
                             </dd>
 
                             <dt>
@@ -629,12 +633,17 @@
                                 @Html.DisplayFor(model => model.GroupItem.ChiefTel)
                             </dd>
                             <dt>
-                                @Html.DisplayNameFor(model => model.GroupItem.Type)
+                                @Html.DisplayNameFor(model => model.GroupItem.PoliceOffice)
                             </dt>
                             <dd>
-                                @Html.DisplayFor(model => model.GroupItem.Type)
+                                @Html.DisplayFor(model => model.GroupItem.PoliceOffice)
                             </dd>
-
+                            <dt>
+                                @Html.DisplayNameFor(model => model.GroupItem.Policeman)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.GroupItem.Policeman)
+                            </dd>
                         </dl>
                         <br />
                         <hr />

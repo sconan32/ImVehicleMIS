@@ -25,7 +25,7 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
             _signInManager = signInManager;
             _emailSender = emailSender;
         }
-        [Display(Name = "ÓÃ»§Ãû")]
+        [Display(Name = "ç”¨æˆ·å")]
         public string Username { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
@@ -40,11 +40,11 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "ÓÊ¼ş")]
+            [Display(Name = "é‚®ä»¶")]
             public string Email { get; set; }
 
             [Phone]
-            [Display(Name = "µç»°")]
+            [Display(Name = "ç”µè¯")]
             public string PhoneNumber { get; set; }
         }
 
@@ -100,7 +100,7 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
                 }
             }
 
-            StatusMessage = "ÓÃ»§Êı¾İÒÑ¾­¸üĞÂ";
+            StatusMessage = "ç”¨æˆ·æ•°æ®å·²ç»æ›´æ–°";
             return RedirectToPage();
         }
         public async Task<IActionResult> OnPostSendVerificationEmailAsync()
@@ -120,7 +120,7 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
             var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
             await _emailSender.SendEmailConfirmationAsync(user.Email, callbackUrl);
 
-            StatusMessage = "ÑéÖ¤ÓÊ¼şÒÑ·¢£¬ÇëÈ¥ÓÊÏäÑéÖ¤";
+            StatusMessage = "éªŒè¯é‚®ä»¶å·²å‘ï¼Œè¯·å»é‚®ç®±éªŒè¯";
             return RedirectToPage();
         }
     }
