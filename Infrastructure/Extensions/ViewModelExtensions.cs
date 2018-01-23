@@ -12,21 +12,8 @@ namespace Socona.ImVehicle.Infrastructure.Extensions
     public static class ViewModelExtensions
     {
 
-        private static string[] acceptableExt = new[] { ".png", ".bmp", ".jpg", ".jpeg", ".tif", };
+        private static string[] acceptableExt = new[] { ".png", ".bmp", ".jpg", ".jpeg", "gif", };
         public async static Task<byte[]> GetPictureByteArray(this IFormFile formFile)
-        {
-            if (formFile != null)
-            {              
-                if (acceptableExt.Contains(Path.GetExtension(formFile?.FileName)?.ToLower()))
-                {
-                    MemoryStream stream = new MemoryStream();
-                    await formFile.CopyToAsync(stream);
-                    return stream.ToArray();
-                }
-            }
-            return null;
-        }
-        public async static Task<byte[]> GetPictureByteArray(this IFormFile formFile,string waterMark)
         {
             if (formFile != null)
             {
@@ -34,23 +21,23 @@ namespace Socona.ImVehicle.Infrastructure.Extensions
                 {
                     MemoryStream stream = new MemoryStream();
                     await formFile.CopyToAsync(stream);
-                    WaterMark wmark = new WaterMark();
-
-                    var font = System.DrawingCore.FontFamily.GenericSansSerif;
-                     wmark.Mark(imgStream: stream,
-                         markType: MarkType.Text,
-                         text: waterMark,
-                         waterImg: null,
-                         markx: 0,
-                         marky: 0,
-                         bold: true,
-                         textColor: System.DrawingCore.Color.White,
-                         transparence: 0.5f,
-                         fontFamily: font
-                        );
-                 
-
+                    stream.Close();
                     return stream.ToArray();
+                }
+            }
+            return null;
+        }
+        public async static Task<byte[]> GetPictureByteArray(this IFormFile formFile, string waterMark)
+        {
+            if (formFile != null)
+            {
+                if (acceptableExt.Contains(Path.GetExtension(formFile?.FileName)?.ToLower()))
+                {
+                    MemoryStream stream = new MemoryStream();
+                    await formFile.CopyToAsync(stream);
+                    stream.Close();
+                    var outStream = WaterMark.Mark(stream, waterMark);
+                    return outStream.ToArray();
                 }
             }
             return null;
