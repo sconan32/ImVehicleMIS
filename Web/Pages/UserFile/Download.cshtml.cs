@@ -21,7 +21,7 @@ namespace Socona.ImVehicle.Web.Pages.UserFile
         }
 
 
-        public IActionResult OnGet(long id)
+        public async Task<IActionResult> OnGetAsync(long id)
         {
             var uf = _context.Files.FirstOrDefault(t => t.Id == id);
             try
@@ -32,7 +32,9 @@ namespace Socona.ImVehicle.Web.Pages.UserFile
                     if (System.IO.File.Exists(svrPath))
                     {
                         FileStream fs = new FileStream(svrPath, FileMode.Open, FileAccess.Read);
-
+                        uf.DownloadCount += 1;
+                        _context.Files.Attach(uf).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                        await _context.SaveChangesAsync();
                         return File(fs, uf.ContentType, uf.FileName);
 
                     }

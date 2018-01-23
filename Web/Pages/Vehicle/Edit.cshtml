@@ -44,16 +44,16 @@
                             <input type="hidden" asp-for="ReturnUrl" />
                             <div class="form-group">
                                 @if (await Model.IsAdmin())
-                                {
-                                    <label asp-for="VehicleItem.TownId" class="col-sm-2 control-label"></label>
-                                    <div class="col-sm-4">
-                                        <select id="town_select" asp-for="VehicleItem.TownId" class="form-control" asp-items="ViewBag.TownList">
-                                            <option hidden selected value="">请选择街道 </option>
-                                        </select>
-                                        <span asp-validation-for="VehicleItem.TownId" class="text-danger"></span>
-                                    </div>
+        {
+                        <label asp-for="VehicleItem.TownId" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-4">
+                            <select id="town_select" asp-for="VehicleItem.TownId" class="form-control" asp-items="ViewBag.TownList">
+                                <option hidden selected value="">请选择街道 </option>
+                            </select>
+                            <span asp-validation-for="VehicleItem.TownId" class="text-danger"></span>
+                        </div>
 
-                                }
+}
                                 <label asp-for="VehicleItem.GroupId" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
                                     <select id="group_select" asp-for="VehicleItem.GroupId" class="form-control" asp-items="ViewBag.GroupList">
@@ -98,8 +98,8 @@
                                     <span asp-validation-for="VehicleItem.Type" class="text-danger"></span>
                                 </div>
                             </div>
-                        
-                          
+
+
                             <div class="form-group">
                                 <label asp-for="VehicleItem.RealOwner" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
@@ -125,8 +125,8 @@
                                 </div>
                             </div>
 
-                            
-                           
+
+
 
                             <div class="form-group">
                                 <label asp-for="VehicleItem.PhotoLicense" class="col-sm-2 control-label"></label>
@@ -149,7 +149,7 @@
                                     <input asp-for="VehicleItem.PhotoRear" class="form-control" />
                                     <span asp-validation-for="VehicleItem.PhotoRear" class="text-danger"></span>
                                 </div>
-                            </div>                          
+                            </div>
 
                             <div class="form-group">
                                 <label asp-for="VehicleItem.PhotoGps" class="col-sm-2 control-label"></label>
@@ -159,9 +159,30 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label asp-for="VehicleItem.ExtraPhoto1" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="VehicleItem.ExtraPhoto1" class="form-control" />
+                                    <span asp-validation-for="VehicleItem.ExtraPhoto1" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.ExtraPhoto2" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="VehicleItem.ExtraPhoto2" class="form-control" />
+                                    <span asp-validation-for="VehicleItem.ExtraPhoto2" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="VehicleItem.ExtraPhoto3" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="VehicleItem.ExtraPhoto3" class="form-control" />
+                                    <span asp-validation-for="VehicleItem.ExtraPhoto3" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
 
                                 <label asp-for="VehicleItem.Comment" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-4">
+                                <div class="col-sm-10">
                                     <input asp-for="VehicleItem.Comment" class="form-control" asp-items="ViewBag.GroupList" />
                                     <span asp-validation-for="VehicleItem.Comment" class="text-danger"></span>
                                 </div>

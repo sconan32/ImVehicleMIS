@@ -120,36 +120,66 @@ namespace Socona.ImVehicle.Core.Data
         NonCommercial = 0x00,
         [Display(Name = "货运")]
         Freight = 0x20000,
-        [Display(Name = "危化品运输")]
+        [Display(Name = "货运（危化品）")]
         Danger = 0x40000,
         [Display(Name = "客运")]
         Passenger = 0x80000,
         [Display(Name = "救护")]
         Ambulance = 0x100000,
-
-
-
+        [Display(Name = "客运（公路）")]
+        PublicPassenger = 0x200000,
+        [Display(Name = "客运（旅游）")]
+        TourPassenger = 0x400000,
+        [Display(Name = "客运（校车）")]
+        SchoolBus = 0x800000,
+        [Display(Name = "客运（网约车）")]
+        NetHired = 0x1000000,
     }
 
     public enum VehicleType
     {
         [Display(Name = "重型自卸货车")]
         HeavyAuto = 0x1,
-        [Display(Name = "重型运输车")]
+        [Display(Name = "重型货车")]
         HeavyLorry = 0x2,
-        [Display(Name = "危险品运输车")]
+        [Display(Name = "危险品货车")]
         DangerLorry = 0x4,
+        [Display(Name = "中型货车")]
+        MiddleLorry = 0x5,
+        [Display(Name = "轻型货车")]
+        SmallLorry = 0x6,
+        [Display(Name = "微型货车")]
+        TinyLorry = 0x7,
+
         [Display(Name = "特殊车辆")]
         SpecialVehicle = 0x8,
-        [Display(Name = "校车")]
-        SchoolBus = 0x10,
-        [Display(Name = "旅游客运车")]
-        TourBus = 0x20,
+    
+        [Display(Name = "小型客车")]
+        SmallBus = 0x10,
+        [Display(Name = "大型客车")]
+         BigBus= 0x20,
+        [Display(Name = "中型客车")]
+        MiddleBus = 0x40,
+
+
+
+        [Display(Name = "三轮车")]
+        Tricycle = 0x1000,
+        [Display(Name = "四轮农用车")]
+        FarmVehicle = 0x2000,
+        [Display(Name = "摩托车")]
+        Motorbike = 0x4000,
+
+
         [Display(Name = "营运车辆")]
         CommercialVehicle = 0x100,
+
+
         [Display(Name = "私家车")]
         PrivateCar = 0x200,
-        [Display(Name = "其他")]
+
+
+        [Display(Name = "其他车辆")]
         Other = 0x0,
 
 
