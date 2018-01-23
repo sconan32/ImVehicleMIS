@@ -29,7 +29,7 @@
                 <a class="btn btn-new-item" asp-page="../Vehicle/Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-plus" aria-hidden="true"></i> 新增车辆</a>
                 <a class="btn btn-new-item" asp-page="../Driver/Create" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)"><i class="fa fa-plus" aria-hidden="true"></i> 新增驾驶员</a>
                 <a class="btn btn-new-item" asp-page="../UserFile/Create" asp-route-townId="@Model.TownItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
-                    <i class="fa fa-plus" aria-hidden="true"></i> 上传文件
+                    <i class="fa fa-plus" aria-hidden="true"></i> 下发文件
                 </a>
             }
 
@@ -257,7 +257,7 @@
                                     @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].YearlyAuditDate)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].InsuranceExpiredDate)
+                                    @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].DumpDate)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Vehicles[0].DriverName)
@@ -378,13 +378,16 @@
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].VehiclesRegistered)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].FirstLicenseIssueDate)
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].ResidentType)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].IdCardNumber)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.TownItem.Drivers[0].Tel)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TownItem.Drivers[0].GroupName)
                                 </th>
                                 <th width="115"></th>
                             </tr>
@@ -406,7 +409,7 @@
 
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.LicenseType)  @Html.DisplayFor(modelItem => item.License)
+                                        @Html.DisplayFor(modelItem => item.LicenseType)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.LicenseExpiredDate)
@@ -601,7 +604,7 @@
         </td>
 
         <td>
-            <span class="label label-warning"><b>{{licenseType:licenseType}}</b></span>&nbsp; {{:license}}
+            <span class="label label-warning"><b>{{licenseType:licenseType}}</b></span>
         </td>
         <td>
             {{cnDate:licenseExpiredDate}}
@@ -611,13 +614,16 @@
             {{:vehiclesRegistered}}
         </td>
         <td>
-            {{cnDate:firstLicenseIssueDate}}
+            {{residentType:residentType}}
         </td>
         <td>
             {{:idCardNumber}}
         </td>
         <td>
             {{:tel}}
+        </td>
+        <td>
+            {{:groupName}}
         </td>
         <td>
             <div class="btn-group">
@@ -752,7 +758,7 @@
 </script>
 @section Scripts {
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
 
 
@@ -796,6 +802,14 @@
             },
             vehicleType: function (value) {
                 var map = @(Html.EnumToHtmlString<Socona.ImVehicle.Core.Data.VehicleType>());
+                for (var i = 0; i < map.length; i++) {
+                    if (map[i].value == value) {
+                        return map[i].name;
+                    }
+                }
+             },
+           residentType: function (value) {
+                var map = @(Html.EnumToHtmlString<Socona.ImVehicle.Core.Data.ResidentTypeEnum>());
                 for (var i = 0; i < map.length; i++) {
                     if (map[i].value == value) {
                         return map[i].name;
@@ -873,7 +887,7 @@
                 }
             });
         }
-    </script>
+</script>
 
 
 }

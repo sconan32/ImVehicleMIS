@@ -33,14 +33,14 @@ namespace Socona.ImVehicle.Infrastructure.Tools
         #endregion
 
         #region ---------------------构造函数---------------------
-        /**//// <summary>
+         /// <summary>
             /// 实例化一个水印类
             /// </summary>
         public WaterMark()
         {
 
         }
-        /**//// <summary>
+        /// <summary>
         ///　初始化一个只添加文字水印得实例
         /// </summary>
         /// <param name="text">水印文字</param>

@@ -1,0 +1,11 @@
+version: '2.0'
+
+services:
+    imvehiclemis:
+        build: .
+        volumes:
+            - "./Web/imvehiclemis.db.dll:/out/imvehiclemis.db.dll"
+        ports:
+            - 8000:80
+
+

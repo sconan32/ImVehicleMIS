@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="NPOI.Core.FluentExcel" Version="1.0.0" />
+    <PackageReference Include="ZKWeb.System.Drawing" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>

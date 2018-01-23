@@ -31,7 +31,7 @@ namespace Socona.ImVehicle.Infrastructure.Services
             
             _parserContext.Properties[""] = rootMap;
             _parserContext.Properties["TownListViewModel"] = ParsePropertyOfType(typeof(TownListViewModel));
-            _parserContext.Properties["GroupListViewModel"] = ParsePropertyOfType(typeof(GroupDetailViewModel));
+            _parserContext.Properties["GroupViewModel"] = ParsePropertyOfType(typeof(GroupViewModel));
             _parserContext.Properties["DriverListViewModel"] = ParsePropertyOfType(typeof(DriverListViewModel));
             _parserContext.Properties["VehicleListViewModel"] = ParsePropertyOfType(typeof(VehicleListViewModel));
         }
