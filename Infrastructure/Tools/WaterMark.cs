@@ -10,6 +10,7 @@ using SixLabors.ImageSharp.Drawing.Brushes;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.Primitives;
 using SixLabors.ImageSharp.Formats;
+using System.Linq;
 
 namespace Socona.ImVehicle.Infrastructure.Tools
 {
@@ -43,19 +44,11 @@ namespace Socona.ImVehicle.Infrastructure.Tools
                 if (fontFamily == null)
                 {
                     SystemFonts.TryFind("Book", out fontFamily);
-                }
-                if (fontFamily == null)
-                {
-                    SystemFonts.TryFind("等线", out fontFamily);
-                }
+                }               
                 if (fontFamily == null)
                 {
                     SystemFonts.TryFind("DengXian", out fontFamily);
-                }
-                if (fontFamily == null)
-                {
-                    SystemFonts.TryFind("宋体", out fontFamily);
-                }
+                }              
                 if (fontFamily == null)
                 {
                     SystemFonts.TryFind("SimSun", out fontFamily);
@@ -64,7 +57,15 @@ namespace Socona.ImVehicle.Infrastructure.Tools
                 {
                     SystemFonts.TryFind("Arial", out fontFamily);
                 }
-                var font = fontFamily.CreateFont(14f);
+                if (fontFamily == null)
+                {
+                    fontFamily = SystemFonts.Families.First(t => t.Name.Contains("Hei") || t.Name.Contains("黑"));
+                }
+                if (fontFamily == null)
+                {
+                    fontFamily = SystemFonts.Families.First();
+                }
+                var font = fontFamily.CreateFont(14f, FontStyle.Bold);
                 using (var img2 = img.Clone(ctx => ctx.ApplyScalingWaterMark(font, text, Rgba32.FromHex("ffffffdd"), 20, false)))
                 {
 
@@ -115,7 +116,7 @@ namespace Socona.ImVehicle.Infrastructure.Tools
                 var c2 = new PointF(center.X + 1, center.Y - 1);
                 var c3 = new PointF(center.X - 1, center.Y + 1);
                 var c4 = new PointF(center.X + 1, center.Y + 1);
-                
+
                 img.Mutate(i =>
                 {
                     var tempColor = color;
