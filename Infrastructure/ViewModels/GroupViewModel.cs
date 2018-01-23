@@ -205,23 +205,23 @@ namespace Socona.ImVehicle.Web.ViewModels
             }
             if (PhotoSecurity != null)
             {
-                group.PhotoSecurity = await PhotoSecurity.GetPictureByteArray();
+                group.PhotoSecurity = await PhotoSecurity.GetPictureByteArray($"{Id}:{Name}");
             }
             if (PhotoWarranty != null)
             {
-                group.PhotoWarranty = await PhotoWarranty.GetPictureByteArray();
+                group.PhotoWarranty = await PhotoWarranty.GetPictureByteArray($"{Id}:{Name}");
             }
             if (ExtraPhoto1 != null)
             {
-                group.ExtraPhoto1 = await ExtraPhoto1.GetPictureByteArray();
+                group.ExtraPhoto1 = await ExtraPhoto1.GetPictureByteArray($"{Id}:{Name}");
             }
             if (ExtraPhoto2 != null)
             {
-                group.ExtraPhoto2 = await ExtraPhoto2.GetPictureByteArray();
+                group.ExtraPhoto2 = await ExtraPhoto2.GetPictureByteArray($"{Id}:{Name}");
             }
             if (ExtraPhoto3 != null)
             {
-                group.ExtraPhoto3 = await ExtraPhoto3.GetPictureByteArray();
+                group.ExtraPhoto3 = await ExtraPhoto3.GetPictureByteArray($"{Id}:{Name}");
             }
 
         }

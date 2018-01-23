@@ -5159,3 +5159,7 @@ dl.dl-horizontal dd {
 dl.dl-horizontal dt {
     line-height: 32px;
 }
+
+.panel-body>img{
+    width:100%
+}

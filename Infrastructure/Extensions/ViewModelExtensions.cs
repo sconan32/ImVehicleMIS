@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Socona.ImVehicle.Infrastructure.Tools;
 
 namespace Socona.ImVehicle.Infrastructure.Extensions
 {
@@ -20,6 +21,35 @@ namespace Socona.ImVehicle.Infrastructure.Extensions
                 {
                     MemoryStream stream = new MemoryStream();
                     await formFile.CopyToAsync(stream);
+                    return stream.ToArray();
+                }
+            }
+            return null;
+        }
+        public async static Task<byte[]> GetPictureByteArray(this IFormFile formFile,string waterMark)
+        {
+            if (formFile != null)
+            {
+                if (acceptableExt.Contains(Path.GetExtension(formFile?.FileName)?.ToLower()))
+                {
+                    MemoryStream stream = new MemoryStream();
+                    await formFile.CopyToAsync(stream);
+                    WaterMark wmark = new WaterMark();
+
+                    var font = System.DrawingCore.FontFamily.GenericSansSerif;
+                     wmark.Mark(imgStream: stream,
+                         markType: MarkType.Text,
+                         text: waterMark,
+                         waterImg: null,
+                         markx: 0,
+                         marky: 0,
+                         bold: true,
+                         textColor: System.DrawingCore.Color.White,
+                         transparence: 0.5f,
+                         fontFamily: font
+                        );
+                 
+
                     return stream.ToArray();
                 }
             }

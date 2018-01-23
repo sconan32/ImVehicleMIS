@@ -139,26 +139,26 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "车背面照片")]
         public string PhotoRearBase64 { get; set; }
 
-        [Display(Name = "附加照片3")]
+        [Display(Name = "年检照片")]
         public IFormFile PhotoAudit { get; set; }
 
-        [Display(Name = "附加照片3")]
+        [Display(Name = "年检照片")]
         public string PhotoAuditBase64 { get; set; }
 
-        [Display(Name = "附加照片1")]
+        [Display(Name = "强制保险照片")]
         public IFormFile PhotoInsuarance { get; set; }
 
 
-        [Display(Name = "附加照片1")]
+        [Display(Name = "强制保险照片")]
         public string PhotoInsuaranceBase64 { get; set; }
 
         [Display(Name = "挂靠单位")]
 
         public string Agent { get; set; }
-        [Display(Name = "附加照片2")]
+        [Display(Name = "行驶证照片")]
 
         public IFormFile PhotoLicense { get; set; }
-        [Display(Name = "附加照片2")]
+        [Display(Name = "行驶证照片")]
         public string PhotoLicenseBase64 { get; set; }
         [Display(Name = "GPS照片")]
         public IFormFile PhotoGps { get; set; }
@@ -208,40 +208,40 @@ namespace Socona.ImVehicle.Web.ViewModels
             vehicle.Agent = this.Agent;
             if (PhotoFront != null)
             {
-                vehicle.PhotoFront = await this.PhotoFront.GetPictureByteArray();
+                vehicle.PhotoFront = await this.PhotoFront.GetPictureByteArray($"{Id}:{License}");
             }
             if (PhotoRear != null)
             {
-                vehicle.PhotoRear = await PhotoRear.GetPictureByteArray();
+                vehicle.PhotoRear = await PhotoRear.GetPictureByteArray($"{Id}:{License}");
             }
             if (PhotoAudit != null)
             {
-                vehicle.PhotoAudit = await PhotoAudit.GetPictureByteArray();
+                vehicle.PhotoAudit = await PhotoAudit.GetPictureByteArray($"{Id}:{License}");
             }
             if (PhotoInsuarance != null)
             {
-                vehicle.PhotoInsuarance = await PhotoInsuarance.GetPictureByteArray();
+                vehicle.PhotoInsuarance = await PhotoInsuarance.GetPictureByteArray($"{Id}:{License}");
             }
             if (PhotoGps != null)
             {
-                vehicle.PhotoGps = await PhotoGps.GetPictureByteArray();
+                vehicle.PhotoGps = await PhotoGps.GetPictureByteArray($"{Id}:{License}");
             }
             if (PhotoLicense != null)
             {
-                vehicle.PhotoLicense = await PhotoLicense.GetPictureByteArray();
+                vehicle.PhotoLicense = await PhotoLicense.GetPictureByteArray($"{Id}:{License}");
 
             }
             if (ExtraPhoto1 != null)
             {
-                vehicle.ExtraPhoto1 = await ExtraPhoto1.GetPictureByteArray();
+                vehicle.ExtraPhoto1 = await ExtraPhoto1.GetPictureByteArray($"{Id}:{License}");
             }
             if (ExtraPhoto2 != null)
             {
-                vehicle.ExtraPhoto2 = await ExtraPhoto2.GetPictureByteArray();
+                vehicle.ExtraPhoto2 = await ExtraPhoto2.GetPictureByteArray($"{Id}:{License}");
             }
             if (ExtraPhoto3 != null)
             {
-                vehicle.ExtraPhoto3 = await ExtraPhoto3.GetPictureByteArray();
+                vehicle.ExtraPhoto3 = await ExtraPhoto3.GetPictureByteArray($"{Id}:{License}");
             }
         }
     }

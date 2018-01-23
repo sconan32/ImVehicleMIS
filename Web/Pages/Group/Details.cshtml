@@ -558,15 +558,18 @@
                     </div>
                     <div role="tabpanel" class="tab-pane  active" id="home">
                         <br />
+                       
+                        <h4>
+                            <i class="fa fa-cloud" aria-hidden="true"></i>
+                            单位介绍
+                        </h4>
+                        <hr />
                         <div class="row">
                             <div class="col-md-3">
                                 <img width="250" src="data:image;base64,@Model.GroupItem.PhotoMainBase64" />
                             </div>
                             <div class="col-md-9">
-                                <h4>
-                                    <i class="fa fa-cloud" aria-hidden="true"></i>
-                                    单位介绍
-                                </h4>
+
 
                                 <div style="padding:30px;">
                                     @Html.Raw(Model.GroupItem.Comment)
@@ -575,7 +578,22 @@
 
                         </div>
 
-
+                        <hr />
+                        <div class="row">
+                            <a class="btn btn-edit-item" asp-page="../UserFile/Download" asp-route-id="@Model.GroupItem.ApplicationFileId">
+                                <i class="fa fa-download" aria-hidden="true"></i>下载安全组审批表
+                            </a>
+                            <a class="btn btn-edit-item" asp-page="../UserFile/Download" asp-route-id="@Model.GroupItem.RuleFileId">
+                                <i class="fa fa-download" aria-hidden="true"></i>下载制度文件
+                            </a>
+                            <a class="btn btn-edit-item" asp-page="../UserFile/Download" asp-route-id="@Model.GroupItem.GroupGuranteeFile">
+                                <i class="fa fa-download" aria-hidden="true"></i>下载单位责任状
+                            </a>
+                            <a class="btn btn-edit-item" asp-page="../UserFile/Download" asp-route-id="@Model.GroupItem.DriverGuranteeFileId">
+                                <i class="fa fa-download" aria-hidden="true"></i>下载驾驶员保证书
+                            </a>
+                        </div>
+                        <hr />
                         <br />
                         <h4><i class="fa fa-list" aria-hidden="true"></i>详细信息</h4>
 

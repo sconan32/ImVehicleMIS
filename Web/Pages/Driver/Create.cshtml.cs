@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
+using Socona.ImVehicle.Infrastructure.Extensions;
 using Socona.ImVehicle.Web.ViewModels;
 
 namespace Socona.ImVehicle.Web.Pages.Driver
@@ -79,33 +80,7 @@ namespace Socona.ImVehicle.Web.Pages.Driver
             }
 
 
-            var user = await _userManager.GetUserAsync(HttpContext.User);
-
-
-            MemoryStream photoWarranty = new MemoryStream();
-            MemoryStream photoIdCard1 = new MemoryStream();
-            MemoryStream photoIdCard2 = new MemoryStream();
-            MemoryStream photoLicense = new MemoryStream();
-
-            var acceptableExt = new[] { ".png", ".bmp", ".jpg", ".jpeg", ".tif", };
-
-            if (acceptableExt.Contains(Path.GetExtension(DriverItem.PhotoIdCard1?.FileName)?.ToLower()))
-            {
-                await DriverItem.PhotoIdCard1.CopyToAsync(photoIdCard1);
-            }
-            if (acceptableExt.Contains(Path.GetExtension(DriverItem.PhotoIdCard2?.FileName)?.ToLower()))
-            {
-                await DriverItem.PhotoIdCard2.CopyToAsync(photoIdCard2);
-            }
-
-            if (acceptableExt.Contains(Path.GetExtension(DriverItem.PhotoWarranty?.FileName)?.ToLower()))
-            {
-                await DriverItem.PhotoWarranty.CopyToAsync(photoWarranty);
-            }
-            if (acceptableExt.Contains(Path.GetExtension(DriverItem.PhotoDriverLicense?.FileName)?.ToLower()))
-            {
-                await DriverItem.PhotoDriverLicense.CopyToAsync(photoIdCard1);
-            }
+            var user = await _userManager.GetUserAsync(HttpContext.User);          
 
 
             var townId = await _userManager.IsInRoleAsync(user, "TownManager") ? user.TownId : DriverItem.TownId;
@@ -128,15 +103,41 @@ namespace Socona.ImVehicle.Web.Pages.Driver
                 TownId = townId,
                 GroupId = DriverItem.GroupId,
 
-                PhotoDriverLicense = photoLicense.ToArray(),
-                PhotoIdCard1 = photoIdCard1.ToArray(),
-                PhotoIdCard2 = photoIdCard2.ToArray(),
-                PhotoWarranty = photoWarranty.ToArray(),
 
                 CreateBy = user.Id,
                 CreationDate = DateTime.Now,
                 Status = StatusType.OK,
             };
+            if(DriverItem.PhotoDriverLicense!=null)
+            {
+                driver.PhotoDriverLicense = await DriverItem.PhotoDriverLicense.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
+            }
+            if (DriverItem.PhotoIdCard1 != null)
+            {
+                driver.PhotoIdCard1 = await DriverItem.PhotoIdCard1.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
+            }
+            if (DriverItem.PhotoIdCard2 != null)
+            {
+                driver.PhotoIdCard2 = await DriverItem.PhotoIdCard2.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
+            }
+            if (DriverItem.PhotoWarranty != null)
+            {
+                driver.PhotoWarranty = await DriverItem.PhotoWarranty.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
+            }
+
+            if (DriverItem.ExtraPhoto1 != null)
+            {
+                driver.ExtraPhoto1 = await DriverItem.ExtraPhoto1.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
+            }
+            if (DriverItem.ExtraPhoto2 != null)
+            {
+                driver.ExtraPhoto2 = await DriverItem.ExtraPhoto2.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
+            }
+            if (DriverItem.ExtraPhoto3 != null)
+            {
+                driver.ExtraPhoto3 = await DriverItem.ExtraPhoto3.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
+            }
+
             _context.Drivers.Add(driver);
             await _context.SaveChangesAsync();
 
