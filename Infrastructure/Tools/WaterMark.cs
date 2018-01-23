@@ -27,7 +27,7 @@ namespace Socona.ImVehicle.Infrastructure.Tools
 
 
         #region ---------------------方法事件---------------------
-        public static MemoryStream Mark(MemoryStream inStream, string text)
+        public static MemoryStream Mark(MemoryStream inStream, string text,string fontPath)
         {
 
             text = $"╞甘井子区重点车辆管理系统:{text}╡";
@@ -35,37 +35,38 @@ namespace Socona.ImVehicle.Infrastructure.Tools
             using (Image<Rgba32> img = Image.Load(inStream.ToArray(), out IImageFormat format))
             {
 
-                FontFamily fontFamily = null;
-                SystemFonts.TryFind("WenQuanYi Micro Hei", out fontFamily);
-                if (fontFamily == null)
-                {
-                    SystemFonts.TryFind("DejaVu Sans", out fontFamily);
-                }
-                if (fontFamily == null)
-                {
-                    SystemFonts.TryFind("Book", out fontFamily);
-                }               
-                if (fontFamily == null)
-                {
-                    SystemFonts.TryFind("DengXian", out fontFamily);
-                }              
-                if (fontFamily == null)
-                {
-                    SystemFonts.TryFind("SimSun", out fontFamily);
-                }
-                if (fontFamily == null)
-                {
-                    SystemFonts.TryFind("Arial", out fontFamily);
-                }
-                if (fontFamily == null)
-                {
-                    fontFamily = SystemFonts.Families.First(t => t.Name.Contains("Hei") || t.Name.Contains("黑"));
-                }
-                if (fontFamily == null)
-                {
-                    fontFamily = SystemFonts.Families.First();
-                }
-                var font = fontFamily.CreateFont(14f, FontStyle.Bold);
+              
+                FontCollection fonts = new FontCollection();
+                FontFamily font1 = fonts.Install(fontPath);
+                //if (fontFamily == null)
+                //{
+                //    SystemFonts.TryFind("DejaVu Sans", out fontFamily);
+                //}
+                //if (fontFamily == null)
+                //{
+                //    SystemFonts.TryFind("Book", out fontFamily);
+                //}               
+                //if (fontFamily == null)
+                //{
+                //    SystemFonts.TryFind("DengXian", out fontFamily);
+                //}              
+                //if (fontFamily == null)
+                //{
+                //    SystemFonts.TryFind("SimSun", out fontFamily);
+                //}
+                //if (fontFamily == null)
+                //{
+                //    SystemFonts.TryFind("Arial", out fontFamily);
+                //}
+                //if (fontFamily == null)
+                //{
+                //    fontFamily = SystemFonts.Families.First(t => t.Name.Contains("Hei") || t.Name.Contains("黑"));
+                //}
+                //if (fontFamily == null)
+                //{
+                //    fontFamily = SystemFonts.Families.First();
+                //}
+                var font = font1.CreateFont(14f);
                 using (var img2 = img.Clone(ctx => ctx.ApplyScalingWaterMark(font, text, Rgba32.FromHex("ffffffdd"), 20, false)))
                 {
 

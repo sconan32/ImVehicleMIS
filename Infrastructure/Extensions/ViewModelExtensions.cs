@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Socona.ImVehicle.Infrastructure.Tools;
 
@@ -11,7 +12,7 @@ namespace Socona.ImVehicle.Infrastructure.Extensions
 {
     public static class ViewModelExtensions
     {
-
+        public static IHostingEnvironment HostingEnvironment { get; set; }
         private static string[] acceptableExt = new[] { ".png", ".bmp", ".jpg", ".jpeg", "gif", };
         public async static Task<byte[]> GetPictureByteArray(this IFormFile formFile)
         {
@@ -36,7 +37,7 @@ namespace Socona.ImVehicle.Infrastructure.Extensions
                     MemoryStream stream = new MemoryStream();
                     await formFile.CopyToAsync(stream);
                     stream.Close();
-                    var outStream = WaterMark.Mark(stream, waterMark);
+                    var outStream = WaterMark.Mark(stream, waterMark,HostingEnvironment.WebRootPath+ "/fonts/FZYouH_510M.TTF");
                     return outStream.ToArray();
                 }
             }
