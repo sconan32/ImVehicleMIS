@@ -35,10 +35,14 @@ namespace Socona.ImVehicle.Infrastructure.Tools
             {
 
                 FontFamily fontFamily = null;
-                SystemFonts.TryFind("sans-serif", out fontFamily);
+                SystemFonts.TryFind("WenQuanYi Micro Hei", out fontFamily);
                 if (fontFamily == null)
                 {
-                    SystemFonts.TryFind("serif", out fontFamily);
+                    SystemFonts.TryFind("DejaVu Sans", out fontFamily);
+                }
+                if (fontFamily == null)
+                {
+                    SystemFonts.TryFind("Book", out fontFamily);
                 }
                 if (fontFamily == null)
                 {
