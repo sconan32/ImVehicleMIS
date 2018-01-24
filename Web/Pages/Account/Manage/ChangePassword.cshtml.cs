@@ -25,7 +25,7 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
             _logger = logger;
         }
 
-        [BindProperty]
+        [BindProperty(SupportsGet =true)]
         public InputModel Input { get; set; }
 
         [TempData]
@@ -33,7 +33,15 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+         
+            public string UserId { get; set; }
+
+            [DataType(DataType.Password)]
+            [Display(Name = "用户名")]
+            public string UserName { get; set; }
+
+
+      
             [DataType(DataType.Password)]
             [Display(Name = "当前密码")]
             public string OldPassword { get; set; }
@@ -50,9 +58,17 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
             public string ConfirmPassword { get; set; }
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string id)
         {
-            var user = await _userManager.GetUserAsync(User);
+            VehicleUser user = null;
+            if (id != null)
+            {
+                user = await _userManager.FindByIdAsync(id);
+            }
+            else
+            {
+                user = await _userManager.GetUserAsync(User);
+            }
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -63,7 +79,11 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
             {
                 return RedirectToPage("./SetPassword");
             }
-
+            Input = new InputModel()
+            {
+                UserId = user.Id,
+                UserName = user.UserName,
+            };
             return Page();
         }
 
@@ -73,26 +93,51 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
             {
                 return Page();
             }
-
-            var user = await _userManager.GetUserAsync(User);
+            VehicleUser user = null;
+            if (Input.UserId != null)
+            {
+                user = await _userManager.FindByIdAsync(Input.UserId);
+            }
+            else
+            {
+                user = await _userManager.GetUserAsync(User);
+            }
+            
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
+            if (Input.UserId == null) {
 
-            var changePasswordResult = await _userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
-            if (!changePasswordResult.Succeeded)
-            {
-                foreach (var error in changePasswordResult.Errors)
+                var changePasswordResult = await _userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
+                if (!changePasswordResult.Succeeded)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    foreach (var error in changePasswordResult.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return Page();
                 }
-                return Page();
             }
+            else
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var changePasswordResult = await _userManager.ResetPasswordAsync(user, token, Input.NewPassword);
+                if (!changePasswordResult.Succeeded)
+                {
+                    foreach (var error in changePasswordResult.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return Page();
+                }
+            }
+            
+          
 
-            await _signInManager.SignInAsync(user, isPersistent: false);
+          //  await _signInManager.SignInAsync(user, isPersistent: false);
             _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+            StatusMessage = "密码修改成功";
 
             return RedirectToPage();
         }

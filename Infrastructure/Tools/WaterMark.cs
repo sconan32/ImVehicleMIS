@@ -121,7 +121,7 @@ namespace Socona.ImVehicle.Infrastructure.Tools
                 img.Mutate(i =>
                 {
                     var tempColor = color;
-                    tempColor.PackFromRgba32(Rgba32.FromHex("dddddd88"));
+                    tempColor.PackFromRgba32(Rgba32.FromHex("ddddddaa"));
                     i.DrawText(text, scaledFont, tempColor, c1, new TextGraphicsOptions(true)
                     {
                         HorizontalAlignment = HorizontalAlignment.Center,
@@ -226,7 +226,7 @@ namespace Socona.ImVehicle.Infrastructure.Tools
                 img.Mutate(i =>
                 {
                     var tempColor = color;
-                    tempColor.PackFromRgba32(Rgba32.FromHex("dddddd88"));
+                    tempColor.PackFromRgba32(Rgba32.FromHex("ddddddaa"));
                     i.DrawText(text, scaledFont, tempColor, c1, new TextGraphicsOptions(true)
                     {
                         HorizontalAlignment = HorizontalAlignment.Center,
