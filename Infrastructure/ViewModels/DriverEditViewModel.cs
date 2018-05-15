@@ -67,7 +67,7 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "发证时间")]
         public DateTime? LicenseIssue { get; set; }
         [Required]
-        [Display(Name = "有效期限")]
+        [Display(Name = "有效年限")]
         public int? ValidYears { get; set; }
 
         [Display(Name = "注册车辆数")]

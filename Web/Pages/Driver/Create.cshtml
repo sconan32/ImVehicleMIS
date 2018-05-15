@@ -106,11 +106,7 @@
                                     <select asp-for="DriverItem.LicenseType" asp-items="@Html.GetEnumSelectList<VehicleLicenseType>()" class="form-control"></select>
                                     <span asp-validation-for="DriverItem.LicenseType" class="text-danger"></span>
                                 </div>
-                                <label asp-for="DriverItem.ResidentType" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-4">
-                                    <select asp-for="DriverItem.ResidentType" asp-items="@Html.GetEnumSelectList<ResidentTypeEnum>()" class="form-control"></select>
-                                    <span asp-validation-for="DriverItem.ResidentType" class="text-danger"></span>
-                                </div>
+                               
                             </div>
                             <div class="form-group">
                                 <label asp-for="DriverItem.LicenseIssue" class="col-sm-2 control-label"></label>

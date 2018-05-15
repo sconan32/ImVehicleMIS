@@ -84,7 +84,8 @@
                     </td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-view-item btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 修改密码 </a>
+                            
+                            <a class="btn btn-view-item btn-sm" asp-page="./ChangePassword" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 修改密码 </a>
                             @if (item.StatusCode == StatusType.OK)
                             {
                                 <a class="btn btn-view-item btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 停用账户 </a>

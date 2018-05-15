@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -14,14 +15,16 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
         private readonly UserManager<VehicleUser> _userManager;
         private readonly SignInManager<VehicleUser> _signInManager;
         private readonly ILogger<ChangePasswordModel> _logger;
+        private readonly VehicleDbContext _dbContext;
 
         public ChangePasswordModel(
             UserManager<VehicleUser> userManager,
-            SignInManager<VehicleUser> signInManager,
-            ILogger<ChangePasswordModel> logger)
+            SignInManager<VehicleUser> signInManager, VehicleDbContext dbContext,
+        ILogger<ChangePasswordModel> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _dbContext = dbContext;
             _logger = logger;
         }
 
@@ -33,6 +36,8 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
 
         public class InputModel
         {
+
+            public string Id { get; set; }
             [Required]
             [DataType(DataType.Password)]
             [Display(Name = "当前密码")]
@@ -50,21 +55,65 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
             public string ConfirmPassword { get; set; }
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        //public async Task<IActionResult> OnGetAsync()
+        //{
+        //    var user = await _userManager.GetUserAsync(User);
+        //    if (user == null)
+        //    {
+        //        throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+        //    }
+
+        //    var hasPassword = await _userManager.HasPasswordAsync(user);
+        //    if (!hasPassword)
+        //    {
+        //        return RedirectToPage("./SetPassword");
+        //    }
+        //    ViewData["Id"] = user.Id;
+        //    return Page();
+        //}
+
+        public async Task<IActionResult> OnGetAsync(string id)
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
+            if (id == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
 
-            var hasPassword = await _userManager.HasPasswordAsync(user);
-            if (!hasPassword)
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                }
+
+                var hasPassword = await _userManager.HasPasswordAsync(user);
+                if (!hasPassword)
+                {
+                    return RedirectToPage("./SetPassword");
+                }
+                ViewData["Id"] = user.Id;
+                return Page();
+            }
+            else
             {
-                return RedirectToPage("./SetPassword");
-            }
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                }
 
-            return Page();
+                UserStore<VehicleUser> store = new UserStore<VehicleUser>(_dbContext);
+                VehicleUser cUser = await store.FindByIdAsync(id);
+
+                if (cUser != null)
+                {
+                    if (cUser.TownId == user.TownId && User.IsInRole("TownManager")
+                        || User.IsInRole("Admins") || User.IsInRole("GlobalVisitor"))
+                    {
+                        ViewData["Id"] = id;
+                        return Page();
+                    }
+                }
+            }
+            return NotFound();
+
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -79,21 +128,46 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-
-            var changePasswordResult = await _userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
-            if (!changePasswordResult.Succeeded)
+            if (user.Id == Input.Id)
             {
-                foreach (var error in changePasswordResult.Errors)
+
+
+                var changePasswordResult = await _userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
+                if (!changePasswordResult.Succeeded)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    foreach (var error in changePasswordResult.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return Page();
                 }
-                return Page();
+
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                _logger.LogInformation("User changed their password successfully.");
+                StatusMessage = "密码已经成功修改";
             }
+            else
+            {
+                UserStore<VehicleUser> store = new UserStore<VehicleUser>(_dbContext);
+                VehicleUser cUser = await store.FindByIdAsync(Input.Id);
 
-            await _signInManager.SignInAsync(user, isPersistent: false);
-            _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+                if (cUser != null)
+                {
 
+                    if (cUser.TownId == user.TownId && User.IsInRole("TownManager")
+                        || User.IsInRole("Admins") || User.IsInRole("GlobalVisitor"))
+                    {
+
+                        String newPassword = Input.NewPassword;
+                        String hashedNewPassword = _userManager.PasswordHasher.HashPassword(cUser, newPassword);
+
+                        await store.SetPasswordHashAsync(cUser, hashedNewPassword);
+                        await store.UpdateAsync(cUser);
+                        StatusMessage = "密码已经成功修改";
+                    }
+
+                }
+            }
             return RedirectToPage();
         }
     }
