@@ -29,19 +29,19 @@ namespace Socona.ImVehicle.Web.Pages
                 {
                     if (await _userManager.IsInRoleAsync(user, "TownManager"))
                     {
-                        return RedirectToPage("/Town/Details",new { @id=user.TownId});
+                        return RedirectToPage("./Town/Details",new { @id=user.TownId});
                     }
                     if (await _userManager.IsInRoleAsync(user, "GroupManager"))
                     {
-                        return RedirectToPage("/Group/Details", new { @id = user.GroupId });
+                        return RedirectToPage("./Group/Details", new { @id = user.GroupId });
                     }
                     else
                     {
-                        return RedirectToPage("/District/Details", new { @id = 1 });
+                        return RedirectToPage("./District/Details", new { @id = 1 });
                     }
                 }
             }
-            return RedirectToPage("/Account/Login");
+            return RedirectToPage("./Account/Login");
 
         }
     }

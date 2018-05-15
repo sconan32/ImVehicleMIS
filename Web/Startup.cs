@@ -139,7 +139,7 @@ namespace Socona.ImVehicle.Web
             }
 
             app.UseStaticFiles();
-
+            app.UseStatusCodePagesWithRedirects("/Error?code={0}");
 
 
 

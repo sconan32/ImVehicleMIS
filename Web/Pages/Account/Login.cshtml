@@ -11,11 +11,11 @@
 
 <section class="main_feature_area">
     <div class="container">
-        <div class="row">
-            <div class="col-md-5 col-sm-12 col-xs-12 pull-right">
+        <div class="row" style="padding-top:50px;">
+            <div class="col-md-5 col-sm-12 col-xs-12 pull-right" >
 
 
-                <div class="feature_slider_inner" style="padding-top:50px;">
+                <div class="feature_slider_inner" >
                     <div class="item">
                         <div class="feature_s_item">
                             <br />
@@ -48,12 +48,7 @@
                                     <div class="form-group" style="margin-top:20px;">
                                         <button type="submit" class="form-control submit_blue"> 登录 </button>
                                     </div>
-                                    <div class="form-group" style="margin-top:20px;">
-                                        <p>
-
-                                        </p>
-
-                                    </div>
+                                    
 
                                 </form>
                                 <br />
@@ -64,30 +59,71 @@
                 </div>
             </div>
             <div class="col-md-7 col-sm-12 col-xs-12">
-                <div class="row feature_row">
-                    <br />
-                    <h4 style="color:#2761d8;border-bottom: 2px dotted #2761d8;padding-bottom:8px"><i class="fa fa-newspaper-o"></i> 通知 · 通告</h4>
-                    <br />
+                <div class="row feature_row" style="width:100%;height:100%;">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        </ol>
 
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img src="..." alt="...">
+                                <div class="carousel-caption">
+                                    ...
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="..." alt="...">
+                                <div class="carousel-caption">
+                                    ...
+                                </div>
+                            </div>
+                            ...
+                        </div>
 
-                    @if (Model.NewsList != null && Model.NewsList.Any())
-                    {
-                        @foreach (var item in Model.NewsList)
-                        {
-                            <article class=" row" style="line-height:36px; margin:0px 20px; ">
-                                <section class="col-xs-9" style="border-bottom:1px solid #eee"><a class="esh-orders-link" asp-page="/News/Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
-                                <section class="col-xs-3" style="border-bottom:1px solid #eee"> @Html.DisplayFor(modelItem => item.Date)</section>
-                            </article>
-                        }
-                    }
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
                 </div>
-
-
             </div>
-        </div>
+            </div>
+        <br />
         <div class="row">
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="row feature_row">
+                        <br />
+                        <h4 style="color:#2761d8;border-bottom: 2px dotted #2761d8;padding-bottom:8px"><i class="fa fa-newspaper-o"></i> 通知 · 通告</h4>
+                        <br />
 
-            <div class="col-md-6 col-sm-12 col-xs-12">
+
+                        @if (Model.NewsList != null && Model.NewsList.Any())
+                        {
+                            @foreach (var item in Model.NewsList)
+                            {
+                                <article class=" row" style="line-height:36px; margin:0px 20px; ">
+                                    <section class="col-xs-8" style="border-bottom:1px solid #eee"><a class="esh-orders-link" asp-page="/News/Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
+                                    <section class="col-xs-4" style="border-bottom:1px solid #eee"> @Html.DisplayFor(modelItem => item.Date)</section>
+                                </article>
+                            }
+                        }
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
                 <div class="row feature_row">
                     <br />
                     <h4 style="color:#2761d8;border-bottom: 2px dotted #2761d8;padding-bottom:8px"><i class="fa fa-newspaper-o"></i> 法规 · 文件</h4>
@@ -99,8 +135,8 @@
                         @foreach (var item in Model.LawList)
                         {
                             <article class=" row" style="line-height:36px; margin:0px 20px; ">
-                                <section class="col-xs-9" style="border-bottom:1px solid #eee"><a class="esh-orders-link" asp-page="/News/Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
-                                <section class="col-xs-3" style="border-bottom:1px solid #eee"> @Html.DisplayFor(modelItem => item.Date)</section>
+                                <section class="col-xs-8" style="border-bottom:1px solid #eee"><a class="esh-orders-link" asp-page="/News/Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
+                                <section class="col-xs-4" style="border-bottom:1px solid #eee"> @Html.DisplayFor(modelItem => item.Date)</section>
                             </article>
                         }
                     }
@@ -108,7 +144,7 @@
                 <br />
 
             </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="col-md-4 col-sm-12 col-xs-12">
                 <div class="row feature_row">
                     <br />
                     <h4 style="color:#2761d8;border-bottom: 2px dotted #2761d8;padding-bottom:8px"><i class="fa fa-newspaper-o"></i> 安全 · 案例</h4>
@@ -120,8 +156,8 @@
                         @foreach (var item in Model.CaseList)
                         {
                             <article class=" row" style="line-height:36px; margin:0px 20px; ">
-                                <section class="col-xs-9" style="border-bottom:1px solid #eee"><a class="esh-orders-link" asp-page="/News/Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
-                                <section class="col-xs-3" style="border-bottom:1px solid #eee"> @Html.DisplayFor(modelItem => item.Date)</section>
+                                <section class="col-xs-8" style="border-bottom:1px solid #eee"><a class="esh-orders-link" asp-page="/News/Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></section>
+                                <section class="col-xs-4" style="border-bottom:1px solid #eee"> @Html.DisplayFor(modelItem => item.Date)</section>
                             </article>
                         }
                     }

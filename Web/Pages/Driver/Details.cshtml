@@ -323,30 +323,40 @@
                     <h4><i class="fa fa-picture-o" aria-hidden="true"></i>图片附件</h4>
 
                     <hr />
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.PhotoDriverLicenseBase64)</div>
-                        <div class="panel-body">
-                            <img src="data:image;base64,@Model.DriverItem.PhotoDriverLicenseBase64" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.PhotoDriverLicenseBase64)</div>
+                                <div class="panel-body">
+                                    <img src="data:image;base64,@Model.DriverItem.PhotoDriverLicenseBase64" />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.ExtraPhoto1)</div>
-                        <div class="panel-body">
-                            <img src="data:image;base64,@Model.DriverItem.ExtraPhoto1Base64" />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.ExtraPhoto1)</div>
+                                <div class="panel-body">
+                                    <img src="data:image;base64,@Model.DriverItem.ExtraPhoto1Base64" />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.ExtraPhoto2Base64)</div>
-                        <div class="panel-body">
-                            <img src="data:image;base64,@Model.DriverItem.ExtraPhoto2Base64" />
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.ExtraPhoto2)</div>
+                                <div class="panel-body">
+                                    <img src="data:image;base64,@Model.DriverItem.ExtraPhoto2Base64" />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.ExtraPhoto3Base64)</div>
-                        <div class="panel-body">
-                            <img src="data:image;base64,@Model.DriverItem.ExtraPhoto3Base64" />
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.ExtraPhoto3)</div>
+                                <div class="panel-body">
+                                    <img src="data:image;base64,@Model.DriverItem.ExtraPhoto3Base64" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

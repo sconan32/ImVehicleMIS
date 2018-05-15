@@ -66,11 +66,7 @@ namespace Socona.ImVehicle.Web.Pages.Group
                 return Page();
             }
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var canEdit = _authorizationService.AuthorizeAsync(HttpContext.User, "CanEdit");
-            if (!(await canEdit).Succeeded)
-            {
-                return Unauthorized();
-            }
+
 
             var group = new GroupItem()
             {
@@ -80,6 +76,15 @@ namespace Socona.ImVehicle.Web.Pages.Group
             };
             await GroupItem.FillGroupItem(group);
 
+            var canEdit = _authorizationService.AuthorizeAsync(HttpContext.User, group, "CanEdit");
+            if (!(await canEdit).Succeeded)
+            {
+                return Unauthorized();
+            }
+            _context.Groups.Add(group);
+
+            await _context.SaveChangesAsync();
+            GroupItem.Id = group.Id;
 
             if (GroupItem.ApplicationFile != null)
             {
@@ -98,9 +103,7 @@ namespace Socona.ImVehicle.Web.Pages.Group
                 group.RuleFileId = await SaveUserFile(GroupItem.RuleFileId, GroupItem.RuleFile, nameof(GroupItem.RuleFile));
             }
 
-            _context.Groups.Add(group);
-
-            await _context.SaveChangesAsync();
+         
 
             return Redirect(Url.GetLocalUrl(ReturnUrl));
         }
