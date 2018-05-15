@@ -24,5 +24,8 @@ namespace Socona.ImVehicle.Web.ViewModels
 
         [Display(Name = "板块")]
         public NewsAreaType? Area { get; set; }
+
+        [Display(Name = "图片")]
+        public string ImageBase64 { get; set; }
     }
 }

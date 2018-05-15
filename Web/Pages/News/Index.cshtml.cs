@@ -37,7 +37,7 @@ namespace Socona.ImVehicle.Web.Pages.News
                 Date = t.PublishDate,
                 Title = t.Title,
                 Area = t.Area,
-            }).ToList();
+            }).OrderByDescending(t => t.Date).ToList();
         }
     }
 }

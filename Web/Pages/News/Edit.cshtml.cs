@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Web.ViewModels;
 
 namespace Socona.ImVehicle.Web.Pages.News
 {
@@ -24,7 +25,7 @@ namespace Socona.ImVehicle.Web.Pages.News
         public string ReturnUrl { get; set; }
 
         [BindProperty]
-        public NewsItem NewsItem { get; set; }
+        public NewsEditViewModel NewsItem { get; set; }
 
         [Authorize(Roles = "GlobalVisitor,Admins")]
         public async Task<IActionResult> OnGetAsync(long? id, string returnUrl)
@@ -35,12 +36,15 @@ namespace Socona.ImVehicle.Web.Pages.News
                 return NotFound();
             }
             ReturnUrl = returnUrl;
-            NewsItem = await _context.Newses.SingleOrDefaultAsync(m => m.Id == id);
+            var news = await _context.Newses.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (NewsItem == null)
+
+            if (news == null)
             {
                 return NotFound();
             }
+
+            NewsItem = new NewsEditViewModel(news);
             return Page();
         }
         [Authorize(Roles = "GlobalVisitor,Admins")]
@@ -52,10 +56,19 @@ namespace Socona.ImVehicle.Web.Pages.News
             }
 
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            NewsItem.ModificationDate = DateTime.Now;
-            NewsItem.ModifyBy = user.Id;
-            NewsItem.VersionNumber += 1;
-            _context.Attach(NewsItem).State = EntityState.Modified;
+
+
+            var news = _context.Newses.FirstOrDefault(v => v.Id == NewsItem.Id);
+            if (news == null)
+            {
+                return NotFound();
+            }
+            await NewsItem.FillNewsItem(news);
+
+            news.ModificationDate = DateTime.Now;
+            news.ModifyBy = user.Id;
+            news.VersionNumber += 1;
+            _context.Attach(news).State = EntityState.Modified;
 
 
             try

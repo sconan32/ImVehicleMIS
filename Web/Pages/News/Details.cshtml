@@ -18,21 +18,27 @@
     </div>
 </section>
 <section class="main_feature_area">
-    <div class="container">
+    <div class="container" style="margin-left:30px;margin-right:30px;margin-bottom:30px;">
 
-      <br/>
-        <div class="row">
+        <br />
+        <div class="row" style="margin-left:30px;margin-right:30px;">
             <div class="col-sm-1">日期:</div>
             <div class="col-sm-2">@Html.DisplayFor(model => model.NewsItem.PublishDate)</div>
             <div class="col-sm-1">来源:</div>
             <div class="col-sm-2">@Html.DisplayFor(model => model.NewsItem.Source)</div>
-          
+
         </div>
         <hr />
-       
+
         <br />
-        <div class="row" style="margin:30px">
-           @Html.Raw(Model.NewsItem.Content)
+        @if (Model.NewsItem.Area == NewsAreaType.ImageNews)
+        {
+            <div class="row" style="margin-left:30px;margin-right:30px;">
+                <img style="margin-left:auto;margin-right:auto;" width="600" src="data:image;base64,@Model.NewsItem.Metadata" />
+            </div>
+        }
+        <div class="row" style="margin-left:30px;margin-right:30px;">
+            @Html.Raw(Model.NewsItem.Content)
         </div>
     </div>
 </section>

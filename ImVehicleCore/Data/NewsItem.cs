@@ -9,7 +9,7 @@ namespace Socona.ImVehicle.Core.Data
     public class NewsItem : BaseEntity
     {
 
-       
+
         [Required]
         [Display(Name = "标题")]
         public string Title { get; set; }
@@ -40,13 +40,15 @@ namespace Socona.ImVehicle.Core.Data
     public enum NewsAreaType
     {
         [Display(Name = "通知·通报")]
-        Notification =1,
+        Notification = 1,
         [Display(Name = "法律·法规")]
-        LawAndRule =2,
+        LawAndRule = 2,
         [Display(Name = "交通安全常识")]
-        SecurityKnowledge =3,
+        SecurityKnowledge = 3,
         [Display(Name = "事故案例")]
-        AccidentCase =4
+        AccidentCase = 4,
+        [Display(Name = "图片新闻")]
+        ImageNews = 9,
 
     }
 }

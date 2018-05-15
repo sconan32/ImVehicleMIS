@@ -5,18 +5,19 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Web.ViewModels;
 
 namespace Socona.ImVehicle.Web.Pages.News
 {
     public class CreateModel : PageModel
     {
-        private readonly Socona.ImVehicle.Core.Data.VehicleDbContext _context;
+        private readonly VehicleDbContext _context;
         private readonly UserManager<VehicleUser> _userManager;
         public CreateModel(Socona.ImVehicle.Core.Data.VehicleDbContext context,UserManager<VehicleUser> userManager)
         {
             _context = context;
             _userManager = userManager;
-            NewsItem = new NewsItem();
+           
         }
 
         [BindProperty]
@@ -33,7 +34,7 @@ namespace Socona.ImVehicle.Web.Pages.News
         }
 
         [BindProperty]
-        public NewsItem NewsItem { get; set; }
+        public NewsEditViewModel NewsItem { get; set; }
         [Authorize(Roles = "GlobalVisitor,Admins")]
         public async Task<IActionResult> OnPostAsync()
         {
@@ -44,11 +45,13 @@ namespace Socona.ImVehicle.Web.Pages.News
 
            
             var user = await _userManager.GetUserAsync(HttpContext.User);
+            var news = new NewsItem();
+            await NewsItem.FillNewsItem(news);
+            news.CreationDate = DateTime.Now;
+            news.CreateBy = user.Id;
+            news.VersionNumber = 1;
 
-            NewsItem.CreationDate = DateTime.Now;
-            NewsItem.CreateBy = user.Id;
-
-            _context.Newses.Add(NewsItem);
+            _context.Newses.Add(news);
             await _context.SaveChangesAsync();
 
             return Redirect(Url.GetLocalUrl(ReturnUrl));

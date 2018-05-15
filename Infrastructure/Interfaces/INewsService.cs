@@ -13,5 +13,7 @@ namespace Socona.ImVehicle.Core.Interfaces
         Task<List<NewsItem>> LoadLoginCases();
 
         Task<List<NewsItem>> LoadLoginLaws();
+
+        Task<List<NewsItem>> LoadLoginImages();
     }
 }

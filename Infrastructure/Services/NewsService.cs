@@ -17,12 +17,12 @@ namespace Socona.ImVehicle.Core.Services
             _entityRepository = entityRepository;
         }
 
-       
 
-       public async Task<List<NewsItem>> LoadLoginNews ()
+
+        public async Task<List<NewsItem>> LoadLoginNews()
         {
             Specification<NewsItem> spec = new Specification<NewsItem>(t => t.Area == NewsAreaType.Notification);
-            return await _entityRepository.ListRangeAsync(spec,0, 10);
+            return await _entityRepository.ListRangeAsync(spec, 0, 10);
         }
 
         public async Task<List<NewsItem>> LoadLoginCases()
@@ -36,14 +36,24 @@ namespace Socona.ImVehicle.Core.Services
             Specification<NewsItem> spec = new Specification<NewsItem>(t => t.Area == NewsAreaType.LawAndRule);
             return await _entityRepository.ListRangeAsync(spec, 0, 10);
         }
- 
 
-      
 
-     
+        public async Task<List<NewsItem>> LoadLoginImages()
+        {
+            Specification<NewsItem> spec = new Specification<NewsItem>(t => t.Area == NewsAreaType.ImageNews);
+            var newses = await _entityRepository.ListRangeAsync(spec, 0, 3);
+            for (int i = newses.Count; i < 3; i++)
+            {
+                newses.Add(new NewsItem() { Name = "", Metadata = "" });
+            }
+            return newses;
+            
+        }
 
-       
-       
-     
+
+
+
+
+
     }
 }

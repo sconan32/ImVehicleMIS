@@ -41,11 +41,14 @@ namespace Socona.ImVehicle.Web.Pages.Account
             [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
             public DateTime Date { get; set; }
 
+
+            public string ImageBase64 { get; set; }
             public NewsListView(NewsItem news = null)
             {
                 Id = news.Id;
                 Name = news.Title;
                 Date = news.PublishDate;
+                ImageBase64 = news.Metadata;
 
             }
         }
@@ -93,6 +96,14 @@ namespace Socona.ImVehicle.Web.Pages.Account
 
             var news = await _newsRepisitory.LoadLoginNews();
 
+            var ImageNews = (await _newsRepisitory.LoadLoginImages()).Select(t => new NewsListView(t)).ToList();
+
+            ViewData["Image1"] = ImageNews[0].ImageBase64;
+            ViewData["Caption1"] = ImageNews[0].Name;
+            ViewData["Image2"] = ImageNews[1].ImageBase64;
+            ViewData["Caption2"] = ImageNews[1].Name;
+            ViewData["Image3"] = ImageNews[2].ImageBase64;
+            ViewData["Caption3"] = ImageNews[2].Name;
             NewsList = news.Select(o => new NewsListView(o)).ToList();
             LawList = (await _newsRepisitory.LoadLoginLaws()).Select(t => new NewsListView(t)).ToList();
             CaseList = (await _newsRepisitory.LoadLoginCases()).Select(t => new NewsListView(t)).ToList();
