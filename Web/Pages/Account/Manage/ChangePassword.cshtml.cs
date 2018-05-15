@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -14,18 +15,20 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
         private readonly UserManager<VehicleUser> _userManager;
         private readonly SignInManager<VehicleUser> _signInManager;
         private readonly ILogger<ChangePasswordModel> _logger;
+        private readonly VehicleDbContext _dbContext;
 
         public ChangePasswordModel(
             UserManager<VehicleUser> userManager,
-            SignInManager<VehicleUser> signInManager,
-            ILogger<ChangePasswordModel> logger)
+            SignInManager<VehicleUser> signInManager, VehicleDbContext dbContext,
+        ILogger<ChangePasswordModel> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _dbContext = dbContext;
             _logger = logger;
         }
 
-        [BindProperty(SupportsGet =true)]
+        [BindProperty]
         public InputModel Input { get; set; }
 
         [TempData]
@@ -33,15 +36,9 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
 
         public class InputModel
         {
-         
-            public string UserId { get; set; }
 
-            [DataType(DataType.Password)]
-            [Display(Name = "用户名")]
-            public string UserName { get; set; }
-
-
-      
+            public string Id { get; set; }
+            [Required]
             [DataType(DataType.Password)]
             [Display(Name = "当前密码")]
             public string OldPassword { get; set; }
@@ -58,33 +55,65 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
             public string ConfirmPassword { get; set; }
         }
 
+        //public async Task<IActionResult> OnGetAsync()
+        //{
+        //    var user = await _userManager.GetUserAsync(User);
+        //    if (user == null)
+        //    {
+        //        throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+        //    }
+
+        //    var hasPassword = await _userManager.HasPasswordAsync(user);
+        //    if (!hasPassword)
+        //    {
+        //        return RedirectToPage("./SetPassword");
+        //    }
+        //    ViewData["Id"] = user.Id;
+        //    return Page();
+        //}
+
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            VehicleUser user = null;
-            if (id != null)
+            if (id == null)
             {
-                user = await _userManager.FindByIdAsync(id);
+
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                }
+
+                var hasPassword = await _userManager.HasPasswordAsync(user);
+                if (!hasPassword)
+                {
+                    return RedirectToPage("./SetPassword");
+                }
+                ViewData["Id"] = user.Id;
+                return Page();
             }
             else
             {
-                user = await _userManager.GetUserAsync(User);
-            }
-            if (user == null)
-            {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                }
 
-            var hasPassword = await _userManager.HasPasswordAsync(user);
-            if (!hasPassword)
-            {
-                return RedirectToPage("./SetPassword");
+                UserStore<VehicleUser> store = new UserStore<VehicleUser>(_dbContext);
+                VehicleUser cUser = await store.FindByIdAsync(id);
+
+                if (cUser != null)
+                {
+                    if (cUser.TownId == user.TownId && User.IsInRole("TownManager")
+                        || User.IsInRole("Admins") || User.IsInRole("GlobalVisitor"))
+                    {
+                        ViewData["Id"] = id;
+                        return Page();
+                    }
+                }
             }
-            Input = new InputModel()
-            {
-                UserId = user.Id,
-                UserName = user.UserName,
-            };
-            return Page();
+            return NotFound();
+
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -93,21 +122,15 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
             {
                 return Page();
             }
-            VehicleUser user = null;
-            if (Input.UserId != null)
-            {
-                user = await _userManager.FindByIdAsync(Input.UserId);
-            }
-            else
-            {
-                user = await _userManager.GetUserAsync(User);
-            }
-            
+
+            var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-            if (Input.UserId == null) {
+            if (user.Id == Input.Id)
+            {
+
 
                 var changePasswordResult = await _userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
                 if (!changePasswordResult.Succeeded)
@@ -118,27 +141,33 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
                     }
                     return Page();
                 }
+
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                _logger.LogInformation("User changed their password successfully.");
+                StatusMessage = "密码已经成功修改";
             }
             else
             {
-                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var changePasswordResult = await _userManager.ResetPasswordAsync(user, token, Input.NewPassword);
-                if (!changePasswordResult.Succeeded)
+                UserStore<VehicleUser> store = new UserStore<VehicleUser>(_dbContext);
+                VehicleUser cUser = await store.FindByIdAsync(Input.Id);
+
+                if (cUser != null)
                 {
-                    foreach (var error in changePasswordResult.Errors)
+
+                    if (cUser.TownId == user.TownId && User.IsInRole("TownManager")
+                        || User.IsInRole("Admins") || User.IsInRole("GlobalVisitor"))
                     {
-                        ModelState.AddModelError(string.Empty, error.Description);
+
+                        String newPassword = Input.NewPassword;
+                        String hashedNewPassword = _userManager.PasswordHasher.HashPassword(cUser, newPassword);
+
+                        await store.SetPasswordHashAsync(cUser, hashedNewPassword);
+                        await store.UpdateAsync(cUser);
+                        StatusMessage = "密码已经成功修改";
                     }
-                    return Page();
+
                 }
             }
-            
-          
-
-          //  await _signInManager.SignInAsync(user, isPersistent: false);
-            _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "密码修改成功";
-
             return RedirectToPage();
         }
     }
