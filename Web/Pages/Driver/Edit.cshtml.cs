@@ -36,7 +36,7 @@ namespace Socona.ImVehicle.Web.Pages.Driver
         public string ReturnUrl { get; set; }
 
         [BindProperty]
-        public DriverEditViewModel DriverItem { get; set; }
+        public DriverViewModel DriverItem { get; set; }
 
         [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnGetAsync(long? id, string returnUrl)
@@ -63,7 +63,7 @@ namespace Socona.ImVehicle.Web.Pages.Driver
                 ViewData["GroupList"] = new SelectList(groups, "Id", "Name");
             }
 
-            DriverItem = new DriverEditViewModel(driver);
+            DriverItem = new DriverViewModel(driver);
 
             return Page();
         }

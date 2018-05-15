@@ -6,7 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Tools\FZYouH_510M.TTF" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NPOI.Core.FluentExcel" Version="1.0.0" />
+    <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta0003" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0002" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0002" />
   </ItemGroup>
 
   <ItemGroup>

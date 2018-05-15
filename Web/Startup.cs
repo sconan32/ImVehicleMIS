@@ -11,6 +11,7 @@ using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
 using Socona.ImVehicle.Core.Services;
 using Socona.ImVehicle.Infrastructure.Authorization;
+using Socona.ImVehicle.Infrastructure.Extensions;
 using Socona.ImVehicle.Infrastructure.Interfaces;
 using Socona.ImVehicle.Infrastructure.Services;
 
@@ -152,7 +153,7 @@ namespace Socona.ImVehicle.Web
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
-
+            ViewModelExtensions.HostingEnvironment = env;
         }
     }
 }

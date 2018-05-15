@@ -27,9 +27,9 @@ namespace Socona.ImVehicle.Core.Data
             dbContext.Database.OpenConnection();
             try
             {
-              //  dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Districts ON");
+                //  dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Districts ON");
                 await dbContext.SaveChangesAsync();
-              //  dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Districts OFF");
+                //  dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Districts OFF");
             }
             finally
             {
@@ -60,9 +60,9 @@ namespace Socona.ImVehicle.Core.Data
             dbContext.Database.OpenConnection();
             try
             {
-              //  dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Towns ON");
+                //  dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Towns ON");
                 dbContext.SaveChanges();
-              //  dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Towns OFF");
+                //  dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Towns OFF");
             }
             finally
             {
@@ -132,24 +132,26 @@ namespace Socona.ImVehicle.Core.Data
 
             NewsItem[] newses =
             {
-                 new NewsItem(){Name="你这有杂音我听不清楚",Content="你这有杂音我听不清楚", Title="你这有杂音我听不清楚"},
-                 new NewsItem(){ Name="我刚才刚买的车在那个",Content="我刚才刚买的车在那个", Title="我刚才刚买的车在那个"},
-                 new NewsItem(){ Name="在道边上底下大梁磕道牙上了",Content="在道边上底下大梁磕道牙上了", Title="在道边上底下大梁磕道牙上了"},
-                 new NewsItem(){ Name="您的车辆出险了现在要报案是吗",Content="您的车辆出险了现在要报案是吗", Title="您的车辆出险了现在要报案是吗"},
-                 new NewsItem(){ Name="先生你好什么时间出的事情",Content="先生你好什么时间出的事情", Title="先生你好什么时间出的事情"},
-                 new NewsItem(){Name="刚刚时间刚刚出的",Content="刚刚时间刚刚出的", Title="刚刚时间刚刚出的"},
-                 new NewsItem(){ Name="大概有几分钟啦就刚刚的事",Content="大概有几分钟啦就刚刚的事", Title="大概有几分钟啦就刚刚的事"},
-                 new NewsItem(){ Name="半个小时是嘛就五十分钟",Content="半个小时是嘛就五十分钟", Title="半个小时是嘛就五十分钟"},
-                 new NewsItem(){ Name="是在哪里出的事情是在大连嘛",Content="是在哪里出的事情是在大连嘛", Title="是在哪里出的事情是在大连嘛"},
-                 new NewsItem(){ Name="是在辽宁省的大连市是吗？",Content="是在辽宁省的大连市是吗？", Title="是在辽宁省的大连市是吗？"},
-                 new NewsItem(){ Name="在大连市的哪条路？甘井子革镇堡。",Content="在大连市的哪条路？甘井子革镇堡。", Title="在大连市的哪条路？甘井子革镇堡。"},
-                 new NewsItem(){ Name="11你这有杂音我听不清楚",Content="11你这有杂音我听不清楚", Title="你这有杂音我听不清楚"},
-                 new NewsItem(){ Name="22你这有杂音我听不清楚",Content="22你这有杂音我听不清楚", Title="你这有杂音我听不清楚"},
-                 new NewsItem(){ Name="33你这有杂音我听不清楚",Content="33你这有杂音我听不清楚", Title="你这有杂音我听不清楚"},
-                 new NewsItem(){ Name="44你这有杂音我听不清楚",Content="44你这有杂音我听不清楚", Title="你这有杂音我听不清楚"},
-                 new NewsItem(){ Name="55你这有杂音我听不清楚",Content="55你这有杂音我听不清楚", Title="你这有杂音我听不清楚"},
-                 new NewsItem(){ Name="66你这有杂音我听不清楚",Content="66你这有杂音我听不清楚", Title="你这有杂音我听不清楚"},
-                 new NewsItem(){ Name="77你这有杂音我听不清楚",Content="77你这有杂音我听不清楚", Title="你这有杂音我听不清楚"},
+                 new NewsItem(){Name="你这有杂音我听不清楚",Content="你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){ Name="我刚才刚买的车在那个",Content="我刚才刚买的车在那个", Title="我刚才刚买的车在那个", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){ Name="在道边上底下大梁磕道牙上了",Content="在道边上底下大梁磕道牙上了", Title="在道边上底下大梁磕道牙上了", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){ Name="您的车辆出险了现在要报案是吗",Content="您的车辆出险了现在要报案是吗", Title="您的车辆出险了现在要报案是吗", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){ Name="先生你好什么时间出的事情",Content="先生你好什么时间出的事情", Title="先生你好什么时间出的事情", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){Name="刚刚时间刚刚出的",Content="刚刚时间刚刚出的", Title="刚刚时间刚刚出的", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){ Name="大概有几分钟啦就刚刚的事",Content="大概有几分钟啦就刚刚的事", Title="大概有几分钟啦就刚刚的事", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){ Name="半个小时是嘛就五十分钟",Content="半个小时是嘛就五十分钟", Title="半个小时是嘛就五十分钟", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){ Name="是在哪里出的事情是在大连嘛",Content="是在哪里出的事情是在大连嘛", Title="是在哪里出的事情是在大连嘛", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){ Name="是在辽宁省的大连市是吗？",Content="是在辽宁省的大连市是吗？", Title="是在辽宁省的大连市是吗？", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){ Name="在大连市的哪条路？甘井子革镇堡。",Content="在大连市的哪条路？甘井子革镇堡。", Title="在大连市的哪条路？甘井子革镇堡。", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){ Name="11你这有杂音我听不清楚",Content="11你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){ Name="22你这有杂音我听不清楚",Content="22你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.AccidentCase},
+                 new NewsItem(){ Name="33你这有杂音我听不清楚",Content="33你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.AccidentCase},
+                 new NewsItem(){ Name="44你这有杂音我听不清楚",Content="44你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.AccidentCase},
+                 new NewsItem(){ Name="55你这有杂音我听不清楚",Content="55你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.AccidentCase},
+                 new NewsItem(){ Name="66你这有杂音我听不清楚",Content="66你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.LawAndRule},
+                 new NewsItem(){ Name="77你这有杂音我听不清楚",Content="77你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.LawAndRule},
+                 new NewsItem(){ Name="88你这有杂音我听不清楚",Content="77你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.LawAndRule},
+                 new NewsItem(){ Name="99你这有杂音我听不清楚",Content="77你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.LawAndRule},
             };
 
             await dbContext.Newses.AddRangeAsync(newses);

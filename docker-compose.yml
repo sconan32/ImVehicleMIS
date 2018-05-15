@@ -1,0 +1,11 @@
+version: '2.0'
+
+services:
+    imvehiclemis:
+        build: .
+        volumes:
+            - "./Web/Data:/out/Data"
+        ports:
+            - 8000:80
+
+

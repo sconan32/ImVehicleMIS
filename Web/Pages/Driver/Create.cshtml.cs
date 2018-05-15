@@ -38,7 +38,7 @@ namespace Socona.ImVehicle.Web.Pages.Driver
         [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnGetAsync(long? groupId, string returnUrl)
         {
-            DriverItem = new DriverEditViewModel();
+            DriverItem = new DriverViewModel();
             ReturnUrl = returnUrl;
 
             var townlist = (await _townService.GetAvailableTownsEagerAsync(HttpContext.User));
@@ -60,7 +60,7 @@ namespace Socona.ImVehicle.Web.Pages.Driver
         }
 
         [BindProperty(SupportsGet = true)]
-        public DriverEditViewModel DriverItem { get; set; }
+        public DriverViewModel DriverItem { get; set; }
         [Authorize(Roles = "TownManager,Admins")]
         public async Task<IActionResult> OnPostAsync()
         {
@@ -80,63 +80,16 @@ namespace Socona.ImVehicle.Web.Pages.Driver
             }
 
 
-            var user = await _userManager.GetUserAsync(HttpContext.User);          
+            var user = await _userManager.GetUserAsync(HttpContext.User);
 
 
-            var townId = await _userManager.IsInRoleAsync(user, "TownManager") ? user.TownId : DriverItem.TownId;
-            var driver = new DriverItem
-            {
-                Name = DriverItem.Name,
-                Gender = DriverItem.Gender,
-                FirstLicenseIssueDate = DriverItem.FirstLicenseIssueDate,
-                LicenseIssueDate = DriverItem.LicenseIssue,
+            DriverItem.TownId = await _userManager.IsInRoleAsync(user, "TownManager") ? user.TownId : DriverItem.TownId;
+            var driver = new DriverItem();
+            await DriverItem.FillDriverItemAsync(driver);
 
-                IdCardNumber = DriverItem.IdCardNumber,
-                LicenseNumber = DriverItem.License,
-                LicenseType = DriverItem.LicenseType,
-                LicenseValidYears = DriverItem.ValidYears,
-                LivingAddress = DriverItem.LivingAddress,
-                Tel = DriverItem.Tel,
-                Title = DriverItem.Title,
-                WarrantyCode = DriverItem.WarrantyCode,
-                ResidentType = DriverItem.ResidentType,
-                TownId = townId,
-                GroupId = DriverItem.GroupId,
-
-
-                CreateBy = user.Id,
-                CreationDate = DateTime.Now,
-                Status = StatusType.OK,
-            };
-            if(DriverItem.PhotoDriverLicense!=null)
-            {
-                driver.PhotoDriverLicense = await DriverItem.PhotoDriverLicense.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
-            }
-            if (DriverItem.PhotoIdCard1 != null)
-            {
-                driver.PhotoIdCard1 = await DriverItem.PhotoIdCard1.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
-            }
-            if (DriverItem.PhotoIdCard2 != null)
-            {
-                driver.PhotoIdCard2 = await DriverItem.PhotoIdCard2.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
-            }
-            if (DriverItem.PhotoWarranty != null)
-            {
-                driver.PhotoWarranty = await DriverItem.PhotoWarranty.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
-            }
-
-            if (DriverItem.ExtraPhoto1 != null)
-            {
-                driver.ExtraPhoto1 = await DriverItem.ExtraPhoto1.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
-            }
-            if (DriverItem.ExtraPhoto2 != null)
-            {
-                driver.ExtraPhoto2 = await DriverItem.ExtraPhoto2.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
-            }
-            if (DriverItem.ExtraPhoto3 != null)
-            {
-                driver.ExtraPhoto3 = await DriverItem.ExtraPhoto3.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
-            }
+            driver.CreateBy = user.Id;
+            driver.CreationDate = DateTime.Now;
+            driver.Status = StatusType.OK;
 
             _context.Drivers.Add(driver);
             await _context.SaveChangesAsync();

@@ -10,7 +10,7 @@
             <h3><i class="fa fa-map-o"></i> 街道/镇 列表</h3>
         </div>
         <div class="pull-right">
-           <a asp-page="/">主页</a>&gt;
+            <a asp-page="/">主页</a>&gt;
             <a asp-page="/Town">街道</a>
         </div>
     </div>
@@ -20,14 +20,14 @@
     <div class="container">
         <p>
             @if (await Model.CanEdit())
-    {
+            {
 
-       
 
-}
+
+            }
 
         </p>
-       
+
         <hr />
         <br />
         <table class="table table-hover">
@@ -41,7 +41,7 @@
                         @Html.DisplayNameFor(model => model.TownList[0].Name)
                     </th>
                     <th>
-                      @Html.DisplayNameFor(model => model.TownList[0].StatusText)
+                        @Html.DisplayNameFor(model => model.TownList[0].StatusText)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.TownList[0].GroupCount)
@@ -57,7 +57,7 @@
             </thead>
             <tbody>
                 @foreach (var item in Model.TownList)
-            {
+                {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Code)
@@ -85,7 +85,7 @@
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-view-item btn-sm" asp-page="./Details" asp-route-id="@item.Id"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
-                               
+
                             </div>
                         </td>
                     </tr>
@@ -94,3 +94,4 @@
         </table>
     </div>
 </section>
+

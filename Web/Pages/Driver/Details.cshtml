@@ -121,42 +121,42 @@
                             <tr>
 
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].License)
+                                    @Html.DisplayNameFor(model => model.Vehicles[0].License)
                                 </th>
 
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].Usage)
+                                    @Html.DisplayNameFor(model => model.Vehicles[0].Usage)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].Brand)
+                                    @Html.DisplayNameFor(model => model.Vehicles[0].Brand)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].Type)
-                                </th>
-
-                                <th>
-                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].Color)
+                                    @Html.DisplayNameFor(model => model.Vehicles[0].Type)
                                 </th>
 
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].YearlyAuditDate)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].InsuranceExpiredDate)
+                                    @Html.DisplayNameFor(model => model.Vehicles[0].Color)
                                 </th>
 
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].TownName)
+                                    @Html.DisplayNameFor(model => model.Vehicles[0].YearlyAuditDate)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DriverItem.Vehicles[0].GroupName)
+                                    @Html.DisplayNameFor(model => model.Vehicles[0].InsuranceExpiredDate)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Vehicles[0].TownName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Vehicles[0].GroupName)
                                 </th>
 
                                 <th width="115"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.DriverItem.Vehicles)
+                            @foreach (var item in Model.Vehicles)
                             {
                                 <tr>
 
@@ -323,30 +323,30 @@
                     <h4><i class="fa fa-picture-o" aria-hidden="true"></i>图片附件</h4>
 
                     <hr />
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.PhotoIdCard1Base64)</div>
-                        <div class="panel-body">
-                            <img src="data:image;base64,@Model.DriverItem.PhotoIdCard1Base64" />
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.PhotoIdCard2Base64)</div>
-                        <div class="panel-body">
-                            <img src="data:image;base64,@Model.DriverItem.PhotoIdCard2Base64" />
-                        </div>
-                    </div>
                     <div class="panel panel-default">
                         <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.PhotoDriverLicenseBase64)</div>
                         <div class="panel-body">
                             <img src="data:image;base64,@Model.DriverItem.PhotoDriverLicenseBase64" />
                         </div>
                     </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.ExtraPhoto1)</div>
+                        <div class="panel-body">
+                            <img src="data:image;base64,@Model.DriverItem.ExtraPhoto1Base64" />
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.ExtraPhoto2Base64)</div>
+                        <div class="panel-body">
+                            <img src="data:image;base64,@Model.DriverItem.ExtraPhoto2Base64" />
+                        </div>
+                    </div>
+
 
                     <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.PhotoWarrantyBase64)</div>
+                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.ExtraPhoto3Base64)</div>
                         <div class="panel-body">
-                            <img src="data:image;base64,@Model.DriverItem.PhotoWarrantyBase64" />
+                            <img src="data:image;base64,@Model.DriverItem.ExtraPhoto3Base64" />
                         </div>
                     </div>
                 </div>

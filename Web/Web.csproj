@@ -28,4 +28,17 @@
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\upload\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Update="wwwroot\fonts\FZYouH_510M.TTF">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Data\imvehiclemis.db.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="imvehiclemis.db.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

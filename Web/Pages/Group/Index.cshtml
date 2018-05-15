@@ -54,7 +54,10 @@
                         @Html.DisplayNameFor(model => model.Groups[0].TownName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Groups[0].License)
+                        @Html.DisplayNameFor(model => model.Groups[0].PoliceOffice)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Groups[0].Policeman)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Groups[0].VehicleCount)
@@ -147,26 +150,27 @@
             <span style="color:gray"> ( {{:chiefTel}})</span>
         </td>
         <td>                {{:townName}}            </td>
-        <td>                {{:license}}            </td>
+        <td>                {{:policeOffice}}            </td>
+        <td>                {{:policeman}}            </td>
         <td>                {{:vehicleCount}}            </td>
         <td>                {{:driverCount}}            </td>
         <td>
             <div class="btn-group">
                 <a class="btn btn-view-item btn-sm" href="/Group/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a>
                 @if (await Model.CanEdit())
-                {
-                    <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span>
-                        <span class="sr-only">向下弹出</span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="/Group/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="/Group/Edit?id={{:id}}&returnUrl=@Request.Path"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
-                        <li><a href="/Group/Delete?id={{:id}}&returnUrl=@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
+            {
+                <button type="button" class="btn btn-view-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">向下弹出</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="/Group/Details?id={{:id}}"><i class="fa fa-search-plus" aria-hidden="true"></i> 查 看 </a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/Group/Edit?id={{:id}}&returnUrl=@Request.Path"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>编 辑 </a></li>
+                    <li><a href="/Group/Delete?id={{:id}}&returnUrl=@Request.Path"> <i class="fa fa-trash-o" aria-hidden="true"></i>删 除 </a></li>
 
-                    </ul>
-                }
+                </ul>
+        }
             </div>
         </td>
     </tr>
