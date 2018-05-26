@@ -20,6 +20,7 @@
     <Compile Remove="Migrations\20180518152241_testuserfileItem.cs" />
     <Compile Remove="Migrations\20180518165211_testuserfileItem.cs" />
     <Compile Remove="Migrations\20180522062751_testdriveritem.cs" />
+    <Compile Remove="Migrations\20180523140731_testdriveritem.cs" />
   </ItemGroup>
 
   <ItemGroup>
