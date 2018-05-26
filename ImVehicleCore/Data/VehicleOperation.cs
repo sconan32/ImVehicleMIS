@@ -13,13 +13,13 @@ namespace Socona.ImVehicle.Core.Data
 
         public VehicleOperationEvent Event { get; set; }
 
-        [MaxLength(128)]
+        [MaxLength(256)]
         public string IpAddr { get; set; }
 
-        [MaxLength(512)]
+        [MaxLength(2048)]
         public string Url { get; set; }
 
-        [MaxLength(512)]
+        [MaxLength(4096)]
         public string Summary { get; set; }
 
         public string OldData { get; set; }

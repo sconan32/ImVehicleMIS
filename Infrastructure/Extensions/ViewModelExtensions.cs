@@ -89,7 +89,7 @@ namespace Socona.ImVehicle.Infrastructure.Extensions
         public static UserFileItem ToUserFile(this IFormFile formFile, string name = null)
         {
 
-            var subfolder = (DateTime.Now.Second % 20).ToString();
+            var subfolder = (DateTime.Now.Second % 60).ToString();
             string serverFileName = Guid.NewGuid().ToString() + ".ufile";
             string serverPath = Path.Combine("upload", subfolder, serverFileName);
 

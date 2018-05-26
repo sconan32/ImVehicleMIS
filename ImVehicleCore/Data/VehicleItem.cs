@@ -15,18 +15,18 @@ namespace Socona.ImVehicle.Core.Data
         public UsageType Usage { get; set; }
 
         [Display(Name = "车牌号")]
-        [MaxLength(32)]
+        [MaxLength(64)]
         public string LicenceNumber { get; set; }
 
         [MaxLength(32)]
         public string DriverName { get; set; }
-        [MaxLength(32)]
+        [MaxLength(64)]
         public string DriverTel { get; set; }
-        [MaxLength(16)]
+        [MaxLength(64)]
         public string Brand { get; set; }
 
         [Display(Name = "颜色")]
-        [MaxLength(16)]
+        [MaxLength(64)]
         public string Color { get; set; }
         [Display(Name = "首次注册日期")]
         public DateTime? FirstRegisterDate { get; set; }
@@ -105,7 +105,7 @@ namespace Socona.ImVehicle.Core.Data
         public string RealOwner { get; set; }
 
         [Display(Name = "挂靠单位")]
-        [MaxLength(256)]
+        [MaxLength(512)]
         public string Agent { get; set; }
 
         [Display(Name = "GPS服务")]

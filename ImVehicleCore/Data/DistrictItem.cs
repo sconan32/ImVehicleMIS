@@ -8,7 +8,7 @@ namespace Socona.ImVehicle.Core.Data
 {
     public class DistrictItem : BaseEntity
     {
-        [MaxLength(512)]
+        [MaxLength(2048)]
         public string Address { get; set; }
 
         public AdminDivisionType DivisionType { get; set; }

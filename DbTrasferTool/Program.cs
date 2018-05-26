@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 
@@ -12,31 +13,48 @@ namespace DbTrasferTool
 {
     static class Program
     {
+
+
+        static string PathPrefix = "";
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("INFO: INIT DBContext");
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                PathPrefix = "E:/Projects";
+            }
+            else
+            {
+                PathPrefix = "/home/ubuntu";
+            }
             OldDbContext oldDb = new OldDbContext();
-
+            
 
             var optionsBuilder = new DbContextOptionsBuilder<VehicleDbContext>();
             optionsBuilder.UseSqlite("Data Source=.\\imvehiclemis.db.dll;");
             var newDb = new VehicleDbContext(optionsBuilder.Options);
 
-            
+
 
 
             var optionsBuilder2 = new DbContextOptionsBuilder<VehicleDbContext>();
-            optionsBuilder2.UseMySql("Server=210.30.97.227;Database=imvehicledb;Uid=imvehicle;Pwd=ImVehicleDb@;");
+            optionsBuilder2.UseMySql("Server=localhost;Database=imvehicledb;Uid=root;Pwd=Imvehicle@DbSvr;");
             var mySqlDb = new VehicleDbContext(optionsBuilder2.Options);
-            //UpdateGroups(oldDb, mySqlDb);
-            //UpdateGroupRules(oldDb, mySqlDb);
-            //UpdateGroupGuarantee(oldDb, mySqlDb);
+            Console.WriteLine("INFO: Update Groups ====================");
+            UpdateGroups(oldDb, mySqlDb);
+            UpdateGroupRules(oldDb, mySqlDb);
+            UpdateGroupGuarantee(oldDb, mySqlDb);
 
-            //UpdateDrivers(oldDb, mySqlDb);
-            // UpdateDriverIdPhoto(oldDb, mySqlDb);
-            //UpdateDriverWarrantyPhoto(oldDb, mySqlDb);
-            //  UpdateVehicle(oldDb, mySqlDb);
-            // UpdateVehicleWarranty(oldDb, mySqlDb);
+            Console.WriteLine("INFO: Update Drivers ====================");
+
+            UpdateDrivers(oldDb, mySqlDb);
+            UpdateDriverIdPhoto(oldDb, mySqlDb);
+            UpdateDriverWarrantyPhoto(oldDb, mySqlDb);
+
+            Console.WriteLine("INFO: Update Vehicles ====================");
+
+            UpdateVehicle(oldDb, mySqlDb);
+            UpdateVehicleWarranty(oldDb, mySqlDb);
             UpdateVehicleGps(oldDb, mySqlDb);
 
 
@@ -65,7 +83,7 @@ namespace DbTrasferTool
             var dlw = newDb.Towns.First(t => t.Name.Contains("大连湾"));
             foreach (var secGrp in oldDb.CarsGroup)
             {
-               
+
                 var newItem = newDb.Groups.FirstOrDefault(t => t.Name == secGrp.Name);
                 if (newItem == null)
                 {
@@ -87,7 +105,7 @@ namespace DbTrasferTool
 
                         TownId = dlw.Id,
                         Comment = secGrp.Introduce,
-                       
+
 
                     };
 
@@ -113,12 +131,12 @@ namespace DbTrasferTool
 
 
 
-                Console.WriteLine($"INFO: Find Image :{secGrp.Photo} @ {secGrp.Name}");   
-                var subfolder = (DateTime.Now.Second % 20).ToString();
+                Console.WriteLine($"INFO: Find Image :{secGrp.Photo} @ {secGrp.Name}");
+                var subfolder = (DateTime.Now.Second % 60).ToString();
                 string serverFileName = Guid.NewGuid().ToString() + ".ufile";
                 string serverPath = Path.Combine("upload", subfolder, serverFileName);
                 FileInfo fi = new FileInfo(filePath);
-               
+
                 File.Copy(filePath, serverPath);
 
                 UserFileItem ufi = new UserFileItem()
@@ -213,7 +231,7 @@ namespace DbTrasferTool
 
                 Console.WriteLine($"I: Loading File :{secGrp.Rules}@ {secGrp.Name}");
                 //    var stream = File.OpenRead(filePath);
-                var subfolder = (DateTime.Now.Second % 20).ToString();
+                var subfolder = (DateTime.Now.Second % 60).ToString();
                 string serverFileName = Guid.NewGuid().ToString() + ".ufile";
                 string serverPath = Path.Combine("upload", subfolder, serverFileName);
                 FileInfo fi = new FileInfo(filePath);
@@ -223,7 +241,7 @@ namespace DbTrasferTool
                 UserFileItem ufi = new UserFileItem()
                 {
                     ClientPath = filePath,
-                    CreateBy=adminUser.Id,
+                    CreateBy = adminUser.Id,
                     VersionNumber = 1,
                     Status = StatusType.OK,
                     ContentType = GetMimeType(Path.GetExtension(filePath)),
@@ -313,7 +331,7 @@ namespace DbTrasferTool
 
                 Console.WriteLine($"I: Loading File :{secGrp.Guarantee}@ {secGrp.Name}");
                 //    var stream = File.OpenRead(filePath);
-                var subfolder = (DateTime.Now.Second % 20).ToString();
+                var subfolder = (DateTime.Now.Second % 60).ToString();
                 string serverFileName = Guid.NewGuid().ToString() + ".ufile";
                 string serverPath = Path.Combine("upload", subfolder, serverFileName);
                 FileInfo fi = new FileInfo(filePath);
@@ -392,10 +410,10 @@ namespace DbTrasferTool
                         Gender = driver.Sex == "男" ? GenderType.Male : GenderType.Female,
                         LicenseIssueDate = Convert.ToDateTime(driver.LicenseStart),
                         IdCardNumber = driver.IdCard,
-                        LicenseType =driver.CarLicense,
+                        LicenseType = driver.CarLicense,
                         LicenseValidYears = (int?)driver.LicenseTime,
                         LivingAddress = driver.LiveAddress,
-                       
+
                         Tel = driver.Phone,
                         TownId = dlw.Id,
                     };
@@ -427,7 +445,7 @@ namespace DbTrasferTool
 
 
                 Console.WriteLine($"INFO: Find Image :{driver.DriverPhoto} @ {driver.Name}");
-                var subfolder = (DateTime.Now.Second % 20).ToString();
+                var subfolder = (DateTime.Now.Second % 60).ToString();
                 string serverFileName = Guid.NewGuid().ToString() + ".ufile";
                 string serverPath = Path.Combine("upload", subfolder, serverFileName);
                 FileInfo fi = new FileInfo(filePath);
@@ -484,7 +502,7 @@ namespace DbTrasferTool
                 }
             }
         }
-        public static void UpdateDriverIdPhoto (OldDbContext oldDb, VehicleDbContext newDb)
+        public static void UpdateDriverIdPhoto(OldDbContext oldDb, VehicleDbContext newDb)
         {
             var adminUser = newDb.Users.First(t => t.UserName == "admin");
             var dlw = newDb.Towns.First(t => t.Name.Contains("大连湾"));
@@ -507,7 +525,7 @@ namespace DbTrasferTool
 
 
                 Console.WriteLine($"INFO: Find Image :{driver.IdPhoto} @ {driver.Name}");
-                var subfolder = (DateTime.Now.Second % 20).ToString();
+                var subfolder = (DateTime.Now.Second % 60).ToString();
                 string serverFileName = Guid.NewGuid().ToString() + ".ufile";
                 string serverPath = Path.Combine("upload", subfolder, serverFileName);
                 FileInfo fi = new FileInfo(filePath);
@@ -588,7 +606,7 @@ namespace DbTrasferTool
 
 
                 Console.WriteLine($"INFO: Find Image :{driver.TitlePhoto} @ {driver.Name}");
-                var subfolder = (DateTime.Now.Second % 20).ToString();
+                var subfolder = (DateTime.Now.Second % 60).ToString();
                 string serverFileName = Guid.NewGuid().ToString() + ".ufile";
                 string serverPath = Path.Combine("upload", subfolder, serverFileName);
                 FileInfo fi = new FileInfo(filePath);
@@ -650,7 +668,7 @@ namespace DbTrasferTool
         public static void UpdateVehicle(OldDbContext oldDb, VehicleDbContext newDb)
         {
             var adminUser = newDb.Users.First(t => t.UserName == "admin");
-          
+
             var dlw = newDb.Towns.First(t => t.Name.Contains("大连湾"));
             foreach (var vehicle in oldDb.CarsCar.Include(t => t.Group))
             {
@@ -718,7 +736,7 @@ namespace DbTrasferTool
 
 
                 Console.WriteLine($"INFO: Find Image :{vehicle.DrivingPhoto} @ {vehicle.Plate}");
-                var subfolder = (DateTime.Now.Second % 20).ToString();
+                var subfolder = (DateTime.Now.Second % 60).ToString();
                 string serverFileName = Guid.NewGuid().ToString() + ".ufile";
                 string serverPath = Path.Combine("upload", subfolder, serverFileName);
                 FileInfo fi = new FileInfo(filePath);
@@ -796,7 +814,7 @@ namespace DbTrasferTool
                     continue;
                 }
                 Console.WriteLine($"INFO: Find Image :{vehicle.DrivingPhoto} @ {vehicle.Plate}");
-                var subfolder = (DateTime.Now.Second % 20).ToString();
+                var subfolder = (DateTime.Now.Second % 60).ToString();
                 string serverFileName = Guid.NewGuid().ToString() + ".ufile";
                 string serverPath = Path.Combine("upload", subfolder, serverFileName);
                 FileInfo fi = new FileInfo(filePath);
@@ -876,7 +894,7 @@ namespace DbTrasferTool
                     continue;
                 }
                 Console.WriteLine($"INFO: Find Image :{vehicle.GpsPhoto} @ {vehicle.Plate}");
-                var subfolder = (DateTime.Now.Second % 20).ToString();
+                var subfolder = (DateTime.Now.Second % 60).ToString();
                 string serverFileName = Guid.NewGuid().ToString() + ".ufile";
                 string serverPath = Path.Combine("upload", subfolder, serverFileName);
                 FileInfo fi = new FileInfo(filePath);

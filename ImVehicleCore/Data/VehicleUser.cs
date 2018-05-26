@@ -12,19 +12,19 @@ namespace Socona.ImVehicle.Core.Data
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class VehicleUser : IdentityUser<string>
     {
-        [MaxLength(128)]
+        [MaxLength(64)]
         public string RealName { get; set; }
 
         [MaxLength(128)]
         public string Serial { get; set; }
 
-        [MaxLength(32)]
+        [MaxLength(64)]
         public string Depart { get; set; }
 
-        [MaxLength(256)]
+        [MaxLength(2048)]
         public string Company { get; set; }
 
-        [MaxLength(32)]
+        [MaxLength(64)]
         public string Title { get; set; }
 
 
@@ -38,7 +38,7 @@ namespace Socona.ImVehicle.Core.Data
 
         public long? GroupId { get; set; }
 
-        [MaxLength(32)]
+        [MaxLength(64)]
         public string Type { get; set; }
 
         [ForeignKey("DistrictId")]
@@ -52,11 +52,11 @@ namespace Socona.ImVehicle.Core.Data
         public DateTime? ModificationDate { get; set; }
 
         [Display(Name = "修改用户")]
-        [MaxLength(128)]
+        [MaxLength(256)]
         public string CreateBy { get; set; }
 
         [Display(Name = "修改用户")]
-        [MaxLength(128)]
+        [MaxLength(256)]
         public string ModifyBy { get; set; }
 
         [Display(Name = "状态码")]

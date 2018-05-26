@@ -14,21 +14,21 @@ namespace Socona.ImVehicle.Core.Data
 
 
         [Display(Name = "编码")]
-        [MaxLength(32)]
+        [MaxLength(64)]
         public string Code { get; set; }
 
 
         [Display(Name = "办公地址")]
-        [MaxLength(512)]
+        [MaxLength(2048)]
         public string Address { get; set; }
         [Display(Name = "注册地址")]
-        [MaxLength(512)]
+        [MaxLength(2048)]
         public string RegisterAddress { get; set; }
         [Display(Name = "纳税人识别号")]
-        [MaxLength(32)]
+        [MaxLength(256)]
         public string License { get; set; }
         [Display(Name = "单位类型")]
-        [MaxLength(32)]
+        [MaxLength(128)]
         public string Type { get; set; }
 
 
@@ -50,15 +50,15 @@ namespace Socona.ImVehicle.Core.Data
 
     
         [Display(Name = "文件附件")]
-        [MaxLength(512)]
+        [MaxLength(2048)]
         public string AttachmentFilePath { get; set; }
         [Display(Name = "职务")]
-        [MaxLength(32)]
+        [MaxLength(64)]
         public string ChiefTitle { get; set; }
         [Display(Name = "负责人")]
         [MaxLength(32)]
         public string ChiefName { get; set; }
-        [MaxLength(32)]
+        [MaxLength(64)]
         [Display(Name = "电话")]
         public string ChiefTel { get; set; }
         
@@ -69,7 +69,7 @@ namespace Socona.ImVehicle.Core.Data
         [MaxLength(32)]
         public string Policeman { get; set; }
         [Display(Name = "监理中队")]
-        [MaxLength(32)]
+        [MaxLength(128)]
         public string PoliceOffice { get; set; }
 
 

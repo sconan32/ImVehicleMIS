@@ -13,7 +13,7 @@ namespace Socona.ImVehicle.Core.Data
 
         [Required]
         [Display(Name = "标题")]
-        [MaxLength(256)]
+        [MaxLength(1024)]
         public string Title { get; set; }
         [Required]
         [Display(Name = "内容")]

@@ -12,19 +12,19 @@ namespace Socona.ImVehicle.Core.Data
         public long Size { get; set; }
 
         [Display(Name = "服务器路径")]
-        [MaxLength(512)]
+        [MaxLength(2048)]
         public string ServerPath { get; set; }
 
         [Display(Name = "客户端路径")]
-        [MaxLength(512)]
+        [MaxLength(2048)]
         public string ClientPath { get; set; }
 
         [Display(Name = "文件类型")]
-        [MaxLength(16)]
+        [MaxLength(64)]
         public string Type { get; set; }
 
         [Display(Name = "文件名")]
-        [MaxLength(128)]
+        [MaxLength(256)]
         public string FileName { get; set; }
 
         public int DownloadCount { get; set; }       
@@ -40,7 +40,7 @@ namespace Socona.ImVehicle.Core.Data
         public virtual TownItem Town { get; set; }
 
         [Display(Name = "MIME格式")]
-        [MaxLength(64)]
+        [MaxLength(512)]
         public string ContentType { get; set; }
 
         [Display(Name = "可见性")]

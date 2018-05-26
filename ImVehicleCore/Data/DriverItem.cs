@@ -12,18 +12,18 @@ namespace Socona.ImVehicle.Core.Data
         public string LicenseType { get; set; }
 
         [Display(Name = "电话")]
-        [MaxLength(16)]
+        [MaxLength(128)]
         public string Tel { get; set; }
 
         [Display(Name = "身份证号")]
-        [MaxLength(32)]
+        [MaxLength(128)]
         public string IdCardNumber { get; set; }
 
         [Display(Name = "性别")]
         public GenderType Gender { get; set; }
 
         [Display(Name = "驾驶证号")]
-        [MaxLength(32)]
+        [MaxLength(128)]
         public string LicenseNumber { get; set; }
         [Display(Name = "首次申领驾驶证于")]
         public DateTime? FirstLicenseIssueDate { get; set; }
@@ -35,7 +35,7 @@ namespace Socona.ImVehicle.Core.Data
         public int? LicenseValidYears { get; set; }
 
         [Display(Name = "注册单位")]
-        [MaxLength(256)]
+        [MaxLength(2048)]
         public string ContactAddress { get; set; }
 
        
@@ -69,7 +69,7 @@ namespace Socona.ImVehicle.Core.Data
         public long? AvatarImageId { get; set; }
 
         [Display(Name = "资质证书编号")]
-        [MaxLength(32)]
+        [MaxLength(128)]
         public string WarrantyCode { get; set; }
         public long? GroupId { get; set; }
 
@@ -82,11 +82,11 @@ namespace Socona.ImVehicle.Core.Data
         public virtual TownItem Town { get; set; }
 
         [Display(Name = "住址")]
-        [MaxLength(512)]
+        [MaxLength(2048)]
         public string LivingAddress { get; set; }
 
         [Display(Name = "职务")]
-        [MaxLength(16)]
+        [MaxLength(32)]
         public string Title { get; set; }
 
         [Display(Name = "户口类型")]

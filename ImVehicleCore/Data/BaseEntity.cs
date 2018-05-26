@@ -19,7 +19,7 @@ namespace Socona.ImVehicle.Core.Data
         public string Metadata { get; set; }
 
         [Display(Name = "名称")]
-        [MaxLength(128)]
+        [MaxLength(512)]
         public string Name { get; set; }
 
         [Display(Name = "创建日期")]
@@ -28,11 +28,11 @@ namespace Socona.ImVehicle.Core.Data
         public DateTime? ModificationDate { get; set; }
 
         [Display(Name = "修改用户")]
-        [MaxLength(128)]
+        [MaxLength(512)]
         public string CreateBy { get; set; }
 
         [Display(Name = "修改用户")]
-        [MaxLength(128)]
+        [MaxLength(512)]
         public string ModifyBy { get; set; }
 
         [Display(Name = "状态码")]
