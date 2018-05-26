@@ -122,7 +122,7 @@ namespace DbTrasferTool
                     }
 
                 }
-                var filePath = "E:/Projects/version4/static/img/company/" + secGrp.Photo;
+                var filePath = PathPrefix+"/version4/static/img/company/" + secGrp.Photo;
                 if (!File.Exists(filePath))
                 {
                     Console.WriteLine($"ERROR: File Not Found: {secGrp.Photo} @ {secGrp.Name}");
@@ -201,7 +201,7 @@ namespace DbTrasferTool
                     Console.WriteLine($"E: Entity Not Exist: {secGrp.Name}");
                     continue;
                 }
-                var filePath = "E:/Projects/version4/static/img/rule/" + secGrp.Rules;
+                var filePath = PathPrefix+"/version4/static/img/rule/" + secGrp.Rules;
                 if (!File.Exists(filePath))
                 {
                     Console.WriteLine($"E: File Not Exist : {secGrp.Rules}@{secGrp.Name}");
@@ -301,7 +301,7 @@ namespace DbTrasferTool
                     Console.WriteLine($"E: Entity Not Exist: {secGrp.Name}");
                     continue;
                 }
-                var filePath = "E:/Projects/version4/static/img/guarantee/" + secGrp.Guarantee;
+                var filePath = PathPrefix + "/version4/static/img/guarantee/" + secGrp.Guarantee;
                 if (!File.Exists(filePath))
                 {
                     Console.WriteLine($"E: File Not Exist : {secGrp.Guarantee}@{secGrp.Name}");
@@ -436,7 +436,7 @@ namespace DbTrasferTool
                     }
 
                 }
-                var filePath = "E:/Projects/version4/static/img/driverlicense/" + driver.DriverPhoto;
+                var filePath = PathPrefix + "/version4/static/img/driverlicense/" + driver.DriverPhoto;
                 if (!File.Exists(filePath))
                 {
                     Console.WriteLine($"ERROR: File Not Fount: {driver.DriverPhoto} @ {driver.Name}");
@@ -516,7 +516,7 @@ namespace DbTrasferTool
                     Console.WriteLine($"ERROR: Driver Not Exist:{ driver.Name}");
                 }
 
-                var filePath = "E:/Projects/version4/static/img/idcard/" + driver.IdPhoto;
+                var filePath = PathPrefix + "/version4/static/img/idcard/" + driver.IdPhoto;
                 if (!File.Exists(filePath))
                 {
                     Console.WriteLine($"ERROR: File Not Found: {driver.IdPhoto} @ {driver.Name}");
@@ -597,7 +597,7 @@ namespace DbTrasferTool
                     Console.WriteLine($"ERROR: Driver Not Exist:{ driver.Name}");
                 }
 
-                var filePath = "E:/Projects/version4/static/img/title/" + driver.TitlePhoto;
+                var filePath = PathPrefix + "/version4/static/img/title/" + driver.TitlePhoto;
                 if (!File.Exists(filePath))
                 {
                     Console.WriteLine($"ERROR: File Not Found: {driver.TitlePhoto} @ {driver.Name}");
@@ -726,7 +726,7 @@ namespace DbTrasferTool
                     }
 
                 }
-                var filePath = "E:/Projects/version4/static/img/car_driver/" + vehicle.DrivingPhoto;
+                var filePath = PathPrefix + "/version4/static/img/car_driver/" + vehicle.DrivingPhoto;
                 if (!File.Exists(filePath))
                 {
                     Console.WriteLine($"ERROR: File Not Found: {vehicle.DrivingPhoto} @ {vehicle.Plate}");
@@ -807,7 +807,7 @@ namespace DbTrasferTool
                     Console.WriteLine($"ERROR: Driver Not Exist:{ vehicle.Plate}");
                 }
 
-                var filePath = "E:/Projects/version4/static/img/car_buss/" + vehicle.ServicePhoto;
+                var filePath = PathPrefix + "/version4/static/img/car_buss/" + vehicle.ServicePhoto;
                 if (!File.Exists(filePath))
                 {
                     Console.WriteLine($"ERROR: File Not Found: { vehicle.ServicePhoto} @ { vehicle.Plate}");
@@ -887,7 +887,7 @@ namespace DbTrasferTool
                     Console.WriteLine($"ERROR: Driver Not Exist:{ vehicle.Plate}");
                 }
 
-                var filePath = "E:/Projects/version4/static/img/car_gps/" + vehicle.GpsPhoto;
+                var filePath = PathPrefix + "/version4/static/img/car_gps/" + vehicle.GpsPhoto;
                 if (!File.Exists(filePath))
                 {
                     Console.WriteLine($"ERROR: File Not Found: { vehicle.GpsPhoto} @ { vehicle.Plate}");
