@@ -34,7 +34,7 @@ namespace Socona.ImVehicle.Web.Controllers
 
         }
 
-        [Authorize(Roles = "TownManager,Admins")]
+        [Authorize(Roles = "GlobalVisitor,TownManager,Admins")]
         public async Task<IActionResult> LoadData(int? townId, int? page = 0, int? pageSize = 20)
         {
             ISpecification<GroupItem> canFetch = await Group4UserSpecification.CreateAsync(HttpContext.User, _userManager);

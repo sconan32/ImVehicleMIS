@@ -26,7 +26,7 @@ namespace Socona.ImVehicle.Web.ViewModels
             Comment = vehicle.Comment;
             DriverId = vehicle.DriverId;
             GroupId = vehicle.GroupId;
-            InsuranceExpiredDate = vehicle.InsuranceExpiredDate;
+            AuditExpiredDate = vehicle.AuditExpiredDate;
             LastRegisterDate = vehicle.LastRegisterDate;
             RegisterDate = vehicle.LastRegisterDate;
             License = vehicle.LicenceNumber;
@@ -44,15 +44,14 @@ namespace Socona.ImVehicle.Web.ViewModels
             DriverName = vehicle.Driver?.Name;
             DriverTel = vehicle.Driver?.Tel;
 
-            PhotoLicenseBase64 = vehicle.PhotoLicense.ToBase64String();
-            PhotoGpsBase64 = vehicle.PhotoGps.ToBase64String();
-            PhotoAuditBase64 = vehicle.PhotoAudit.ToBase64String();
-            PhotoFrontBase64 = vehicle.PhotoFront.ToBase64String();
-            PhotoRearBase64 = vehicle.PhotoRear.ToBase64String();
-            PhotoInsuaranceBase64 = vehicle.PhotoInsuarance.ToBase64String();
-            ExtraPhoto1Base64 = vehicle.ExtraPhoto1.ToBase64String();
-            ExtraPhoto2Base64 = vehicle.ExtraPhoto1.ToBase64String();
-            ExtraPhoto3Base64 = vehicle.ExtraPhoto1.ToBase64String();
+            PhotoLicenseBase64 = vehicle.LicenseImage.ToBase64String();
+            PhotoGpsBase64 = vehicle.GpsImage.ToBase64String();
+            
+            PhotoFrontBase64 = vehicle.FrontImage.ToBase64String();
+            PhotoRearBase64 = vehicle.RearImage.ToBase64String();
+            ExtraPhoto1Base64 = vehicle.ExtraImage1.ToBase64String();
+            ExtraPhoto2Base64 = vehicle.ExtraImage2.ToBase64String();
+            ExtraPhoto3Base64 = vehicle.ExtraImage3.ToBase64String();
         }
 
         public VehicleItem OriginalModel { get; set; }
@@ -100,8 +99,8 @@ namespace Socona.ImVehicle.Web.ViewModels
         public bool IsDumpValid { get; set; }
 
         [DataType(DataType.Date)]
-        [Display(Name = "强制保险日期")]
-        public DateTime? InsuranceExpiredDate { get; set; }
+        [Display(Name = "检验有效期")]
+        public DateTime? AuditExpiredDate { get; set; }
         public bool IsInsuranceValid { get; set; }
 
         [DataType(DataType.Date)]
@@ -191,7 +190,7 @@ namespace Socona.ImVehicle.Web.ViewModels
             vehicle.Brand = this.Brand;
             vehicle.Color = this.Color;
             vehicle.Comment = this.Comment;
-            vehicle.InsuranceExpiredDate = this.InsuranceExpiredDate;
+            vehicle.AuditExpiredDate = this.AuditExpiredDate;
             vehicle.LicenceNumber = this.License;
             vehicle.DumpDate = this.DumpDate;
             vehicle.ProductionDate = this.ProductionDate;
@@ -206,43 +205,7 @@ namespace Socona.ImVehicle.Web.ViewModels
             vehicle.DriverId = this.DriverId;
             vehicle.GpsEnabled = this.GpsEnabled;
             vehicle.Agent = this.Agent;
-            if (PhotoFront != null)
-            {
-                vehicle.PhotoFront = await this.PhotoFront.GetPictureByteArray($"{Id}:{License}");
-            }
-            if (PhotoRear != null)
-            {
-                vehicle.PhotoRear = await PhotoRear.GetPictureByteArray($"{Id}:{License}");
-            }
-            if (PhotoAudit != null)
-            {
-                vehicle.PhotoAudit = await PhotoAudit.GetPictureByteArray($"{Id}:{License}");
-            }
-            if (PhotoInsuarance != null)
-            {
-                vehicle.PhotoInsuarance = await PhotoInsuarance.GetPictureByteArray($"{Id}:{License}");
-            }
-            if (PhotoGps != null)
-            {
-                vehicle.PhotoGps = await PhotoGps.GetPictureByteArray($"{Id}:{License}");
-            }
-            if (PhotoLicense != null)
-            {
-                vehicle.PhotoLicense = await PhotoLicense.GetPictureByteArray($"{Id}:{License}");
-
-            }
-            if (ExtraPhoto1 != null)
-            {
-                vehicle.ExtraPhoto1 = await ExtraPhoto1.GetPictureByteArray($"{Id}:{License}");
-            }
-            if (ExtraPhoto2 != null)
-            {
-                vehicle.ExtraPhoto2 = await ExtraPhoto2.GetPictureByteArray($"{Id}:{License}");
-            }
-            if (ExtraPhoto3 != null)
-            {
-                vehicle.ExtraPhoto3 = await ExtraPhoto3.GetPictureByteArray($"{Id}:{License}");
-            }
+          
         }
     }
 }

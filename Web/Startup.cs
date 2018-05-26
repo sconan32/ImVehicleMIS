@@ -35,8 +35,10 @@ namespace Socona.ImVehicle.Web
             //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             // services.AddDbContext<VehicleDbContext>(options =>
             //  options.UseSqlServer(Configuration.GetConnectionString("ReleaseConnection")));
+            //services.AddDbContext<VehicleDbContext>(options =>
+            // options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
             services.AddDbContext<VehicleDbContext>(options =>
-             options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+            options.UseMySql(Configuration.GetConnectionString("MySQLConnection")));
 
 
             services.AddIdentity<VehicleUser, VehicleRole>()

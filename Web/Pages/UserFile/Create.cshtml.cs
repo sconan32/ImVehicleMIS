@@ -60,8 +60,9 @@ namespace Socona.ImVehicle.Web.Pages.UserFile
 
             try
             {
+                var subfolder = (DateTime.Now.Second % 10).ToString();
                 string serverFileName = Guid.NewGuid().ToString() + ".ufile";
-                string serverPath = Path.Combine(_hostingEnvironment.WebRootPath, "upload", serverFileName);
+                string serverPath = Path.Combine(_hostingEnvironment.WebRootPath, "upload",subfolder ,serverFileName);
 
                 FileStream fileToWrite = new FileStream(serverPath, FileMode.Create, FileAccess.Write);
                 await UserFile.UploadFile.CopyToAsync(fileToWrite);
@@ -73,7 +74,7 @@ namespace Socona.ImVehicle.Web.Pages.UserFile
                     Visibility = UserFile.Visibility,
                     FileName = Path.GetFileName(UserFile.UploadFile?.FileName),
                     ContentType = UserFile.UploadFile?.ContentType,
-                    ServerPath = serverFileName,
+                    ServerPath = Path.Combine("upload",subfolder, serverFileName),
                     ClientPath = UserFile.UploadFile?.FileName,
                     Size = UserFile.UploadFile?.Length ?? 0,
                     Name = UserFile.Name,

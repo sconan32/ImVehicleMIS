@@ -12,6 +12,14 @@
     <Compile Remove="Migrations\20180118040619_Revision2001.cs" />
     <Compile Remove="Migrations\20180118042044_Revision2002.cs" />
     <Compile Remove="Migrations\20180119160553_rivision2002.cs" />
+    <Compile Remove="Migrations\20180119160854_revision2002.cs" />
+    <Compile Remove="Migrations\20180122070310_revised2003.cs" />
+    <Compile Remove="Migrations\20180518045509_ModifiedNew.cs" />
+    <Compile Remove="Migrations\20180518141932_ModifiedNew.cs" />
+    <Compile Remove="Migrations\20180518152215_testuserfileItem.cs" />
+    <Compile Remove="Migrations\20180518152241_testuserfileItem.cs" />
+    <Compile Remove="Migrations\20180518165211_testuserfileItem.cs" />
+    <Compile Remove="Migrations\20180522062751_testdriveritem.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,10 +32,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.GuardClauses" Version="1.2.1" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
+    <PackageReference Include="Ardalis.GuardClauses" Version="1.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.3" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.1" />
   </ItemGroup>
 
 </Project>

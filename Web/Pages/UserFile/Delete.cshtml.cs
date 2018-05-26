@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Infrastructure.Extensions;
 
 namespace Socona.ImVehicle.Web.Pages.UserFile
 {
@@ -51,15 +52,8 @@ namespace Socona.ImVehicle.Web.Pages.UserFile
 
             if (UserFile != null)
             {
-                _context.Files.Remove(UserFile);
-                try
-                {
-                    System.IO.File.Delete(UserFile.ServerPath);
-                }
-                catch(Exception )
-                {
-
-                }
+                UserFile.DeleteFromServer();
+                UserFile.Status = StatusType.Deleted;                        
                 await _context.SaveChangesAsync();
             }
 

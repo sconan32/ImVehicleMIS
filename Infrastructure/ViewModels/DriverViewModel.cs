@@ -39,14 +39,16 @@ namespace Socona.ImVehicle.Web.ViewModels
                 TownId = driver.TownId;
                 GroupId = driver.GroupId;
 
-                PhotoDriverLicenseBase64 = driver.PhotoDriverLicense.ToBase64String();
-                PhotoIdCard1Base64 = driver.PhotoIdCard1.ToBase64String();
-                PhotoIdCard2Base64 = driver.PhotoIdCard2.ToBase64String();
-                PhotoWarrantyBase64 = driver.PhotoWarranty.ToBase64String();
-                ExtraPhoto1Base64 = driver.ExtraPhoto1.ToBase64String();
-                ExtraPhoto2Base64 = driver.ExtraPhoto2.ToBase64String();
-                ExtraPhoto3Base64 = driver.ExtraPhoto3.ToBase64String();
+                PhotoDriverLicenseBase64 = driver.LicenseImage.ToBase64String();
+                PhotoIdCard1Base64 = driver.IdCardImage1.ToBase64String();
+                PhotoIdCard2Base64 = driver.IdCardImage2.ToBase64String();
+                PhotoAvatarBase64 = driver.AvatarImage.ToBase64String();
+               
 
+                           
+                ExtraImage1Base64 = driver.ExtraImage1?.ToBase64String();
+                ExtraImage2Base64 = driver.ExtraImage2?.ToBase64String();
+                ExtraImage3Base64 = driver.ExtraImage3?.ToBase64String();
 
                 IsValid = driver.IsValid();
 
@@ -76,8 +78,8 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "驾驶证号")]
         public string License { get; set; }
 
-        [Display(Name = "驾驶证类型")]
-        public VehicleLicenseType LicenseType { get; set; }
+        [Display(Name = "准驾车型")]
+        public string LicenseType { get; set; }
         [Display(Name = "性别")]
         public GenderType Gender { get; set; }
         [Required]
@@ -92,19 +94,28 @@ namespace Socona.ImVehicle.Web.ViewModels
         public int VehiclesRegistered { get; set; }
 
 
-        [Display(Name = "附加照片1")]
-        public IFormFile ExtraPhoto1 { get; set; }
-        [Display(Name = "附加照片1")]
-        public string ExtraPhoto1Base64 { get; set; }
+     
 
         public IFormFile PhotoIdCard1 { get; set; }
 
         public string PhotoIdCard1Base64 { get; set; }
 
+
+        [Display(Name = "附加照片1")]
+        public IFormFile ExtraImage1 { get; set; }
+        [Display(Name = "附加照片1")]
+        public string ExtraImage1Base64 { get; set; }
+
         [Display(Name = "附加照片2")]
-        public IFormFile ExtraPhoto2 { get; set; }
+        public IFormFile ExtraImage2 { get; set; }
         [Display(Name = "附加照片2")]
-        public string ExtraPhoto2Base64 { get; set; }
+        public string ExtraImage2Base64 { get; set; }
+
+
+        [Display(Name = "附加照片3")]
+        public IFormFile ExtraImage3 { get; set; }
+        [Display(Name = "附加照片3")]
+        public string ExtraImage3Base64 { get; set; }
         public IFormFile PhotoIdCard2 { get; set; }
 
 
@@ -125,10 +136,7 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "资质证书编号")]
         public string WarrantyCode { get; set; }
 
-        [Display(Name = "附加照片3")]
-        public IFormFile ExtraPhoto3 { get; set; }
-        [Display(Name = "附加照片3")]
-        public string ExtraPhoto3Base64 { get; set; }
+  
         public IFormFile PhotoWarranty { get; set; }
 
         public string PhotoWarrantyBase64 { get; set; }
@@ -177,35 +185,7 @@ namespace Socona.ImVehicle.Web.ViewModels
             driver.TownId = this.TownId;
             driver.GroupId = this.GroupId;
 
-            if (PhotoDriverLicense != null)
-            {
-                driver.PhotoDriverLicense = await PhotoDriverLicense.GetPictureByteArray($"{Id}:{License}");
-            }
-            if (PhotoIdCard1 != null)
-            {
-                driver.PhotoIdCard1 = await PhotoIdCard1.GetPictureByteArray($"{Id}:{License}");
-            }
-            if (PhotoIdCard2 != null)
-            {
-                driver.PhotoIdCard2 = await PhotoIdCard2.GetPictureByteArray($"{Id}:{License}");
-            }
-            if (PhotoWarranty != null)
-            {
-                driver.PhotoWarranty = await PhotoWarranty.GetPictureByteArray($"{Id}:{License}");
-            }
-
-            if (ExtraPhoto1 != null)
-            {
-                driver.ExtraPhoto1 = await ExtraPhoto1.GetPictureByteArray($"{Id}:{License}");
-            }
-            if (ExtraPhoto2 != null)
-            {
-                driver.ExtraPhoto2 = await ExtraPhoto2.GetPictureByteArray($"{Id}:{License}");
-            }
-            if (ExtraPhoto3 != null)
-            {
-                driver.ExtraPhoto3 = await ExtraPhoto3.GetPictureByteArray($"{Id}:{License}");
-            }
+            
         }
 
     }

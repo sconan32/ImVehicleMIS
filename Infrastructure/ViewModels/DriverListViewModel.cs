@@ -46,8 +46,8 @@ namespace Socona.ImVehicle.Web.ViewModels
         [Display(Name = "驾驶证号")]
         public string License { get; set; }
 
-        [Display(Name = "驾驶证类型")]
-        public VehicleLicenseType LicenseType { get; set; }
+        [Display(Name = "准驾车型")]
+        public string LicenseType { get; set; }
         [Display(Name = "性别")]
         public GenderType Gender { get; set; }
         [Display(Name = "户口属地")]
@@ -73,7 +73,7 @@ namespace Socona.ImVehicle.Web.ViewModels
         public int? LicenseValidYears { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "有效期至")]
-        public DateTime? LicenseExpiredDate { get { return LicenseIssueDate; } }
+        public DateTime? LicenseExpiredDate { get { return LicenseIssueDate?.AddYears(LicenseValidYears ?? 0); } }
         [Display(Name = "街道")]
         public string TownName { get; set; }
 

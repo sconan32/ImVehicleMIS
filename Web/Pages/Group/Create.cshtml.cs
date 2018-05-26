@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
+using Socona.ImVehicle.Infrastructure.Extensions;
 using Socona.ImVehicle.Web.ViewModels;
 
 namespace Socona.ImVehicle.Web.Pages.Group
@@ -68,42 +69,137 @@ namespace Socona.ImVehicle.Web.Pages.Group
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
 
+
             var group = new GroupItem()
             {
                 CreationDate = DateTime.Now,
                 CreateBy = user.Id,
                 Status = StatusType.OK,
             };
-            await GroupItem.FillGroupItem(group);
 
             var canEdit = _authorizationService.AuthorizeAsync(HttpContext.User, group, "CanEdit");
             if (!(await canEdit).Succeeded)
             {
                 return Unauthorized();
             }
-            _context.Groups.Add(group);
 
-            await _context.SaveChangesAsync();
-            GroupItem.Id = group.Id;
 
+            await GroupItem.FillGroupItem(group);
+
+            if (GroupItem.MainImage != null)
+            {
+                group.MainImage = GroupItem.MainImage.ToUserFile("企业图片");
+                _context.Files.Add(group.MainImage);
+            }
+            if (GroupItem.LicenseImage != null)
+            {
+                group.LicenseImage = GroupItem.LicenseImage.ToUserFile("证照图片");
+                _context.Files.Add(group.LicenseImage);
+            }
+            if (GroupItem.ExtraPhoto1 != null)
+            {
+                group.ExtraImage1 = GroupItem.ExtraPhoto1.ToUserFile("附加图片1");
+                _context.Files.Add(group.ExtraImage1);
+            }
+            if (GroupItem.ExtraPhoto2 != null)
+            {
+                group.ExtraImage2 = GroupItem.ExtraPhoto2.ToUserFile("附加图片2");
+                _context.Files.Add(group.ExtraImage2);
+            }
+            if (GroupItem.ExtraPhoto3 != null)
+            {
+                group.ExtraImage3 = GroupItem.ExtraPhoto3.ToUserFile("附加图片3");
+                _context.Files.Add(group.ExtraImage3);
+            }
             if (GroupItem.ApplicationFile != null)
             {
-                group.ApplicationFileId = await SaveUserFile(GroupItem.ApplicationFileId, GroupItem.ApplicationFile, nameof(GroupItem.ApplicationFile));
-            }
-            if (GroupItem.GroupGuranteeFile != null)
-            {
-                group.GroupGuranteeFileId = await SaveUserFile(GroupItem.GroupGuranteeFileId, GroupItem.GroupGuranteeFile, nameof(GroupItem.GroupGuranteeFile));
-            }
-            if (GroupItem.DriverGuranteeFile != null)
-            {
-                group.DriverGuranteeFileId = await SaveUserFile(GroupItem.DriverGuranteeFileId, GroupItem.DriverGuranteeFile, nameof(GroupItem.DriverGuranteeFile));
+                group.ApplicationFile = GroupItem.ApplicationFile.ToUserFile("安全组审批表");
+                _context.Files.Add(group.ApplicationFile);
             }
             if (GroupItem.RuleFile != null)
             {
-                group.RuleFileId = await SaveUserFile(GroupItem.RuleFileId, GroupItem.RuleFile, nameof(GroupItem.RuleFile));
+                group.RuleFile = GroupItem.RuleFile.ToUserFile("规章制度");
+                _context.Files.Add(group.RuleFile);
             }
+            if (GroupItem.GroupGuranteeFile != null)
+            {
+                group.GroupGuranteeFile = GroupItem.GroupGuranteeFile.ToUserFile("安全组责任状");
+                _context.Files.Add(group.GroupGuranteeFile);
+            }
+            if (GroupItem.DriverGuranteeFile != null)
+            {
+                group.DriverGuranteeFile = GroupItem.DriverGuranteeFile.ToUserFile("安全组责任状");
+                _context.Files.Add(group.DriverGuranteeFile);
+            }
+            _context.Groups.Add(group);
 
-         
+            await _context.SaveChangesAsync();
+            if (GroupItem.MainImage != null)
+            {
+                group.MainImage.GroupId = group.Id;
+                group.MainImage.TownId = group.TownId;
+                group.MainImage.Visibility = VisibilityType.CurrentGroup;
+                _context.Entry(group.MainImage).State = EntityState.Modified;
+            }
+            if (GroupItem.LicenseImage != null)
+            {
+                group.LicenseImage.GroupId = group.Id;
+                group.LicenseImage.TownId = group.TownId;
+                group.LicenseImage.Visibility = VisibilityType.CurrentGroup;
+                _context.Entry(group.LicenseImage).State = EntityState.Modified;
+            }
+            if (GroupItem.ExtraPhoto1 != null)
+            {
+                group.ExtraImage1.GroupId = group.Id;
+                group.ExtraImage1.TownId = group.TownId;
+                group.ExtraImage1.Visibility = VisibilityType.CurrentGroup;
+                _context.Entry(group.ExtraImage1).State = EntityState.Modified;
+            }
+            if (GroupItem.ExtraPhoto2 != null)
+            {
+                group.ExtraImage2.GroupId = group.Id;
+                group.ExtraImage2.TownId = group.TownId;
+                group.ExtraImage2.Visibility = VisibilityType.CurrentGroup;
+                _context.Entry(group.ExtraImage2).State = EntityState.Modified;
+            }
+            if (GroupItem.ExtraPhoto3 != null)
+            {
+                group.ExtraImage3.GroupId = group.Id;
+                group.ExtraImage3.TownId = group.TownId;
+                group.ExtraImage3.Visibility = VisibilityType.CurrentGroup;
+                _context.Entry(group.ExtraImage3).State = EntityState.Modified;
+            }
+            if (GroupItem.ApplicationFile != null)
+            {
+                group.ApplicationFile.GroupId = group.Id;
+                group.ApplicationFile.TownId = group.TownId;
+                group.ApplicationFile.Visibility = VisibilityType.CurrentGroup;
+                _context.Entry(group.ApplicationFile).State = EntityState.Modified;
+
+            }
+            if (GroupItem.RuleFile != null)
+            {
+                group.RuleFile.GroupId = group.Id;
+                group.RuleFile.TownId = group.TownId;
+                group.RuleFile.Visibility = VisibilityType.CurrentGroup;
+                _context.Entry(group.RuleFile).State = EntityState.Modified;
+            }
+            if (GroupItem.GroupGuranteeFile != null)
+            {
+                group.GroupGuranteeFile.GroupId = group.Id;
+                group.GroupGuranteeFile.TownId = group.TownId;
+                group.GroupGuranteeFile.Visibility = VisibilityType.CurrentGroup;
+                _context.Entry(group.GroupGuranteeFile).State = EntityState.Modified;
+            }
+            if (GroupItem.DriverGuranteeFile != null)
+            {
+                group.DriverGuranteeFile.GroupId = group.Id;
+                group.DriverGuranteeFile.TownId = group.TownId;
+                group.DriverGuranteeFile.Visibility = VisibilityType.CurrentGroup;
+                _context.Entry(group.DriverGuranteeFile).State = EntityState.Modified;
+            }
+            await _context.SaveChangesAsync();
+
 
             return Redirect(Url.GetLocalUrl(ReturnUrl));
         }

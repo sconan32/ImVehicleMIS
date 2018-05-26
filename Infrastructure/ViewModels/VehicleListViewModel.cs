@@ -22,7 +22,7 @@ namespace Socona.ImVehicle.Web.ViewModels
                 License = t.LicenceNumber;
                 LastRegisterDate = t.LastRegisterDate;
                 YearlyAuditDate = t.YearlyAuditDate;
-                InsuranceExpiredDate = t.InsuranceExpiredDate;
+                AuditExpiredDate = t.AuditExpiredDate;
                 DriverName = t.Driver?.Name;
                 TownName = t.Town?.Name;
                 GroupName = t.Group?.Name;
@@ -30,6 +30,8 @@ namespace Socona.ImVehicle.Web.ViewModels
                 Usage = t.Usage;
                 IsValid = t.IsValid();
                 DumpDate = t.DumpDate;
+
+
             }
         }
         public long Id { get; set; }
@@ -74,8 +76,8 @@ namespace Socona.ImVehicle.Web.ViewModels
         public bool IsDumpDateValid { get; set; }
 
         [DataType(DataType.Date)]
-        [Display(Name = "强制保险日期")]
-        public DateTime? InsuranceExpiredDate { get; set; }
+        [Display(Name = "检验有效期至")]
+        public DateTime? AuditExpiredDate { get; set; }
         public bool IsInsuranceValid { get; set; }
 
 

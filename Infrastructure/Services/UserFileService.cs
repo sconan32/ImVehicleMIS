@@ -18,21 +18,21 @@ namespace Socona.ImVehicle.Infrastructure.Services
         }
         public Task<List<UserFileItem>> GetGlobalUserFilesAsync()
         {
-            return _context.Files.Where(t => t.Visibility == VisibilityType.Global).ToListAsync();
+            return _context.Files.Where(t => t.Visibility == VisibilityType.Global && t.Status!= StatusType.Deleted).ToListAsync();
         }
 
         public Task<List<UserFileItem>> GetUserFilesForGroupAsync(long groupId)
         {
             return _context.Files.Where(
                 t => t.Visibility == VisibilityType.CurrentGroup 
-                    && t.GroupId== groupId ).ToListAsync();
+                    && t.GroupId== groupId && t.Status != StatusType.Deleted).ToListAsync();
         }
 
         public Task<List<UserFileItem>> GetUserFilesForTownAsync(long townId)
         {
             return _context.Files.Where(
                 t => t.Visibility == VisibilityType.CurrentTown
-                    && t.TownId==townId).ToListAsync();
+                    && t.TownId== townId && t.Status != StatusType.Deleted).ToListAsync();
         }
     }
 }

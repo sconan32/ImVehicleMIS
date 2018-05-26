@@ -13,7 +13,7 @@ namespace Socona.ImVehicle.Core.Data
 
 
 
-
+        [MaxLength(512)]
         public string Address { get; set; }
 
 

@@ -46,6 +46,11 @@ namespace Socona.ImVehicle.Web.Pages.Driver
                 .Include(t => t.Vehicles).ThenInclude(v => v.Group)
                 .Include(t => t.Town)
                 .Include(t => t.Group)
+                .Include(t=>t.AvatarImage)
+                .Include(t=>t.LicenseImage)
+                .Include(t=>t.ExtraImage1)
+                .Include(t => t.ExtraImage2)
+                .Include(t => t.ExtraImage3)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
             if (driver == null)

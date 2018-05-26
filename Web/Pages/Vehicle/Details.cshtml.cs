@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
+using Socona.ImVehicle.Infrastructure.Extensions;
 using Socona.ImVehicle.Web.ViewModels;
 
 namespace Socona.ImVehicle.Web.Pages.Vehicle
@@ -47,6 +48,13 @@ namespace Socona.ImVehicle.Web.Pages.Vehicle
                 .Include(t=>t.Group)
                 .Include(t=>t.Town)
                 .Include(t=>t.Driver)
+                .Include(t=>t.ExtraImage1)
+                .Include(t=>t.ExtraImage2)
+                .Include(t=>t.ExtraImage3)
+                .Include(t=>t.FrontImage)
+                .Include(t=>t.RearImage)
+                .Include(t=>t.LicenseImage)
+                .Include(t=>t.GpsImage)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
             if (vehicle == null)
@@ -55,46 +63,11 @@ namespace Socona.ImVehicle.Web.Pages.Vehicle
             }
 
 
-            VehicleItem = new VehicleViewModel()
-            {
-                Id = vehicle.Id,
-                Brand = vehicle.Brand,
-                Color = vehicle.Color,
-                Comment = vehicle.Comment,
-                DriverId = vehicle.DriverId,
-                GroupId = vehicle.GroupId,
-                InsuranceExpiredDate = vehicle.InsuranceExpiredDate,
-                LastRegisterDate = vehicle.LastRegisterDate,
-                RegisterDate = vehicle.LastRegisterDate,
-                License = vehicle.LicenceNumber,
-                Name = vehicle.Name,
-                ProductionDate = vehicle.ProductionDate,
-                RealOwner = vehicle.RealOwner,
-                Type = vehicle.Type,
-                Usage = vehicle.Usage,
-                VehicleStatus = vehicle.VehicleStatus,
-                YearlyAuditDate = vehicle.YearlyAuditDate,
-                Agent = vehicle.Agent,
-                DumpDate = vehicle.DumpDate,
-                GroupName = vehicle.Group?.Name,
-                TownName = vehicle.Town?.Name,
-                DriverName = vehicle.Driver?.Name,
-                DriverTel = vehicle.Driver?.Tel,
-
-                PhotoLicenseBase64 = vehicle.PhotoLicense != null ? Convert.ToBase64String(vehicle.PhotoLicense) : "",
-                PhotoGpsBase64 = vehicle.PhotoGps != null ? Convert.ToBase64String(vehicle.PhotoGps) : "",
-                PhotoAuditBase64 = vehicle.PhotoAudit != null ? Convert.ToBase64String(vehicle.PhotoAudit) : "",
-                PhotoFrontBase64 = vehicle.PhotoFront != null ? Convert.ToBase64String(vehicle.PhotoFront) : "",
-                PhotoRearBase64 = vehicle.PhotoRear != null ? Convert.ToBase64String(vehicle.PhotoRear) : "",
-                PhotoInsuaranceBase64 = vehicle.PhotoInsuarance != null ? Convert.ToBase64String(vehicle.PhotoInsuarance) : "",
-
-
-
-
-            };
+            VehicleItem = new VehicleViewModel(vehicle);
+          
             var nowDate = DateTime.Now.Date;
             VehicleItem.IsAuditValid = VehicleItem.YearlyAuditDate?.AddYears(1) >= nowDate;
-            VehicleItem.IsInsuranceValid = vehicle.InsuranceExpiredDate?.AddYears(1) >= nowDate;
+            VehicleItem.IsInsuranceValid = vehicle.AuditExpiredDate?.AddYears(1) >= nowDate;
             VehicleItem.IsDumpValid = vehicle.DumpDate >= nowDate;
             VehicleItem.IsValid = VehicleItem.IsAuditValid && VehicleItem.IsInsuranceValid && VehicleItem.IsDumpValid;
             return Page();

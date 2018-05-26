@@ -23,7 +23,7 @@ namespace Socona.ImVehicle.Web.ViewModels
             this.PublishDate = news.PublishDate;
             this.ExpireDate = news.ExpireDate;
             this.Order = news.Order;
-            this.ImageBase64 = news.Metadata;
+            this.ImageBase64 = news.ImageFile.ToBase64String();
 
 
         }
@@ -54,7 +54,7 @@ namespace Socona.ImVehicle.Web.ViewModels
         public DateTime? ExpireDate { get; set; }
 
         [Display(Name = "顺序")]
-        public int Order { get; set; }
+        public int? Order { get; set; }
 
 
         [Display(Name = "图片")]

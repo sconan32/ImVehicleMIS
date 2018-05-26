@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Web.ViewModels;
 
 namespace Socona.ImVehicle.Web.Pages.News
 {
@@ -15,8 +16,8 @@ namespace Socona.ImVehicle.Web.Pages.News
         {
             _context = context;
         }
-
-        public NewsItem NewsItem { get; set; }
+  
+        public NewsEditViewModel NewsItem { get; set; }
 
         [AllowAnonymous]
         public async Task<IActionResult> OnGetAsync(long? id)
@@ -26,12 +27,16 @@ namespace Socona.ImVehicle.Web.Pages.News
                 return NotFound();
             }
 
-            NewsItem = await _context.Newses.SingleOrDefaultAsync(m => m.Id == id);
+            var news = await _context.Newses.Include(t=>t.ImageFile).SingleOrDefaultAsync(m => m.Id == id);
 
-            if (NewsItem == null)
+
+            if (news == null)
             {
                 return NotFound();
             }
+
+            NewsItem = new NewsEditViewModel(news);
+
             return Page();
         }
     }

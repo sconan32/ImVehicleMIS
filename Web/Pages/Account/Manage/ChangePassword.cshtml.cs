@@ -120,6 +120,7 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
         {
             if (!ModelState.IsValid)
             {
+                ViewData["Id"] = Input.Id;
                 return Page();
             }
 
@@ -128,7 +129,7 @@ namespace Socona.ImVehicle.Web.Pages.Account.Manage
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-            if (user.Id == Input.Id)
+            if (Input.Id==null || user.Id == Input.Id)
             {
 
 

@@ -12,15 +12,19 @@ namespace Socona.ImVehicle.Core.Data
         public long Size { get; set; }
 
         [Display(Name = "服务器路径")]
+        [MaxLength(512)]
         public string ServerPath { get; set; }
 
         [Display(Name = "客户端路径")]
+        [MaxLength(512)]
         public string ClientPath { get; set; }
 
         [Display(Name = "文件类型")]
+        [MaxLength(16)]
         public string Type { get; set; }
 
         [Display(Name = "文件名")]
+        [MaxLength(128)]
         public string FileName { get; set; }
 
         public int DownloadCount { get; set; }       
@@ -36,10 +40,14 @@ namespace Socona.ImVehicle.Core.Data
         public virtual TownItem Town { get; set; }
 
         [Display(Name = "MIME格式")]
+        [MaxLength(64)]
         public string ContentType { get; set; }
 
         [Display(Name = "可见性")]
         public  VisibilityType Visibility { get; set; }
+
+
+       
     }
 
     public enum VisibilityType
@@ -52,6 +60,14 @@ namespace Socona.ImVehicle.Core.Data
         CurrentTown =2,
         [Display(Name = "本区")]
         CurrentDistrict =4,
+
+        [Display(Name = "本车辆")]
+        CurrentVehicle =8,
+        [Display(Name = "本驾驶员")]
+        CurrentDriver =16,
+
+        [Display(Name = "本新闻 ")]
+        CurrentNews=32,
         [Display(Name = "全局")]
         Global =1024,
     }

@@ -121,38 +121,14 @@ namespace Socona.ImVehicle.Web.Pages.Driver
             driver.TownId = townId;
             driver.GroupId = DriverItem.GroupId;
 
-            if (DriverItem.PhotoDriverLicense != null)
-            {
-                driver.PhotoDriverLicense = await DriverItem.PhotoDriverLicense.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
-            }
-            if (DriverItem.PhotoIdCard1 != null)
-            {
-                driver.PhotoIdCard1 = await DriverItem.PhotoIdCard1.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
-            }
-            if (DriverItem.PhotoIdCard2 != null)
-            {
-                driver.PhotoIdCard2 = await DriverItem.PhotoIdCard2.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
-            }
-            if (DriverItem.PhotoWarranty != null)
-            {
-                driver.PhotoWarranty = await DriverItem.PhotoWarranty.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
-            }
-            if(DriverItem.PhotoAvatar!=null)
-            {
-                driver.PhotoAvatar =await  DriverItem.PhotoAvatar.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
-            }
-            if (DriverItem.ExtraPhoto1 != null)
-            {
-                driver.ExtraPhoto1 = await DriverItem.ExtraPhoto1.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
-            }
-            if (DriverItem.ExtraPhoto2 != null)
-            {
-                driver.ExtraPhoto2 = await DriverItem.ExtraPhoto2.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
-            }
-            if (DriverItem.ExtraPhoto3 != null)
-            {
-                driver.ExtraPhoto3 = await DriverItem.ExtraPhoto3.GetPictureByteArray($"{DriverItem.Id}:{DriverItem.License}");
-            }
+            driver.IdCardImage1 = DriverItem.PhotoIdCard1.UpdateUserFile(driver.IdCardImage1, _context, VisibilityType.CurrentDriver, "身份证国徽面图片", DriverItem.TownId, DriverItem.GroupId);
+            driver.IdCardImage2 = DriverItem.PhotoIdCard2.UpdateUserFile(driver.IdCardImage2, _context, VisibilityType.CurrentDriver, "身份证相片面图片", DriverItem.TownId, DriverItem.GroupId);
+            driver.LicenseImage = DriverItem.PhotoDriverLicense.UpdateUserFile(driver.LicenseImage, _context, VisibilityType.CurrentDriver, "驾驶证照片", DriverItem.TownId, DriverItem.GroupId);
+            driver.AvatarImage = DriverItem.PhotoAvatar.UpdateUserFile(driver.AvatarImage, _context, VisibilityType.CurrentDriver, "驾驶员图片", DriverItem.TownId, DriverItem.GroupId);
+            driver.ExtraImage1 = DriverItem.ExtraImage1.UpdateUserFile(driver.ExtraImage1, _context, VisibilityType.CurrentDriver, "附加图片1", DriverItem.TownId, DriverItem.GroupId);
+            driver.ExtraImage2 = DriverItem.ExtraImage2.UpdateUserFile(driver.ExtraImage2, _context, VisibilityType.CurrentDriver, "附加图片2", DriverItem.TownId, DriverItem.GroupId);
+            driver.ExtraImage3 = DriverItem.ExtraImage3.UpdateUserFile(driver.ExtraImage3, _context, VisibilityType.CurrentDriver, "附加图片3", DriverItem.TownId, DriverItem.GroupId);
+
             driver.ModifyBy = user.Id;
             driver.ModificationDate = DateTime.Now;
             driver.Status = StatusType.OK;

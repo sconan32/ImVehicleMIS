@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace Socona.ImVehicle.Core.Data
 
         [Required]
         [Display(Name = "标题")]
+        [MaxLength(256)]
         public string Title { get; set; }
         [Required]
         [Display(Name = "内容")]
@@ -22,6 +24,7 @@ namespace Socona.ImVehicle.Core.Data
         [Display(Name = "发布日期")]
         public DateTime PublishDate { get; set; }
 
+        [MaxLength(256)]
         [Display(Name = "来源")]
         public string Source { get; set; }
 
@@ -33,7 +36,15 @@ namespace Socona.ImVehicle.Core.Data
         public DateTime? ExpireDate { get; set; }
 
         [Display(Name = "顺序")]
-        public int Order { get; set; }
+        public int? Order { get; set; }
+
+        [Display(Name = "图片")]
+        public virtual UserFileItem ImageFile { get; set; }
+
+        [ForeignKey(nameof(ImageFile))]
+        public long? ImageFileId { get; set; }
+
+
 
     }
 

@@ -15,7 +15,7 @@ namespace Socona.ImVehicle.Core.Data
           ILoggerFactory loggerFactory, int? retry = 0)
         {
 
-            await dbContext.Database.EnsureCreatedAsync();
+           // await dbContext.Database.EnsureCreatedAsync();
 
             if (await dbContext.Districts.AnyAsync())
             {
@@ -73,34 +73,34 @@ namespace Socona.ImVehicle.Core.Data
             GroupItem[] groups =
             {
 
-                new GroupItem(){Name="周东社区", ChiefName="张三",ChiefTel="13555654554",TownId=towns[0].Id,},
-                new GroupItem(){Name="周发社区", ChiefName="李四",ChiefTel="12444424555",TownId=towns[0].Id,},
-                new GroupItem(){Name="周兴社区", ChiefName="王五",ChiefTel="1884424555",TownId=towns[0].Id,},
-                new GroupItem(){Name="周西社区", ChiefName="赵六",ChiefTel="124342324555",TownId=towns[0].Id,},
-                new GroupItem(){Name="周南社区", ChiefName="冯七",ChiefTel="1777724555",TownId=towns[0].Id,},
-                new GroupItem(){Name="周盛社区", ChiefName="刘八",ChiefTel="12488884555",TownId=towns[0].Id,},
-                new GroupItem(){Name="周顺社区", ChiefName="唐九",ChiefTel="12444989766",TownId=towns[0].Id,},
-                new GroupItem(){Name="周水子社区", ChiefName="滕十",ChiefTel="12448889455",TownId=towns[0].Id,},
-                new GroupItem(){Name="周北社区", ChiefName="贾十一",ChiefTel="124444774435",TownId=towns[0].Id,},
+                new GroupItem(){Id=1, Name="周东社区", ChiefName="张三",ChiefTel="13555654554",TownId=towns[0].Id,},
+                new GroupItem(){Id=2,Name="周发社区", ChiefName="李四",ChiefTel="12444424555",TownId=towns[0].Id,},
+                new GroupItem(){Id=3,Name="周兴社区", ChiefName="王五",ChiefTel="1884424555",TownId=towns[0].Id,},
+                new GroupItem(){Id=4,Name="周西社区", ChiefName="赵六",ChiefTel="124342324555",TownId=towns[0].Id,},
+                new GroupItem(){Id=5,Name="周南社区", ChiefName="冯七",ChiefTel="1777724555",TownId=towns[0].Id,},
+                new GroupItem(){Id=6,Name="周盛社区", ChiefName="刘八",ChiefTel="12488884555",TownId=towns[0].Id,},
+                new GroupItem(){Id=7,Name="周顺社区", ChiefName="唐九",ChiefTel="12444989766",TownId=towns[0].Id,},
+                new GroupItem(){Id=8,Name="周水子社区", ChiefName="滕十",ChiefTel="12448889455",TownId=towns[0].Id,},
+                new GroupItem(){Id=9,Name="周北社区", ChiefName="贾十一",ChiefTel="124444774435",TownId=towns[0].Id,},
             };
             await dbContext.Groups.AddRangeAsync(groups);
             await dbContext.SaveChangesAsync();
 
             DriverItem[] drivers =
             {
-                new DriverItem(){Name="容可佳", Gender= GenderType.Male, IdCardNumber="111333122233445566", LicenseType= VehicleLicenseType.A1, LicenseNumber="5553445667", LicenseIssueDate=new DateTime(2003,3,3), LicenseValidYears=10,Tel="12244452677",TownId=1},
-                new DriverItem(){Name="禄冰露", Gender= GenderType.Male, IdCardNumber="222333122233445566", LicenseType= VehicleLicenseType.A2, LicenseNumber="6663445667", LicenseIssueDate=new DateTime(2004,3,3), LicenseValidYears=10,Tel="12344453677",TownId=1},
-                new DriverItem(){Name="叶饮香", Gender= GenderType.Female, IdCardNumber="333333122233445566", LicenseType= VehicleLicenseType.A3, LicenseNumber="7773445667", LicenseIssueDate=new DateTime(2005,3,3), LicenseValidYears=10,Tel="12444454677",TownId=1},
-                new DriverItem(){Name="程欣悦", Gender= GenderType.Male, IdCardNumber="444333122233445566", LicenseType= VehicleLicenseType.B1, LicenseNumber="8883445667", LicenseIssueDate=new DateTime(2006,3,3), LicenseValidYears=10,Tel="12564455677",TownId=1},
-                new DriverItem(){Name="阚琼诗", Gender= GenderType.Male, IdCardNumber="555333111233445566", LicenseType= VehicleLicenseType.B2, LicenseNumber="9991235667", LicenseIssueDate=new DateTime(2007,3,3), LicenseValidYears=10,Tel="12644456677",TownId=1},
-                new DriverItem(){Name="耿许洌", Gender= GenderType.Female, IdCardNumber="666333222233445566", LicenseType= VehicleLicenseType.C3, LicenseNumber="0002345667", LicenseIssueDate=new DateTime(2007,1,30), LicenseValidYears=10,Tel="12744456677",TownId=1},
-                new DriverItem(){Name="富秋翠", Gender= GenderType.Male, IdCardNumber="777333333233445566", LicenseType= VehicleLicenseType.M, LicenseNumber="2232345111", LicenseIssueDate=new DateTime(2008,2,22), LicenseValidYears=10,Tel="12814456677",TownId=1},
-                new DriverItem(){Name="贺叶飞", Gender= GenderType.Male, IdCardNumber="888333444233445566", LicenseType= VehicleLicenseType.P, LicenseNumber="2234565222", LicenseIssueDate=new DateTime(2009,3,1), LicenseValidYears=10,Tel="12392456677",TownId=1},
-                new DriverItem(){Name="莘山芙", Gender= GenderType.Male, IdCardNumber="222333555233445566", LicenseType= VehicleLicenseType.C1, LicenseNumber="2235675333", LicenseIssueDate=new DateTime(2000,4,2), LicenseValidYears=10,Tel="12303456677",TownId=1},
-                new DriverItem(){Name="卓秀华", Gender= GenderType.Female, IdCardNumber="222333666233445566", LicenseType= VehicleLicenseType.C1, LicenseNumber="2236785444", LicenseIssueDate=new DateTime(2003,5,3), LicenseValidYears=10,Tel="12344456677",TownId=1},
-                new DriverItem(){Name="孟滇萍", Gender= GenderType.Male, IdCardNumber="222333777233445566", LicenseType= VehicleLicenseType.A1, LicenseNumber="2237894555", LicenseIssueDate=new DateTime(2003,6,4), LicenseValidYears=10,Tel="12345456677",TownId=1},
-                new DriverItem(){Name="尹从南", Gender= GenderType.Male, IdCardNumber="222333888233445566", LicenseType= VehicleLicenseType.A2, LicenseNumber="2238905666", LicenseIssueDate=new DateTime(2003,7,5), LicenseValidYears=10,Tel="12346456677",TownId=1},
-                new DriverItem(){Name="菱芳蔼", Gender= GenderType.Male, IdCardNumber="222333999233445566", LicenseType= VehicleLicenseType.A3, LicenseNumber="2233445777", LicenseIssueDate=new DateTime(2003,8,6), LicenseValidYears=10,Tel="12347456677",TownId=1},
+                new DriverItem(){Name="容可佳", Gender= GenderType.Male, IdCardNumber="111333122233445566", LicenseType= "A1", LicenseNumber="5553445667", LicenseIssueDate=new DateTime(2003,3,3), LicenseValidYears=10,Tel="12244452677",TownId=1},
+                new DriverItem(){Name="禄冰露", Gender= GenderType.Male, IdCardNumber="222333122233445566", LicenseType="A2", LicenseNumber="6663445667", LicenseIssueDate=new DateTime(2004,3,3), LicenseValidYears=10,Tel="12344453677",TownId=1},
+                new DriverItem(){Name="叶饮香", Gender= GenderType.Female, IdCardNumber="333333122233445566", LicenseType= "A3", LicenseNumber="7773445667", LicenseIssueDate=new DateTime(2005,3,3), LicenseValidYears=10,Tel="12444454677",TownId=1},
+                new DriverItem(){Name="程欣悦", Gender= GenderType.Male, IdCardNumber="444333122233445566", LicenseType= "B1", LicenseNumber="8883445667", LicenseIssueDate=new DateTime(2006,3,3), LicenseValidYears=10,Tel="12564455677",TownId=1},
+                new DriverItem(){Name="阚琼诗", Gender= GenderType.Male, IdCardNumber="555333111233445566", LicenseType= "B2", LicenseNumber="9991235667", LicenseIssueDate=new DateTime(2007,3,3), LicenseValidYears=10,Tel="12644456677",TownId=1},
+                new DriverItem(){Name="耿许洌", Gender= GenderType.Female, IdCardNumber="666333222233445566", LicenseType="C3", LicenseNumber="0002345667", LicenseIssueDate=new DateTime(2007,1,30), LicenseValidYears=10,Tel="12744456677",TownId=1},
+                new DriverItem(){Name="富秋翠", Gender= GenderType.Male, IdCardNumber="777333333233445566", LicenseType= "M", LicenseNumber="2232345111", LicenseIssueDate=new DateTime(2008,2,22), LicenseValidYears=10,Tel="12814456677",TownId=1},
+                new DriverItem(){Name="贺叶飞", Gender= GenderType.Male, IdCardNumber="888333444233445566", LicenseType= "P", LicenseNumber="2234565222", LicenseIssueDate=new DateTime(2009,3,1), LicenseValidYears=10,Tel="12392456677",TownId=1},
+                new DriverItem(){Name="莘山芙", Gender= GenderType.Male, IdCardNumber="222333555233445566", LicenseType="C1", LicenseNumber="2235675333", LicenseIssueDate=new DateTime(2000,4,2), LicenseValidYears=10,Tel="12303456677",TownId=1},
+                new DriverItem(){Name="卓秀华", Gender= GenderType.Female, IdCardNumber="222333666233445566", LicenseType= "C1", LicenseNumber="2236785444", LicenseIssueDate=new DateTime(2003,5,3), LicenseValidYears=10,Tel="12344456677",TownId=1},
+                new DriverItem(){Name="孟滇萍", Gender= GenderType.Male, IdCardNumber="222333777233445566", LicenseType= "A1", LicenseNumber="2237894555", LicenseIssueDate=new DateTime(2003,6,4), LicenseValidYears=10,Tel="12345456677",TownId=1},
+                new DriverItem(){Name="尹从南", Gender= GenderType.Male, IdCardNumber="222333888233445566", LicenseType= "A2", LicenseNumber="2238905666", LicenseIssueDate=new DateTime(2003,7,5), LicenseValidYears=10,Tel="12346456677",TownId=1},
+                new DriverItem(){Name="菱芳蔼", Gender= GenderType.Male, IdCardNumber="222333999233445566", LicenseType= "A3", LicenseNumber="2233445777", LicenseIssueDate=new DateTime(2003,8,6), LicenseValidYears=10,Tel="12347456677",TownId=1},
 
             };
             await dbContext.Drivers.AddRangeAsync(drivers);
@@ -132,26 +132,26 @@ namespace Socona.ImVehicle.Core.Data
 
             NewsItem[] newses =
             {
-                 new NewsItem(){Name="你这有杂音我听不清楚",Content="你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
-                 new NewsItem(){ Name="我刚才刚买的车在那个",Content="我刚才刚买的车在那个", Title="我刚才刚买的车在那个", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
-                 new NewsItem(){ Name="在道边上底下大梁磕道牙上了",Content="在道边上底下大梁磕道牙上了", Title="在道边上底下大梁磕道牙上了", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
-                 new NewsItem(){ Name="您的车辆出险了现在要报案是吗",Content="您的车辆出险了现在要报案是吗", Title="您的车辆出险了现在要报案是吗", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
-                 new NewsItem(){ Name="先生你好什么时间出的事情",Content="先生你好什么时间出的事情", Title="先生你好什么时间出的事情", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
-                 new NewsItem(){Name="刚刚时间刚刚出的",Content="刚刚时间刚刚出的", Title="刚刚时间刚刚出的", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
-                 new NewsItem(){ Name="大概有几分钟啦就刚刚的事",Content="大概有几分钟啦就刚刚的事", Title="大概有几分钟啦就刚刚的事", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
-                 new NewsItem(){ Name="半个小时是嘛就五十分钟",Content="半个小时是嘛就五十分钟", Title="半个小时是嘛就五十分钟", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
-                 new NewsItem(){ Name="是在哪里出的事情是在大连嘛",Content="是在哪里出的事情是在大连嘛", Title="是在哪里出的事情是在大连嘛", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
-                 new NewsItem(){ Name="是在辽宁省的大连市是吗？",Content="是在辽宁省的大连市是吗？", Title="是在辽宁省的大连市是吗？", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
-                 new NewsItem(){ Name="在大连市的哪条路？甘井子革镇堡。",Content="在大连市的哪条路？甘井子革镇堡。", Title="在大连市的哪条路？甘井子革镇堡。", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
-                 new NewsItem(){ Name="11你这有杂音我听不清楚",Content="11你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
-                 new NewsItem(){ Name="22你这有杂音我听不清楚",Content="22你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.AccidentCase},
-                 new NewsItem(){ Name="33你这有杂音我听不清楚",Content="33你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.AccidentCase},
-                 new NewsItem(){ Name="44你这有杂音我听不清楚",Content="44你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.AccidentCase},
-                 new NewsItem(){ Name="55你这有杂音我听不清楚",Content="55你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.AccidentCase},
-                 new NewsItem(){ Name="66你这有杂音我听不清楚",Content="66你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.LawAndRule},
-                 new NewsItem(){ Name="77你这有杂音我听不清楚",Content="77你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.LawAndRule},
-                 new NewsItem(){ Name="88你这有杂音我听不清楚",Content="77你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.LawAndRule},
-                 new NewsItem(){ Name="99你这有杂音我听不清楚",Content="77你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.LawAndRule},
+                 new NewsItem(){Id=1, Name="你这有杂音我听不清楚",Content="你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){Id=2, Name="我刚才刚买的车在那个",Content="我刚才刚买的车在那个", Title="我刚才刚买的车在那个", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){Id=3, Name="在道边上底下大梁磕道牙上了",Content="在道边上底下大梁磕道牙上了", Title="在道边上底下大梁磕道牙上了", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){Id=4, Name="您的车辆出险了现在要报案是吗",Content="您的车辆出险了现在要报案是吗", Title="您的车辆出险了现在要报案是吗", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){Id=5, Name="先生你好什么时间出的事情",Content="先生你好什么时间出的事情", Title="先生你好什么时间出的事情", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){Id=6, Name="刚刚时间刚刚出的",Content="刚刚时间刚刚出的", Title="刚刚时间刚刚出的", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){Id=7, Name="大概有几分钟啦就刚刚的事",Content="大概有几分钟啦就刚刚的事", Title="大概有几分钟啦就刚刚的事", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){Id=8, Name="半个小时是嘛就五十分钟",Content="半个小时是嘛就五十分钟", Title="半个小时是嘛就五十分钟", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){Id=9, Name="是在哪里出的事情是在大连嘛",Content="是在哪里出的事情是在大连嘛", Title="是在哪里出的事情是在大连嘛", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){Id=10, Name="是在辽宁省的大连市是吗？",Content="是在辽宁省的大连市是吗？", Title="是在辽宁省的大连市是吗？", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){Id=11, Name="在大连市的哪条路？甘井子革镇堡。",Content="在大连市的哪条路？甘井子革镇堡。", Title="在大连市的哪条路？甘井子革镇堡。", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){Id=12, Name="11你这有杂音我听不清楚",Content="11你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.Notification},
+                 new NewsItem(){Id=13, Name="22你这有杂音我听不清楚",Content="22你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.AccidentCase},
+                 new NewsItem(){Id=14, Name="33你这有杂音我听不清楚",Content="33你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.AccidentCase},
+                 new NewsItem(){Id=15, Name="44你这有杂音我听不清楚",Content="44你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.AccidentCase},
+                 new NewsItem(){Id=16, Name="55你这有杂音我听不清楚",Content="55你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.AccidentCase},
+                 new NewsItem(){Id=17, Name="66你这有杂音我听不清楚",Content="66你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.LawAndRule},
+                 new NewsItem(){Id=18, Name="77你这有杂音我听不清楚",Content="77你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.LawAndRule},
+                 new NewsItem(){Id=19, Name="88你这有杂音我听不清楚",Content="77你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.LawAndRule},
+                 new NewsItem(){Id=20, Name="99你这有杂音我听不清楚",Content="77你这有杂音我听不清楚", Title="你这有杂音我听不清楚", PublishDate=new DateTime(2018,1,1), Area= NewsAreaType.LawAndRule},
             };
 
             await dbContext.Newses.AddRangeAsync(newses);

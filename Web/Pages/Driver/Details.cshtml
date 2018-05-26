@@ -28,7 +28,7 @@
                 <a class="btn btn-new-item" asp-page="../Vehicle/Create" asp-route-driverId="@Model.DriverItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
                     <i class="fa fa-plus" aria-hidden="true"></i> 新增车辆
                 </a>
-                <a class="btn btn-del-item" asp-page="./Delete" asp-route-id="@Model.DriverItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
+                <a class="btn btn-del-item" asp-page="./Delete" asp-route-id="@Model.DriverItem.Id" asp-route-returnUrl="@Url.GetLocalUrl("/Driver")">
                     <i class="fa fa-trash-o"></i> 删除驾驶员
                 </a>
              }
@@ -127,9 +127,7 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Vehicles[0].Usage)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Vehicles[0].Brand)
-                                </th>
+
                                 <th>
                                     @Html.DisplayNameFor(model => model.Vehicles[0].Type)
                                 </th>
@@ -142,7 +140,7 @@
                                     @Html.DisplayNameFor(model => model.Vehicles[0].YearlyAuditDate)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Vehicles[0].InsuranceExpiredDate)
+                                    @Html.DisplayNameFor(model => model.Vehicles[0].AuditExpiredDate)
                                 </th>
 
                                 <th>
@@ -167,9 +165,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Usage)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Brand)
-                                    </td>
+
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Type)
                                     </td>
@@ -182,7 +178,7 @@
                                         @Html.DisplayFor(modelItem => item.YearlyAuditDate)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.InsuranceExpiredDate)
+                                        @Html.DisplayFor(modelItem => item.AuditExpiredDate)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.TownName)
@@ -332,29 +328,37 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.PhotoAvatar)</div>
+                                <div class="panel-body">
+                                    <img src="data:image;base64,@Model.DriverItem.PhotoAvatarBase64" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="panel panel-default">
-                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.ExtraPhoto1)</div>
+                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.ExtraImage1)</div>
                                 <div class="panel-body">
-                                    <img src="data:image;base64,@Model.DriverItem.ExtraPhoto1Base64" />
+                                    <img src="data:image;base64,@Model.DriverItem.ExtraImage1Base64" />
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="panel panel-default">
-                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.ExtraPhoto2)</div>
+                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.ExtraImage2)</div>
                                 <div class="panel-body">
-                                    <img src="data:image;base64,@Model.DriverItem.ExtraPhoto2Base64" />
+                                    <img src="data:image;base64,@Model.DriverItem.ExtraImage2Base64" />
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="panel panel-default">
-                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.ExtraPhoto3)</div>
+                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.DriverItem.ExtraImage3)</div>
                                 <div class="panel-body">
-                                    <img src="data:image;base64,@Model.DriverItem.ExtraPhoto3Base64" />
+                                    <img src="data:image;base64,@Model.DriverItem.ExtraImage3Base64" />
                                 </div>
                             </div>
                         </div>

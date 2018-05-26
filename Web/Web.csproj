@@ -9,9 +9,10 @@
     <None Remove="Properties\PublishProfiles\FolderProfile1.pubxml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" PrivateAssets="All" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
@@ -25,7 +26,28 @@
   <ItemGroup>
   
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="wwwroot\upload\" />
+  
+    <Folder Include="wwwroot\upload\0\" />
+  
+    <Folder Include="wwwroot\upload\1\" />
+  
+    <Folder Include="wwwroot\upload\2\" />
+  
+    <Folder Include="wwwroot\upload\3\" />
+  
+    <Folder Include="wwwroot\upload\4\" />
+  
+    <Folder Include="wwwroot\upload\5\" />
+  
+    <Folder Include="wwwroot\upload\6\" />
+  
+    <Folder Include="wwwroot\upload\7\" />
+  
+    <Folder Include="wwwroot\upload\8\" />
+  
+    <Folder Include="wwwroot\upload\9\" />
+  
+    <Folder Include="wwwroot\trashes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="wwwroot\fonts\FZYouH_510M.TTF">

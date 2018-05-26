@@ -82,7 +82,7 @@ namespace Socona.ImVehicle.Web.Pages.Group
 
             Vehicles = group.Vehicles.Select(t => new VehicleListViewModel(t)).ToList();
             Drivers = group.Drivers.Select(t => new DriverListViewModel(t)).ToList();
-            UserFiles = group.UserFiles.Select(t => new UserFileListViewModel(t)).ToList();
+            UserFiles = group.UserFiles.Where(t => t.Status == StatusType.OK && t.Visibility== VisibilityType.CurrentGroup).Select(t => new UserFileListViewModel(t)).ToList();
 
             Securemans = group.SecurityPersons.Select(t => new SecureManListViewModel()
             {

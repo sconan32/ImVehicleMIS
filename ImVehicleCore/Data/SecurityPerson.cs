@@ -14,22 +14,28 @@ namespace Socona.ImVehicle.Core.Data
 
 
         [Display(Name = "电话")]
+        [MaxLength(32)]
         public string Tel { get; set; }
 
 
         [Display(Name = "身份证号")]
+        [MaxLength(32)]
         public string IdCardNum { get; set; }
 
         [Display(Name = "职务")]
+        [MaxLength(32)]
         public string Title { get; set; }
 
         [Display(Name = "单位")]
+        [MaxLength(256)]
         public string Company { get; set; }
 
         [Display(Name = "住址")]
+        [MaxLength(512)]
         public string Address { get; set; }
 
         [Display(Name = "户籍地")]
+        [MaxLength(512)]
         public string RegisterAddress { get; set; }
 
 

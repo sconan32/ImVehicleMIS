@@ -37,7 +37,7 @@
                 <a class="btn btn-new-item" asp-page="../UserFile/Create" asp-route-groupId="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
                     <i class="fa fa-plus" aria-hidden="true"></i> 下发文件
                 </a>
-                <a class="btn btn-del-item" asp-page="Delete" asp-route-id="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">
+                <a class="btn btn-del-item" asp-page="Delete" asp-route-id="@Model.GroupItem.Id" asp-route-returnUrl="@Url.GetLocalUrl("/Group")">
                     <i class="fa fa-trash-o" aria-hidden="true"></i> 删除本单位
                 </a>
             }
@@ -566,7 +566,7 @@
                         <hr />
                         <div class="row">
                             <div class="col-md-3">
-                                <img width="250" src="data:image;base64,@Model.GroupItem.PhotoMainBase64" />
+                                <img width="250" src="data:image;base64,@Model.GroupItem.MainImageBase64" />
                             </div>
                             <div class="col-md-9">
 
@@ -586,7 +586,7 @@
                             <a class="btn btn-edit-item" asp-page="../UserFile/Download" asp-route-id="@Model.GroupItem.RuleFileId">
                                 <i class="fa fa-download" aria-hidden="true"></i>下载制度文件
                             </a>
-                            <a class="btn btn-edit-item" asp-page="../UserFile/Download" asp-route-id="@Model.GroupItem.GroupGuranteeFile">
+                            <a class="btn btn-edit-item" asp-page="../UserFile/Download" asp-route-id="@Model.GroupItem.GroupGuranteeFileId">
                                 <i class="fa fa-download" aria-hidden="true"></i>下载单位责任状
                             </a>
                             <a class="btn btn-edit-item" asp-page="../UserFile/Download" asp-route-id="@Model.GroupItem.DriverGuranteeFileId">
@@ -678,9 +678,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="panel panel-default">
-                                    <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.GroupItem.PhotoMain)</div>
+                                    <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.GroupItem.MainImage)</div>
                                     <div class="panel-body">
-                                        <img src="data:image;base64,@Model.GroupItem.PhotoMainBase64" />
+                                        <img src="data:image;base64,@Model.GroupItem.MainImageBase64" />
                                     </div>
                                 </div>
                             </div>
@@ -690,7 +690,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.GroupItem.ExtraPhoto1)</div>
                                     <div class="panel-body">
-                                        <img src="data:image;base64,@Model.GroupItem.ExtraPhoto1Base64" />
+                                        <img src="data:image;base64,@Model.GroupItem.ExtraImage1Base64" />
                                     </div>
                                 </div>
                             </div>
@@ -698,7 +698,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.GroupItem.ExtraPhoto2)</div>
                                     <div class="panel-body">
-                                        <img src="data:image;base64,@Model.GroupItem.ExtraPhoto2Base64" />
+                                        <img src="data:image;base64,@Model.GroupItem.ExtraImage2Base64" />
                                     </div>
                                 </div>
                             </div>
@@ -706,7 +706,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.GroupItem.ExtraPhoto3)</div>
                                     <div class="panel-body">
-                                        <img src="data:image;base64,@Model.GroupItem.ExtraPhoto3Base64" />
+                                        <img src="data:image;base64,@Model.GroupItem.ExtraImage3Base64" />
                                     </div>
                                 </div>
                             </div>

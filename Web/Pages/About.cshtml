@@ -1,9 +1,36 @@
 ﻿@page
 @model AboutModel
 @{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "关于";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@Model.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<section class="banner_area">
+    <div class="container">
+        <div class="pull-left">
+            <h3>@ViewData["Title"] </h3>
+        </div>
+        <div class="pull-right">
+            <a asp-page="/">首页 </a>
+            &gt; <a asp-page="/About">关于 </a>
+        </div>
+    </div>
+</section>
+<section class="main_feature_area">
+    <div class="container" style="margin-left:30px;margin-right:30px;margin-bottom:30px;">
+        <div class="row" style="margin-left:30px;margin-right:30px;">
+            <h3>更新日志</h3>
+         <hr />
+            <ul>
+                @foreach (var upd in Model.Updates)
+                {
+                    <li>@upd</li>
+                }
+            </ul>
+
+        </div>
+        <br />
+        <div class="row" style="margin-left:30px;margin-right:30px;">
+            <h3>@Model.Message</h3>
+        </div>
+     </div>
+</section>

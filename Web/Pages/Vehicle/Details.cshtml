@@ -23,7 +23,7 @@
             @if (await Model.CanEdit())
             {
                 <a class="btn btn-edit-item" asp-page="./Edit" asp-route-id="@Model.VehicleItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 编辑车辆</a>
-                <a class="btn btn-del-item" asp-page="./Delete" asp-route-id="@Model.VehicleItem.Id" asp-route-returnUrl="@Url.GetLocalUrl(Request.Path+Request.QueryString)">  <i class="fa fa-trash-o" aria-hidden="true"></i> 删除车辆</a>
+                <a class="btn btn-del-item" asp-page="./Delete" asp-route-id="@Model.VehicleItem.Id" asp-route-returnUrl="@Url.GetLocalUrl("/Vehicle")">  <i class="fa fa-trash-o" aria-hidden="true"></i> 删除车辆</a>
             }
   
         </p>
@@ -205,49 +205,67 @@
                     <h4><i class="fa fa-picture-o" aria-hidden="true"></i> 资质证书</h4>
 
                     <hr />
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.PhotoLicenseBase64)</div>
-                        <div class="panel-body">
-                            <img src="data:image;base64,@Model.VehicleItem.PhotoLicenseBase64" />
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.PhotoLicenseBase64)</div>
+                                <div class="panel-body">
+                                    <img src="data:image;base64,@Model.VehicleItem.PhotoLicenseBase64" />
+                                </div>
+                            </div>
+                         </div>
+                        <div class="col-lg-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.PhotoGpsBase64)</div>
+                                <div class="panel-body">
+                                    <img src="data:image;base64,@Model.VehicleItem.PhotoGpsBase64" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.PhotoFrontBase64)</div>
+                                <div class="panel-body">
+                                    <img src="data:image;base64,@Model.VehicleItem.PhotoFrontBase64" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.PhotoRearBase64)</div>
+                                <div class="panel-body">
+                                    <img src="data:image;base64,@Model.VehicleItem.PhotoRearBase64" />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.PhotoFrontBase64)</div>
-                        <div class="panel-body">
-                            <img src="data:image;base64,@Model.VehicleItem.PhotoFrontBase64" />
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.ExtraPhoto1)</div>
+                                <div class="panel-body">
+                                    <img src="data:image;base64,@Model.VehicleItem.ExtraPhoto1Base64" />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.PhotoRearBase64)</div>
-                        <div class="panel-body">
-                            <img src="data:image;base64,@Model.VehicleItem.PhotoRearBase64" />
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.PhotoGpsBase64)</div>
-                        <div class="panel-body">
-                            <img src="data:image;base64,@Model.VehicleItem.PhotoGpsBase64" />
-                        </div>
-                    </div>
-
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.ExtraPhoto1)</div>
-                        <div class="panel-body">
-                            <img src="data:image;base64,@Model.VehicleItem.ExtraPhoto1Base64" />
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.ExtraPhoto2)</div>
-                        <div class="panel-body">
-                            <img src="data:image;base64,@Model.VehicleItem.ExtraPhoto2Base64" />
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.ExtraPhoto3)</div>
-                        <div class="panel-body">
-                            <img src="data:image;base64,@Model.VehicleItem.ExtraPhoto3Base64" />
+                        <div class="col-lg-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.ExtraPhoto2)</div>
+                                <div class="panel-body">
+                                    <img src="data:image;base64,@Model.VehicleItem.ExtraPhoto2Base64" />
+                                </div>
+                            </div>
+                            </div>
+                        <div class="col-lg-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><i class="fa fa-picture-o" aria-hidden="true"></i>@Html.DisplayNameFor(model => model.VehicleItem.ExtraPhoto3)</div>
+                                <div class="panel-body">
+                                    <img src="data:image;base64,@Model.VehicleItem.ExtraPhoto3Base64" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

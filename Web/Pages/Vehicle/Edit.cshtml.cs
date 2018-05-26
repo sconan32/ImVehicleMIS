@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
 using Socona.ImVehicle.Core.Interfaces;
+using Socona.ImVehicle.Infrastructure.Extensions;
 using Socona.ImVehicle.Web.ViewModels;
 
 namespace Socona.ImVehicle.Web.Pages.Vehicle
@@ -93,8 +94,14 @@ namespace Socona.ImVehicle.Web.Pages.Vehicle
                 return NotFound();
             }
             await VehicleItem.FillVehicleItem(vehicle);
-           
-            
+            vehicle.FrontImage = VehicleItem.PhotoFront.UpdateUserFile(vehicle.FrontImage, _context, VisibilityType.CurrentVehicle, "车头部照片", VehicleItem.TownId, VehicleItem.GroupId);
+            vehicle.RearImage = VehicleItem.PhotoRear.UpdateUserFile(vehicle.RearImage, _context, VisibilityType.CurrentVehicle, "车尾部照片", VehicleItem.TownId, VehicleItem.GroupId);
+            vehicle.GpsImage = VehicleItem.PhotoGps.UpdateUserFile(vehicle.GpsImage, _context, VisibilityType.CurrentVehicle, "GPS照片", VehicleItem.TownId, VehicleItem.GroupId);
+            vehicle.LicenseImage = VehicleItem.PhotoLicense.UpdateUserFile(vehicle.LicenseImage, _context, VisibilityType.CurrentVehicle, "行驶证照片", VehicleItem.TownId, VehicleItem.GroupId);
+            vehicle.ExtraImage1 = VehicleItem.ExtraPhoto1.UpdateUserFile(vehicle.ExtraImage1, _context, VisibilityType.CurrentVehicle, "附加图片1", VehicleItem.TownId, VehicleItem.GroupId);
+            vehicle.ExtraImage2 = VehicleItem.ExtraPhoto2.UpdateUserFile(vehicle.ExtraImage2, _context, VisibilityType.CurrentVehicle, "附加图片2", VehicleItem.TownId, VehicleItem.GroupId);
+            vehicle.ExtraImage3 = VehicleItem.ExtraPhoto3.UpdateUserFile(vehicle.ExtraImage3, _context, VisibilityType.CurrentVehicle, "附加图片1", VehicleItem.TownId, VehicleItem.GroupId);
+
             vehicle.ModifyBy  = user.Id;
             vehicle.ModificationDate  = DateTime.Now;
             vehicle.Status = StatusType.OK;

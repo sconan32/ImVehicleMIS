@@ -21,14 +21,19 @@ namespace Socona.ImVehicle.Web.Pages.UserFile
         }
 
 
-        public async Task<IActionResult> OnGetAsync(long id)
+        public async Task<IActionResult> OnGetAsync(long? id)
         {
+
+            if(id==null)
+            {
+                return NotFound();
+            }
             var uf = _context.Files.FirstOrDefault(t => t.Id == id);
             try
             {
                 if (uf != null)
                 {
-                    var svrPath = System.IO.Path.Combine(_hostingEnvironment.WebRootPath,"upload", uf.ServerPath);
+                    var svrPath = System.IO.Path.Combine(_hostingEnvironment.WebRootPath, uf.ServerPath);
                     if (System.IO.File.Exists(svrPath))
                     {
                         FileStream fs = new FileStream(svrPath, FileMode.Open, FileAccess.Read);

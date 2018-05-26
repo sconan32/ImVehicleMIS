@@ -20,7 +20,7 @@ namespace Socona.ImVehicle.Web.ViewModels
         public DateTime Date { get; set; }
 
         [Display(Name = "顺序")]
-        public int Order { get; set; }
+        public int? Order { get; set; }
 
         [Display(Name = "板块")]
         public NewsAreaType? Area { get; set; }

@@ -17,7 +17,7 @@ namespace Socona.ImVehicle.Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
+                .HasAnnotation("ProductVersion", "2.0.3-rtm-10026");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -108,9 +108,11 @@ namespace Socona.ImVehicle.Core.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
+                    b.Property<string>("Address")
+                        .HasMaxLength(512);
 
-                    b.Property<string>("CreateBy");
+                    b.Property<string>("CreateBy")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("CreationDate");
 
@@ -120,9 +122,11 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<DateTime?>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<string>("ModifyBy")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<int>("Status");
 
@@ -138,17 +142,21 @@ namespace Socona.ImVehicle.Core.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ContactAddress");
+                    b.Property<long?>("AvatarImageId");
 
-                    b.Property<string>("CreateBy");
+                    b.Property<string>("ContactAddress")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("CreateBy")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("CreationDate");
 
-                    b.Property<byte[]>("ExtraPhoto1");
+                    b.Property<long?>("ExtraImage1Id");
 
-                    b.Property<byte[]>("ExtraPhoto2");
+                    b.Property<long?>("ExtraImage2Id");
 
-                    b.Property<byte[]>("ExtraPhoto3");
+                    b.Property<long?>("ExtraImage3Id");
 
                     b.Property<DateTime?>("FirstLicenseIssueDate");
 
@@ -156,53 +164,71 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<long?>("GroupId");
 
-                    b.Property<string>("IdCardNumber");
+                    b.Property<long?>("IdCardImage1Id");
+
+                    b.Property<long?>("IdCardImage2Id");
+
+                    b.Property<string>("IdCardNumber")
+                        .HasMaxLength(32);
+
+                    b.Property<long?>("LicenseImageId");
 
                     b.Property<DateTime?>("LicenseIssueDate");
 
-                    b.Property<string>("LicenseNumber");
+                    b.Property<string>("LicenseNumber")
+                        .HasMaxLength(32);
 
-                    b.Property<int>("LicenseType");
+                    b.Property<string>("LicenseType");
 
                     b.Property<int?>("LicenseValidYears");
 
-                    b.Property<string>("LivingAddress");
+                    b.Property<string>("LivingAddress")
+                        .HasMaxLength(512);
 
                     b.Property<string>("Metadata");
 
                     b.Property<DateTime?>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<string>("ModifyBy")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
-
-                    b.Property<byte[]>("PhotoAvatar");
-
-                    b.Property<byte[]>("PhotoDriverLicense");
-
-                    b.Property<byte[]>("PhotoIdCard1");
-
-                    b.Property<byte[]>("PhotoIdCard2");
-
-                    b.Property<byte[]>("PhotoWarranty");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<int?>("ResidentType");
 
                     b.Property<int>("Status");
 
-                    b.Property<string>("Tel");
+                    b.Property<string>("Tel")
+                        .HasMaxLength(16);
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .HasMaxLength(16);
 
                     b.Property<long?>("TownId");
 
                     b.Property<int>("VersionNumber");
 
-                    b.Property<string>("WarrantyCode");
+                    b.Property<string>("WarrantyCode")
+                        .HasMaxLength(32);
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AvatarImageId");
+
+                    b.HasIndex("ExtraImage1Id");
+
+                    b.HasIndex("ExtraImage2Id");
+
+                    b.HasIndex("ExtraImage3Id");
+
                     b.HasIndex("GroupId");
+
+                    b.HasIndex("IdCardImage1Id");
+
+                    b.HasIndex("IdCardImage2Id");
+
+                    b.HasIndex("LicenseImageId");
 
                     b.HasIndex("TownId");
 
@@ -214,57 +240,68 @@ namespace Socona.ImVehicle.Core.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
+                    b.Property<string>("Address")
+                        .HasMaxLength(512);
 
                     b.Property<long?>("ApplicationFileId");
 
-                    b.Property<string>("AttachmentFilePath");
+                    b.Property<string>("AttachmentFilePath")
+                        .HasMaxLength(512);
 
-                    b.Property<string>("ChiefName");
+                    b.Property<string>("ChiefName")
+                        .HasMaxLength(32);
 
-                    b.Property<string>("ChiefTel");
+                    b.Property<string>("ChiefTel")
+                        .HasMaxLength(32);
 
-                    b.Property<string>("ChiefTitle");
+                    b.Property<string>("ChiefTitle")
+                        .HasMaxLength(32);
 
-                    b.Property<string>("Code");
+                    b.Property<string>("Code")
+                        .HasMaxLength(32);
 
                     b.Property<string>("Comment");
 
-                    b.Property<string>("CreateBy");
+                    b.Property<string>("CreateBy")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("CreationDate");
 
                     b.Property<long?>("DriverGuranteeFileId");
 
-                    b.Property<byte[]>("ExtraPhoto1");
+                    b.Property<long?>("ExtraImage1Id");
 
-                    b.Property<byte[]>("ExtraPhoto2");
+                    b.Property<long?>("ExtraImage2Id");
 
-                    b.Property<byte[]>("ExtraPhoto3");
+                    b.Property<long?>("ExtraImage3Id");
 
                     b.Property<long?>("GroupGuranteeFileId");
 
-                    b.Property<string>("License");
+                    b.Property<string>("License")
+                        .HasMaxLength(32);
+
+                    b.Property<long?>("LicenseImageId");
+
+                    b.Property<long?>("MainImageId");
 
                     b.Property<string>("Metadata");
 
                     b.Property<DateTime?>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<string>("ModifyBy")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
-                    b.Property<byte[]>("PhotoMain");
+                    b.Property<string>("PoliceOffice")
+                        .HasMaxLength(32);
 
-                    b.Property<byte[]>("PhotoSecurity");
+                    b.Property<string>("Policeman")
+                        .HasMaxLength(32);
 
-                    b.Property<byte[]>("PhotoWarranty");
-
-                    b.Property<string>("PoliceOffice");
-
-                    b.Property<string>("Policeman");
-
-                    b.Property<string>("RegisterAddress");
+                    b.Property<string>("RegisterAddress")
+                        .HasMaxLength(512);
 
                     b.Property<long?>("RuleFileId");
 
@@ -272,7 +309,8 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<long?>("TownId");
 
-                    b.Property<string>("Type");
+                    b.Property<string>("Type")
+                        .HasMaxLength(32);
 
                     b.Property<int>("VersionNumber");
 
@@ -282,7 +320,17 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.HasIndex("DriverGuranteeFileId");
 
+                    b.HasIndex("ExtraImage1Id");
+
+                    b.HasIndex("ExtraImage2Id");
+
+                    b.HasIndex("ExtraImage3Id");
+
                     b.HasIndex("GroupGuranteeFileId");
+
+                    b.HasIndex("LicenseImageId");
+
+                    b.HasIndex("MainImageId");
 
                     b.HasIndex("RuleFileId");
 
@@ -301,7 +349,8 @@ namespace Socona.ImVehicle.Core.Migrations
                     b.Property<string>("Content")
                         .IsRequired();
 
-                    b.Property<string>("CreateBy");
+                    b.Property<string>("CreateBy")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("CreationDate");
 
@@ -311,28 +360,36 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<bool?>("HasDateRange");
 
+                    b.Property<long?>("ImageFileId");
+
                     b.Property<string>("Metadata");
 
                     b.Property<DateTime?>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<string>("ModifyBy")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
-                    b.Property<int>("Order");
+                    b.Property<int?>("Order");
 
                     b.Property<DateTime>("PublishDate");
 
-                    b.Property<string>("Source");
+                    b.Property<string>("Source")
+                        .HasMaxLength(256);
 
                     b.Property<int>("Status");
 
                     b.Property<string>("Title")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(256);
 
                     b.Property<int>("VersionNumber");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageFileId");
 
                     b.ToTable("Newses");
                 });
@@ -342,33 +399,42 @@ namespace Socona.ImVehicle.Core.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
+                    b.Property<string>("Address")
+                        .HasMaxLength(512);
 
-                    b.Property<string>("Company");
+                    b.Property<string>("Company")
+                        .HasMaxLength(256);
 
-                    b.Property<string>("CreateBy");
+                    b.Property<string>("CreateBy")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("CreationDate");
 
                     b.Property<long?>("GroupId");
 
-                    b.Property<string>("IdCardNum");
+                    b.Property<string>("IdCardNum")
+                        .HasMaxLength(32);
 
                     b.Property<string>("Metadata");
 
                     b.Property<DateTime?>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<string>("ModifyBy")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("RegisterAddress");
+                    b.Property<string>("RegisterAddress")
+                        .HasMaxLength(512);
 
                     b.Property<int>("Status");
 
-                    b.Property<string>("Tel");
+                    b.Property<string>("Tel")
+                        .HasMaxLength(32);
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .HasMaxLength(32);
 
                     b.Property<long?>("TownId");
 
@@ -388,11 +454,13 @@ namespace Socona.ImVehicle.Core.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
+                    b.Property<string>("Address")
+                        .HasMaxLength(512);
 
                     b.Property<int>("Code");
 
-                    b.Property<string>("CreateBy");
+                    b.Property<string>("CreateBy")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("CreationDate");
 
@@ -402,9 +470,11 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<DateTime?>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<string>("ModifyBy")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<int>("Status");
 
@@ -422,17 +492,21 @@ namespace Socona.ImVehicle.Core.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ClientPath");
+                    b.Property<string>("ClientPath")
+                        .HasMaxLength(512);
 
-                    b.Property<string>("ContentType");
+                    b.Property<string>("ContentType")
+                        .HasMaxLength(64);
 
-                    b.Property<string>("CreateBy");
+                    b.Property<string>("CreateBy")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("CreationDate");
 
                     b.Property<int>("DownloadCount");
 
-                    b.Property<string>("FileName");
+                    b.Property<string>("FileName")
+                        .HasMaxLength(128);
 
                     b.Property<long?>("GroupId");
 
@@ -440,11 +514,14 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<DateTime?>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<string>("ModifyBy")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("ServerPath");
+                    b.Property<string>("ServerPath")
+                        .HasMaxLength(512);
 
                     b.Property<long>("Size");
 
@@ -452,7 +529,8 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<long?>("TownId");
 
-                    b.Property<string>("Type");
+                    b.Property<string>("Type")
+                        .HasMaxLength(16);
 
                     b.Property<int>("VersionNumber");
 
@@ -473,67 +551,72 @@ namespace Socona.ImVehicle.Core.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Agent")
-                        .HasMaxLength(128);
+                        .HasMaxLength(256);
 
-                    b.Property<string>("Brand");
+                    b.Property<DateTime?>("AuditExpiredDate");
 
-                    b.Property<string>("Color");
+                    b.Property<string>("Brand")
+                        .HasMaxLength(16);
+
+                    b.Property<string>("Color")
+                        .HasMaxLength(16);
 
                     b.Property<string>("Comment");
 
-                    b.Property<string>("CreateBy");
+                    b.Property<string>("CreateBy")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("CreationDate");
 
                     b.Property<long?>("DriverId");
 
-                    b.Property<string>("DriverName");
+                    b.Property<string>("DriverName")
+                        .HasMaxLength(32);
 
-                    b.Property<string>("DriverTel");
+                    b.Property<string>("DriverTel")
+                        .HasMaxLength(32);
 
                     b.Property<DateTime?>("DumpDate");
 
-                    b.Property<byte[]>("ExtraPhoto1");
+                    b.Property<long?>("ExtraImage1Id");
 
-                    b.Property<byte[]>("ExtraPhoto2");
+                    b.Property<long?>("ExtraImage2Id");
 
-                    b.Property<byte[]>("ExtraPhoto3");
+                    b.Property<long?>("ExtraImage3Id");
 
                     b.Property<DateTime?>("FirstRegisterDate");
 
+                    b.Property<long?>("FrontImageId");
+
                     b.Property<bool?>("GpsEnabled");
+
+                    b.Property<long?>("GpsImageId");
 
                     b.Property<long?>("GroupId");
 
-                    b.Property<DateTime?>("InsuranceExpiredDate");
-
                     b.Property<DateTime?>("LastRegisterDate");
 
-                    b.Property<string>("LicenceNumber");
+                    b.Property<string>("LicenceNumber")
+                        .HasMaxLength(32);
+
+                    b.Property<long?>("LicenseImageId");
 
                     b.Property<string>("Metadata");
 
                     b.Property<DateTime?>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<string>("ModifyBy")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
-
-                    b.Property<byte[]>("PhotoAudit");
-
-                    b.Property<byte[]>("PhotoFront");
-
-                    b.Property<byte[]>("PhotoGps");
-
-                    b.Property<byte[]>("PhotoInsuarance");
-
-                    b.Property<byte[]>("PhotoLicense");
-
-                    b.Property<byte[]>("PhotoRear");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("ProductionDate");
 
-                    b.Property<string>("RealOwner");
+                    b.Property<string>("RealOwner")
+                        .HasMaxLength(128);
+
+                    b.Property<long?>("RearImageId");
 
                     b.Property<int>("Status");
 
@@ -543,7 +626,8 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<int>("Usage");
 
-                    b.Property<string>("VehicleStatus");
+                    b.Property<string>("VehicleStatus")
+                        .HasMaxLength(32);
 
                     b.Property<int>("VersionNumber");
 
@@ -553,7 +637,21 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.HasIndex("DriverId");
 
+                    b.HasIndex("ExtraImage1Id");
+
+                    b.HasIndex("ExtraImage2Id");
+
+                    b.HasIndex("ExtraImage3Id");
+
+                    b.HasIndex("FrontImageId");
+
+                    b.HasIndex("GpsImageId");
+
                     b.HasIndex("GroupId");
+
+                    b.HasIndex("LicenseImageId");
+
+                    b.HasIndex("RearImageId");
 
                     b.HasIndex("TownId");
 
@@ -565,21 +663,25 @@ namespace Socona.ImVehicle.Core.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CreateBy");
+                    b.Property<string>("CreateBy")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("CreationDate");
 
                     b.Property<int>("Event");
 
-                    b.Property<string>("IpAddr");
+                    b.Property<string>("IpAddr")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Metadata");
 
                     b.Property<DateTime?>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<string>("ModifyBy")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<string>("NewData");
 
@@ -587,9 +689,11 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<int>("Status");
 
-                    b.Property<string>("Summary");
+                    b.Property<string>("Summary")
+                        .HasMaxLength(512);
 
-                    b.Property<string>("Url");
+                    b.Property<string>("Url")
+                        .HasMaxLength(512);
 
                     b.Property<int>("VersionNumber");
 
@@ -603,20 +707,24 @@ namespace Socona.ImVehicle.Core.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("BaseRoleId");
+                    b.Property<string>("BaseRoleId")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("CreateBy");
+                    b.Property<string>("CreateBy")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("CreationDate");
 
-                    b.Property<string>("LocalName");
+                    b.Property<string>("LocalName")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<string>("ModifyBy")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Name")
                         .HasMaxLength(256);
@@ -646,16 +754,19 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<string>("Company");
+                    b.Property<string>("Company")
+                        .HasMaxLength(256);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("CreateBy");
+                    b.Property<string>("CreateBy")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("CreationDate");
 
-                    b.Property<string>("Depart");
+                    b.Property<string>("Depart")
+                        .HasMaxLength(32);
 
                     b.Property<long?>("DistrictId");
 
@@ -672,7 +783,8 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<DateTime?>("ModificationDate");
 
-                    b.Property<string>("ModifyBy");
+                    b.Property<string>("ModifyBy")
+                        .HasMaxLength(128);
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -686,21 +798,25 @@ namespace Socona.ImVehicle.Core.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<string>("RealName");
+                    b.Property<string>("RealName")
+                        .HasMaxLength(128);
 
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<string>("Serial");
+                    b.Property<string>("Serial")
+                        .HasMaxLength(128);
 
                     b.Property<int>("Status");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .HasMaxLength(32);
 
                     b.Property<long?>("TownId");
 
                     b.Property<bool>("TwoFactorEnabled");
 
-                    b.Property<string>("Type");
+                    b.Property<string>("Type")
+                        .HasMaxLength(32);
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
@@ -770,9 +886,37 @@ namespace Socona.ImVehicle.Core.Migrations
 
             modelBuilder.Entity("Socona.ImVehicle.Core.Data.DriverItem", b =>
                 {
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "AvatarImage")
+                        .WithMany()
+                        .HasForeignKey("AvatarImageId");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "ExtraImage1")
+                        .WithMany()
+                        .HasForeignKey("ExtraImage1Id");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "ExtraImage2")
+                        .WithMany()
+                        .HasForeignKey("ExtraImage2Id");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "ExtraImage3")
+                        .WithMany()
+                        .HasForeignKey("ExtraImage3Id");
+
                     b.HasOne("Socona.ImVehicle.Core.Data.GroupItem", "Group")
                         .WithMany("Drivers")
                         .HasForeignKey("GroupId");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "IdCardImage1")
+                        .WithMany()
+                        .HasForeignKey("IdCardImage1Id");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "IdCardImage2")
+                        .WithMany()
+                        .HasForeignKey("IdCardImage2Id");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "LicenseImage")
+                        .WithMany()
+                        .HasForeignKey("LicenseImageId");
 
                     b.HasOne("Socona.ImVehicle.Core.Data.TownItem", "Town")
                         .WithMany("Drivers")
@@ -789,9 +933,29 @@ namespace Socona.ImVehicle.Core.Migrations
                         .WithMany()
                         .HasForeignKey("DriverGuranteeFileId");
 
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "ExtraImage1")
+                        .WithMany()
+                        .HasForeignKey("ExtraImage1Id");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "ExtraImage2")
+                        .WithMany()
+                        .HasForeignKey("ExtraImage2Id");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "ExtraImage3")
+                        .WithMany()
+                        .HasForeignKey("ExtraImage3Id");
+
                     b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "GroupGuranteeFile")
                         .WithMany()
                         .HasForeignKey("GroupGuranteeFileId");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "LicenseImage")
+                        .WithMany()
+                        .HasForeignKey("LicenseImageId");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "MainImage")
+                        .WithMany()
+                        .HasForeignKey("MainImageId");
 
                     b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "RuleFile")
                         .WithMany()
@@ -800,6 +964,13 @@ namespace Socona.ImVehicle.Core.Migrations
                     b.HasOne("Socona.ImVehicle.Core.Data.TownItem", "Town")
                         .WithMany("Groups")
                         .HasForeignKey("TownId");
+                });
+
+            modelBuilder.Entity("Socona.ImVehicle.Core.Data.NewsItem", b =>
+                {
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "ImageFile")
+                        .WithMany()
+                        .HasForeignKey("ImageFileId");
                 });
 
             modelBuilder.Entity("Socona.ImVehicle.Core.Data.SecurityPerson", b =>
@@ -825,7 +996,8 @@ namespace Socona.ImVehicle.Core.Migrations
                 {
                     b.HasOne("Socona.ImVehicle.Core.Data.GroupItem", "Group")
                         .WithMany("UserFiles")
-                        .HasForeignKey("GroupId");
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Socona.ImVehicle.Core.Data.TownItem", "Town")
                         .WithMany()
@@ -838,9 +1010,37 @@ namespace Socona.ImVehicle.Core.Migrations
                         .WithMany("Vehicles")
                         .HasForeignKey("DriverId");
 
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "ExtraImage1")
+                        .WithMany()
+                        .HasForeignKey("ExtraImage1Id");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "ExtraImage2")
+                        .WithMany()
+                        .HasForeignKey("ExtraImage2Id");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "ExtraImage3")
+                        .WithMany()
+                        .HasForeignKey("ExtraImage3Id");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "FrontImage")
+                        .WithMany()
+                        .HasForeignKey("FrontImageId");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "GpsImage")
+                        .WithMany()
+                        .HasForeignKey("GpsImageId");
+
                     b.HasOne("Socona.ImVehicle.Core.Data.GroupItem", "Group")
                         .WithMany("Vehicles")
                         .HasForeignKey("GroupId");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "LicenseImage")
+                        .WithMany()
+                        .HasForeignKey("LicenseImageId");
+
+                    b.HasOne("Socona.ImVehicle.Core.Data.UserFileItem", "RearImage")
+                        .WithMany()
+                        .HasForeignKey("RearImageId");
 
                     b.HasOne("Socona.ImVehicle.Core.Data.TownItem", "Town")
                         .WithMany("Vehicles")

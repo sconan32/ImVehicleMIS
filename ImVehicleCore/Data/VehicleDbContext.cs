@@ -42,10 +42,11 @@ namespace Socona.ImVehicle.Core.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
 
-            builder.Entity<UserFileItem>(uf =>
+            builder.Entity<UserFileItem>(action =>
             {
-                uf.HasOne(u => u.Group).WithMany(g => g.UserFiles).HasForeignKey(u => u.GroupId);
+                action.HasOne(u => u.Group).WithMany(g => g.UserFiles).HasForeignKey(u => u.GroupId).OnDelete(DeleteBehavior.SetNull);
             });
+           
 
         }
     }

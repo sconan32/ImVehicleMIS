@@ -40,12 +40,12 @@ namespace Socona.ImVehicle.Web.ViewModels
 
 
 
-            PhotoMainBase64 = group.PhotoMain.ToBase64String();
-            PhotoSecurityBase64 = group.PhotoSecurity.ToBase64String();
-            PhotoWarrantyBase64 = group.PhotoWarranty.ToBase64String();
-            ExtraPhoto1Base64 = group.ExtraPhoto1.ToBase64String();
-            ExtraPhoto2Base64 = group.ExtraPhoto2.ToBase64String();
-            ExtraPhoto3Base64 = group.ExtraPhoto3.ToBase64String();
+            MainImageBase64 = group.MainImage?.ToBase64String();
+            LicenseImageBase64 = group.LicenseImage?.ToBase64String();
+
+            ExtraImage1Base64 = group.ExtraImage1?.ToBase64String();
+            ExtraImage2Base64 = group.ExtraImage2?.ToBase64String();
+            ExtraImage3Base64 = group.ExtraImage3?.ToBase64String();
 
             VehicleCount = group.Vehicles?.Count ?? 0;
             DriverCount = group.Drivers?.Count ?? 0;
@@ -87,18 +87,18 @@ namespace Socona.ImVehicle.Web.ViewModels
         public string Type { get; set; }
 
         [Display(Name = "企业图像")]
-        public IFormFile PhotoMain { get; set; }
+        public IFormFile MainImage { get; set; }
 
-        public string PhotoMainBase64 { get; private set; }
+        public string MainImageBase64 { get; private set; }
 
 
         [Display(Name = "资质凭证")]
         public IFormFile PhotoWarranty { get; set; }
 
-        public string PhotoWarrantyBase64 { get; private set; }
+        public string LicenseImageBase64 { get; private set; }
 
         [Display(Name = "安全生产凭证")]
-        public IFormFile PhotoSecurity { get; set; }
+        public IFormFile LicenseImage { get; set; }
         public string PhotoSecurityBase64 { get; private set; }
 
 
@@ -161,15 +161,15 @@ namespace Socona.ImVehicle.Web.ViewModels
 
         [Display(Name = "附加照片1")]
         public IFormFile ExtraPhoto1 { get; set; }
-        public string ExtraPhoto1Base64 { get; private set; }
+        public string ExtraImage1Base64 { get; private set; }
 
         [Display(Name = "附加照片2")]
         public IFormFile ExtraPhoto2 { get; set; }
-        public string ExtraPhoto2Base64 { get; private set; }
+        public string ExtraImage2Base64 { get; private set; }
 
         [Display(Name = "附加照片3")]
         public IFormFile ExtraPhoto3 { get; set; }
-        public string ExtraPhoto3Base64 { get; private set; }
+        public string ExtraImage3Base64 { get; private set; }
 
 
         [Display(Name = "注册车辆数")]
@@ -199,31 +199,7 @@ namespace Socona.ImVehicle.Web.ViewModels
             group.Policeman = this.Policeman;
             group.PoliceOffice = this.PoliceOffice;
 
-            if (PhotoMain != null)
-            {
-                group.PhotoMain = await PhotoMain.GetPictureByteArray();
-            }
-            if (PhotoSecurity != null)
-            {
-                group.PhotoSecurity = await PhotoSecurity.GetPictureByteArray($"{Id}:{Name}");
-            }
-            if (PhotoWarranty != null)
-            {
-                group.PhotoWarranty = await PhotoWarranty.GetPictureByteArray($"{Id}:{Name}");
-            }
-            if (ExtraPhoto1 != null)
-            {
-                group.ExtraPhoto1 = await ExtraPhoto1.GetPictureByteArray($"{Id}:{Name}");
-            }
-            if (ExtraPhoto2 != null)
-            {
-                group.ExtraPhoto2 = await ExtraPhoto2.GetPictureByteArray($"{Id}:{Name}");
-            }
-            if (ExtraPhoto3 != null)
-            {
-                group.ExtraPhoto3 = await ExtraPhoto3.GetPictureByteArray($"{Id}:{Name}");
-            }
-
         }
+
     }
 }

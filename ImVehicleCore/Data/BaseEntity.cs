@@ -10,7 +10,7 @@ namespace Socona.ImVehicle.Core.Data
     public class BaseEntity
     {
 
-        [Display(Name = "#")]
+        [Display(Name = "#")]        
         [Key]
         public long Id { get; set; }
         [Display(Name = "版本号")]
@@ -19,6 +19,7 @@ namespace Socona.ImVehicle.Core.Data
         public string Metadata { get; set; }
 
         [Display(Name = "名称")]
+        [MaxLength(128)]
         public string Name { get; set; }
 
         [Display(Name = "创建日期")]
@@ -27,9 +28,11 @@ namespace Socona.ImVehicle.Core.Data
         public DateTime? ModificationDate { get; set; }
 
         [Display(Name = "修改用户")]
+        [MaxLength(128)]
         public string CreateBy { get; set; }
 
         [Display(Name = "修改用户")]
+        [MaxLength(128)]
         public string ModifyBy { get; set; }
 
         [Display(Name = "状态码")]

@@ -5,12 +5,14 @@ using System.IO;
 using System.Text;
 using SixLabors.ImageSharp;
 using SixLabors.Fonts;
-using SixLabors.ImageSharp.Drawing;
-using SixLabors.ImageSharp.Drawing.Brushes;
+
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.Primitives;
 using SixLabors.ImageSharp.Formats;
 using System.Linq;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Processing.Text;
+using SixLabors.ImageSharp.Processing.Drawing.Brushes;
 
 namespace Socona.ImVehicle.Infrastructure.Tools
 {
@@ -30,43 +32,44 @@ namespace Socona.ImVehicle.Infrastructure.Tools
         public static MemoryStream Mark(MemoryStream inStream, string text,string fontPath)
         {
 
-            text = $"╞甘井子区重点车辆管理系统:{text}╡";
+            text = $"···甘井子区重点车辆管理系统·{text}···";
             //首先先判断该图片是否是 gif动画，如果为gif动画不对图片进行改动
             using (Image<Rgba32> img = Image.Load(inStream.ToArray(), out IImageFormat format))
             {
 
               
                 FontCollection fonts = new FontCollection();
-                FontFamily font1 = fonts.Install(fontPath);
-                //if (fontFamily == null)
-                //{
-                //    SystemFonts.TryFind("DejaVu Sans", out fontFamily);
-                //}
-                //if (fontFamily == null)
-                //{
-                //    SystemFonts.TryFind("Book", out fontFamily);
-                //}               
-                //if (fontFamily == null)
-                //{
-                //    SystemFonts.TryFind("DengXian", out fontFamily);
-                //}              
-                //if (fontFamily == null)
-                //{
-                //    SystemFonts.TryFind("SimSun", out fontFamily);
-                //}
-                //if (fontFamily == null)
-                //{
-                //    SystemFonts.TryFind("Arial", out fontFamily);
-                //}
-                //if (fontFamily == null)
-                //{
-                //    fontFamily = SystemFonts.Families.First(t => t.Name.Contains("Hei") || t.Name.Contains("黑"));
-                //}
-                //if (fontFamily == null)
-                //{
-                //    fontFamily = SystemFonts.Families.First();
-                //}
-                var font = font1.CreateFont(14f);
+                FontFamily fontFamily = fonts.Install(fontPath);
+                
+                if (fontFamily == null)
+                {
+                    SystemFonts.TryFind("DejaVu Sans", out fontFamily);
+                }
+                if (fontFamily == null)
+                {
+                    SystemFonts.TryFind("Book", out fontFamily);
+                }
+                if (fontFamily == null)
+                {
+                    SystemFonts.TryFind("DengXian", out fontFamily);
+                }
+                if (fontFamily == null)
+                {
+                    SystemFonts.TryFind("SimSun", out fontFamily);
+                }
+                if (fontFamily == null)
+                {
+                    SystemFonts.TryFind("Arial", out fontFamily);
+                }
+                if (fontFamily == null)
+                {
+                    fontFamily = SystemFonts.Families.First(t => t.Name.Contains("Hei") || t.Name.Contains("黑"));
+                }
+                if (fontFamily == null)
+                {
+                    fontFamily = SystemFonts.Families.First();
+                }
+                var font = fontFamily.CreateFont(14f);
                 using (var img2 = img.Clone(ctx => ctx.ApplyScalingWaterMark(font, text, Rgba32.FromHex("ffffffdd"), 20, false)))
                 {
 
@@ -122,31 +125,18 @@ namespace Socona.ImVehicle.Infrastructure.Tools
                 {
                     var tempColor = color;
                     tempColor.PackFromRgba32(Rgba32.FromHex("ddddddaa"));
-                    i.DrawText(text, scaledFont, tempColor, c1, new TextGraphicsOptions(true)
+
+                    var textGraphicOptions = new TextGraphicsOptions(true)
                     {
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
-                    });
-                    i.DrawText(text, scaledFont, tempColor, c2, new TextGraphicsOptions(true)
-                    {
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-                    });
-                    i.DrawText(text, scaledFont, tempColor, c3, new TextGraphicsOptions(true)
-                    {
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-                    });
-                    i.DrawText(text, scaledFont, tempColor, c4, new TextGraphicsOptions(true)
-                    {
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-                    });
-                    i.DrawText(text, scaledFont, color, center, new TextGraphicsOptions(true)
-                    {
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-                    });
+                    };
+
+                    i.DrawText(textGraphicOptions, text, scaledFont, tempColor, c1);
+                    i.DrawText(textGraphicOptions, text, scaledFont, tempColor, c2);
+                    i.DrawText(textGraphicOptions, text, scaledFont, tempColor, c3);
+                    i.DrawText(textGraphicOptions, text, scaledFont, tempColor, c4);
+                    i.DrawText(textGraphicOptions, text, scaledFont, tempColor, center);
                 });
             });
         }
@@ -227,32 +217,17 @@ namespace Socona.ImVehicle.Infrastructure.Tools
                 {
                     var tempColor = color;
                     tempColor.PackFromRgba32(Rgba32.FromHex("ddddddaa"));
-                    i.DrawText(text, scaledFont, tempColor, c1, new TextGraphicsOptions(true)
+
+                    var textGraphicOptions = new TextGraphicsOptions(true)
                     {
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
-                    });
-                    i.DrawText(text, scaledFont, tempColor, c2, new TextGraphicsOptions(true)
-                    {
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-                    });
-                    i.DrawText(text, scaledFont, tempColor, c3, new TextGraphicsOptions(true)
-                    {
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-                    });
-                    i.DrawText(text, scaledFont, tempColor, c4, new TextGraphicsOptions(true)
-                    {
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center
-                    });
-                    i.DrawText(text, scaledFont, color, center, new TextGraphicsOptions(true)
-                    {
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        WrapTextWidth = targetWidth
-                    });
+                    };
+                    i.DrawText(textGraphicOptions, text, scaledFont, tempColor, c1);
+                    i.DrawText(textGraphicOptions, text, scaledFont, tempColor, c2);
+                    i.DrawText(textGraphicOptions, text, scaledFont, tempColor, c3);
+                    i.DrawText(textGraphicOptions, text, scaledFont, tempColor, c4);
+                    i.DrawText(textGraphicOptions, text, scaledFont, tempColor, center);
 
                 }
                 );

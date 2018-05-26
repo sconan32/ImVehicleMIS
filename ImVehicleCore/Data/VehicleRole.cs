@@ -14,9 +14,10 @@ namespace Socona.ImVehicle.Core.Data
     {
         public bool Visible { get; set; }
 
+        [MaxLength(128)]
         public string LocalName { get; set; }
 
-
+        [MaxLength(128)]
         public string BaseRoleId { get; set; }
 
         [ForeignKey("BaseRoleId")]
@@ -31,9 +32,11 @@ namespace Socona.ImVehicle.Core.Data
         public DateTime? ModificationDate { get; set; }
 
         [Display(Name = "修改用户")]
+        [MaxLength(128)]
         public string CreateBy { get; set; }
 
         [Display(Name = "修改用户")]
+        [MaxLength(128)]
         public string ModifyBy { get; set; }
 
         [Display(Name = "状态码")]

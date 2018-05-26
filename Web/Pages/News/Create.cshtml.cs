@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Infrastructure.Extensions;
 using Socona.ImVehicle.Web.ViewModels;
 
 namespace Socona.ImVehicle.Web.Pages.News
@@ -47,6 +48,7 @@ namespace Socona.ImVehicle.Web.Pages.News
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var news = new NewsItem();
             await NewsItem.FillNewsItem(news);
+            news.ImageFile = NewsItem.Image.UpdateUserFile(news.ImageFile, _context, VisibilityType.CurrentNews, "新闻图片");
             news.CreationDate = DateTime.Now;
             news.CreateBy = user.Id;
             news.VersionNumber = 1;

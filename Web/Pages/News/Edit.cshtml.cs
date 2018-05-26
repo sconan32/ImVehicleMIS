@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Socona.ImVehicle.Core.Data;
+using Socona.ImVehicle.Infrastructure.Extensions;
 using Socona.ImVehicle.Web.ViewModels;
 
 namespace Socona.ImVehicle.Web.Pages.News
@@ -36,7 +37,7 @@ namespace Socona.ImVehicle.Web.Pages.News
                 return NotFound();
             }
             ReturnUrl = returnUrl;
-            var news = await _context.Newses.SingleOrDefaultAsync(m => m.Id == id);
+            var news = await _context.Newses.Include(t=>t.ImageFile).SingleOrDefaultAsync(m => m.Id == id);
 
 
             if (news == null)
@@ -64,7 +65,7 @@ namespace Socona.ImVehicle.Web.Pages.News
                 return NotFound();
             }
             await NewsItem.FillNewsItem(news);
-
+            news.ImageFile = NewsItem.Image.UpdateUserFile(news.ImageFile, _context, VisibilityType.CurrentNews, "新闻图片");
             news.ModificationDate = DateTime.Now;
             news.ModifyBy = user.Id;
             news.VersionNumber += 1;
